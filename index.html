@@ -146,7 +146,7 @@
   .preview-editor{min-height:80px;padding:4px;border:1px dashed transparent;outline:none}
   .preview-editor:focus{border-color:var(--accent-soft);background:rgba(201,141,111,.06)}
   .preview-editing .preview-editor{border-color:var(--border);border-radius:4px}
-  .preview-editor .del-treatment-box,.preview-editor .fr-del-row,.preview-editor .dual-ctl,.preview-editor .dual-x{display:none!important}
+  .preview-editor .del-treatment-box,.preview-editor .fr-del-row,.preview-editor .dual-ctl,.preview-editor .dual-x,.preview-editor .rc-tools{display:none!important}
   .quote-image-card{position:relative;max-width:620px;margin:22px auto;padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;overflow:hidden;text-align:center;border-radius:12px;background:linear-gradient(135deg,#2b2620,#7a3b2e);color:#fff}
   .quote-image-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .quote-image-card:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.48)}
@@ -361,6 +361,36 @@
   .dash-child .dc-name:hover{color:var(--accent);}
   .dash-child .dc-meta{font-size:10px; color:var(--ink-soft); white-space:nowrap;}
 
+    /* ===== بطاقات التفريغ (لوكيشنات / كاراكتر بروفايل) ===== */
+  .rc-list{display:flex;flex-direction:column;gap:14px;width:100%;margin-top:10px;}
+  .rc-summary{font-size:12px;color:var(--ink-soft);background:var(--panel);border:1px dashed var(--border);border-radius:6px;padding:6px 10px;margin:0 0 6px 0;white-space:pre-wrap;}
+  .rc-card{position:relative;border:1px solid var(--border);border-radius:8px;background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:8px;}
+  .rc-card[data-rc="loc"]{border-right:4px solid var(--accent);}
+  .rc-card[data-rc="cp"]{border-right:4px solid var(--accent-soft);}
+  .rc-tools{position:absolute;top:8px;left:8px;display:flex;gap:4px;}
+  .rc-del,.rc-dup{background:none;border:none;cursor:pointer;font-size:12px;color:var(--ink-soft);padding:0 3px;}
+  .rc-del{color:var(--danger);}
+  .rc-name{font-size:16px;font-weight:700;color:var(--accent);outline:none;min-height:1.5em;padding:2px 4px;margin-left:50px;}
+  .rc-chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .rc-chip{font-size:11px;padding:2px 9px;border:1px solid var(--border);border-radius:12px;background:var(--paper);color:var(--ink);cursor:pointer;user-select:none;}
+  .rc-chip:hover{border-color:var(--accent);}
+  .rc-chip.set{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .rc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;}
+  .rc-field{display:flex;flex-direction:column;gap:2px;}
+  .rc-field.wide{grid-column:1/-1;}
+  .rc-label{font-size:10px;font-weight:700;color:var(--ink-soft);user-select:none;}
+  .rc-field.auto .rc-label::after{content:' ⚙️ تلقائي';opacity:.6;font-weight:400;}
+  .rc-val{min-height:34px;border:1px solid var(--border);background:var(--paper);border-radius:6px;padding:6px 8px;outline:none;font-size:14px;line-height:var(--doc-lh,1.7);white-space:pre-wrap;overflow-wrap:anywhere;}
+  .ex-group{display:flex;flex-direction:column;gap:6px;border:1px solid var(--border);border-radius:6px;padding:8px 10px;background:var(--paper);}
+  .ex-group b{font-size:12px;color:var(--accent);}
+  #exManualList{display:none;flex-direction:column;gap:4px;max-height:160px;overflow-y:auto;padding:4px 6px;border:1px dashed var(--border);border-radius:6px;}
+  #exPreview{font-size:12px;white-space:pre-wrap;color:var(--ink-soft);}
+
+  .quote-image-card.is-shot{padding:0;min-height:0;display:block;background:none;border-radius:8px;max-width:760px;cursor:pointer;}
+  .quote-image-card.is-shot:after{display:none;}
+  .quote-image-card.is-shot>img.qi-shot{position:static;display:block;width:100%;height:auto;object-fit:contain;border-radius:8px;}
+  .quote-image-card.is-shot cite{display:block;position:static;margin:0;padding:6px 8px;font-size:12px;color:var(--ink-soft);}
+  .quote-image-card.is-shot .quote-draft{z-index:2;cursor:pointer;background:#fff;color:#7a3b2e;border-color:#7a3b2e;font-weight:700;}
   /* ===== نوافذ منبثقة ===== */
   .modal{position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;}
   .modal.open{display:flex;}
@@ -454,21 +484,21 @@
 <div class="modal" id="catalogModal">
   <div class="modal-box">
     <h3>📖 دليل منصة Varry Studio الشامل</h3>
-    <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما تحتاجينه لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
+    <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما يلزم لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
     <div style="font-size:12.5px; line-height:1.85;">
 
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📁 المشاريع والحاويات</p>
       <ul style="margin:0 0 12px;">
-        <li><b>فيلم / مسلسل / مشروع:</b> يُنشأ تلقائياً بأقسامه الجاهزة (معالجة، شخصيات، سيناريو، موسيقى، ملحقات...) داخل حاوية واحدة. عند فتح الحاوية تظهر <b>لوحة المشروع</b>: الغلاف، الإحصائيات، الأقسام، وإضافة قسم جديد.</li>
-        <li><b>مجلد مسلسل:</b> حاوية فارغة تضيفين إليها ما تشائين.</li>
-        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، مساحة الكاتبة.</li>
+        <li><b>فيلم / مسلسل / مشروع:</b> يُنشأ تلقائياً بأقسامه الجاهزة (معالجة، شخصيات، سيناريو، تفريغ اللوكيشنات، كاراكتر بروفايل، موسيقى، ملحقات...) داخل حاوية واحدة. عند فتح الحاوية تظهر <b>لوحة المشروع</b>: الغلاف، الإحصائيات، الأقسام، وإضافة قسم جديد.</li>
+        <li><b>مجلد مسلسل:</b> حاوية فارغة يمكن إضافة ما يلزم إليها.</li>
+        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، مساحة الكاتبة، تفريغ اللوكيشنات، كاراكتر بروفايل.</li>
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
 
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🗂️ إدارة الملفات (القائمة الجانبية)</p>
       <ul style="margin:0 0 12px;">
-        <li><b>السحب والإفلات:</b> اسحبي أي ملف فوق ملف آخر لإعادة الترتيب، أو فوق عنوان حاوية لنقله إليها. أزرار ⬆️⬇️ تعمل أيضاً (مناسبة للجوال).</li>
-        <li><b>حذف المحدد / سلة المحذوفات:</b> حذف حاوية ينقل معها أقسامها للسلة، واستعادتها تعيدها كلها.</li>
+        <li><b>السحب والإفلات:</b> يمكن سحب أي ملف فوق ملف آخر لإعادة الترتيب، أو فوق عنوان حاوية لنقله إليها. أزرار ⬆️⬇️ تعمل أيضاً (مناسبة للجوال).</li>
+        <li><b>حذف المحدد / سلة المحذوفات:</b> حذف حاوية ينقل الحاوية وحدها إلى السلة، وتبقى أقسامها ملفات مستقلة في القائمة حتى لا يضيع أي محتوى؛ وبالإمكان استعادة أي عنصر من السلة.</li>
         <li><b>نسخ مطابقة:</b> ينسخ الملف، أو الحاوية بكل أقسامها.</li>
         <li><b>التراجع/الإعادة:</b> يشمل الكتابة والحذف والنقل (Ctrl+Z / Ctrl+Y).</li>
       </ul>
@@ -476,38 +506,50 @@
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🎬 المحرر</p>
       <ul style="margin:0 0 12px;">
         <li><b>⚙️ إعدادات الملف:</b> قالب تنسيق (سيناريو/معالجة/مستند/مخصص)، الخط، الحجم، تباعد الأسطر، المحاذاة. تبقى محفوظة مع الملف وتستمر بعد Enter.</li>
-        <li><b>المدة المتوقعة للمشهد:</b> سطر ⏱️ يظهر تحت عنوان المشهد. اكتبي الرقم بالدقائق وتُجمع المدد في الإحصائيات.</li>
+        <li><b>المدة المتوقعة للمشهد:</b> سطر ⏱️ يظهر تحت عنوان المشهد. يُكتب الرقم بالدقائق وتُجمع المدد في الإحصائيات.</li>
         <li><b>➕ إدراج:</b> مشهد، حوار، حوار متوازي، أغنية، ملاحظة، جدول فرنسي، صورة، كتابة بخط اليد — في أي موضع من أي ملف.</li>
         <li><b>الحوار المتوازي:</b> أعمدة بلا حد (شخصية + توجيه + حوار لكل عمود).</li>
-        <li><b>المؤثرات (صوتي/بصري/أغنية/موسيقى/كاميرا/لازمة/صمت/تعليمة):</b> تُفعَّل على السطر الذي أنتِ فيه (يتحول السطر إلى مؤثر)، وفي وضع «نفس الفقرة» تُطبَّق على النص المحدد. Enter داخل الكتلة يفتح سطراً جديداً، و Ctrl+Enter للخروج منها.</li>
-        <li><b>شريط المؤثر:</b> يظهر تلقائياً عند الوقوف على مؤثر: غيّري نوعه بأي وقت، وحددي وقت البداية والنهاية (مثل 0:12) والشدة والتلاشي والتكرار؛ تظهر الإعدادات بجانب المؤثر وتُصدَّر معه.</li>
+        <li><b>المؤثرات (صوتي/بصري/أغنية/موسيقى/كاميرا/لازمة/صمت/تعليمة):</b> تُفعَّل على السطر الحالي (يتحول السطر إلى مؤثر)، وفي وضع «نفس الفقرة» تُطبَّق على النص المحدد. Enter داخل الكتلة يفتح سطراً جديداً، و Ctrl+Enter للخروج منها.</li>
+        <li><b>شريط المؤثر:</b> يظهر تلقائياً عند الوقوف على مؤثر: يمكن تغيير نوعه في أي وقت، وتحديد وقت البداية والنهاية (مثل 0:12) والشدة والتلاشي والتكرار؛ تظهر الإعدادات بجانب المؤثر وتُصدَّر معه.</li>
         <li><b>🌉 الجسر البصري:</b> كتلة انتقال بين مشهدين: «من» ما ينتهي به المشهد، «إلى» ما يبدأ به التالي، مع نوع الجسر (تطابق شكلي، ذوبان، تطابق حركة، جسر صوتي/لوني/عبر غرض) ووقت وملاحظة.</li>
         <li><b>🔄 تحديث المحتوى القديم:</b> من ⚙️ إعدادات الملف (لملف واحد) أو من القائمة الجانبية (للمحدد أو للكل): يضيف نمط الملف وسطر المدة تحت المشاهد، ويحوّل الفقرات العادية اختيارياً إلى مشهد/شخصية/حوار/وصف. قابل للتراجع. ويمكن تغيير «نوع» الملف من نفس اللوحة.</li>
         <li><b>أدوات الغلاف:</b> قوالب جاهزة، ألوان عشوائية، لون/تدرج/صورة مع تعتيم، أيقونة، عنوان وعنوان فرعي، لون وحجم وخط ومحاذاة وموضع النص، إطار، نسخ غلاف من ملف آخر، وتطبيقه على كل أقسام الحاوية.</li>
-        <li><b>النوافذ:</b> آخر نافذة تفتحينها تكون في الأعلى وحدها تستقبل اللمس والكتابة؛ Esc أو زر ✕ أو النقر خارجها يغلقها.</li>
-        <li><b>السيناريو الفرنسي:</b> يمكنكِ الكتابة قبل الجدول وبعده وبين الصفوف؛ زر «صف متقابل» يضيف صفاً بعد الصف الحالي.</li>
-        <li><b>نقل الكتلة:</b> ⬆️⬇️ داخل شريط الأدوات (أو Alt+↑/↓) يحرك الكتلة أو الصف أو الفقرة الحالية.</li>
-        <li><b>الصور:</b> انقري الصورة لتغيير حجمها (30/50/75/100%)، ونقرتان لحذفها.</li>
+        <li><b>النوافذ:</b> آخر نافذة تُفتح تكون في الأعلى وحدها تستقبل اللمس والكتابة؛ Esc أو زر ✕ أو النقر خارجها يغلقها.</li>
+        <li><b>السيناريو الفرنسي:</b> يمكن الكتابة قبل الجدول وبعده وبين الصفوف؛ زر «صف متقابل» يضيف صفاً بعد الصف الحالي.</li>
+        <li><b>نقل الكتلة:</b> ⬆️⬇️ داخل شريط الأدوات (أو Alt+↑/↓) يحرك الكتلة أو الصف أو الفقرة أو البطاقة الحالية.</li>
+        <li><b>الصور:</b> بالنقر على الصورة يتغير حجمها (30/50/75/100%)، وبالنقر المزدوج تُحذف.</li>
         <li><b>زر السلوك (S):</b> فصل جديد = تُدرج الأداة كفقرة جديدة، نفس الفقرة = داخل السطر الحالي.</li>
+        <li><b>الحفظ الفوري:</b> Ctrl+S يحفظ التعديلات في الحال.</li>
+        <li><b>🖼️ اقتباس مصوّر:</b> يُرفع من الجهاز أو يُلصق (Ctrl+V) صورة أو لقطة شاشة، وتدخل كما هي بحالة «مسودة» أو «جاهزة». بالنقر على علامة «مسودة» تصير جاهزة، وAlt+نقر على الصورة يعيدها مسودة، ونقرتان تحذفانها. ويمكن أيضاً تنزيلها كصورة PNG. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</li>
+      </ul>
+
+      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📍 التفريغ والتحليل (تلقائي ويدوي)</p>
+      <ul style="margin:0 0 12px;">
+        <li><b>📍 تفريغ اللوكيشنات:</b> بطاقة لكل مكان: الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج، المراجع. الأزرار الصغيرة (الشرائح) تتبدل بالنقر، ومع Shift تُكتب قيمة مخصصة.</li>
+        <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
+        <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
+        <li><b>🪪 كاراكتر بروفايل:</b> بطاقة لكل شخصية: الدور، القوس، الإحصاءات، المشاهد، من تظهر معهم (تلقائياً)، وبيانات يدوية (العمر، المهنة، المظهر، اللهجة، الهدف، الحاجة، العيب، الخلفية، العلاقات، التطور...). يقترح التفريغ التلقائي الدور حسب حجم الحوار.</li>
       </ul>
 
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
       <ul style="margin:0 0 12px;">
         <li><b>الاستيراد:</b> TXT / DOCX / PDF كمستند جديد أو دمجاً في الحالي، ونسخة احتياطية JSON (تُحدَّث الملفات القديمة تلقائياً لتطابق الإصدار الجديد).</li>
         <li><b>التصدير مطابق للمحرر (WYSIWYG):</b> الألوان والخطوط والمحاذاة والجداول تُحفظ في Word وPDF. تصدير حاوية يخرج المشروع كاملاً بغلافه وفهرسه وبترتيب الأقسام الحالي.</li>
-        <li><b>التوقيع:</b> توقيع الكاتبة (يمكن إخفاؤه) + توقيع المنصة الثابت في الغلاف والتذييل.</li>
-        <li><b>العرض التقديمي:</b> ملف HTML بشرائح تتنقلين بينها بالأسهم أو اللمس.</li>
-        <li><b>PDF:</b> فعّلي «الترويسات والتذييلات» من إعدادات الطباعة لتظهر أرقام الصفحات والتوقيع.</li>
+        <li><b>نسخة احتياطية لملف واحد أو عدة ملفات:</b> زر 💾 «تصدير المحدد» في القائمة الجانبية (أو من قائمة التصدير) ينتج ملفاً واحداً بصيغة النسخة الاحتياطية للمنصة يمكن استيراده لاحقاً.</li>
+        <li><b>التوقيع:</b> توقيع الكاتب (يمكن إخفاؤه) + توقيع المنصة الثابت في الغلاف والتذييل.</li>
+        <li><b>العرض التقديمي:</b> ملف HTML بشرائح يُتنقَّل بينها بالأسهم أو اللمس.</li>
+        <li><b>PDF:</b> يُفعَّل خيار «الترويسات والتذييلات» من إعدادات الطباعة لتظهر أرقام الصفحات والتوقيع.</li>
       </ul>
 
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🔒 الأمان والحفظ</p>
       <ul style="margin:0 0 4px;">
-        <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فاحتفظي بنسخ احتياطية.</li>
+        <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
       </ul>
     </div>
-    <div class="modal-actions"><button class="primary" id="closeCatalog">إغلاق الدليل</button></div>
+    
+<div class="modal-actions"><button class="primary" id="closeCatalog">إغلاق الدليل</button></div>
   </div>
 </div>
 
@@ -598,7 +640,11 @@
 <div class="modal" id="quoteImageModal">
   <div class="modal-box">
     <h3>🖼️ اقتباس مصوّر</h3>
-    <label>نص الاقتباس:
+    <label>صورة الاقتباس (لقطة شاشة أو صورة جاهزة):
+      <input id="qiMain" type="file" accept="image/*">
+    </label>
+    <div style="font-size:11px;color:var(--ink-soft);line-height:1.6;">يمكن أيضاً لصق لقطة الشاشة مباشرة داخل هذه النافذة (Ctrl+V). الصورة تدخل كما هي، ثم تُحدَّد حالتها: مسودة أو جاهزة. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</div>
+    <label>نص الاقتباس (اختياري عند رفع صورة):
       <textarea id="qiText" rows="4" placeholder="اكتبي النص الذي تريدين إظهاره على الصورة" style="width:100%;resize:vertical;"></textarea>
     </label>
     <label>الكاتبة / المصدر:
@@ -639,6 +685,38 @@
   </div>
 </div>
 
+<!-- نافذة التفريغ (لوكيشنات / شخصيات) -->
+<div class="modal" id="extractModal">
+  <div class="modal-box">
+    <h3 id="exTitle">⚙️ تفريغ</h3>
+    <p id="exDesc" style="font-size:12px;line-height:1.7;color:var(--ink-soft);margin:0;"></p>
+    <label>الملف الهدف: <select id="exTarget"></select></label>
+    <div class="ex-group">
+      <b>المصدر</b>
+      <label><input type="radio" name="exSrc" value="auto" checked> تلقائي: كل ملفات الكتابة في نفس الحاوية <span id="exAutoCount"></span></label>
+      <label><input type="radio" name="exSrc" value="current"> الملف المفتوح فقط</label>
+      <label><input type="radio" name="exSrc" value="manual"> اختيار يدوي للملفات</label>
+      <div id="exManualList"></div>
+    </div>
+    <label><input type="checkbox" id="exSmart" checked> التعرف تلقائياً على الفقرات غير المنسّقة (عناوين مشاهد وحوارات مكتوبة نصاً)</label>
+    <label id="exMinWrap" style="display:none;">الحد الأدنى لعدد الحوارات:
+      <select id="exMin"><option value="0" selected>الكل</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
+    </label>
+    <div class="ex-group">
+      <b>الدمج مع الموجود</b>
+      <label><input type="radio" name="exMerge" value="update" checked> إضافة الجديد وتحديث الحقول التلقائية فقط (يُحفظ كل ما كُتب يدوياً)</label>
+      <label><input type="radio" name="exMerge" value="add"> إضافة الجديد فقط دون تعديل البطاقات الموجودة</label>
+      <label><input type="radio" name="exMerge" value="replace"> استبدال كل البطاقات بالنتيجة الجديدة</label>
+    </div>
+    <div id="exPreview"></div>
+    <div class="modal-actions">
+      <button id="exCancel">إلغاء</button>
+      <button id="exPreviewBtn">معاينة النتيجة</button>
+      <button class="primary" id="exRun">تفريغ</button>
+    </div>
+  </div>
+</div>
+
 <input type="file" id="imageInsertInput" accept="image/*" style="display:none;">
 
 <div class="app" id="app">
@@ -661,6 +739,7 @@
       <button class="sidebar-tool-btn" id="pasteSelectedBtn" title="لصق نسخة في المجلد المفتوح أو بجوار الملف الحالي">📥 لصق</button>
       <button class="sidebar-tool-btn" id="modernizeBtn" title="تحديث الملفات القديمة للميزات الجديدة (المحددة، أو الكل)">🔄 تحديث القديم</button>
       <button class="sidebar-tool-btn" id="fixDocBtn" title="تدقيق وإصلاح: بنية + أخطاء كتابة للملف الحالي أو المحدد">✍️ تدقيق وإصلاح</button>
+      <button class="sidebar-tool-btn" id="exportSelectedBtn" title="تصدير الملفات والمجلدات المحددة (أو الملف الحالي) كنسخة احتياطية بصيغة المنصة">💾 تصدير المحدد</button>
     </div>
 
     <div class="new-menu-wrap">
@@ -694,6 +773,9 @@
         <button data-type="world">🌍 عالم العمل</button>
         <button data-type="writer_notes">🗒️ مساحة الكاتبة (ملاحظات ومراجع)</button>
         <button data-type="music_guide">🎼 الدليل الموسيقي</button>
+        <div class="dd-sep">تفريغ وتحليل</div>
+        <button data-type="locations">📍 تفريغ اللوكيشنات</button>
+        <button data-type="char_profile">🪪 كاراكتر بروفايل</button>
         <div id="templateList"></div>
       </div>
     </div>
@@ -854,7 +936,25 @@
         <button class="fmt-btn primary" id="addTreatmentBoxBtn">➕ إضافة فقرة</button>
       </div>
 
-      <div class="fmt-group screenplay-options" id="group_screenplay_us" style="display:none;">
+      <div class="fmt-group record-options" id="group_locations" style="display:none;">
+        <button class="fmt-btn primary" id="addLocBtn" title="إضافة بطاقة لوكيشن يدوياً">➕ لوكيشن</button>
+        <button class="fmt-btn" id="locAutoBtn" title="تفريغ تلقائي للوكيشنات من السيناريو">⚙️ تفريغ تلقائي</button>
+        <button class="fmt-btn" id="locSortBtn" title="ترتيب البطاقات (كل نقرة تغيّر طريقة الترتيب)">🔀 ترتيب</button>
+      </div>
+
+      <div class="fmt-group record-options" id="group_char_profile" style="display:none;">
+        <button class="fmt-btn primary" id="addCpBtn" title="إضافة بطاقة شخصية يدوياً">➕ شخصية</button>
+        <button class="fmt-btn" id="cpAutoBtn" title="تفريغ تلقائي للشخصيات من السيناريو">⚙️ تفريغ تلقائي</button>
+        <button class="fmt-btn" id="cpSortBtn" title="ترتيب البطاقات (كل نقرة تغيّر طريقة الترتيب)">🔀 ترتيب</button>
+      </div>
+
+      <div class="fmt-group" id="group_extract" style="display:none;">
+        <button class="fmt-btn" id="exLocBtn" title="تفريغ اللوكيشنات من هذا السيناريو (تلقائي أو يدوي)">📍 تفريغ لوكيشنات</button>
+        <button class="fmt-btn" id="exCpBtn" title="تفريغ الشخصيات إلى كاراكتر بروفايل">🪪 تفريغ شخصيات</button>
+      </div>
+
+      
+<div class="fmt-group screenplay-options" id="group_screenplay_us" style="display:none;">
         <button class="fmt-btn" data-tag="block-scene" title="عنوان المشهد">🎬 مشهد</button>
         <button class="fmt-btn" data-tag="block-action" title="أكشن / وصف">📝 وصف</button>
         <button class="fmt-btn" data-tag="block-char" title="اسم الشخصية">👤 شخصية</button>
@@ -880,6 +980,10 @@
         <button class="fmt-btn" data-tag="block-action" title="إرشادات الحركة">🎭 إرشادات</button>
         <button class="fmt-btn" data-tag="block-dialogue" title="حوار">💬 حوار</button>
         <button class="fmt-btn" data-tag="block-song" title="أغنية">🎵 أغنية</button>
+        <button class="fmt-btn" data-tag="block-scene" title="مشهد / فصل">🎬 مشهد</button>
+        <button class="fmt-btn" data-tag="block-parenthetical" title="توجيه">🎭 توجيه</button>
+        <button class="fmt-btn" data-tag="block-sfx" title="مؤثر صوتي (متعدد الأسطر)">🔊 مؤثر صوتي</button>
+        <button class="fmt-btn dur-btn" title="مدة متوقعة تحت المشهد">⏱️ مدة</button>
       </div>
 
       <div class="fmt-group screenplay-options" id="group_yt" style="display:none;">
@@ -889,6 +993,8 @@
         <button class="fmt-btn" data-tag="block-sfx" title="مؤثر صوتي">🔊 مؤثر صوتي</button>
         <button class="fmt-btn" data-tag="block-song" title="أغنية / موسيقى">🎵 أغنية</button>
         <button class="fmt-btn bridge-btn" title="جسر بصري بين لقطتين">🌉 جسر بصري</button>
+        <button class="fmt-btn" data-tag="block-camera" title="حركة الكاميرا">🎥 كاميرا</button>
+        <button class="fmt-btn" data-tag="block-transition" title="انتقال">➡️ انتقال</button>
         <button class="fmt-btn dur-btn" title="مدة متوقعة تحت اللقطة">⏱️ مدة</button>
       </div>
 
@@ -931,7 +1037,8 @@
           <button id="expPresentation">عرض تقديمي PowerPoint (.pptx)</button>
           <button id="expSlidesHtml">عرض شرائح تفاعلي (HTML)</button>
           <button id="expHtml">صفحة ويب مستقلة (HTML)</button>
-          <button id="expSingleJson">تصدير الملف/الحاوية (JSON)</button>
+          <button id="expSingleJson">💾 نسخة احتياطية لهذا الملف / المشروع فقط (JSON)</button>
+          <button id="expSelectedBackup">💾 نسخة احتياطية للملفات المحددة (JSON)</button>
           <button id="expBackup" style="border-top:1px solid var(--border); font-weight:bold; color:var(--accent);">📁 نسخة احتياطية لكل المنصة</button>
         </div>
       </div>
@@ -1107,7 +1214,7 @@ const FX_TYPES = [
 const FX_CLASSES = FX_TYPES.map(x => x[0]);
 const FX_SELECTOR = FX_CLASSES.map(c => '.' + c).join(',');
 const BLOCK_CLASSES = FX_CLASSES.concat(['block-scene','block-action','block-char','block-dialogue','block-parenthetical','block-transition','radio-scene','radio-narrator','radio-char','radio-dialogue']);
-const NON_LINE = '.fr-table, .treatment-container, .dual-dialogue-wrap, .bridge-block, .img-block, .page-break-marker, .scene-duration';
+const NON_LINE = '.fr-table, .treatment-container, .rc-list, .rc-summary, .dual-dialogue-wrap, .bridge-block, .img-block, .page-break-marker, .scene-duration';
 const BRIDGE_TYPES = [
   { id:'match', label:'تطابق شكلي (Match Cut)' }, { id:'dissolve', label:'ذوبان (Dissolve)' },
   { id:'motion', label:'تطابق حركة' }, { id:'sound', label:'جسر صوتي' },
@@ -1122,14 +1229,14 @@ const TYPE_LABELS = {
   music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات مشتركة',
   world:'🌍 عالم العمل', writer_notes:'🗒️ مساحة الكاتبة',
   novel:'📖 رواية', short_story:'📕 قصة قصيرة', chapter:'📑 فصل', story_scene:'🎞️ مشهد قصصي',
-  music_guide:'🎼 الدليل الموسيقي'
+  music_guide:'🎼 الدليل الموسيقي', locations:'📍 تفريغ اللوكيشنات', char_profile:'🪪 كاراكتر بروفايل'
 };
 const TYPE_ICONS = { folder:'📁', film_project:'🎬', series_project:'📺', master_project:'📦' };
 const DEFAULT_TITLES = {
   folder:'مسلسل جديد', film_project:'فيلم جديد', series_project:'مسلسل جديد', master_project:'مشروع جديد',
   treatment_radio:'معالجة إذاعية', radio:'سيناريو إذاعي جديد', music:'مكتبة الموسيقى', song:'أغنية جديدة',
   visual_refs:'مراجع بصرية', characters:'الشخصيات المشتركة', world:'عالم العمل', writer_notes:'مساحة الكاتبة',
-  novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي'
+  novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل'
 };
 
 // الأنواع التي تُبنى من صناديق (عنوان + نص)
@@ -1147,10 +1254,63 @@ const BOX_TEMPLATES = {
   music_guide: ['🎶 الأغاني', '🎼 المقطوعات', '🎧 الوصف الموسيقي', '🎵 المراجع والروابط']
 };
 
+// بطاقات التفريغ (لوكيشنات / كاراكتر بروفايل): حقول تلقائية تُملأ من السيناريو + حقول يدوية
+const RECORD_TYPES = ['locations', 'char_profile'];
+const KIND_OF = { locations:'loc', char_profile:'cp' };
+const TYPE_OF = { loc:'locations', cp:'char_profile' };
+const EXTRACT_SOURCE_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio', 'text_document', 'story_scene'];
+const CHAR_SOURCE_TYPES = EXTRACT_SOURCE_TYPES.concat(['novel', 'short_story', 'chapter']);
+const RECORD_SCHEMAS = {
+  loc: {
+    icon:'📍', noun:'لوكيشن', namePh:'اسم اللوكيشن (مثال: شقة سلمى)',
+    chips: [
+      { key:'ie', label:'داخلي / خارجي', opts:['داخلي', 'خارجي', 'داخلي/خارجي'] },
+      { key:'tod', label:'الوقت', opts:['نهار', 'ليل', 'فجر', 'غروب', 'متعدد'] },
+      { key:'status', label:'الحالة', opts:['قيد البحث', 'مرشّح', 'مؤكد', 'تم التصوير', 'ملغى'] },
+      { key:'kind', label:'النوع', opts:['موقع حقيقي', 'ديكور استوديو', 'CGI / خلفية افتراضية'] }
+    ],
+    fields: [
+      { key:'scenes', label:'المشاهد', ph:'أرقام المشاهد — تلقائي أو يدوي', auto:true },
+      { key:'chars', label:'الشخصيات في المكان', ph:'الأسماء — تلقائي أو يدوي', auto:true },
+      { key:'desc', label:'وصف المكان', ph:'الطابع العام، المساحة، التفاصيل البصرية...', wide:true },
+      { key:'props', label:'الديكور والإكسسوار', ph:'' },
+      { key:'light', label:'الإضاءة والصوت', ph:'' },
+      { key:'address', label:'العنوان / الموقع الفعلي', ph:'' },
+      { key:'prod', label:'ملاحظات الإنتاج', ph:'تصاريح، لوجستيات، بدائل، تكلفة...', wide:true },
+      { key:'ref', label:'مراجع بصرية / روابط', ph:'', wide:true }
+    ]
+  },
+  cp: {
+    icon:'🪪', noun:'شخصية', namePh:'اسم الشخصية',
+    chips: [
+      { key:'role', label:'الدور', opts:['رئيسية', 'ثانوية', 'مساندة', 'خصم', 'ظهور عابر'] },
+      { key:'arc', label:'القوس', opts:['ثابتة', 'متحوّلة', 'تصاعدية', 'مأساوية'] }
+    ],
+    fields: [
+      { key:'stats', label:'الظهور', ph:'إحصاءات الحوار والظهور — تلقائي', wide:true, auto:true },
+      { key:'scenes', label:'المشاهد التي تظهر فيها', ph:'', auto:true },
+      { key:'with', label:'تظهر غالباً مع', ph:'', auto:true },
+      { key:'age', label:'العمر / تاريخ الميلاد', ph:'' },
+      { key:'job', label:'المهنة / الوضع الاجتماعي', ph:'' },
+      { key:'look', label:'المظهر والملابس', ph:'', wide:true },
+      { key:'voice', label:'اللهجة وطريقة الكلام', ph:'' },
+      { key:'quirk', label:'عادات وتفاصيل مميزة', ph:'' },
+      { key:'want', label:'الهدف (ماذا تريد؟)', ph:'' },
+      { key:'need', label:'الحاجة الحقيقية', ph:'' },
+      { key:'flaw', label:'العيب / الخوف', ph:'' },
+      { key:'back', label:'الخلفية والماضي', ph:'', wide:true },
+      { key:'rel', label:'العلاقات', ph:'', wide:true },
+      { key:'growth', label:'تطوّر الشخصية عبر العمل', ph:'', wide:true },
+      { key:'notes', label:'ملاحظات', ph:'', wide:true }
+    ]
+  }
+};
+
+
 // قوالب الحاويات: [اسم القسم، نوعه]
 const CONTAINER_BLUEPRINTS = {
-  film_project: [['معالجة','treatment_cinematic'],['هيكل','text_document'],['شخصيات','characters'],['أماكن','visual_refs'],['سيناريو','screenplay_us'],['الموسيقى','music'],['ملحقات','text_document'],['ملاحظات','writer_notes']],
-  series_project: [['Bible','text_document'],['معالجة','treatment_series'],['شخصيات','characters'],['عالم العمل','world'],['مواسم','text_document'],['حلقات','text_document'],['الموسيقى','music'],['ملحقات','text_document']],
+  film_project: [['معالجة','treatment_cinematic'],['هيكل','text_document'],['شخصيات','characters'],['أماكن','visual_refs'],['سيناريو','screenplay_us'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document'],['ملاحظات','writer_notes']],
+  series_project: [['Bible','text_document'],['معالجة','treatment_series'],['شخصيات','characters'],['عالم العمل','world'],['مواسم','text_document'],['حلقات','text_document'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document']],
   master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات مشتركة','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
 };
 
@@ -1166,7 +1326,7 @@ const isContainer = d => !!d && CONTAINER_TYPES.includes(d.docType);
 const isBoxType = t => !!BOX_TEMPLATES[t];
 function profileForType(t){
   if(SCREENPLAY_TYPES.includes(t)) return 'screenplay';
-  if(isBoxType(t)) return 'treatment';
+  if(isBoxType(t) || RECORD_TYPES.includes(t)) return 'treatment';
   return 'document';
 }
 function defaultStyle(t){
@@ -1464,6 +1624,7 @@ function bridgeHtml(typeId){
 }
 
 function defaultHtmlFor(type){
+  if(RECORD_TYPES.includes(type)) return recordDocHtml(KIND_OF[type]);
   if(isBoxType(type)) return boxesHtml(BOX_TEMPLATES[type]);
   if(type === 'screenplay_fr') return frTableHtml();
   if(type === 'novel') return '<p class="block-scene">الفصل الأول</p><p class="block-action">ابدأ السرد هنا...</p>';
@@ -1560,8 +1721,8 @@ function normalizeHtml(type, html){
   tmp.querySelectorAll('[contenteditable="true"]').forEach(n => {
     if(n !== tmp) n.setAttribute('tabindex', '0');
   });
-  tmp.querySelectorAll('.del-treatment-box, .fr-del-row, .fr-label, .br-title, .br-arrow').forEach(b => b.setAttribute('contenteditable', 'false'));
-  const isBlk = el => el && el.classList && (el.classList.contains('fr-table') || el.classList.contains('treatment-container') || el.classList.contains('dual-dialogue-wrap') || el.classList.contains('img-block') || el.classList.contains('bridge-block'));
+  tmp.querySelectorAll('.del-treatment-box, .fr-del-row, .fr-label, .br-title, .br-arrow, .rc-tools, .rc-chips, .rc-chip, .rc-label, .rc-summary').forEach(b => b.setAttribute('contenteditable', 'false'));
+  const isBlk = el => el && el.classList && (el.classList.contains('fr-table') || el.classList.contains('rc-list') || el.classList.contains('treatment-container') || el.classList.contains('dual-dialogue-wrap') || el.classList.contains('img-block') || el.classList.contains('bridge-block'));
   const needsBefore = el => el && el.classList && (el.classList.contains('fr-table') || el.classList.contains('dual-dialogue-wrap') || el.classList.contains('img-block') || el.classList.contains('bridge-block'));
   const first = tmp.firstChild, last = tmp.lastChild;
   if(!first) return '<p><br></p>';
@@ -1689,6 +1850,7 @@ const EXPORT_STRIP = '.fr-label, button, .page-break-marker, .dual-ctl, script, 
 function textOf(el){
   const c = el.cloneNode(true);
   c.querySelectorAll('[data-meta]').forEach(n => n.appendChild(document.createTextNode(' [' + n.getAttribute('data-meta') + ']')));
+  c.querySelectorAll('.rc-label').forEach(l => l.appendChild(document.createTextNode(': ')));
   c.querySelectorAll(EXPORT_STRIP + ', img').forEach(n => n.remove());
   c.querySelectorAll('br').forEach(b => b.replaceWith('\n'));
   c.querySelectorAll('p, div, li, h1, h2, h3, h4, tr, figure').forEach(b => b.appendChild(document.createTextNode('\n')));
@@ -1928,7 +2090,7 @@ function doSave(){
   flushEditorToDoc();
   d.updatedAt = Date.now();
   if(persist()) saveStatus.textContent = '✓ تم الحفظ';
-  if(isContainer(d)) renderDashboard(currentId); else updateStats();
+  if(isContainer(d)) renderDashboard(currentId); else { updateStats(); refreshRecordSummaryIfAny(); }
   renderList();
   typingSnapshotPending = true;
 }
@@ -2491,6 +2653,8 @@ function renderDashboard(id){
       <div class="dash-row">
         <select class="dash-select" id="dashAddType">${types.map(t => `<option value="${t}">${esc(TYPE_LABELS[t])}</option>`).join('')}</select>
         <button class="dash-btn primary" data-act="add">➕ إضافة قسم</button>
+        <button class="dash-btn" data-act="extract-loc">📍 تفريغ اللوكيشنات</button>
+        <button class="dash-btn" data-act="extract-cp">🪪 تفريغ الشخصيات</button>
       </div>
       ${kids.length ? `<ul class="dash-children">${rows}</ul>` : '<div style="text-align:center; color:var(--ink-soft); font-size:13px; padding:20px;">لا أقسام بعد — أضيفي قسماً من الأعلى.</div>'}
     </div>`;
@@ -2502,6 +2666,8 @@ dashboard.addEventListener('click', e => {
   if(act === 'open'){ openDoc(cid); return; }
   if(act === 'cover'){ openCoverModal(currentId); return; }
   if(act === 'add'){ const sel = $('dashAddType'); if(sel) newDoc(sel.value); return; }
+  if(act === 'extract-loc'){ openExtract('loc'); return; }
+  if(act === 'extract-cp'){ openExtract('cp'); return; }
   if(act === 'up' || act === 'down'){
     const list = cont.children, i = list.indexOf(cid), j = i + (act === 'up' ? -1 : 1);
     if(i < 0 || j < 0 || j >= list.length) return;
@@ -2758,12 +2924,13 @@ function readImageScaled(file, maxW, keepPng){
 /* =====================================================================
    فتح ملف
    ===================================================================== */
-const TYPE_GROUP = { screenplay_us:'group_screenplay_us', screenplay_fr:'group_screenplay_fr', theatre:'group_theatre', yt:'group_yt', radio:'group_radio', novel:'group_prose', short_story:'group_prose', chapter:'group_prose', story_scene:'group_prose' };
+const TYPE_GROUP = { screenplay_us:'group_screenplay_us', screenplay_fr:'group_screenplay_fr', theatre:'group_theatre', yt:'group_yt', radio:'group_radio', novel:'group_prose', short_story:'group_prose', chapter:'group_prose', story_scene:'group_prose', locations:'group_locations', char_profile:'group_char_profile' };
 function setupToolbar(type){
-  document.querySelectorAll('.screenplay-options, .prose-options').forEach(g => { g.style.display = 'none'; });
+  document.querySelectorAll('.screenplay-options, .prose-options, .record-options').forEach(g => { g.style.display = 'none'; });
   $('treatmentAddGroup').style.display = isBoxType(type) ? 'flex' : 'none';
   const gid = TYPE_GROUP[type];
   if(gid) $(gid).style.display = 'flex';
+  $('group_extract').style.display = EXTRACT_SOURCE_TYPES.includes(type) ? 'flex' : 'none';
 }
 function openDoc(id){
   if(!isRestoringHistory && currentId && docs[currentId] && saveTimer){
@@ -2808,6 +2975,7 @@ function openDoc(id){
     editorScroll.style.display = 'flex';
     editorScroll.scrollTop = 0;
     setupToolbar(doc.docType);
+    refreshRecordSummaryIfAny();
     updateDocPanel(doc);
     updateStats();
   }
@@ -2993,7 +3161,7 @@ editor.addEventListener('keydown', e => {
 /* ===== نقل الكتلة الحالية ===== */
 function moveBlock(dir){
   const ce = caretElement();
-  let unit = ce && ce.closest('.treatment-box, .fr-row');
+  let unit = ce && ce.closest('.treatment-box, .fr-row, .rc-card');
   if(!unit) unit = getAnchorBlock();
   if(!unit || unit === editor) return;
   const sib = dir < 0 ? unit.previousElementSibling : unit.nextElementSibling;
@@ -3058,6 +3226,7 @@ $('addFrRowBtn').addEventListener('click', insertFrRow);
 
 editor.addEventListener('click', e => {
   const t = e.target;
+  if(handleRecordClick(t, e)) return;
   if(t.closest('.del-treatment-box')){
     snap(); t.closest('.treatment-box').remove(); scheduleSave(); return;
   }
@@ -3091,7 +3260,7 @@ editor.addEventListener('click', e => {
   }
 });
 editor.addEventListener('dblclick', e => {
-  const fig = e.target.closest('.img-block');
+  const fig = e.target.closest('.img-block, .quote-image-card');
   if(fig && confirm('حذف هذه الصورة من الملف؟')){ snap(); fig.remove(); scheduleSave(); }
 });
 
@@ -3119,6 +3288,11 @@ const radioStylePresets = {
   'radio-scene':    [{ name:'كلاسيكي', color:'var(--accent)', bg:'rgba(122,59,46,0.06)', extra:'font-weight:700;' }]
 };
 const styleSwatchColors = { 'كلاسيكي':'#7a3b2e', 'أزرق':'#2980b9', 'أخضر':'#27ae60' };
+Object.assign(styleSwatchColors, { 'ذهبي':'#b7791f', 'بنفسجي':'#8e44ad', 'رمادي':'#6f6656' });
+['radio-narrator', 'radio-char'].forEach(tag => radioStylePresets[tag].push({ name:'ذهبي', color:'#b7791f', bg:'transparent', extra:'font-weight:700;' }, { name:'بنفسجي', color:'#8e44ad', bg:'transparent', extra:'font-weight:700;' }));
+radioStylePresets['radio-dialogue'].push({ name:'أخضر', color:'#27ae60', bg:'transparent', extra:'' }, { name:'بنفسجي', color:'#8e44ad', bg:'transparent', extra:'' }, { name:'ذهبي', color:'#b7791f', bg:'transparent', extra:'' });
+radioStylePresets['radio-sfx'].push({ name:'ذهبي', color:'#b7791f', bg:'rgba(183,121,31,0.12)', extra:'font-weight:700;' }, { name:'بنفسجي', color:'#8e44ad', bg:'rgba(142,68,173,0.12)', extra:'font-weight:700;' }, { name:'رمادي', color:'#6f6656', bg:'rgba(111,102,86,0.12)', extra:'font-weight:700;' });
+radioStylePresets['radio-scene'].push({ name:'أزرق', color:'#2980b9', bg:'rgba(41,128,185,0.08)', extra:'font-weight:700;' }, { name:'ذهبي', color:'#b7791f', bg:'rgba(183,121,31,0.1)', extra:'font-weight:700;' });
 function buildStylePalette(){
   const dd = $('stylePaletteDropdown');
   dd.innerHTML = '';
@@ -3175,14 +3349,20 @@ function insertImageBlock(src){
   scrollToEl(fig);
   scheduleSave();
 }
-let quoteImageData = '';
-function quoteCardMarkup(status, quote, attribution, image){
-  const img = image ? `<img src="${esc(image)}" alt="">` : '';
+let quoteImageData = '', quoteMainData = '';
+function quoteCardMarkup(status, quote, attribution, image, shot){
   const draft = status === 'draft' ? '<span class="quote-draft">مسودة</span>' : '';
+  if(shot){
+    const cap = [quote, attribution].filter(Boolean).join(' — ');
+    return `<figure class="quote-image-card is-shot" contenteditable="false" data-quote-status="${status}" title="انقر على «مسودة» لتحويلها إلى جاهزة · Alt+نقر للعودة إلى مسودة · نقرتان للحذف">${draft}<img class="qi-shot" src="${esc(shot)}" alt="">${cap ? `<cite>${esc(cap)}</cite>` : ''}</figure>`;
+  }
+  const img = image ? `<img src="${esc(image)}" alt="">` : '';
   return `<figure class="quote-image-card" data-quote-status="${status}">${img}${draft}<blockquote>${esc(quote)}</blockquote>${attribution ? `<cite>${esc(attribution)}</cite>` : ''}</figure>`;
 }
 function refreshQuotePreview(){
-  $('qiPreview').innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value || 'نص الاقتباس', $('qiAttribution').value, quoteImageData);
+  $('qiPreview').innerHTML = quoteMainData
+    ? quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData)
+    : quoteCardMarkup($('qiStatus').value, $('qiText').value || 'نص الاقتباس', $('qiAttribution').value, quoteImageData);
 }
 function openQuoteImageModal(){
   if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً لإضافة اقتباس مصوّر.'); return; }
@@ -3191,6 +3371,8 @@ function openQuoteImageModal(){
   $('qiText').value = '';
   $('qiAttribution').value = '';
   $('qiImage').value = '';
+  $('qiMain').value = '';
+  quoteMainData = '';
   $('qiStatus').value = 'draft';
   refreshQuotePreview();
   showModal($('quoteImageModal'));
@@ -3205,6 +3387,7 @@ $('qiImage').addEventListener('change', async e => {
 });
 $('qiCancel').addEventListener('click', () => hideModal($('quoteImageModal')));
 function downloadQuotePng(){
+  if(quoteMainData){ downloadShotPng(); return; }
   const quote = $('qiText').value.trim();
   if(!quote){ alert('اكتبي نص الاقتباس أولاً.'); return; }
   const width = 1200, height = 900, canvas = document.createElement('canvas');
@@ -3266,6 +3449,7 @@ function downloadQuotePng(){
 }
 $('qiExport').addEventListener('click', downloadQuotePng);
 $('qiInsert').addEventListener('click', () => {
+  if(quoteMainData){ insertQuoteShot(); return; }
   const quote = $('qiText').value.trim();
   if(!quote){ alert('اكتبي نص الاقتباس أولاً.'); return; }
   snap(); restoreCaret();
@@ -3895,6 +4079,25 @@ function inlineComputed(root){
   });
 }
 function convertLayouts(host, options){
+  host.querySelectorAll('.rc-card').forEach(card => {
+    const t = document.createElement('table');
+    t.setAttribute('dir', 'rtl'); t.setAttribute('width', '100%');
+    t.style.cssText = 'width:100%;border-collapse:collapse;margin:10px 0;';
+    const nameTxt = (card.querySelector('.rc-name') ? card.querySelector('.rc-name').textContent : '').trim();
+    const chips = [...card.querySelectorAll('.rc-chip')].filter(c => c.dataset.val).map(c => c.textContent.trim()).join('  ·  ');
+    const head = document.createElement('tr');
+    head.innerHTML = '<td colspan="2" style="border:1px solid #7a3b2e;background:#7a3b2e;color:#fff;padding:7px 10px;font-weight:bold;font-size:15px;">' + esc(nameTxt || '—') + (chips ? '<div style="font-weight:normal;font-size:11px;margin-top:3px;">' + esc(chips) + '</div>' : '') + '</td>';
+    t.appendChild(head);
+    card.querySelectorAll('.rc-field').forEach(f => {
+      const lab = f.querySelector('.rc-label'), val = f.querySelector('.rc-val');
+      const v = val ? val.textContent.trim() : '';
+      if(!v) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td style="width:28%;border:1px solid #999;padding:6px 8px;background:#f1ece0;font-weight:bold;font-size:12px;vertical-align:top;">' + esc(lab ? lab.textContent : '') + '</td><td style="border:1px solid #999;padding:6px 8px;vertical-align:top;white-space:pre-wrap;">' + esc(v) + '</td>';
+      t.appendChild(tr);
+    });
+    card.replaceWith(t);
+  });
   host.querySelectorAll('.br-row').forEach(row => {
     const parts = [row.querySelector('.br-from'), row.querySelector('.br-arrow'), row.querySelector('.br-to')];
     const t = document.createElement('table');
@@ -3975,7 +4178,7 @@ function renderDocBody(doc, options){
   document.body.appendChild(host);
   let out = '';
   try{
-    host.querySelectorAll('.del-treatment-box, .fr-del-row, .fr-label, .dual-ctl, .dual-x').forEach(n => n.remove());
+    host.querySelectorAll('.del-treatment-box, .fr-del-row, .fr-label, .dual-ctl, .dual-x, .rc-tools').forEach(n => n.remove());
     host.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
     host.querySelectorAll('[data-ph]').forEach(n => n.removeAttribute('data-ph'));
     host.querySelectorAll('[data-meta]').forEach(n => {
@@ -4178,7 +4381,7 @@ async function exportPowerPoint(rootId, opts){
       const slide = pptx.addSlide();
       const isCover = section.classList.contains('cover');
       const isSection = section.classList.contains('section');
-      const images = [...section.querySelectorAll('img')].map(img => img.getAttribute('src')).filter(src => src && /^data:image\/(?:png|jpe?g);base64,/i.test(src));
+      const images = [...section.querySelectorAll('img')].map(img => img.getAttribute('src')).filter(src => src && /^data:image\/(?:png|jpe?g);base64,/i.test(src)).map(src => src.replace(/^data:/i, ''));
       if(isCover){
         const cover = coverModel(root);
         const color = (cover.color || '#7a3b2e').replace('#','').toUpperCase();
@@ -4197,7 +4400,7 @@ async function exportPowerPoint(rootId, opts){
       const clone = section.cloneNode(true);
       clone.querySelectorAll('script,style').forEach(node => node.remove());
       if(heading) clone.querySelector(heading.tagName.toLowerCase())?.remove();
-      const bodyText = (clone.innerText || clone.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+      const bodyText = textOf(clone).replace(/\n{3,}/g, '\n\n').trim();
       const imageY = images.length ? 5.15 : 0;
       if(headingText) slide.addText(headingText, { x:0.65, y:0.36, w:12.05, h:0.72, fontFace:'Arial', fontSize:isSection ? 30 : 25, bold:true, align:'right', rtlMode:true, color:'7A3B2E', margin:0.04, fit:'shrink' });
       if(bodyText) slide.addText(bodyText, { x:0.65, y:headingText ? 1.2 : 0.65, w:images.length ? 12.05 : 12.05, h:images.length ? 3.7 : 5.8, fontFace:'Arial', fontSize:20, align:'right', valign:'mid', rtlMode:true, color:'2B2620', breakLine:false, fit:'shrink', margin:0.12, paraSpaceAfterPt:8 });
@@ -4502,6 +4705,8 @@ importBackupInput.addEventListener('change', e => {
         const c = deepClone(doc);
         if(c.parentId) { if(idMap[c.parentId]) c.parentId = idMap[c.parentId]; else delete c.parentId; }
         if(Array.isArray(c.children)) c.children = c.children.map(k => idMap[k]).filter(Boolean);
+        if(Array.isArray(c.relatedDocs)) c.relatedDocs = c.relatedDocs.map(k => idMap[k]).filter(Boolean);
+        if(c._trashedWith){ if(idMap[c._trashedWith]) c._trashedWith = idMap[c._trashedWith]; else delete c._trashedWith; }
         return c;
       };
       Object.keys(data.docs).forEach(o => { docs[idMap[o]] = remap(data.docs[o]); });
@@ -4526,6 +4731,549 @@ importBackupInput.addEventListener('change', e => {
 /* =====================================================================
    التشغيل
    ===================================================================== */
+/* =====================================================================
+   بطاقات التفريغ: لوكيشنات + كاراكتر بروفايل — يدوي وتلقائي
+   ===================================================================== */
+function recordCardHtml(kind, data){
+  data = data || {};
+  const s = RECORD_SCHEMAS[kind];
+  const chips = s.chips.map(c => {
+    const v = (data.chips && data.chips[c.key]) || '';
+    return '<div class="rc-chip' + (v ? ' set' : '') + '" data-key="' + c.key + '" data-val="' + esc(v) + '" contenteditable="false" title="انقر للتبديل · Shift+نقر لقيمة مخصصة">' + esc(c.label + ': ' + (v || '—')) + '</div>';
+  }).join('');
+  const fields = s.fields.map(f => {
+    const v = (data.fields && data.fields[f.key]) || '';
+    return '<div class="rc-field' + (f.wide ? ' wide' : '') + (f.auto ? ' auto' : '') + '"><span class="rc-label" contenteditable="false">' + esc(f.label) + '</span><div class="rc-val" data-key="' + f.key + '" contenteditable="true" tabindex="0" data-ph="' + esc(f.ph || '') + '">' + esc(v) + '</div></div>';
+  }).join('');
+  return '<div class="rc-card" data-rc="' + kind + '"><div class="rc-tools" contenteditable="false"><button class="rc-dup" title="نسخ البطاقة">📑</button><button class="rc-del" title="حذف البطاقة">✕</button></div><div class="rc-name" contenteditable="true" tabindex="0" data-ph="' + esc(s.namePh) + '">' + esc(data.name || '') + '</div><div class="rc-chips" contenteditable="false">' + chips + '</div><div class="rc-grid">' + fields + '</div></div>';
+}
+function recordDocHtml(kind){ return '<div class="rc-list">' + recordCardHtml(kind, {}) + '</div>'; }
+function setChip(chip, def, val){
+  chip.dataset.val = val;
+  chip.classList.toggle('set', !!val);
+  chip.textContent = def.label + ': ' + (val || '—');
+}
+function handleRecordClick(t, e){
+  const chip = t.closest('.rc-chip');
+  if(chip){
+    const card = chip.closest('.rc-card');
+    const s = card && RECORD_SCHEMAS[card.dataset.rc];
+    const def = s && s.chips.find(c => c.key === chip.dataset.key);
+    if(!def) return true;
+    snap();
+    let next;
+    if(e && e.shiftKey){
+      const v = prompt('قيمة مخصصة لـ «' + def.label + '» (فارغة = مسح):', chip.dataset.val || '');
+      if(v === null) return true;
+      next = v.trim();
+    } else {
+      const opts = [''].concat(def.opts);
+      next = opts[(opts.indexOf(chip.dataset.val || '') + 1) % opts.length];
+    }
+    setChip(chip, def, next);
+    scheduleSave();
+    return true;
+  }
+  const del = t.closest('.rc-del');
+  if(del){ const card = del.closest('.rc-card'); if(card){ snap(); card.remove(); scheduleSave(); } return true; }
+  const dup = t.closest('.rc-dup');
+  if(dup){ const card = dup.closest('.rc-card'); if(card){ snap(); card.after(card.cloneNode(true)); scheduleSave(); } return true; }
+  return false;
+}
+function addRecordCard(kind){
+  snap(); restoreCaret();
+  let list = editor.querySelector('.rc-list');
+  if(!list){
+    list = document.createElement('div');
+    list.className = 'rc-list';
+    placeTopLevel(list);
+    list.insertAdjacentHTML('afterend', '<p><br></p>');
+  }
+  const tmp = document.createElement('div');
+  tmp.innerHTML = recordCardHtml(kind, {});
+  const card = tmp.firstElementChild;
+  const ce = caretElement();
+  const cur = ce && ce.closest('.rc-card');
+  if(cur && cur.parentElement === list) cur.after(card); else list.appendChild(card);
+  placeCaret(card.querySelector('.rc-name'), false);
+  scrollToEl(card);
+  scheduleSave();
+}
+editor.addEventListener('keydown', e => {
+  if(e.key !== 'Enter' || e.isComposing) return;
+  const sel = window.getSelection();
+  let n = sel.anchorNode;
+  if(n && n.nodeType === 3) n = n.parentElement;
+  if(n && n.closest && n.closest('.rc-name')){
+    e.preventDefault();
+    const f = n.closest('.rc-card').querySelector('.rc-val');
+    if(f) placeCaret(f, true);
+  }
+});
+let sortModeIdx = 0;
+function sortRecords(){
+  const modes = [['name', 'حسب الاسم'], ['first', 'حسب أول مشهد'], ['count', 'الأكثر ظهوراً']];
+  const mode = modes[sortModeIdx % 3];
+  sortModeIdx++;
+  const list = editor.querySelector('.rc-list');
+  if(!list) return;
+  const cards = [...list.querySelectorAll(':scope > .rc-card')];
+  if(cards.length < 2) return;
+  const nums = c => ((c.querySelector('.rc-val[data-key="scenes"]')?.textContent || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).match(/\d+/g) || []).map(Number);
+  const keyed = cards.map(c => ({ c, n: (c.querySelector('.rc-name')?.textContent || '').trim(), nums: nums(c) }));
+  snap();
+  if(mode[0] === 'name') keyed.sort((a, b) => a.n.localeCompare(b.n, 'ar'));
+  else if(mode[0] === 'first') keyed.sort((a, b) => (a.nums.length ? Math.min(...a.nums) : 1e9) - (b.nums.length ? Math.min(...b.nums) : 1e9));
+  else keyed.sort((a, b) => b.nums.length - a.nums.length);
+  keyed.forEach(k => list.appendChild(k.c));
+  saveStatus.textContent = 'تم الترتيب: ' + mode[1];
+  scheduleSave();
+}
+function recordSummaryText(kind, cards){
+  const s = RECORD_SCHEMAS[kind];
+  let t = s.icon + ' ' + cards.length + ' ' + s.noun;
+  s.chips.slice(0, 2).forEach(def => {
+    const counts = {};
+    cards.forEach(c => { const ch = c.querySelector('.rc-chip[data-key="' + def.key + '"]'); const v = ch && ch.dataset.val; if(v) counts[v] = (counts[v] || 0) + 1; });
+    const parts = Object.keys(counts).map(v => v + ' ' + counts[v]);
+    if(parts.length) t += ' · ' + def.label + ': ' + parts.join('، ');
+  });
+  return t;
+}
+function applySummaryTo(root, kind, stamp){
+  const list = root.querySelector('.rc-list');
+  if(!list) return;
+  let box = root.querySelector('.rc-summary');
+  if(!box){ box = document.createElement('div'); box.className = 'rc-summary'; box.setAttribute('contenteditable', 'false'); list.before(box); }
+  if(stamp) box.dataset.at = stamp;
+  const at = box.dataset.at || '';
+  const text = recordSummaryText(kind, [...list.querySelectorAll('.rc-card')]) + (at ? '\nآخر تفريغ تلقائي: ' + at : '');
+  if(box.textContent !== text) box.textContent = text;
+}
+function refreshRecordSummaryIfAny(){
+  const d = currentId && docs[currentId];
+  if(d && RECORD_TYPES.includes(d.docType)) applySummaryTo(editor, KIND_OF[d.docType]);
+}
+function isEmptyCard(c){
+  if((c.querySelector('.rc-name')?.textContent || '').trim()) return false;
+  if([...c.querySelectorAll('.rc-val')].some(v => v.textContent.trim())) return false;
+  return ![...c.querySelectorAll('.rc-chip')].some(ch => ch.dataset.val);
+}
+
+/* ===== تحليل السيناريوهات ===== */
+const IE_W = /^(?:داخلي|داخل|خارجي|خارج|int|ext|interior|exterior)\.?$/i;
+const TOD_W = /^(?:نهار|نهارا|ليل|ليلا|فجر|غروب|صباح|صباحا|ظهر|عصر|مساء|day|night|dawn|dusk|morning|evening|noon|afternoon|sunset|sunrise)\.?$/i;
+function arPlain(s){ return String(s || '').replace(/[\u064B-\u065F\u0670\u0640]/g, ''); }
+function normKey(s){
+  return arPlain(s).replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^\p{L}\p{N}]+/gu, ' ').trim().toLowerCase();
+}
+function ieNorm(w){ return /^(?:داخلي|داخل|int|interior)/i.test(w) ? 'داخلي' : 'خارجي'; }
+function todNorm(w){
+  w = arPlain(w).toLowerCase().replace(/\./g, '');
+  if(/^(?:ليل|مساء|night|evening)/.test(w)) return 'ليل';
+  if(/^(?:فجر|dawn|sunrise)/.test(w)) return 'فجر';
+  if(/^(?:غروب|dusk|sunset)/.test(w)) return 'غروب';
+  return 'نهار';
+}
+function parseSceneHeading(text){
+  let t = String(text || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\s+/g, ' ').trim();
+  t = t.replace(/^(?:مشهد|المشهد|لقطة|scene|sc)(?=$|[\s.:\-–—#\d])\s*/i, '');
+  let num = '';
+  const nm = t.match(/^#?\s*(\d+)\s*[.:\-–—)\/]*\s*/);
+  if(nm){ num = nm[1]; t = t.slice(nm[0].length); }
+  let ie = '', tod = '';
+  const names = [];
+  const isIE = w => IE_W.test(arPlain(w)), isTOD = w => TOD_W.test(arPlain(w));
+  const take = w => { if(isIE(w)){ if(!ie) ie = ieNorm(arPlain(w)); } else if(!tod) tod = todNorm(w); };
+  t.split(/\s*[-–—|،,؛;:\/()\[\]]+\s*/).forEach(seg => {
+    const words = seg.split(' ').filter(Boolean);
+    while(words.length && (isIE(words[0]) || isTOD(words[0]))) take(words.shift());
+    while(words.length && (isIE(words[words.length - 1]) || isTOD(words[words.length - 1]))) take(words.pop());
+    if(words.length) names.push(words.join(' '));
+  });
+  return { num, ie, tod, name: names.join(' - ').replace(/^[.\s]+|[.\s]+$/g, '') };
+}
+function cleanCharName(s){
+  const t = String(s || '').replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）/g, ' ').replace(/[:：]+\s*$/, '').replace(/\s+/g, ' ').trim();
+  return (t.length > 40 || t.split(' ').length > 4) ? '' : t;
+}
+function analyseScript(doc, id, smart){
+  const tmp = document.createElement('div');
+  tmp.innerHTML = doc.html || '';
+  tmp.querySelectorAll('.treatment-container, .rc-list, .rc-summary, .quote-image-card, .scene-duration, .page-break-marker').forEach(n => n.remove());
+  const scriptLike = SCENE_TYPES.includes(doc.docType) || doc.docType === 'story_scene';
+  const out = { docId:id, title: doc.title || 'بلا عنوان', scenes:[], prelude:{ n:0, chars:new Map() } };
+  let cur = null, last = null, waiting = false;
+  const touch = raw => {
+    const name = cleanCharName(raw);
+    const key = normKey(name);
+    if(!name || !key) return null;
+    const b = (cur || out.prelude).chars;
+    let e = b.get(key);
+    if(!e){ e = { name, lines:0, words:0 }; b.set(key, e); }
+    return e;
+  };
+  const startScene = text => {
+    const p = parseSceneHeading(text);
+    const seq = out.scenes.length + 1;
+    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, heading:text.trim(), chars:new Map() });
+    out.scenes.push(cur); last = null; waiting = false;
+  };
+  tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p').forEach(n => {
+    const text = (n.textContent || '').trim();
+    if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text); return; }
+    if(n.matches('.block-char, .radio-char, .dual-char, .fr-col-char')){
+      /* Enter يكرّر تنسيق «شخصية» على السطر التالي: إن كان النص جملة حوار يُحسب حواراً للشخصية السابقة لا اسماً جديداً */
+      if(last && text && (text.split(/\s+/).length > 3 || /[.!؟?…،,]\s*$/.test(text))){ last.lines++; last.words += countWords(text); waiting = false; return; }
+      last = text ? touch(text) : null; waiting = !!last; return;
+    }
+    if(n.matches('.block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue')){
+      if(last && text){ last.lines++; last.words += countWords(text); }
+      if(n.matches('.block-dialogue, .radio-dialogue')) waiting = false;
+      else if(!n.matches('.dual-text')){ last = null; waiting = false; }
+      return;
+    }
+    if(n.tagName !== 'P' || !smart || !text) return;
+    if([...n.classList].some(c => !['has-divider', 'block-action', 'radio-narrator'].includes(c))) return;
+    const isActionLine = n.classList.contains('block-action') || n.classList.contains('radio-narrator');
+    if(n.closest('.dual-column, .fr-table, .bridge-block')) return;
+    const words = text.split(/\s+/).length;
+    if(SCENE_RE.test(text) && words <= 14){ startScene(text); return; }
+    if(!scriptLike) return;
+    const m = text.match(/^([^:：]{1,25})[:：]\s+(.+)$/);
+    if(m && m[1].trim().split(/\s+/).length <= 2 && !SCENE_RE.test(m[1])){
+      const e = touch(m[1]);
+      if(e){ e.lines++; e.words += countWords(m[2]); }
+      last = null; waiting = false; return;
+    }
+    if(isActionLine){ last = null; waiting = false; return; }
+    if(/[:：]$/.test(text) && words <= 5){ last = touch(text); waiting = !!last; return; }
+    if(waiting && last){ last.lines++; last.words += words; last = null; waiting = false; }
+  });
+  return out;
+}
+function uniqSorted(a){ return [...new Set(a)].sort((x, y) => x - y); }
+function refsText(refs, multi){
+  return [...refs.values()].map(r => (multi ? r.title + ': ' : '') + uniqSorted(r.nums).join('، ')).join(' · ');
+}
+function buildLocations(analyses){
+  const multi = analyses.length > 1, map = new Map();
+  let total = 0, unnamed = 0;
+  analyses.forEach(a => a.scenes.forEach(sc => {
+    total++;
+    const key = sc.name ? normKey(sc.name) : '';
+    if(!key){ unnamed++; return; }
+    let L = map.get(key);
+    if(!L) map.set(key, L = { name:sc.name, ies:new Set(), tods:new Set(), refs:new Map(), chars:new Map(), count:0 });
+    L.count++;
+    if(sc.ie) L.ies.add(sc.ie);
+    if(sc.tod) L.tods.add(sc.tod);
+    if(!L.refs.has(a.docId)) L.refs.set(a.docId, { title:a.title, nums:[] });
+    L.refs.get(a.docId).nums.push(sc.n);
+    sc.chars.forEach((e, k) => { if(!L.chars.has(k)) L.chars.set(k, e.name); });
+  }));
+  const items = [...map.values()].map(L => ({
+    name: L.name, note: L.count + ' مشهد',
+    chips: { ie: L.ies.size > 1 ? 'داخلي/خارجي' : ([...L.ies][0] || ''), tod: L.tods.size > 1 ? 'متعدد' : ([...L.tods][0] || '') },
+    auto: { scenes: refsText(L.refs, multi), chars: [...L.chars.values()].join('، ') }
+  }));
+  return { items, total, unnamed };
+}
+function buildCharacters(analyses, minLines){
+  const multi = analyses.length > 1, map = new Map();
+  analyses.forEach(a => {
+    [a.prelude].concat(a.scenes).forEach(sc => {
+      const real = sc !== a.prelude, keys = [...sc.chars.keys()];
+      sc.chars.forEach((e, key) => {
+        let C = map.get(key);
+        if(!C) map.set(key, C = { name:e.name, lines:0, words:0, refs:new Map(), together:new Map(), first:null, last:null });
+        C.lines += e.lines; C.words += e.words;
+        if(!real) return;
+        if(!C.refs.has(a.docId)) C.refs.set(a.docId, { title:a.title, nums:[] });
+        C.refs.get(a.docId).nums.push(sc.n);
+        const ref = { title:a.title, n:sc.n };
+        if(!C.first) C.first = ref;
+        C.last = ref;
+        keys.forEach(k2 => { if(k2 !== key) C.together.set(k2, (C.together.get(k2) || 0) + 1); });
+      });
+    });
+  });
+  const all = [...map.values()].filter(C => C.lines >= minLines).sort((x, y) => y.lines - x.lines);
+  const max = Math.max(1, ...all.map(C => C.lines));
+  const refLabel = r => (multi ? r.title + ' · ' : '') + 'مشهد ' + r.n;
+  const totalScenes = analyses.reduce((n, a) => n + a.scenes.length, 0);
+  const items = all.map(C => {
+    const sceneCount = [...C.refs.values()].reduce((n, r) => n + new Set(r.nums).size, 0);
+    let st = C.lines + ' سطر حوار · ' + C.words + ' كلمة · ' + sceneCount + ' مشهد';
+    if(C.first) st += ' · أول ظهور: ' + refLabel(C.first);
+    if(C.last && (C.last.n !== C.first.n || C.last.title !== C.first.title)) st += ' · آخر ظهور: ' + refLabel(C.last);
+    const ratio = C.lines / max;
+    return {
+      name: C.name, note: C.lines + ' سطر',
+      chips: { role: (ratio >= 0.5 && (totalScenes <= 3 || (sceneCount >= 3 && sceneCount / totalScenes >= 0.25))) ? 'رئيسية' : (sceneCount >= 2 || ratio >= 0.2) ? 'ثانوية' : 'ظهور عابر' },
+      auto: {
+        stats: st, scenes: refsText(C.refs, multi),
+        with: [...C.together.entries()].sort((x, y) => y[1] - x[1]).slice(0, 4).map(([k, n]) => map.get(k).name + ' (' + n + ')').join('، ')
+      }
+    };
+  });
+  return { items, total:0, unnamed:0 };
+}
+
+/* ===== دمج النتائج في ملف الهدف ===== */
+function mergeRecordItems(doc, kind, items, mode, stamp){
+  const s = RECORD_SCHEMAS[kind];
+  const tmp = document.createElement('div');
+  tmp.innerHTML = doc.html || '';
+  let list = tmp.querySelector('.rc-list');
+  if(!list){ list = document.createElement('div'); list.className = 'rc-list'; tmp.insertBefore(list, tmp.firstChild); }
+  if(mode === 'replace') list.innerHTML = '';
+  list.querySelectorAll('.rc-card').forEach(c => { if(isEmptyCard(c)) c.remove(); });
+  const byKey = new Map();
+  list.querySelectorAll('.rc-card').forEach(c => byKey.set(normKey(c.querySelector('.rc-name')?.textContent), c));
+  const res = { added:0, updated:0, kept:0 };
+  items.forEach(it => {
+    const k = normKey(it.name), ex = byKey.get(k);
+    if(ex){
+      if(mode === 'update'){
+        Object.keys(it.auto).forEach(fk => { const v = ex.querySelector('.rc-val[data-key="' + fk + '"]'); if(v) v.textContent = it.auto[fk]; });
+        Object.keys(it.chips).forEach(ck => {
+          const ch = ex.querySelector('.rc-chip[data-key="' + ck + '"]'), def = s.chips.find(c => c.key === ck);
+          if(ch && def && !ch.dataset.val && it.chips[ck]) setChip(ch, def, it.chips[ck]);
+        });
+        res.updated++;
+      } else res.kept++;
+      return;
+    }
+    const t = document.createElement('div');
+    t.innerHTML = recordCardHtml(kind, { name:it.name, chips:it.chips, fields:it.auto });
+    list.appendChild(t.firstElementChild);
+    byKey.set(k, list.lastElementChild);
+    res.added++;
+  });
+  applySummaryTo(tmp, kind, stamp);
+  doc.html = normalizeHtml(doc.docType, tmp.innerHTML);
+  return res;
+}
+
+/* ===== نافذة التفريغ (تلقائي / يدوي) ===== */
+let exKind = 'loc', exScope = null;
+const exModal = $('extractModal');
+function isSourceDoc(kind, id){
+  const d = docs[id];
+  return !!d && !isContainer(d) && (kind === 'loc' ? EXTRACT_SOURCE_TYPES : CHAR_SOURCE_TYPES).includes(d.docType);
+}
+function scopeSourceIds(kind, scopeId){
+  if(scopeId && docs[scopeId]) return (docs[scopeId].children || []).filter(id => isSourceDoc(kind, id));
+  return index.filter(id => isSourceDoc(kind, id));
+}
+function orderedDocIds(){
+  const out = [];
+  index.forEach(id => { const d = docs[id]; if(!d) return; if(isContainer(d)) (d.children || []).forEach(c => { if(docs[c]) out.push(c); }); else out.push(id); });
+  return out;
+}
+function docLabel(id){
+  const d = docs[id], p = d.parentId && docs[d.parentId];
+  return (d.title || 'بلا عنوان') + (p ? ' — ' + (p.title || '') : '');
+}
+function exSrcMode(){ return document.querySelector('input[name="exSrc"]:checked').value; }
+function renderExManual(){
+  const defaults = new Set(scopeSourceIds(exKind, exScope));
+  const ids = orderedDocIds().filter(id => isSourceDoc(exKind, id));
+  $('exManualList').innerHTML = ids.length ? ids.map(id => '<label><input type="checkbox" data-ex-id="' + esc(id) + '"' + (defaults.has(id) ? ' checked' : '') + '> ' + esc(docLabel(id)) + '</label>').join('') : '<span style="font-size:11px;color:var(--ink-soft);">لا توجد ملفات كتابة مناسبة.</span>';
+}
+function getExSources(){
+  const mode = exSrcMode();
+  if(mode === 'current') return isSourceDoc(exKind, currentId) ? [currentId] : [];
+  if(mode === 'manual') return [...$('exManualList').querySelectorAll('input:checked')].map(i => i.dataset.exId).filter(id => isSourceDoc(exKind, id));
+  return scopeSourceIds(exKind, exScope);
+}
+function openExtract(kind){
+  const cur = currentId && docs[currentId];
+  if(!cur){ alert('يرجى فتح مشروع أو ملف أولاً.'); return; }
+  flushEditorToDoc();
+  exKind = kind;
+  const tType = TYPE_OF[kind];
+  exScope = isContainer(cur) ? currentId : (cur.parentId && docs[cur.parentId] ? cur.parentId : null);
+  $('exTitle').textContent = kind === 'loc' ? '📍 تفريغ اللوكيشنات' : '🪪 تفريغ الشخصيات (كاراكتر بروفايل)';
+  $('exDesc').textContent = kind === 'loc'
+    ? 'يُقرأ عنوان كل مشهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) لاستخراج المكان والوقت وأرقام المشاهد والشخصيات.'
+    : 'تُقرأ أسماء الشخصيات وحواراتها من السيناريوهات لاستخراج الإحصاءات والمشاهد ومن تظهر معهم.';
+  $('exMinWrap').style.display = kind === 'cp' ? '' : 'none';
+  const targets = Object.keys(docs).filter(id => docs[id].docType === tType);
+  $('exTarget').innerHTML = targets.map(id => '<option value="' + esc(id) + '">' + esc(docLabel(id)) + '</option>').join('') +
+    '<option value="__new">＋ إنشاء ملف جديد' + (exScope ? ' داخل: ' + esc(docs[exScope].title || '') : '') + '</option>';
+  const def = cur.docType === tType ? currentId : targets.find(id => exScope && docs[id].parentId === exScope);
+  $('exTarget').value = def || '__new';
+  const canCurrent = isSourceDoc(kind, currentId);
+  document.querySelector('input[name="exSrc"][value="current"]').disabled = !canCurrent;
+  document.querySelector('input[name="exSrc"][value="' + (canCurrent ? 'current' : 'auto') + '"]').checked = true;
+  $('exAutoCount').textContent = '(' + scopeSourceIds(kind, exScope).length + ' ملف)';
+  renderExManual();
+  $('exManualList').style.display = 'none';
+  $('exPreview').textContent = '';
+  showModal(exModal);
+}
+function computeExtraction(){
+  const ids = getExSources();
+  if(!ids.length) return null;
+  const analyses = ids.map(id => analyseScript(docs[id], id, $('exSmart').checked));
+  const r = exKind === 'loc' ? buildLocations(analyses) : buildCharacters(analyses, parseInt($('exMin').value, 10) || 0);
+  return { kind:exKind, ids, analyses, items:r.items, unnamed:r.unnamed };
+}
+function existingKeys(tid){
+  const set = new Set();
+  if(tid !== '__new' && docs[tid]){ const t = document.createElement('div'); t.innerHTML = docs[tid].html || ''; t.querySelectorAll('.rc-card .rc-name').forEach(n => set.add(normKey(n.textContent))); }
+  return set;
+}
+function previewExtraction(){
+  const res = computeExtraction(), box = $('exPreview');
+  if(!res){ box.textContent = 'يرجى اختيار ملف مصدر واحد على الأقل.'; return; }
+  const s = RECORD_SCHEMAS[res.kind], ex = existingKeys($('exTarget').value);
+  const fresh = res.items.filter(i => !ex.has(normKey(i.name))).length;
+  const sc = res.analyses.reduce((n, a) => n + a.scenes.length, 0);
+  let t = 'تم فحص ' + res.ids.length + ' ملف · ' + sc + ' مشهد\n' + res.items.length + ' ' + s.noun + ' (جديد: ' + fresh + ' · موجود: ' + (res.items.length - fresh) + ')';
+  if(res.kind === 'loc' && res.unnamed) t += '\n' + res.unnamed + ' مشهد بلا اسم مكان واضح (لم يُحتسب)';
+  t += '\n' + res.items.slice(0, 12).map(i => '• ' + i.name + ' — ' + i.note).join('\n');
+  if(res.items.length > 12) t += '\n… و' + (res.items.length - 12) + ' أخرى';
+  box.textContent = t;
+}
+function runExtraction(){
+  const res = computeExtraction();
+  if(!res){ alert('يرجى اختيار ملف مصدر واحد على الأقل.'); return; }
+  if(!res.items.length){
+    alert(res.kind === 'loc' ? 'لم يُعثر على مشاهد بأسماء أماكن في الملفات المحددة. يُفضَّل كتابة عنوان المشهد بصيغة: مشهد 1 - داخلي - شقة سلمى - ليل' : 'لم يُعثر على شخصيات في الملفات المحددة. يُفضَّل استخدام زر «شخصية» و«حوار» أو كتابة: الاسم: الحوار');
+    return;
+  }
+  const target = $('exTarget').value, mode = document.querySelector('input[name="exMerge"]:checked').value;
+  if(mode === 'replace' && target !== '__new' && !confirm('سيتم استبدال كل البطاقات الحالية (بما فيها ما كُتب يدوياً) بالنتيجة الجديدة. المتابعة؟')) return;
+  flushEditorToDoc();
+  clearTimeout(saveTimer); saveTimer = null;
+  pushUndoSnapshot();
+  let tid = target;
+  if(tid === '__new') tid = makeDoc(TYPE_OF[res.kind], null, exScope);
+  const r = mergeRecordItems(docs[tid], res.kind, res.items, mode, new Date().toLocaleString('ar-EG'));
+  docs[tid].updatedAt = Date.now();
+  persist();
+  hideModal(exModal);
+  openDoc(tid);
+  const noun = RECORD_SCHEMAS[res.kind].noun;
+  alert('تم التفريغ:\n• ' + r.added + ' ' + noun + ' جديدة\n• ' + r.updated + ' محدّثة\n• ' + r.kept + ' موجودة دون تعديل\nللتراجع: زر ↩️ أو Ctrl+Z.');
+}
+document.querySelectorAll('input[name="exSrc"]').forEach(r => r.addEventListener('change', () => {
+  $('exManualList').style.display = exSrcMode() === 'manual' ? 'flex' : 'none';
+  $('exPreview').textContent = '';
+}));
+$('exPreviewBtn').addEventListener('click', previewExtraction);
+$('exRun').addEventListener('click', runExtraction);
+$('exCancel').addEventListener('click', () => hideModal(exModal));
+$('addLocBtn').addEventListener('click', () => addRecordCard('loc'));
+$('addCpBtn').addEventListener('click', () => addRecordCard('cp'));
+$('locAutoBtn').addEventListener('click', () => openExtract('loc'));
+$('cpAutoBtn').addEventListener('click', () => openExtract('cp'));
+$('locSortBtn').addEventListener('click', sortRecords);
+$('cpSortBtn').addEventListener('click', sortRecords);
+$('exLocBtn').addEventListener('click', () => openExtract('loc'));
+$('exCpBtn').addEventListener('click', () => openExtract('cp'));
+
+/* ===== تصدير ملفات محددة بصيغة النسخة الاحتياطية للمنصة ===== */
+function buildPartialBackup(ids){
+  const out = {}, keep = [];
+  ids.forEach(id => {
+    const d = docs[id];
+    if(!d) return;
+    out[id] = deepClone(d);
+    delete out[id].parentId;
+    if(isContainer(d)) (d.children || []).forEach(k => { if(docs[k]) out[k] = deepClone(docs[k]); });
+    keep.push(id);
+  });
+  Object.keys(out).forEach(k => { if(Array.isArray(out[k].relatedDocs)) out[k].relatedDocs = out[k].relatedDocs.filter(r => out[r]); });
+  return { platform:'Varry Studio: Multiple scenario platform', app:'Varry Studio', author:AUTHOR_NAME, docs:out, index:keep, trash:{}, exportedAt:new Date().toISOString() };
+}
+function exportSelectedBackup(){
+  flushEditorToDoc();
+  let ids = selectedTopLevelIds();
+  if(!ids.length && currentId && docs[currentId]) ids = [currentId];
+  if(!ids.length){ alert('يرجى تحديد ملف أو مجلد واحد على الأقل من القائمة الجانبية.'); return; }
+  const name = ids.length === 1 ? docs[ids[0]].title : 'varry-selection';
+  downloadBlob(safeFileName(name) + '-varry.json', JSON.stringify(buildPartialBackup(ids), null, 2), 'application/json;charset=utf-8');
+}
+$('exportSelectedBtn').addEventListener('click', exportSelectedBackup);
+$('expSelectedBackup').addEventListener('click', exportSelectedBackup);
+
+/* ===== حفظ فوري Ctrl+S ===== */
+document.addEventListener('keydown', e => {
+  if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 's'){
+    e.preventDefault();
+    if(currentId && docs[currentId]){ clearTimeout(saveTimer); doSave(); }
+  }
+});
+
+
+
+/* ===== اقتباس مصوّر: صورة / لقطة شاشة (مسودة أو جاهزة) ===== */
+$('qiMain').addEventListener('change', async e => {
+  const f = e.target.files[0];
+  if(!f) return;
+  try{ quoteMainData = await readImageScaled(f, 1600, true); refreshQuotePreview(); }
+  catch(err){ alert(err.message); }
+});
+document.addEventListener('paste', async e => {
+  if(!$('quoteImageModal').classList.contains('open')) return;
+  const items = [...((e.clipboardData && e.clipboardData.items) || [])];
+  const it = items.find(x => x.type && x.type.startsWith('image/'));
+  if(!it) return;
+  e.preventDefault();
+  try{ quoteMainData = await readImageScaled(it.getAsFile(), 1600, true); refreshQuotePreview(); }
+  catch(err){ alert(err.message); }
+});
+function insertQuoteShot(){
+  snap(); restoreCaret();
+  const box = document.createElement('div');
+  box.innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData);
+  const card = box.firstElementChild;
+  const anchor = getAnchorBlock();
+  if(anchor && isBlankBlock(anchor)){ anchor.replaceWith(card); card.after(document.createElement('p')); }
+  else { placeTopLevel(card); card.after(document.createElement('p')); }
+  hideModal($('quoteImageModal'));
+  scheduleSave();
+  scrollToEl(card);
+}
+function downloadShotPng(){
+  const img = new Image();
+  img.onload = () => {
+    const sc = Math.min(1, 1600 / img.width), w = Math.round(img.width * sc), h = Math.round(img.height * sc);
+    const cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    const ctx = cv.getContext('2d');
+    if(!ctx){ alert('تعذّر إنشاء الصورة في هذا المتصفح.'); return; }
+    ctx.drawImage(img, 0, 0, w, h);
+    const draft = $('qiStatus').value === 'draft';
+    if(draft){
+      const fs = Math.max(16, Math.round(w / 40)), bw = fs * 4.2, bh = fs * 1.9;
+      ctx.font = '700 ' + fs + 'px sans-serif'; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#fff'; ctx.fillRect(w - bw - 16, 16, bw, bh);
+      ctx.fillStyle = '#7a3b2e'; ctx.fillText('مسودة', w - bw / 2 - 16, 16 + bh / 2);
+    }
+    const link = document.createElement('a');
+    link.download = safeFileName(draft ? 'اقتباس-مسودة' : 'اقتباس-جاهز') + '.png';
+    link.href = cv.toDataURL('image/png');
+    document.body.appendChild(link); link.click(); link.remove();
+  };
+  img.onerror = () => alert('تعذّر فتح الصورة.');
+  img.src = quoteMainData;
+}
+editor.addEventListener('click', e => {
+  const card = e.target.closest('.quote-image-card.is-shot');
+  if(!card) return;
+  const badge = e.target.closest('.quote-draft');
+  if(badge){
+    snap(); badge.remove(); card.dataset.quoteStatus = 'ready'; scheduleSave();
+  } else if(e.altKey && card.dataset.quoteStatus !== 'draft'){
+    snap(); card.insertAdjacentHTML('afterbegin', '<span class="quote-draft">مسودة</span>'); card.dataset.quoteStatus = 'draft'; scheduleSave();
+  }
+});
+
 async function initializeWorkspace(){
   loadingOverlay.style.display = 'flex';
   loadingText.textContent = 'جاري فتح مساحة العمل...';
