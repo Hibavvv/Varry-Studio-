@@ -391,6 +391,10 @@
   .quote-image-card.is-shot>img.qi-shot{position:static;display:block;width:100%;height:auto;object-fit:contain;border-radius:8px;}
   .quote-image-card.is-shot cite{display:block;position:static;margin:0;padding:6px 8px;font-size:12px;color:var(--ink-soft);}
   .quote-image-card.is-shot .quote-draft{z-index:2;cursor:pointer;background:#fff;color:#7a3b2e;border-color:#7a3b2e;font-weight:700;}
+  .editor ul, .editor ol{margin:.4em 0; padding-right:1.6em;}
+  .editor .orn{text-align:center; color:var(--accent); letter-spacing:.4em; margin:.8em 0; user-select:none;}
+  .editor table.free-table{width:100%; border-collapse:collapse; margin:.6em 0; table-layout:fixed;}
+  .editor table.free-table td{border:1px solid var(--border); padding:6px 8px; min-height:1.6em; vertical-align:top; white-space:pre-wrap; overflow-wrap:anywhere;}
   /* ===== نوافذ منبثقة ===== */
   .modal{position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;}
   .modal.open{display:flex;}
@@ -491,6 +495,8 @@
       <ul style="margin:0 0 12px;">
         <li><b>فيلم / مسلسل / مشروع:</b> يُنشأ تلقائياً بأقسامه الجاهزة (معالجة، شخصيات، سيناريو، تفريغ اللوكيشنات، كاراكتر بروفايل، موسيقى، ملحقات...) داخل حاوية واحدة. عند فتح الحاوية تظهر <b>لوحة المشروع</b>: الغلاف، الإحصائيات، الأقسام، وإضافة قسم جديد.</li>
         <li><b>مجلد مسلسل:</b> حاوية فارغة يمكن إضافة ما يلزم إليها.</li>
+        <li><b>🗂️ كتابة المحتوى (احترافي):</b> «مشروع محتوى» بأقسامه، وأنواع جاهزة بصناديق مخصصة: خطة محتوى (أهداف، جمهور، نبرة، تقويم نشر، مؤشرات)، مقال / تدوينة (كلمة مفتاحية، مقدمة، متن، CTA، مصادر)، محتوى تواصل اجتماعي (Hook، سكربت، هاشتاغات، موعد النشر)، ونص إعلاني (USP، عنوان، نسخ A/B، مقاسات).</li>
+        <li><b>🎞️ السيناريو الوثائقي (احترافي):</b> «مشروع وثائقي» بأقسامه، ومنها: سيناريو وثائقي بأدوات خاصة (مقطع، لقطة / B-roll، متحدث / VO، أرشيف، موسيقى، انتقال، مدة)، وبحث ومصادر، ومقابلات (أسئلة وإجابات)، وأرشيف ومواد بصرية مع جدول تتبع. ويعمل التفريغ التلقائي للوكيشنات والشخصيات (المتحدثين) على السيناريو الوثائقي أيضاً.</li>
         <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، مساحة الكاتبة، تفريغ اللوكيشنات، كاراكتر بروفايل.</li>
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
@@ -520,12 +526,15 @@
         <li><b>الصور:</b> بالنقر على الصورة يتغير حجمها (30/50/75/100%)، وبالنقر المزدوج تُحذف.</li>
         <li><b>زر السلوك (S):</b> فصل جديد = تُدرج الأداة كفقرة جديدة، نفس الفقرة = داخل السطر الحالي.</li>
         <li><b>الحفظ الفوري:</b> Ctrl+S يحفظ التعديلات في الحال.</li>
+        <li><b>🎨 التنسيق المتقدم:</b> مجموعة أدوات في الشريط: تسطير وشطب وقوائم، نمط العنوان، تباعد الأسطر والمسافة بعد الفقرة والإزاحة، و«🔲 مربع» لتحويل أي فقرة أو مربع إلى إطار بسيط أو منقّط أو مزدوج أو مظلّل أو بشريط جانبي أو ملاحظة ملونة (مع اختيار اللون وشكل الزوايا وسماكة الحد)، وفواصل زخرفية، وجداول حرة، وحجم ولون خط الفقرة أو الحقل، ولون تعبئة المربع، وزر مسح التنسيق. ومن ⚙️ إعدادات الملف يمكن اختيار لون الصفحة ولون النص الأساسي لكل ملف.</li>
+        <li><b>المربعات والأسطر:</b> داخل المربعات والبطاقات يضيف Enter سطراً جديداً داخل نفس المربع دون فتح مربع آخر؛ وCtrl+Enter يضيف مربعاً جديداً (أو ينتقل للحقل التالي في البطاقات).</li>
         <li><b>🖼️ اقتباس مصوّر:</b> يُرفع من الجهاز أو يُلصق (Ctrl+V) صورة أو لقطة شاشة، وتدخل كما هي بحالة «مسودة» أو «جاهزة». بالنقر على علامة «مسودة» تصير جاهزة، وAlt+نقر على الصورة يعيدها مسودة، ونقرتان تحذفانها. ويمكن أيضاً تنزيلها كصورة PNG. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</li>
       </ul>
 
       <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📍 التفريغ والتحليل (تلقائي ويدوي)</p>
       <ul style="margin:0 0 12px;">
         <li><b>📍 تفريغ اللوكيشنات:</b> بطاقة لكل مكان: الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج، المراجع. الأزرار الصغيرة (الشرائح) تتبدل بالنقر، ومع Shift تُكتب قيمة مخصصة.</li>
+        <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة (حتى غير المنسّقة منها)، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» داخل الوصف، ويدمج صيغ الاسم المختصرة مع الكاملة (سلمى ⟵ سلمى الأحمد) إن لم يكن هناك التباس، ويضيف عيّنة من حوار كل شخصية.</li>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
         <li><b>🪪 كاراكتر بروفايل:</b> بطاقة لكل شخصية: الدور، القوس، الإحصاءات، المشاهد، من تظهر معهم (تلقائياً)، وبيانات يدوية (العمر، المهنة، المظهر، اللهجة، الهدف، الحاجة، العيب، الخلفية، العلاقات، التطور...). يقترح التفريغ التلقائي الدور حسب حجم الحوار.</li>
@@ -749,6 +758,8 @@
         <button data-type="film_project">🎬 فيلم جديد (بأقسامه)</button>
         <button data-type="series_project">📺 مسلسل جديد (بأقسامه)</button>
         <button data-type="master_project">📦 مشروع جديد (حاوية عليا)</button>
+        <button data-type="documentary_project">🎞️ مشروع وثائقي جديد (بأقسامه)</button>
+        <button data-type="content_project">🗂️ مشروع محتوى جديد (بأقسامه)</button>
         <div class="dd-sep">مستندات الكتابة</div>
         <button data-type="text_document">📄 مستند نصي</button>
         <button data-type="treatment_cinematic">📑 معالجة درامية (سينمائية)</button>
@@ -773,6 +784,16 @@
         <button data-type="world">🌍 عالم العمل</button>
         <button data-type="writer_notes">🗒️ مساحة الكاتبة (ملاحظات ومراجع)</button>
         <button data-type="music_guide">🎼 الدليل الموسيقي</button>
+        <div class="dd-sep">كتابة المحتوى (احترافي)</div>
+        <button data-type="content_plan">🧭 خطة محتوى</button>
+        <button data-type="content_article">📰 مقال / تدوينة</button>
+        <button data-type="content_social">📱 محتوى تواصل اجتماعي</button>
+        <button data-type="content_ad">📣 نص إعلاني / تسويقي</button>
+        <div class="dd-sep">السيناريو الوثائقي (احترافي)</div>
+        <button data-type="docu_script">🎥 سيناريو وثائقي</button>
+        <button data-type="docu_research">🔬 بحث ومصادر</button>
+        <button data-type="docu_interviews">🎤 مقابلة (أسئلة وإجابات)</button>
+        <button data-type="docu_archive">🗃️ أرشيف ومواد بصرية</button>
         <div class="dd-sep">تفريغ وتحليل</div>
         <button data-type="locations">📍 تفريغ اللوكيشنات</button>
         <button data-type="char_profile">🪪 كاراكتر بروفايل</button>
@@ -931,6 +952,50 @@
         <button class="fmt-btn" id="quoteImageBtn" title="إدراج اقتباس مصوّر كمسودة أو نسخة جاهزة للغلاف">🖼️ اقتباس مصوّر</button>
       </div>
 
+      <div class="fmt-group" id="group_format">
+        <button class="fmt-btn" data-cmd="underline" title="تسطير"><u>ت</u></button>
+        <button class="fmt-btn" data-cmd="strikeThrough" title="يتوسطه خط"><s>خ</s></button>
+        <button class="fmt-btn" data-cmd="insertUnorderedList" title="قائمة نقطية">• قائمة</button>
+        <button class="fmt-btn" data-cmd="insertOrderedList" title="قائمة مرقمة">1. قائمة</button>
+        <select id="fmtHeading" title="نمط الفقرة (عنوان)"><option value="">نمط الفقرة</option><option value="h1">عنوان كبير</option><option value="h2">عنوان متوسط</option><option value="h3">عنوان صغير</option><option value="none">عادي (إزالة)</option></select>
+        <select id="fmtLine" title="تباعد أسطر الفقرة"><option value="">تباعد الأسطر</option><option value="1">1</option><option value="1.4">1.4</option><option value="1.8">1.8</option><option value="2.2">2.2</option></select>
+        <select id="fmtSpace" title="مسافة بعد الفقرة"><option value="">مسافة بعد</option><option value="0">بلا</option><option value="0.5em">صغيرة</option><option value="1em">متوسطة</option><option value="2em">كبيرة</option></select>
+        <select id="fmtIndent" title="إزاحة الفقرة"><option value="">إزاحة</option><option value="0">بلا</option><option value="1.5em">صغيرة</option><option value="3em">متوسطة</option><option value="5em">كبيرة</option></select>
+        <div style="position:relative;">
+          <button class="fmt-btn primary" id="boxMenuBtn" title="تطبيق شكل مربع على الفقرة أو المربع الحالي">🔲 مربع ▾</button>
+          <div class="mini-menu" id="boxMenu">
+            <button data-box="outline">▭ إطار بسيط</button>
+            <button data-box="dashed">┅ إطار منقّط</button>
+            <button data-box="double">▣ إطار مزدوج</button>
+            <button data-box="filled">▮ مظلّل بلون</button>
+            <button data-box="side">▌ شريط جانبي</button>
+            <button data-box="note" data-c="#d4ac0d">🟨 ملاحظة صفراء</button>
+            <button data-box="note" data-c="#2980b9">🟦 ملاحظة زرقاء</button>
+            <button data-box="note" data-c="#27ae60">🟩 ملاحظة خضراء</button>
+            <button data-box="note" data-c="#c0392b">🟥 ملاحظة حمراء</button>
+            <button data-box="none">✕ إزالة الشكل</button>
+          </div>
+        </div>
+        <input type="color" id="fmtBoxColor" value="#7a3b2e" title="لون المربع">
+        <select id="fmtBoxRadius" title="شكل الزوايا"><option value="8px">زوايا مستديرة</option><option value="0">زوايا حادة</option><option value="18px">مستدير كثيراً</option><option value="999px">كبسولة</option></select>
+        <select id="fmtBoxWidth" title="سماكة الحد"><option value="1px">حد رفيع</option><option value="2px" selected>حد متوسط</option><option value="4px">حد عريض</option></select>
+        <div style="position:relative;">
+          <button class="fmt-btn" id="ornMenuBtn" title="إدراج فاصل زخرفي">✦ فاصل ▾</button>
+          <div class="mini-menu" id="ornMenu">
+            <button data-orn="line">────── خط</button>
+            <button data-orn="dots">• • • نقاط</button>
+            <button data-orn="star">✦ ✦ ✦ نجوم</button>
+            <button data-orn="wave">〰〰〰 موجة</button>
+            <button data-orn="diamond">◆ ◇ ◆ معيّنات</button>
+          </div>
+        </div>
+        <button class="fmt-btn" id="insertTableBtn" title="إدراج جدول حر">▦ جدول</button>
+        <select id="fmtSize" title="حجم خط الفقرة أو الحقل الحالي"><option value="">حجم الفقرة</option><option value="12px">12</option><option value="14px">14</option><option value="16px">16</option><option value="18px">18</option><option value="22px">22</option><option value="26px">26</option><option value="32px">32</option><option value="40px">40</option><option value="48px">48</option></select>
+        <input type="color" id="fmtTextColor" value="#7a3b2e" title="لون خط الفقرة أو الحقل الحالي">
+        <input type="color" id="fmtFill" value="#f1c40f" title="لون تعبئة الفقرة أو المربع الحالي">
+        <button class="fmt-btn" id="fmtClear" title="مسح تنسيق الفقرة أو الحقل الحالي">✕ مسح التنسيق</button>
+      </div>
+
       <!-- إضافة فقرات للمعالجات -->
       <div class="fmt-group" id="treatmentAddGroup" style="display:none;">
         <button class="fmt-btn primary" id="addTreatmentBoxBtn">➕ إضافة فقرة</button>
@@ -954,7 +1019,21 @@
       </div>
 
       
-<div class="fmt-group screenplay-options" id="group_screenplay_us" style="display:none;">
+<div class="fmt-group screenplay-options" id="group_docu" style="display:none;">
+        <button class="fmt-btn" data-tag="block-scene" title="مقطع / مشهد وثائقي">🎞️ مقطع</button>
+        <button class="fmt-btn" data-tag="block-action" title="وصف اللقطة / B-roll">🎬 لقطة / B-roll</button>
+        <button class="fmt-btn" data-tag="block-char" title="المتحدث أو التعليق الصوتي (VO)">🎙️ متحدث / VO</button>
+        <button class="fmt-btn" data-tag="block-dialogue" title="نص المتحدث أو التعليق">💬 النص</button>
+        <button class="fmt-btn" data-tag="block-note" title="مادة أرشيفية أو ملاحظة بحث">🗃️ أرشيف / ملاحظة</button>
+        <button class="fmt-btn" data-tag="block-camera" title="حركة الكاميرا">🎥 كاميرا</button>
+        <button class="fmt-btn" data-tag="block-sfx" title="مؤثر صوتي">🔊 مؤثر</button>
+        <button class="fmt-btn" data-tag="block-song" title="موسيقى / أغنية">🎵 موسيقى</button>
+        <button class="fmt-btn" data-tag="block-transition" title="انتقال">➡️ انتقال</button>
+        <button class="fmt-btn bridge-btn" title="جسر بصري">🌉 جسر</button>
+        <button class="fmt-btn dur-btn" title="مدة متوقعة تحت المقطع">⏱️ مدة</button>
+      </div>
+
+      <div class="fmt-group screenplay-options" id="group_screenplay_us" style="display:none;">
         <button class="fmt-btn" data-tag="block-scene" title="عنوان المشهد">🎬 مشهد</button>
         <button class="fmt-btn" data-tag="block-action" title="أكشن / وصف">📝 وصف</button>
         <button class="fmt-btn" data-tag="block-char" title="اسم الشخصية">👤 شخصية</button>
@@ -1085,6 +1164,8 @@
         </select>
       </label>
       <label class="chk"><input type="checkbox" id="dpDuration"> مدة متوقعة تحت المشهد</label>
+      <label>لون الصفحة: <input type="color" id="dpPageBg" value="#f7f3ea"> <button class="fmt-btn" id="dpPageBgReset" title="العودة للون الافتراضي">افتراضي</button></label>
+      <label>لون النص الأساسي: <input type="color" id="dpTextColor" value="#2b2620"> <button class="fmt-btn" id="dpTextColorReset" title="العودة للون الافتراضي">افتراضي</button></label>
       <label>الهوامش:
         <select id="dpMargin">
           <option value="">افتراضية</option>
@@ -1096,7 +1177,7 @@
       <label id="dpTypeWrap">النوع:
         <select id="dpType">
           <option value="text_document">مستند نصي</option><option value="screenplay_us">سيناريو سينمائي</option>
-          <option value="theatre">نص مسرحي</option><option value="yt">سكربت يوتيوب</option><option value="radio">سيناريو إذاعي</option>
+          <option value="theatre">نص مسرحي</option><option value="docu_script">سيناريو وثائقي</option><option value="yt">سكربت يوتيوب</option><option value="radio">سيناريو إذاعي</option>
           <option value="novel">رواية</option><option value="short_story">قصة قصيرة</option>
           <option value="chapter">فصل</option><option value="story_scene">مشهد قصصي</option>
         </select>
@@ -1197,11 +1278,11 @@ function downloadBlob(name, content, mime){
    ===================================================================== */
 const PLATFORM_SIGNATURE = 'Varry Hiba';
 const SCHEMA = 2;
-const CONTAINER_TYPES = ['folder', 'film_project', 'series_project', 'master_project'];
-const SCENE_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio'];
+const CONTAINER_TYPES = ['folder', 'film_project', 'series_project', 'master_project', 'documentary_project', 'content_project'];
+const SCENE_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio', 'docu_script'];
 const TIMED_SCRIPT_TYPES = new Set(SCENE_TYPES);
 const MUSIC_LINK_TYPES = new Set(['music', 'music_guide', 'song']);
-const SCREENPLAY_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio'];
+const SCREENPLAY_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio', 'docu_script'];
 const SCENE_SELECTOR = '.block-scene, .radio-scene';
 const MULTILINE_SELECTOR = '.block-sfx, .block-vfx, .block-song, .block-note, .radio-sfx, .radio-music';
 const MULTILINE_TAGS = ['block-sfx', 'block-vfx', 'block-song', 'block-note', 'radio-sfx', 'radio-music'];
@@ -1229,14 +1310,16 @@ const TYPE_LABELS = {
   music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات مشتركة',
   world:'🌍 عالم العمل', writer_notes:'🗒️ مساحة الكاتبة',
   novel:'📖 رواية', short_story:'📕 قصة قصيرة', chapter:'📑 فصل', story_scene:'🎞️ مشهد قصصي',
-  music_guide:'🎼 الدليل الموسيقي', locations:'📍 تفريغ اللوكيشنات', char_profile:'🪪 كاراكتر بروفايل'
+  music_guide:'🎼 الدليل الموسيقي', locations:'📍 تفريغ اللوكيشنات', char_profile:'🪪 كاراكتر بروفايل',
+  documentary_project:'🎞️ مشروع وثائقي', content_project:'🗂️ مشروع محتوى', docu_script:'🎥 سيناريو وثائقي', docu_research:'🔬 بحث ومصادر وثائقي', docu_interviews:'🎤 مقابلة (وثائقي)', docu_archive:'🗃️ أرشيف ومواد بصرية', content_plan:'🧭 خطة محتوى', content_article:'📰 مقال / تدوينة', content_social:'📱 محتوى تواصل اجتماعي', content_ad:'📣 نص إعلاني / تسويقي'
 };
-const TYPE_ICONS = { folder:'📁', film_project:'🎬', series_project:'📺', master_project:'📦' };
+const TYPE_ICONS = { folder:'📁', film_project:'🎬', series_project:'📺', master_project:'📦', documentary_project:'🎞️', content_project:'🗂️' };
 const DEFAULT_TITLES = {
   folder:'مسلسل جديد', film_project:'فيلم جديد', series_project:'مسلسل جديد', master_project:'مشروع جديد',
   treatment_radio:'معالجة إذاعية', radio:'سيناريو إذاعي جديد', music:'مكتبة الموسيقى', song:'أغنية جديدة',
   visual_refs:'مراجع بصرية', characters:'الشخصيات المشتركة', world:'عالم العمل', writer_notes:'مساحة الكاتبة',
-  novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل'
+  novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل',
+  documentary_project:'مشروع وثائقي جديد', content_project:'مشروع محتوى جديد', docu_script:'سيناريو وثائقي جديد', docu_research:'بحث ومصادر', docu_interviews:'مقابلة جديدة', docu_archive:'الأرشيف والمواد البصرية', content_plan:'خطة المحتوى', content_article:'مقال جديد', content_social:'محتوى تواصل جديد', content_ad:'نص إعلاني جديد'
 };
 
 // الأنواع التي تُبنى من صناديق (عنوان + نص)
@@ -1251,14 +1334,21 @@ const BOX_TEMPLATES = {
   characters:   ['👥 الشخصيات المشتركة', '🔗 العلاقات بين الشخصيات'],
   world:        ['🌍 عالم العمل', '📜 القواعد والقوانين', '📍 الأماكن الرئيسية', '🕰️ الخط الزمني'],
   writer_notes: ['🗒️ ملاحظات', '📚 مراجع', '🖼️ مراجع بصرية', '🎵 مراجع موسيقية'],
-  music_guide: ['🎶 الأغاني', '🎼 المقطوعات', '🎧 الوصف الموسيقي', '🎵 المراجع والروابط']
+  music_guide: ['🎶 الأغاني', '🎼 المقطوعات', '🎧 الوصف الموسيقي', '🎵 المراجع والروابط'],
+  content_plan: ['🎯 الأهداف الرئيسية', '👥 الجمهور المستهدف (Personas)', '🧭 نبرة الصوت والهوية', '📅 تقويم النشر', '📊 مؤشرات القياس (KPIs)', '💡 بنك الأفكار'],
+  content_article: ['🎯 الهدف والجمهور', '🔎 الكلمة المفتاحية والعناوين المقترحة', '🪝 المقدمة (Hook)', '📝 المتن والعناوين الفرعية', '💬 أرقام واقتباسات داعمة', '📣 الخاتمة والدعوة لإجراء (CTA)', '🔗 المصادر والروابط'],
+  content_social: ['🎯 المنصة والهدف', '🪝 الفكرة والـ Hook (أول 3 ثوانٍ)', '📝 النص / السكربت / الكابشن', '🎞️ المشاهد والمرئيات المقترحة', '🏷️ الهاشتاغات', '📣 الدعوة لإجراء (CTA)', '📅 موعد النشر'],
+  content_ad: ['🎯 المنتج أو الخدمة والجمهور', '⭐ نقطة البيع الفريدة (USP)', '🪝 العنوان الرئيسي', '📝 النص الإعلاني (قصير / متوسط / طويل)', '📣 الدعوة لإجراء (CTA)', '🧪 نسخ بديلة للاختبار (A/B)', '📐 القنوات والمقاسات'],
+  docu_research: ['🎯 سؤال البحث والفرضية', '📚 المصادر والمراجع', '🧑‍🤝‍🧑 الشخصيات والجهات المرتبطة', '🕰️ الخط الزمني للأحداث', '⚖️ الحقوق والتصاريح', '❓ نقاط تحتاج تحقق'],
+  docu_interviews: ['👤 المتحدث (الاسم والصفة)', '📍 مكان وموعد التصوير', '❓ الأسئلة الأساسية', '💬 اقتباسات وإجابات مهمة', '🗒️ ملاحظات'],
+  docu_archive: ['🎞️ المواد الأرشيفية (فيديو)', '🖼️ الصور والوثائق', '🔊 التسجيلات الصوتية', '⚖️ الحقوق والمصدر', '🧾 جدول التتبع (الرقم / الوصف / المصدر / الحالة)']
 };
 
 // بطاقات التفريغ (لوكيشنات / كاراكتر بروفايل): حقول تلقائية تُملأ من السيناريو + حقول يدوية
 const RECORD_TYPES = ['locations', 'char_profile'];
 const KIND_OF = { locations:'loc', char_profile:'cp' };
 const TYPE_OF = { loc:'locations', cp:'char_profile' };
-const EXTRACT_SOURCE_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio', 'text_document', 'story_scene'];
+const EXTRACT_SOURCE_TYPES = ['screenplay_us', 'screenplay_fr', 'theatre', 'yt', 'radio', 'text_document', 'story_scene', 'docu_script'];
 const CHAR_SOURCE_TYPES = EXTRACT_SOURCE_TYPES.concat(['novel', 'short_story', 'chapter']);
 const RECORD_SCHEMAS = {
   loc: {
@@ -1290,6 +1380,7 @@ const RECORD_SCHEMAS = {
       { key:'stats', label:'الظهور', ph:'إحصاءات الحوار والظهور — تلقائي', wide:true, auto:true },
       { key:'scenes', label:'المشاهد التي تظهر فيها', ph:'', auto:true },
       { key:'with', label:'تظهر غالباً مع', ph:'', auto:true },
+      { key:'sample', label:'عيّنة من حوارها', ph:'', wide:true, auto:true },
       { key:'age', label:'العمر / تاريخ الميلاد', ph:'' },
       { key:'job', label:'المهنة / الوضع الاجتماعي', ph:'' },
       { key:'look', label:'المظهر والملابس', ph:'', wide:true },
@@ -1311,6 +1402,8 @@ const RECORD_SCHEMAS = {
 const CONTAINER_BLUEPRINTS = {
   film_project: [['معالجة','treatment_cinematic'],['هيكل','text_document'],['شخصيات','characters'],['أماكن','visual_refs'],['سيناريو','screenplay_us'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document'],['ملاحظات','writer_notes']],
   series_project: [['Bible','text_document'],['معالجة','treatment_series'],['شخصيات','characters'],['عالم العمل','world'],['مواسم','text_document'],['حلقات','text_document'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document']],
+  documentary_project: [['معالجة وثائقية','treatment_docu'],['بحث ومصادر','docu_research'],['أسئلة المقابلات','docu_interviews'],['أرشيف ومواد بصرية','docu_archive'],['سيناريو وثائقي','docu_script'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music']],
+  content_project: [['خطة المحتوى','content_plan'],['مقالات','content_article'],['محتوى التواصل الاجتماعي','content_social'],['نصوص إعلانية','content_ad'],['ملاحظات','writer_notes']],
   master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات مشتركة','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
 };
 
@@ -1626,6 +1719,7 @@ function bridgeHtml(typeId){
 function defaultHtmlFor(type){
   if(RECORD_TYPES.includes(type)) return recordDocHtml(KIND_OF[type]);
   if(isBoxType(type)) return boxesHtml(BOX_TEMPLATES[type]);
+  if(type === 'docu_script') return '<p class="block-scene">المقطع الأول — الافتتاح</p><p class="block-action">وصف اللقطة / المادة البصرية...</p><p><br></p>';
   if(type === 'screenplay_fr') return frTableHtml();
   if(type === 'novel') return '<p class="block-scene">الفصل الأول</p><p class="block-action">ابدأ السرد هنا...</p>';
   if(type === 'chapter') return '<p class="block-scene">عنوان الفصل</p><p><br></p>';
@@ -2003,6 +2097,8 @@ function applyStyleTo(el, s){
   s = s || {};
   el.style.fontFamily = s.fontFamily || '';
   el.style.textAlign = s.textAlign || '';
+  el.style.color = s.textColor || '';
+  if(el.id === 'editor'){ const pg = el.closest('.page'); if(pg) pg.style.background = s.pageBg || ''; }
   if(s.fontSize) el.style.setProperty('--editor-font-size', s.fontSize); else el.style.removeProperty('--editor-font-size');
   if(s.lineHeight) el.style.setProperty('--doc-lh', s.lineHeight); else el.style.removeProperty('--doc-lh');
 }
@@ -2033,7 +2129,9 @@ function updateDocPanel(doc){
   $('dpWorkMode').value = doc.workMode || 'realistic';
   renderRelatedDocs(doc);
   $('dpMargin').value = (doc.style && doc.style.pageMargin) || '';
-  const conv = ['text_document','screenplay_us','theatre','yt','radio','novel','short_story','chapter','story_scene'].includes(doc.docType);
+  $('dpPageBg').value = (doc.style && doc.style.pageBg) || '#f7f3ea';
+  $('dpTextColor').value = (doc.style && doc.style.textColor) || '#2b2620';
+  const conv = ['text_document','screenplay_us','theatre','yt','radio','docu_script','novel','short_story','chapter','story_scene'].includes(doc.docType);
   $('dpTypeWrap').style.display = conv ? '' : 'none';
   if(conv) $('dpType').value = doc.docType;
   docPanel.classList.toggle('open', panelOpen);
@@ -2924,7 +3022,7 @@ function readImageScaled(file, maxW, keepPng){
 /* =====================================================================
    فتح ملف
    ===================================================================== */
-const TYPE_GROUP = { screenplay_us:'group_screenplay_us', screenplay_fr:'group_screenplay_fr', theatre:'group_theatre', yt:'group_yt', radio:'group_radio', novel:'group_prose', short_story:'group_prose', chapter:'group_prose', story_scene:'group_prose', locations:'group_locations', char_profile:'group_char_profile' };
+const TYPE_GROUP = { screenplay_us:'group_screenplay_us', screenplay_fr:'group_screenplay_fr', theatre:'group_theatre', yt:'group_yt', radio:'group_radio', novel:'group_prose', short_story:'group_prose', chapter:'group_prose', story_scene:'group_prose', docu_script:'group_docu', locations:'group_locations', char_profile:'group_char_profile' };
 function setupToolbar(type){
   document.querySelectorAll('.screenplay-options, .prose-options, .record-options').forEach(g => { g.style.display = 'none'; });
   $('treatmentAddGroup').style.display = isBoxType(type) ? 'flex' : 'none';
@@ -3685,7 +3783,7 @@ editor.addEventListener('mousedown', e => {
 
 /* ===== القوائم المنسدلة ===== */
 function closeMenus(except){
-  [['newDropdown', newDropdown], ['exportDropdown', exportDropdown], ['importDropdown', importDropdown], ['insertMenu', insertMenu], ['stylePaletteDropdown', $('stylePaletteDropdown')]]
+  [['newDropdown', newDropdown], ['exportDropdown', exportDropdown], ['importDropdown', importDropdown], ['insertMenu', insertMenu], ['stylePaletteDropdown', $('stylePaletteDropdown')], ['boxMenu', $('boxMenu')], ['ornMenu', $('ornMenu')]]
     .forEach(([n, el]) => { if(n !== except) el.classList.remove('open'); });
 }
 $('newDocBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('newDropdown'); newDropdown.classList.toggle('open'); });
@@ -4061,7 +4159,7 @@ $('dpType').addEventListener('change', e => {
    التصدير — مطابق للمحرر (WYSIWYG): تُنسخ الأنماط المحسوبة داخل العناصر
    ===================================================================== */
 const INLINE_INHERIT = ['color','font-weight','font-style','font-size','font-family','line-height','text-align','text-transform'];
-const INLINE_BOX = ['background-color','margin-top','margin-bottom','padding-top','padding-bottom','padding-left','padding-right','border-bottom','border-right','max-width','border-radius'];
+const INLINE_BOX = ['background-color','margin-top','margin-bottom','padding-top','padding-bottom','padding-left','padding-right','border-bottom','border-right','border-top','border-left','margin-right','margin-left','max-width','border-radius'];
 function inlineComputed(root){
   root.querySelectorAll('*').forEach(el => {
     if(!el.parentElement || el.tagName === 'IMG') return;
@@ -4207,7 +4305,7 @@ function renderDocBody(doc, options){
     convertLayouts(host, options);
     const cs = getComputedStyle(host);
     const ff = cs.fontFamily.replace(/"/g, "'");
-    out = `<div dir="rtl" style="font-family:${ff};font-size:${cs.fontSize};line-height:${cs.lineHeight};color:${cs.color};">${host.innerHTML}</div>`;
+    out = `<div dir="rtl" style="font-family:${ff};font-size:${cs.fontSize};line-height:${cs.lineHeight};color:${cs.color};${doc.style && doc.style.pageBg ? 'background-color:' + doc.style.pageBg + ';padding:12px;' : ''}">${host.innerHTML}</div>`;
   } finally { host.remove(); }
   return out;
 }
@@ -4897,6 +4995,12 @@ function cleanCharName(s){
   const t = String(s || '').replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）/g, ' ').replace(/[:：]+\s*$/, '').replace(/\s+/g, ' ').trim();
   return (t.length > 40 || t.split(' ').length > 4) ? '' : t;
 }
+function looksHeading(text, words){
+  if(words > 12 || /[.!؟?…،]\s*$/.test(text)) return false;
+  const p = parseSceneHeading(text);
+  if(!p.name) return false;
+  return !!((p.ie && p.tod) || (/^\d+\s*[-–.)\/]/.test(text) && (p.ie || p.tod)));
+}
 function analyseScript(doc, id, smart){
   const tmp = document.createElement('div');
   tmp.innerHTML = doc.html || '';
@@ -4910,9 +5014,10 @@ function analyseScript(doc, id, smart){
     if(!name || !key) return null;
     const b = (cur || out.prelude).chars;
     let e = b.get(key);
-    if(!e){ e = { name, lines:0, words:0 }; b.set(key, e); }
+    if(!e){ e = { name, lines:0, words:0, sample:'' }; b.set(key, e); }
     return e;
   };
+  const addLine = (e, txt) => { e.lines++; e.words += countWords(txt); if(!e.sample && txt) e.sample = String(txt).trim().slice(0, 90); };
   const startScene = text => {
     const p = parseSceneHeading(text);
     const seq = out.scenes.length + 1;
@@ -4924,11 +5029,11 @@ function analyseScript(doc, id, smart){
     if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text); return; }
     if(n.matches('.block-char, .radio-char, .dual-char, .fr-col-char')){
       /* Enter يكرّر تنسيق «شخصية» على السطر التالي: إن كان النص جملة حوار يُحسب حواراً للشخصية السابقة لا اسماً جديداً */
-      if(last && text && (text.split(/\s+/).length > 3 || /[.!؟?…،,]\s*$/.test(text))){ last.lines++; last.words += countWords(text); waiting = false; return; }
+      if(last && text && (text.split(/\s+/).length > 3 || /[.!؟?…،,]\s*$/.test(text))){ addLine(last, text); waiting = false; return; }
       last = text ? touch(text) : null; waiting = !!last; return;
     }
     if(n.matches('.block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue')){
-      if(last && text){ last.lines++; last.words += countWords(text); }
+      if(last && text) addLine(last, text);
       if(n.matches('.block-dialogue, .radio-dialogue')) waiting = false;
       else if(!n.matches('.dual-text')){ last = null; waiting = false; }
       return;
@@ -4938,17 +5043,27 @@ function analyseScript(doc, id, smart){
     const isActionLine = n.classList.contains('block-action') || n.classList.contains('radio-narrator');
     if(n.closest('.dual-column, .fr-table, .bridge-block')) return;
     const words = text.split(/\s+/).length;
-    if(SCENE_RE.test(text) && words <= 14){ startScene(text); return; }
+    if((SCENE_RE.test(text) && words <= 14) || looksHeading(text, words)){ startScene(text); return; }
+    const lm = text.match(/^(?:المكان|الموقع|اللوكيشن|location)\s*[:：]\s*(.+)$/i);
+    if(lm){
+      if(cur && !cur.name){ const p = parseSceneHeading(lm[1]); cur.name = p.name || lm[1].trim(); if(p.ie && !cur.ie) cur.ie = p.ie; if(p.tod && !cur.tod) cur.tod = p.tod; }
+      return;
+    }
+    const tm = text.match(/^(?:الوقت|الزمن|time)\s*[:：]\s*(.+)$/i);
+    if(tm){
+      if(cur && !cur.tod){ const p = parseSceneHeading(tm[1]); cur.tod = p.tod || ''; if(p.ie && !cur.ie) cur.ie = p.ie; }
+      return;
+    }
     if(!scriptLike) return;
     const m = text.match(/^([^:：]{1,25})[:：]\s+(.+)$/);
     if(m && m[1].trim().split(/\s+/).length <= 2 && !SCENE_RE.test(m[1])){
       const e = touch(m[1]);
-      if(e){ e.lines++; e.words += countWords(m[2]); }
+      if(e) addLine(e, m[2]);
       last = null; waiting = false; return;
     }
     if(isActionLine){ last = null; waiting = false; return; }
     if(/[:：]$/.test(text) && words <= 5){ last = touch(text); waiting = !!last; return; }
-    if(waiting && last){ last.lines++; last.words += words; last = null; waiting = false; }
+    if(waiting && last){ addLine(last, text); last = null; waiting = false; }
   });
   return out;
 }
@@ -4986,8 +5101,9 @@ function buildCharacters(analyses, minLines){
       const real = sc !== a.prelude, keys = [...sc.chars.keys()];
       sc.chars.forEach((e, key) => {
         let C = map.get(key);
-        if(!C) map.set(key, C = { name:e.name, lines:0, words:0, refs:new Map(), together:new Map(), first:null, last:null });
+        if(!C) map.set(key, C = { name:e.name, lines:0, words:0, sample:'', refs:new Map(), together:new Map(), first:null, last:null });
         C.lines += e.lines; C.words += e.words;
+        if(!C.sample && e.sample) C.sample = e.sample;
         if(!real) return;
         if(!C.refs.has(a.docId)) C.refs.set(a.docId, { title:a.title, nums:[] });
         C.refs.get(a.docId).nums.push(sc.n);
@@ -4997,6 +5113,22 @@ function buildCharacters(analyses, minLines){
         keys.forEach(k2 => { if(k2 !== key) C.together.set(k2, (C.together.get(k2) || 0) + 1); });
       });
     });
+  });
+  /* دمج صيغ الاسم: «سلمى» تُدمج في «سلمى الأحمد» إن كانت الصيغة الأطول وحيدة */
+  [...map.keys()].forEach(k => {
+    const C = map.get(k);
+    if(!C) return;
+    const w = k.split(' ');
+    const longer = [...map.keys()].filter(k2 => k2 !== k && k2.split(' ').length > w.length && k2.split(' ').slice(0, w.length).join(' ') === k);
+    if(longer.length !== 1) return;
+    const L = map.get(longer[0]);
+    L.lines += C.lines; L.words += C.words;
+    if(!L.sample && C.sample) L.sample = C.sample;
+    C.refs.forEach((r, id) => { if(!L.refs.has(id)) L.refs.set(id, { title:r.title, nums:[] }); r.nums.forEach(n => L.refs.get(id).nums.push(n)); });
+    C.together.forEach((n, k2) => { if(k2 !== longer[0] && k2 !== k) L.together.set(k2, (L.together.get(k2) || 0) + n); });
+    if(!L.first) L.first = C.first;
+    if(!L.last) L.last = C.last;
+    map.delete(k);
   });
   const all = [...map.values()].filter(C => C.lines >= minLines).sort((x, y) => y.lines - x.lines);
   const max = Math.max(1, ...all.map(C => C.lines));
@@ -5012,8 +5144,8 @@ function buildCharacters(analyses, minLines){
       name: C.name, note: C.lines + ' سطر',
       chips: { role: (ratio >= 0.5 && (totalScenes <= 3 || (sceneCount >= 3 && sceneCount / totalScenes >= 0.25))) ? 'رئيسية' : (sceneCount >= 2 || ratio >= 0.2) ? 'ثانوية' : 'ظهور عابر' },
       auto: {
-        stats: st, scenes: refsText(C.refs, multi),
-        with: [...C.together.entries()].sort((x, y) => y[1] - x[1]).slice(0, 4).map(([k, n]) => map.get(k).name + ' (' + n + ')').join('، ')
+        stats: st, scenes: refsText(C.refs, multi), sample: C.sample ? '«' + C.sample + '»' : '',
+        with: [...C.together.entries()].filter(([k]) => map.has(k)).sort((x, y) => y[1] - x[1]).slice(0, 4).map(([k, n]) => map.get(k).name + ' (' + n + ')').join('، ')
       }
     };
   });
@@ -5272,6 +5404,190 @@ editor.addEventListener('click', e => {
   } else if(e.altKey && card.dataset.quoteStatus !== 'draft'){
     snap(); card.insertAdjacentHTML('afterbegin', '<span class="quote-draft">مسودة</span>'); card.dataset.quoteStatus = 'draft'; scheduleSave();
   }
+});
+
+
+/* ===== المربعات: Enter سطر داخل نفس المربع · Ctrl+Enter مربع جديد ===== */
+editor.addEventListener('keydown', e => {
+  if(e.key !== 'Enter' || e.isComposing || e.shiftKey || e.defaultPrevented) return;
+  const sel = window.getSelection();
+  let n = sel.anchorNode;
+  if(n && n.nodeType === 3) n = n.parentElement;
+  if(!n || !n.closest || !editor.contains(n)) return;
+  if(n.closest('.rc-name')) return;
+  const field = n.closest('.treatment-input, .treatment-title, .rc-val, .fr-col-action, .fr-col-char, .fr-col-dialogue, .dual-char, .dual-dir, .dual-text');
+  if(!field) return;
+  e.preventDefault();
+  if(e.ctrlKey || e.metaKey){
+    if(field.closest('.treatment-box')){ $('addTreatmentBoxBtn').click(); return; }
+    const card = field.closest('.rc-card');
+    if(card){
+      const vals = [...card.querySelectorAll('.rc-val')], i = vals.indexOf(field);
+      if(vals[i + 1]) placeCaret(vals[i + 1], false);
+      return;
+    }
+    if(field.closest('.fr-row')){ insertFrRow(); return; }
+    return;
+  }
+  if(field.matches('.treatment-title')){
+    const inp = field.parentElement.querySelector('.treatment-input');
+    if(inp) placeCaret(inp, false);
+    return;
+  }
+  document.execCommand('insertLineBreak');
+  scheduleSave();
+});
+
+/* ===== التنسيق المتقدم: مربعات، ألوان، أشكال، فقرات ===== */
+function formatTarget(){
+  const ce = caretElement();
+  if(!ce) return null;
+  const box = ce.closest('.treatment-box, .rc-card');
+  if(box) return box;
+  const a = getAnchorBlock();
+  if(!a || a.nodeType !== 1) return null;
+  if(a.matches('.treatment-container, .rc-list, .fr-table, .dual-dialogue-wrap, .bridge-block, .img-block, .quote-image-card, .page-break-marker')) return null;
+  return a;
+}
+function needFormatTarget(){
+  const t = formatTarget();
+  if(!t) alert('يرجى وضع المؤشر داخل فقرة أو مربع أولاً.');
+  return t;
+}
+function applyBox(el, kind, color, radius, width){
+  ['border', 'borderRight', 'background', 'borderRadius'].forEach(k => { el.style[k] = ''; });
+  if(!el.matches('.treatment-box, .rc-card')) el.style.padding = '';
+  if(kind === 'none'){ el.removeAttribute('data-box'); if(!el.getAttribute('style')) el.removeAttribute('style'); return; }
+  const complex = el.matches('.treatment-box, .rc-card');
+  const pad = complex ? null : '8px 12px';
+  if(kind === 'outline'){ el.style.border = width + ' solid ' + color; }
+  else if(kind === 'dashed'){ el.style.border = width + ' dashed ' + color; }
+  else if(kind === 'double'){ el.style.border = (parseInt(width, 10) < 3 ? '4px' : width) + ' double ' + color; }
+  else if(kind === 'filled'){ el.style.background = color + '2e'; el.style.border = '1px solid ' + color + '55'; }
+  else if(kind === 'side'){ el.style.borderRight = width + ' solid ' + color; el.style.background = color + '14'; }
+  el.style.borderRadius = kind === 'side' ? '4px' : radius;
+  if(pad) el.style.padding = pad;
+  el.dataset.box = kind;
+}
+function reapplyBox(){
+  const t = formatTarget();
+  if(!t || !t.dataset.box) return;
+  snap();
+  applyBox(t, t.dataset.box, $('fmtBoxColor').value, $('fmtBoxRadius').value, $('fmtBoxWidth').value);
+  scheduleSave();
+}
+$('boxMenuBtn').addEventListener('click', e => { saveCurrentRange(); e.stopPropagation(); closeMenus('boxMenu'); $('boxMenu').classList.toggle('open'); });
+$('boxMenu').addEventListener('click', e => {
+  const b = e.target.closest('[data-box]');
+  if(!b) return;
+  $('boxMenu').classList.remove('open');
+  const t = needFormatTarget();
+  if(!t) return;
+  if(b.dataset.c) $('fmtBoxColor').value = b.dataset.c;
+  snap();
+  applyBox(t, b.dataset.box === 'note' ? 'filled' : b.dataset.box, $('fmtBoxColor').value, $('fmtBoxRadius').value, $('fmtBoxWidth').value);
+  scheduleSave();
+});
+['fmtBoxColor', 'fmtBoxRadius', 'fmtBoxWidth'].forEach(id => $(id).addEventListener('change', reapplyBox));
+const HEADING_STYLES = { h1:['2em', '700'], h2:['1.5em', '700'], h3:['1.2em', '700'] };
+$('fmtHeading').addEventListener('change', e => {
+  const v = e.target.value; e.target.value = '';
+  if(!v) return;
+  const t = needFormatTarget();
+  if(!t) return;
+  snap();
+  if(v === 'none'){ t.style.fontSize = ''; t.style.fontWeight = ''; t.style.color = ''; }
+  else { t.style.fontSize = HEADING_STYLES[v][0]; t.style.fontWeight = HEADING_STYLES[v][1]; t.style.color = 'var(--accent)'; }
+  scheduleSave();
+});
+[['fmtLine', 'lineHeight'], ['fmtSpace', 'marginBottom'], ['fmtIndent', 'marginRight']].forEach(([id, prop]) => {
+  $(id).addEventListener('change', e => {
+    const v = e.target.value; e.target.value = '';
+    if(v === '') return;
+    const t = needFormatTarget();
+    if(!t) return;
+    snap();
+    t.style[prop] = v === '0' ? (prop === 'marginBottom' ? '0' : '') : v;
+    scheduleSave();
+  });
+});
+const ORNAMENTS = { line:'', dots:'• • •', star:'✦ ✦ ✦', wave:'〰〰〰', diamond:'◆ ◇ ◆' };
+$('ornMenuBtn').addEventListener('click', e => { saveCurrentRange(); e.stopPropagation(); closeMenus('ornMenu'); $('ornMenu').classList.toggle('open'); });
+$('ornMenu').addEventListener('click', e => {
+  const b = e.target.closest('[data-orn]');
+  if(!b) return;
+  $('ornMenu').classList.remove('open');
+  snap(); restoreCaret();
+  const p = document.createElement('p');
+  p.className = 'orn';
+  if(b.dataset.orn === 'line'){ p.classList.add('has-divider'); p.innerHTML = '<br>'; }
+  else p.textContent = ORNAMENTS[b.dataset.orn];
+  const a = getAnchorBlock();
+  if(a && isBlankBlock(a)) a.replaceWith(p); else placeTopLevel(p);
+  const after = document.createElement('p'); after.innerHTML = '<br>';
+  p.after(after);
+  placeCaret(after, false);
+  scheduleSave();
+});
+$('insertTableBtn').addEventListener('click', () => {
+  saveCurrentRange();
+  const v = prompt('عدد الصفوف × الأعمدة (مثال: 3x2):', '3x2');
+  if(!v) return;
+  const m = v.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).match(/(\d+)\D+(\d+)/);
+  const r = m ? Math.min(30, +m[1]) : 0, c = m ? Math.min(8, +m[2]) : 0;
+  if(!r || !c){ alert('الصيغة غير صحيحة. مثال: 3x2'); return; }
+  snap(); restoreCaret();
+  let html = '<table class="free-table" dir="rtl"><tbody>';
+  for(let i = 0; i < r; i++){ html += '<tr>' + '<td><br></td>'.repeat(c) + '</tr>'; }
+  html += '</tbody></table>';
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  const table = tmp.firstElementChild;
+  const a = getAnchorBlock();
+  if(a && isBlankBlock(a)) a.replaceWith(table); else placeTopLevel(table);
+  const after = document.createElement('p'); after.innerHTML = '<br>';
+  table.after(after);
+  placeCaret(table.querySelector('td'), false);
+  scheduleSave();
+});
+
+/* ===== لون الصفحة ولون النص الأساسي (لكل ملف) ===== */
+$('dpPageBg').addEventListener('change', e => panelChanged('pageBg', e.target.value));
+$('dpTextColor').addEventListener('change', e => panelChanged('textColor', e.target.value));
+$('dpPageBgReset').addEventListener('click', () => { panelChanged('pageBg', ''); $('dpPageBg').value = '#f7f3ea'; });
+$('dpTextColorReset').addEventListener('click', () => { panelChanged('textColor', ''); $('dpTextColor').value = '#2b2620'; });
+
+
+/* ===== تنسيق الفقرة أو الحقل أو المربع (حجم · لون · تعبئة · مسح) ===== */
+function fieldOrBlock(){
+  const ce = caretElement();
+  if(!ce) return null;
+  const f = ce.closest('.treatment-input, .treatment-title, .rc-val, .rc-name');
+  return f || formatTarget();
+}
+$('fmtSize').addEventListener('change', e => {
+  const v = e.target.value; e.target.value = '';
+  if(!v) return;
+  const t = fieldOrBlock();
+  if(!t){ alert('يرجى وضع المؤشر داخل فقرة أو مربع أولاً.'); return; }
+  snap(); t.style.fontSize = v; scheduleSave();
+});
+$('fmtTextColor').addEventListener('change', e => {
+  const t = fieldOrBlock();
+  if(!t){ alert('يرجى وضع المؤشر داخل فقرة أو مربع أولاً.'); return; }
+  snap(); t.style.color = e.target.value; scheduleSave();
+});
+$('fmtFill').addEventListener('change', e => {
+  const t = needFormatTarget();
+  if(!t) return;
+  snap(); t.style.background = e.target.value + '33'; scheduleSave();
+});
+$('fmtClear').addEventListener('click', () => {
+  const t = fieldOrBlock();
+  if(!t){ alert('يرجى وضع المؤشر داخل فقرة أو مربع أولاً.'); return; }
+  snap();
+  t.removeAttribute('style'); t.removeAttribute('data-box');
+  scheduleSave();
 });
 
 async function initializeWorkspace(){
