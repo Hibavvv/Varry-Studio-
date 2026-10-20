@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Varry Studio</title>
+<meta name="varry-build" content="2026-10-phase24-character-evidence-review">
+<link rel="icon" href="data:,">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Aref+Ruqaa+Ink:wght@400;700&family=Mada:wght@400;500;600;700&family=Changa:wght@400;500;600;700&family=Lalezar&family=Noto+Serif+Arabic:wght@400;500;600;700&display=swap');
 
@@ -136,6 +138,10 @@
   .doc-action-btn:hover { color:var(--accent); }
   @media (hover:none){ .doc-actions-inline{opacity:1;} }
 
+  .folder-group.nested-folder{margin-right:10px;border-right:1px solid var(--border);padding-right:5px;}
+  .folder-count{font-size:10px;color:var(--ink-soft);}
+  .folder-actions{display:flex;gap:4px;align-items:center;}
+  .folder-group .folder-docs{min-width:0;}
   .trash-box{display:flex; flex-direction:column; gap:4px;}
   .trash-item{display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:11px; background:var(--paper); padding:4px 8px; border-radius:4px; border:1px solid var(--border);}
   .trash-item span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:130px; flex:1;}
@@ -149,7 +155,7 @@
   .preview-editor .del-treatment-box,.preview-editor .fr-del-row,.preview-editor .dual-ctl,.preview-editor .dual-x,.preview-editor .rc-tools{display:none!important}
   .quote-image-card{position:relative;max-width:620px;margin:22px auto;padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;overflow:hidden;text-align:center;border-radius:12px;background:linear-gradient(135deg,#2b2620,#7a3b2e);color:#fff}
   .quote-image-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .quote-image-card:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.48)}
+  .quote-image-card:after{content:"";position:absolute;inset:0;background:var(--qi-overlay,rgba(0,0,0,.48))}
   .quote-image-card blockquote,.quote-image-card cite,.quote-image-card .quote-draft{position:relative;z-index:1;margin:0}
   .quote-image-card blockquote{font-size:1.45em;line-height:1.8;font-weight:700}
   .quote-image-card cite{font-style:normal;opacity:.9}
@@ -221,11 +227,29 @@
   }
   .doc-panel.open{display:flex;}
   .doc-panel label{display:flex; align-items:center; gap:4px;}
-  .doc-panel select{height:26px; border:1px solid var(--border); background:var(--paper); color:var(--ink); border-radius:4px; font-size:11px; font-family:inherit; outline:none;}
+  .doc-panel select{
+    box-sizing:border-box; height:32px; min-height:32px; min-width:76px; max-width:min(58vw,280px);
+    padding:2px 7px !important; margin:0; line-height:1.35; white-space:nowrap;
+    border:1px solid var(--border); background:var(--paper); color:var(--ink);
+    border-radius:7px; font-size:13px; font-family:inherit; outline:none;
+    text-overflow:ellipsis; -webkit-text-fill-color:var(--ink); opacity:1;
+  }
+  .doc-panel label{min-width:0; flex-wrap:wrap; line-height:1.5;}
+  .doc-panel #dpFont{min-width:145px;}
+  .doc-panel #dpType{min-width:155px;}
+  .doc-panel #dpWorkMode{min-width:145px;}
+  .doc-panel option{color:var(--ink); background:var(--paper); font-size:13px;}
   .doc-panel .chk{cursor:pointer;}
 
   /* ===== محتوى المحرر ===== */
   .editor p { margin: 0 0 0.35em 0; clear: none; padding-bottom: 0; }
+  /* Modern editorial hierarchy for articles, essays, and research notes */
+  .editor h1 { font-size:1.8em; line-height:1.3; font-weight:800; margin:0.35em 0 0.8em; padding-bottom:.35em; border-bottom:2px solid var(--accent); overflow-wrap:anywhere; }
+  .editor h2 { font-size:1.35em; line-height:1.4; font-weight:750; margin:1.45em 0 .55em; padding-right:.65em; border-right:3px solid var(--accent); overflow-wrap:anywhere; }
+  .editor h3 { font-size:1.12em; line-height:1.45; font-weight:700; margin:1.1em 0 .4em; overflow-wrap:anywhere; }
+  .editor hr { border:0; border-top:1px solid var(--border); margin:1.2em 0; }
+  .editor h1 + p[style*="text-align:center"] { color:var(--ink-soft); font-size:.88em; margin-top:-.5em; margin-bottom:1.3em; }
+  .editor .block-note { overflow-wrap:anywhere; }
   .editor p.has-divider { border-bottom: 1px solid var(--border); }
 
   .page-break-marker {
@@ -261,6 +285,97 @@
     margin: 0.6em 0; font-size: 0.9em; white-space: pre-wrap;
   }
   .editor .scene-duration { font-size: 0.82em; color: var(--ink-soft); margin: -0.2em 0 0.8em 0; padding: 0 8px; }
+  /* Phase 4: structured documentary and editorial layouts */
+  .editor .docu-project-title{text-align:center;font-size:1.8em;border:0;margin:.2em 0 .25em;padding:0;}
+  .editor .docu-meta{text-align:center;color:var(--ink-soft);font-size:.86em;margin-bottom:1.4em;}
+  .editor .docu-segment{border:1px solid var(--border);border-radius:8px;margin:1.2em 0;padding:12px;break-inside:avoid;}
+  .editor .docu-segment-title{background:var(--accent);color:#fff;padding:7px 10px;border-radius:5px;font-weight:800;margin:0 0 10px!important;}
+  .editor .docu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .editor .docu-cell{border:1px solid var(--border);border-radius:5px;padding:9px;min-width:0;}
+  .editor .docu-cell h3{font-size:.9em;color:var(--accent);margin:0 0 7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+  .editor .docu-cell p{min-height:2em;white-space:pre-wrap;overflow-wrap:anywhere;}
+  .editor .docu-source{font-size:.86em;background:rgba(120,120,120,.07);padding:7px 9px;border-radius:4px;margin-top:8px!important;}
+  /* Phase 7: professional two-column documentary script, while retaining free writing around it */
+  .editor .docu-table{width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;margin:.4em 0 .65em;}
+  .editor .docu-table th,.editor .docu-table td{border:1px solid var(--border);padding:10px;vertical-align:top;width:50%;overflow-wrap:anywhere;}
+  .editor .docu-table th{background:var(--panel);color:var(--accent);font-size:.9em;text-align:center;}
+  .editor .docu-edit-cell{min-height:4.5em;outline:none;}
+  .editor .docu-edit-cell p{margin:.1em 0;min-height:1.5em;white-space:pre-wrap;}
+  .editor .docu-duration{float:left;font-weight:400;}
+  .editor .docu-add-row{font:inherit;font-size:.78em;padding:4px 9px;margin:0 0 5px;border:1px solid var(--border);border-radius:4px;background:var(--panel);color:var(--ink);cursor:pointer;}
+  .editor .docu-add-row:hover{border-color:var(--accent);color:var(--accent);}
+  .editor .docu-add-segment{font:inherit;font-size:.86em;padding:7px 12px;margin:8px 0 12px;border:1px solid var(--accent);border-radius:6px;background:var(--panel);color:var(--accent);font-weight:700;cursor:pointer;}
+  .editor .docu-add-segment:hover{filter:brightness(.96);}
+  .editor .fr-add-row-control,.editor .add-scene-control{display:inline-block;font:inherit;font-size:.86em;padding:7px 12px;margin:8px 6px 12px 0;border:1px solid var(--accent);border-radius:6px;background:var(--panel);color:var(--accent);font-weight:700;cursor:pointer;}
+  .editor .fr-add-row-control:hover,.editor .add-scene-control:hover{filter:brightness(.96);}
+  @media print{.fr-add-row-control,.add-scene-control{display:none!important}}
+  .editor .docu-segment-title [contenteditable="true"]{display:inline-block;min-width:5em;}
+  @media print{.docu-add-segment{display:none!important}}
+  .editor .content-meta{border-collapse:collapse;width:100%;margin:.6em 0 1.4em;table-layout:fixed;}
+  .editor .content-meta td{border:1px solid var(--border);padding:7px 9px;vertical-align:top;width:50%;}
+  .editor .content-meta strong{display:block;font-size:.78em;color:var(--accent);margin-bottom:3px;}
+  .editor .content-slot{min-height:1.7em;}
+  .editor .social-final{border:1px solid var(--border);border-right:4px solid var(--accent);padding:12px 14px;border-radius:5px;margin:.7em 0;}
+  .editor .ad-hero{font-size:1.35em;font-weight:800;border-right:4px solid var(--accent);padding:8px 12px;margin:.7em 0;}
+  #printArea .docu-project-title{text-align:center;font-size:22pt;margin:0 0 4pt;border:0;}
+  #printArea .docu-meta{text-align:center;font-size:9pt;color:#555;margin-bottom:16pt;}
+  #printArea .docu-segment{border:1px solid #bbb;border-radius:4pt;margin:12pt 0;padding:8pt;break-inside:avoid;page-break-inside:avoid;}
+  #printArea .docu-segment-title{background:#eee;color:#111;padding:6pt 8pt;font-weight:bold;border-right:4px solid #7a3b2e;}
+  #printArea .docu-grid{display:grid;grid-template-columns:1fr 1fr;gap:7pt;}
+  #printArea .docu-cell{border:1px solid #ccc;padding:7pt;break-inside:avoid;}
+  #printArea .docu-cell h3{font-size:10pt;color:#7a3b2e;border-bottom:1px solid #ddd;padding-bottom:4pt;margin:0 0 5pt;}
+  #printArea .docu-source{font-size:9pt;background:#f5f5f5;padding:6pt;}
+  #printArea .docu-table{width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;margin:5pt 0 7pt;}
+  #printArea .docu-table th,#printArea .docu-table td{border:1px solid #999;padding:7pt;vertical-align:top;width:50%;overflow-wrap:anywhere;}
+  #printArea .docu-table th{background:#eee;color:#222;text-align:center;font-weight:bold;}
+  #printArea .docu-edit-cell{min-height:0;}
+  #printArea .docu-duration{float:left;font-weight:normal;}
+  #printArea .docu-add-row{display:none!important;}
+  #printArea .content-meta{border-collapse:collapse;width:100%;margin:6pt 0 14pt;}
+  #printArea .content-meta td{border:1px solid #ccc;padding:6pt;vertical-align:top;width:50%;}
+  #printArea .content-meta strong{display:block;font-size:8pt;color:#7a3b2e;}
+  #printArea .social-final{border:1px solid #ccc;border-right:4px solid #7a3b2e;padding:9pt;}
+  #printArea .ad-hero{font-size:15pt;font-weight:bold;border-right:4px solid #7a3b2e;padding:7pt 10pt;}
+
+  /* Phase 6: export fidelity, RTL and page-safe media
+  /* Phase 7: documentary two-column table with free-form writing preserved */ */
+  #printArea{overflow-wrap:anywhere;word-break:normal;}
+  #printArea img{display:inline-block;max-width:100%!important;height:auto;object-fit:contain;}
+  #printArea blockquote{margin:10pt 0;padding:6pt 12pt;border-right:3px solid #7a3b2e;}
+  #printArea pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;}
+  #printArea a{color:inherit;text-decoration:underline;overflow-wrap:anywhere;}
+  #printArea .docu-segment-title,#printArea .ad-hero,#printArea .social-final{break-inside:avoid;page-break-inside:avoid;}
+  @media print{#printArea{width:100%!important;max-width:none!important}#printArea table{break-inside:auto}#printArea tr{break-inside:avoid;page-break-inside:avoid}#printArea img{break-inside:avoid;page-break-inside:avoid}}
+
+  /* Phase 5: production-ready screenplay and treatment output */
+  #printArea .treatment-container{display:block;width:100%;margin:0;}
+  #printArea .treatment-box{display:block;border:0;border-bottom:1px solid #d7d0c8;border-radius:0;background:#fff;padding:0 0 10pt;margin:0 0 13pt;break-inside:avoid;page-break-inside:avoid;}
+  #printArea .treatment-title{display:block;color:#7a3b2e;font-size:13pt;font-weight:700;margin:0 0 5pt;padding:0 0 3pt;border-bottom:1px solid #e4ddd6;}
+  #printArea .treatment-input{display:block;min-height:0;border:0;border-radius:0;background:#fff;padding:0;font-size:11pt;line-height:1.7;white-space:pre-wrap;}
+  #printArea .del-treatment-box,#printArea .fr-del-row,#printArea .dual-ctl,#printArea .dual-x{display:none!important;}
+  #printArea .block-scene,#printArea .radio-scene{font-weight:700;text-transform:uppercase;margin:18pt 0 7pt;padding:0;border:0;background:none;color:#000;break-after:avoid;page-break-after:avoid;}
+  #printArea .block-action{margin:0 0 10pt;text-align:right;line-height:1.55;}
+  #printArea .block-char{font-weight:700;text-align:center;text-transform:uppercase;margin:12pt auto 0;max-width:55%;}
+  #printArea .block-dialogue{margin:2pt auto 10pt;max-width:62%;text-align:center;line-height:1.5;}
+  #printArea .block-parenthetical{font-style:italic;text-align:center;max-width:48%;margin:0 auto;}
+  #printArea .block-transition{text-align:left;text-transform:uppercase;font-weight:700;margin:12pt 0;}
+  #printArea .fr-table{width:100%;min-width:0;border-collapse:collapse;table-layout:fixed;}
+  #printArea .fr-head th{background:#eee!important;color:#111!important;border:1px solid #aaa;padding:5pt;font-size:9pt;}
+  #printArea .fr-row td{border:1px solid #bbb;vertical-align:top;padding:0;}
+  #printArea .fr-label{display:none!important;}
+  #printArea .fr-col-action,#printArea .fr-col-char,#printArea .fr-col-dialogue{padding:7pt;font-size:9.5pt;line-height:1.45;min-height:0;overflow-wrap:anywhere;}
+  #printArea .fr-col-char{font-weight:700;text-align:center;}
+  #printArea .dual-dialogue-wrap{display:block;max-width:100%;}
+  #printArea .dual-column{display:block;margin:0 0 10pt;break-inside:avoid;}
+  #printArea .dual-char{font-weight:700;text-align:center;}
+  #printArea .dual-dir{font-style:italic;text-align:center;}
+  #printArea .dual-text{max-width:62%;margin:auto;text-align:center;}
+  #printArea .bridge-block{border:1px solid #bbb;padding:7pt;margin:10pt 0;break-inside:avoid;}
+  #printArea .bridge-block [contenteditable="true"]{min-height:0;}
+  #printArea .scene-duration{font-size:9pt;color:#555;margin:0 0 8pt;}
+  @media print{body.printing #printArea .fr-table,body.printing #printArea .docu-grid{break-inside:auto;} body.printing #printArea .fr-row,body.printing #printArea .docu-cell{break-inside:avoid;page-break-inside:avoid;}}
+
+  @media(max-width:720px){.editor .docu-grid{grid-template-columns:1fr;}.editor .docu-table th,.editor .docu-table td{padding:6px;font-size:.9em;}}
   .editor .block-camera { font-weight: 700; color: var(--accent); background: rgba(122,59,46,0.08); padding: 3px 8px; border-radius: 4px; display: inline-block; margin: 0.6em 0; border-right: 3px solid var(--accent); clear: none; }
   .editor .block-loop { font-weight: 600; color: #2980b9; background: rgba(41,128,185,0.08); padding: 3px 8px; border-radius: 4px; display: inline-block; margin: 0.6em 0; clear: none; }
 
@@ -325,6 +440,8 @@
   .fr-table .fr-col-wrap{display:table-cell;}
   .fr-table .fr-label{display:block; padding:5px 10px 0;}
   .fr-table .fr-col-action, .fr-table .fr-col-char, .fr-table .fr-col-dialogue{min-height:80px;}
+  .fr-table td{vertical-align:top;overflow-wrap:anywhere;word-break:normal;}
+  .fr-table .fr-col-action,.fr-table .fr-col-char,.fr-table .fr-col-dialogue{min-width:0;white-space:pre-wrap;overflow-wrap:anywhere;}
 
   .editor-scroll{flex:1; overflow-y:auto; display:flex; flex-direction:column; align-items:center; padding:20px 10px 60px;}
   .page{width:100%; max-width:900px; background:var(--paper); padding:40px; box-shadow:0 4px 15px rgba(0,0,0,0.05); border-radius:6px; position:relative; overflow:visible;}
@@ -385,6 +502,12 @@
   .ex-group b{font-size:12px;color:var(--accent);}
   #exManualList{display:none;flex-direction:column;gap:4px;max-height:160px;overflow-y:auto;padding:4px 6px;border:1px dashed var(--border);border-radius:6px;}
   #exPreview{font-size:12px;white-space:pre-wrap;color:var(--ink-soft);}
+  #exCorrectionList{display:flex;flex-direction:column;gap:7px;margin-top:8px;}
+  .ex-correction{display:grid;grid-template-columns:minmax(110px,1fr) minmax(110px,150px);gap:6px;align-items:center;border:1px solid var(--border);border-radius:7px;padding:7px;background:var(--paper);}
+  .ex-correction small{grid-column:1/-1;color:var(--ink-soft);line-height:1.5;}
+  .ex-correction input,.ex-correction select{min-width:0;width:100%;padding:6px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--ink);}
+  .ex-correction .ex-c-name{font-weight:700;overflow-wrap:anywhere;}
+  .ex-correction-note{font-size:11px;color:var(--ink-soft);margin:4px 0;}
 
   .quote-image-card.is-shot{padding:0;min-height:0;display:block;background:none;border-radius:8px;max-width:760px;cursor:pointer;}
   .quote-image-card.is-shot:after{display:none;}
@@ -449,6 +572,8 @@
     body.printing .app, body.printing #lockScreen, body.printing #loadingOverlay, body.printing .modal, body.printing .scroll-top-fab, body.printing .nav-fab-wrap { display:none !important; }
     body.printing #printArea { display:block !important; direction:rtl; background:#fff; color:#000; }
     body.printing #printArea table { page-break-inside:avoid; }
+    body.printing #printArea .docu-segment, body.printing #printArea .content-meta, body.printing #printArea .social-final, body.printing #printArea .ad-hero { break-inside:avoid; page-break-inside:avoid; }
+    body.printing #printArea h1, body.printing #printArea h2, body.printing #printArea h3 { break-after:avoid; page-break-after:avoid; }
     #printArea * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     body:not(.printing) .app > .sidebar, body:not(.printing) .toolbar { display:none !important; }
   }
@@ -461,20 +586,92 @@
     .editor .block-dialogue, .editor .radio-dialogue, .editor .block-song{max-width:95%;}
     .toolbar{padding:6px 8px;}
   }
+
+
+  /* Varry Studio — unified modern interface layer (keeps document content styles independent) */
+  :root{
+    --ui-radius-xs:6px; --ui-radius-sm:9px; --ui-radius-md:13px; --ui-radius-lg:18px;
+    --ui-shadow-sm:0 2px 8px rgba(25,22,18,.055);
+    --ui-shadow-md:0 12px 32px rgba(25,22,18,.12);
+    --ui-focus:0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+    --ui-space:8px;
+  }
+  body{font-size:14px; line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  button,input,select,textarea{font:inherit;}
+  button{transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease;}
+  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:none;box-shadow:var(--ui-focus);}
+  button:disabled{opacity:.48;cursor:not-allowed;transform:none!important;}
+  input:not([type="checkbox"]):not([type="radio"]),select,textarea{
+    border:1px solid var(--border); border-radius:var(--ui-radius-sm); background:var(--paper); color:var(--ink);
+    padding:9px 11px; max-width:100%; transition:border-color .16s ease,box-shadow .16s ease;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:var(--ui-focus);}
+  textarea{line-height:1.7;}
+  .sidebar{box-shadow:inset -1px 0 0 color-mix(in srgb,var(--border) 50%,transparent);}
+  .sidebar-head{padding:15px 16px;gap:10px;}
+  .brand{letter-spacing:.1px;font-size:19px;}
+  .sidebar-toolbar{gap:6px;padding:8px 10px;}
+  .sidebar-tool-btn{border-radius:var(--ui-radius-xs);padding:6px 9px;font-size:11px;min-height:30px;}
+  .new-btn{border-radius:var(--ui-radius-sm);padding:11px 12px;font-size:13px;box-shadow:var(--ui-shadow-sm);}
+  .new-btn:hover{filter:brightness(1.04);transform:translateY(-1px);}
+  .new-dropdown{border-radius:var(--ui-radius-md);box-shadow:var(--ui-shadow-md);padding:5px;}
+  .new-dropdown button{border-radius:var(--ui-radius-xs);padding:9px 11px;}
+  .collapsible-section{border-bottom-color:color-mix(in srgb,var(--border) 75%,transparent);}
+  .collapsible-header{font-size:12px;padding:10px 14px;border-radius:var(--ui-radius-xs);}
+  .folder-group{border-radius:var(--ui-radius-sm);box-shadow:var(--ui-shadow-sm);margin-bottom:8px;}
+  .folder-title{padding:9px 10px;gap:8px;}
+  .doc-item{padding:8px 9px;border-radius:var(--ui-radius-xs);gap:3px;}
+  .doc-item.active{box-shadow:inset -3px 0 0 var(--accent);}
+  .doc-title{font-size:12px;}
+  .doc-meta{font-size:10px;}
+  .doc-checkbox{width:15px;height:15px;accent-color:var(--accent);}
+  .trash-item{border-radius:var(--ui-radius-xs);padding:7px 9px;gap:8px;}
+  .trash-toolbar button{border-radius:var(--ui-radius-xs);padding:6px 8px;}
+  .modal{backdrop-filter:blur(4px);}
+  .modal-box{border-radius:var(--ui-radius-lg);box-shadow:var(--ui-shadow-md);padding:clamp(16px,2.4vw,26px);gap:14px;}
+  .modal-box h3{font-size:18px;line-height:1.45;margin:0 0 3px;}
+  .modal-actions{gap:8px;flex-wrap:wrap;}
+  .modal-actions button,.modal-box button{border-radius:var(--ui-radius-xs);min-height:36px;padding:8px 12px;}
+  .modal-box label{display:flex;flex-direction:column;gap:6px;line-height:1.65;}
+  .editor-scroll{padding:clamp(12px,2vw,24px) 12px 64px;}
+  .editor{box-shadow:0 4px 20px rgba(0,0,0,.055);}
+  .export-wrap button,.toolbar button,.fmt-btn{border-radius:var(--ui-radius-xs);}
+  .quote-image-card{border-radius:var(--ui-radius-md);box-shadow:var(--ui-shadow-sm);}
+  .rc-card{border-radius:var(--ui-radius-md);box-shadow:var(--ui-shadow-sm);}
+  .rc-tools button{border-radius:var(--ui-radius-xs);}
+  ::selection{background:color-mix(in srgb,var(--accent) 25%,transparent);}
+  @media (max-width:760px){
+    :root{--sidebar-w:min(88vw,330px);}
+    .modal-box{max-height:92dvh;padding:15px;}
+    .editor-scroll{padding:10px 7px 44px;}
+    .sidebar-toolbar{gap:5px;}
+    .sidebar-tool-btn{min-height:34px;padding:7px 9px;}
+  }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style id="phase9-review-polish">
+/* Phase 9: readability and export safeguards; additive only. */
+.editor .docu-table{border-collapse:collapse;max-width:100%;}
+.editor .docu-table tr{break-inside:avoid;page-break-inside:avoid;}
+.editor .docu-table td:focus-within,.editor .docu-edit-cell:focus{outline:2px solid var(--accent);outline-offset:-2px;}
+@media(max-width:560px){.editor .docu-table th,.editor .docu-table td{padding:5px;font-size:.88em}.editor .docu-source{overflow-wrap:anywhere}.quote-image-card blockquote{overflow-wrap:anywhere}}
+@media print{.docu-segment,.docu-table tr{break-inside:avoid;page-break-inside:avoid}.docu-table th,.docu-table td{overflow-wrap:anywhere;word-break:normal}.quote-image-card{break-inside:avoid;page-break-inside:avoid}}
+</style>
+<!-- PHASE 17: Interactive searchable general-user catalog -->
 </head>
 <body data-theme="light" data-font="naskh">
 
-<div id="lockScreen">
+<form id="lockScreen" autocomplete="off">
   <h2>🔒 Varry Studio</h2>
   <p style="font-size:12px; color:var(--ink-soft);">Varry Studio: Multiple scenario platform</p>
-  <input type="password" id="lockInput" placeholder="كلمة المرور...">
-  <button id="unlockBtn">فتح المنصة</button>
-</div>
+  <input type="password" id="lockInput" name="lockPass" autocomplete="off" placeholder="كلمة المرور...">
+  <button id="unlockBtn" type="submit">فتح المنصة</button>
+</form>
 
 <div id="loadingOverlay">
   <div class="spinner"></div>
@@ -489,27 +686,39 @@
   <div class="modal-box">
     <h3>📖 دليل منصة Varry Studio الشامل</h3>
     <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما يلزم لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
+    <div class="catalog-controls" style="position:sticky;top:0;z-index:3;background:var(--panel, #fff);padding:10px 0;display:grid;gap:8px;">
+      <input id="catalogSearch" type="search" placeholder="ابحثي في الدليل: مشهد، تصدير، شخصيات، حفظ…" aria-label="البحث في دليل المنصة" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;">
+      <div id="catalogFilters" style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button type="button" class="fmt-btn catalog-filter active" data-catalog-filter="all">الكل</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="projects">المشاريع والملفات</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="writing">الكتابة والمحرر</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="tools">الأدوات والتحليل</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="export">الاستيراد والتصدير</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="safety">الحفظ والأمان</button>
+      </div>
+      <small id="catalogResultCount" aria-live="polite" style="color:var(--ink-soft)">دليل تفاعلي — ابحثي أو اختاري موضوعاً.</small>
+    </div>
     <div style="font-size:12.5px; line-height:1.85;">
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📁 المشاريع والحاويات</p>
+      <p data-catalog-section="projects" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📁 المشاريع والحاويات</p>
       <ul style="margin:0 0 12px;">
         <li><b>فيلم / مسلسل / مشروع:</b> يُنشأ تلقائياً بأقسامه الجاهزة (معالجة، شخصيات، سيناريو، تفريغ اللوكيشنات، كاراكتر بروفايل، موسيقى، ملحقات...) داخل حاوية واحدة. عند فتح الحاوية تظهر <b>لوحة المشروع</b>: الغلاف، الإحصائيات، الأقسام، وإضافة قسم جديد.</li>
         <li><b>مجلد مسلسل:</b> حاوية فارغة يمكن إضافة ما يلزم إليها.</li>
         <li><b>🗂️ كتابة المحتوى (احترافي):</b> «مشروع محتوى» بأقسامه، وأنواع جاهزة بصناديق مخصصة: خطة محتوى (أهداف، جمهور، نبرة، تقويم نشر، مؤشرات)، مقال / تدوينة (كلمة مفتاحية، مقدمة، متن، CTA، مصادر)، محتوى تواصل اجتماعي (Hook، سكربت، هاشتاغات، موعد النشر)، ونص إعلاني (USP، عنوان، نسخ A/B، مقاسات).</li>
-        <li><b>🎞️ السيناريو الوثائقي (احترافي):</b> «مشروع وثائقي» بأقسامه، ومنها: سيناريو وثائقي بأدوات خاصة (مقطع، لقطة / B-roll، متحدث / VO، أرشيف، موسيقى، انتقال، مدة)، وبحث ومصادر، ومقابلات (أسئلة وإجابات)، وأرشيف ومواد بصرية مع جدول تتبع. ويعمل التفريغ التلقائي للوكيشنات والشخصيات (المتحدثين) على السيناريو الوثائقي أيضاً.</li>
-        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، مساحة الكاتبة، تفريغ اللوكيشنات، كاراكتر بروفايل.</li>
+        <li><b>🎞️ السيناريو الوثائقي (احترافي):</b> «مشروع وثائقي» بأقسامه، ومنها: سيناريو وثائقي بأدوات خاصة (جدول تنفيذي بعمودي الصورة والصوت، مع مدة كل مقطع والمصادر؛ ويمكن متابعة الكتابة الحرة خارجه)، وبحث ومصادر، ومقابلات (أسئلة وإجابات)، وأرشيف ومواد بصرية مع جدول تتبع. ويعمل التفريغ التلقائي للوكيشنات والشخصيات (المتحدثين) على السيناريو الوثائقي أيضاً.</li>
+        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، ومساحة الكاتبة. تفريغ اللوكيشنات وكاراكتر بروفايل أقسام داخل المشاريع، وليسا من أدوات مساحة الكاتبة العامة.</li>
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🗂️ إدارة الملفات (القائمة الجانبية)</p>
+      <p data-catalog-section="projects" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🗂️ إدارة الملفات (القائمة الجانبية)</p>
       <ul style="margin:0 0 12px;">
         <li><b>السحب والإفلات:</b> يمكن سحب أي ملف فوق ملف آخر لإعادة الترتيب، أو فوق عنوان حاوية لنقله إليها. أزرار ⬆️⬇️ تعمل أيضاً (مناسبة للجوال).</li>
-        <li><b>حذف المحدد / سلة المحذوفات:</b> حذف حاوية ينقل الحاوية وحدها إلى السلة، وتبقى أقسامها ملفات مستقلة في القائمة حتى لا يضيع أي محتوى؛ وبالإمكان استعادة أي عنصر من السلة.</li>
+        <li><b>حذف المحدد / سلة المحذوفات:</b> حذف حاوية ينقل الحاوية وكل ملفاتها وأقسامها التابعة إلى السلة كبنية واحدة؛ ويمكن استعادة البنية كاملة أو حذفها نهائياً.</li>
         <li><b>نسخ مطابقة:</b> ينسخ الملف، أو الحاوية بكل أقسامها.</li>
         <li><b>التراجع/الإعادة:</b> يشمل الكتابة والحذف والنقل (Ctrl+Z / Ctrl+Y).</li>
       </ul>
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🎬 المحرر</p>
+      <p data-catalog-section="writing" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🎬 المحرر</p>
       <ul style="margin:0 0 12px;">
         <li><b>⚙️ إعدادات الملف:</b> قالب تنسيق (سيناريو/معالجة/مستند/مخصص)، الخط، الحجم، تباعد الأسطر، المحاذاة. تبقى محفوظة مع الملف وتستمر بعد Enter.</li>
         <li><b>المدة المتوقعة للمشهد:</b> سطر ⏱️ يظهر تحت عنوان المشهد. يُكتب الرقم بالدقائق وتُجمع المدد في الإحصائيات.</li>
@@ -531,16 +740,17 @@
         <li><b>🖼️ اقتباس مصوّر:</b> يُرفع من الجهاز أو يُلصق (Ctrl+V) صورة أو لقطة شاشة، وتدخل كما هي بحالة «مسودة» أو «جاهزة». بالنقر على علامة «مسودة» تصير جاهزة، وAlt+نقر على الصورة يعيدها مسودة، ونقرتان تحذفانها. ويمكن أيضاً تنزيلها كصورة PNG. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</li>
       </ul>
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📍 التفريغ والتحليل (تلقائي ويدوي)</p>
+      <p data-catalog-section="tools" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🧩 أدوات مرتبطة بالسيناريو والمشروع</p>
       <ul style="margin:0 0 12px;">
-        <li><b>📍 تفريغ اللوكيشنات:</b> بطاقة لكل مكان: الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج، المراجع. الأزرار الصغيرة (الشرائح) تتبدل بالنقر، ومع Shift تُكتب قيمة مخصصة.</li>
-        <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة (حتى غير المنسّقة منها)، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» داخل الوصف، ويدمج صيغ الاسم المختصرة مع الكاملة (سلمى ⟵ سلمى الأحمد) إن لم يكن هناك التباس، ويضيف عيّنة من حوار كل شخصية.</li>
+        <li><b>📍 بيانات المواقع داخل المشروع:</b> تبقى بطاقات المواقع متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج والمراجع. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات.</li>
+        <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» عند تفعيل التعرف على النص غير المنسق. يحاول استبعاد أوصاف التصوير مثل «صورة أمامية» من قائمة المواقع والشخصيات، ويعرض عدد المشاهد والأدلة وملاحظات الالتباس ودرجة ثقة مبدئية قبل التطبيق. درجة الثقة إرشادية وليست ضماناً؛ لا يعتمد النظام على التكرار وحده، بل يخفض الثقة عند الأسماء الطويلة أو التي تشبه أفعال الحركة، ويستبعد توجيهات التصوير الواضحة من أسماء الشخصيات والمواقع عند تفعيل الذكاء. راجعي النتائج قبل اعتمادها. تُدمج صيغ الاسم المختصرة مع الكاملة بحذر، وتبقى التعديلات اليدوية محفوظة أثناء التحديث.</li>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
+        <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
-        <li><b>🪪 كاراكتر بروفايل:</b> بطاقة لكل شخصية: الدور، القوس، الإحصاءات، المشاهد، من تظهر معهم (تلقائياً)، وبيانات يدوية (العمر، المهنة، المظهر، اللهجة، الهدف، الحاجة، العيب، الخلفية، العلاقات، التطور...). يقترح التفريغ التلقائي الدور حسب حجم الحوار.</li>
+        <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات المشتركة.</li>
       </ul>
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
+      <p data-catalog-section="export" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
       <ul style="margin:0 0 12px;">
         <li><b>الاستيراد:</b> TXT / DOCX / PDF كمستند جديد أو دمجاً في الحالي، ونسخة احتياطية JSON (تُحدَّث الملفات القديمة تلقائياً لتطابق الإصدار الجديد).</li>
         <li><b>التصدير مطابق للمحرر (WYSIWYG):</b> الألوان والخطوط والمحاذاة والجداول تُحفظ في Word وPDF. تصدير حاوية يخرج المشروع كاملاً بغلافه وفهرسه وبترتيب الأقسام الحالي.</li>
@@ -550,7 +760,7 @@
         <li><b>PDF:</b> يُفعَّل خيار «الترويسات والتذييلات» من إعدادات الطباعة لتظهر أرقام الصفحات والتوقيع.</li>
       </ul>
 
-      <p style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🔒 الأمان والحفظ</p>
+      <p data-catalog-section="safety" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🔒 الأمان والحفظ</p>
       <ul style="margin:0 0 4px;">
         <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
@@ -656,18 +866,57 @@
     <label>نص الاقتباس (اختياري عند رفع صورة):
       <textarea id="qiText" rows="4" placeholder="اكتبي النص الذي تريدين إظهاره على الصورة" style="width:100%;resize:vertical;"></textarea>
     </label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;">
+      <button id="qiUseSelection" type="button">استخدام النص المحدد من المحرر</button>
+      <button id="qiClearText" type="button">مسح النص</button>
+    </div>
     <label>الكاتبة / المصدر:
       <input id="qiAttribution" type="text" placeholder="اختياري" style="width:100%;">
     </label>
     <label>صورة خلفية:
       <input id="qiImage" type="file" accept="image/*">
     </label>
-    <label>المظهر:
+    <label>حالة الاقتباس:
       <select id="qiStatus">
         <option value="draft">مسودة — مع علامة مسودة</option>
         <option value="ready">جاهز للغلاف — دون علامة مسودة</option>
       </select>
     </label>
+    <div class="qi-design-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:10px 0;">
+      <label>أبعاد الصورة:
+        <select id="qiFormat" style="width:100%;">
+          <option value="square">مربع 1:1 — 1200×1200</option>
+          <option value="portrait">عمودي 4:5 — 1200×1500</option>
+          <option value="story">قصة 9:16 — 1080×1920</option>
+          <option value="landscape">أفقي 16:9 — 1600×900</option>
+        </select>
+      </label>
+      <label>الخلفية:
+        <select id="qiTheme" style="width:100%;">
+          <option value="warm">عنابي دافئ</option>
+          <option value="night">ليل داكن</option>
+          <option value="ocean">أزرق عميق</option>
+          <option value="paper">ورق فاتح</option>
+          <option value="forest">أخضر غامق</option>
+        </select>
+      </label>
+      <label>لون النص:
+        <select id="qiInk" style="width:100%;">
+          <option value="auto">متباين تلقائيًا</option>
+          <option value="light">أبيض</option>
+          <option value="dark">داكن</option>
+          <option value="gold">ذهبي</option>
+        </select>
+      </label>
+      <label>حجم الخط:
+        <select id="qiFontScale" style="width:100%;">
+          <option value="compact">هادئ</option>
+          <option value="normal" selected>متوسط</option>
+          <option value="large">كبير</option>
+        </select>
+      </label>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin:8px 0;"><input id="qiSignature" type="checkbox" checked style="width:auto;"> إضافة توقيع Varry Hiba أسفل الصورة</label>
     <div id="qiPreview" style="margin:12px 0;"></div>
     <div class="modal-actions">
       <button id="qiCancel">إلغاء</button>
@@ -718,6 +967,12 @@
       <label><input type="radio" name="exMerge" value="replace"> استبدال كل البطاقات بالنتيجة الجديدة</label>
     </div>
     <div id="exPreview"></div>
+    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجعي النتائج قبل اعتمادها.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0;">
+      <button type="button" id="exClearCorrections" class="dash-btn">مسح تصحيحات هذا العمل</button>
+      <small id="exCorrectionStatus" style="color:var(--ink-soft);"></small>
+    </div>
+    <div id="exCorrectionList"></div>
     <div class="modal-actions">
       <button id="exCancel">إلغاء</button>
       <button id="exPreviewBtn">معاينة النتيجة</button>
@@ -794,9 +1049,6 @@
         <button data-type="docu_research">🔬 بحث ومصادر</button>
         <button data-type="docu_interviews">🎤 مقابلة (أسئلة وإجابات)</button>
         <button data-type="docu_archive">🗃️ أرشيف ومواد بصرية</button>
-        <div class="dd-sep">تفريغ وتحليل</div>
-        <button data-type="locations">📍 تفريغ اللوكيشنات</button>
-        <button data-type="char_profile">🪪 كاراكتر بروفايل</button>
         <div id="templateList"></div>
       </div>
     </div>
@@ -929,8 +1181,8 @@
       </div>
 
       <!-- أدوات عامة تعمل على كل أنواع المستندات -->
+      <button class="fmt-btn" id="docPanelToggle" title="إعدادات تنسيق الملف" style="flex-shrink:0;">⚙️ إعدادات الملف</button>
       <div class="fmt-group" id="group_general">
-        <button class="fmt-btn" id="docPanelToggle" title="إعدادات تنسيق الملف">⚙️ إعدادات الملف</button>
         <button class="fmt-btn" id="toggleDividerBtn" title="إضافة/حذف خط فاصل تحت الفقرة الحالية فقط">➖ فاصل الفقرة</button>
         <button class="fmt-btn" id="insertPageBreakBtn" title="إدراج فاصل صفحة هنا">📄 فاصل صفحة</button>
         <button class="fmt-btn" id="blockUpBtn" title="نقل الكتلة الحالية للأعلى (Alt+↑)">🔼</button>
@@ -1013,10 +1265,7 @@
         <button class="fmt-btn" id="cpSortBtn" title="ترتيب البطاقات (كل نقرة تغيّر طريقة الترتيب)">🔀 ترتيب</button>
       </div>
 
-      <div class="fmt-group" id="group_extract" style="display:none;">
-        <button class="fmt-btn" id="exLocBtn" title="تفريغ اللوكيشنات من هذا السيناريو (تلقائي أو يدوي)">📍 تفريغ لوكيشنات</button>
-        <button class="fmt-btn" id="exCpBtn" title="تفريغ الشخصيات إلى كاراكتر بروفايل">🪪 تفريغ شخصيات</button>
-      </div>
+      <!-- أزيلت أزرار الاستخراج العامة غير المفعّلة؛ تبقى أقسام اللوكيشنات والشخصيات داخل المشروع وأدواتها الخاصة. -->
 
       
 <div class="fmt-group screenplay-options" id="group_docu" style="display:none;">
@@ -1051,7 +1300,7 @@
       </div>
 
       <div class="fmt-group screenplay-options" id="group_screenplay_fr" style="display:none;">
-        <button class="fmt-btn primary" id="addFrRowBtn">➕ صف متقابل</button>
+        <button class="fmt-btn primary" id="addFrRowBtn">➕ صف متقابل</button><button class="fmt-btn" id="addFrSceneBtn">🎬 إضافة مشهد</button>
       </div>
 
       <div class="fmt-group screenplay-options" id="group_theatre" style="display:none;">
@@ -1123,7 +1372,8 @@
       </div>
     </div>
 
-    <div class="doc-panel" id="docPanel">
+    <div class="doc-panel" id="docPanel" aria-label="إعدادات تنسيق الملف">
+      <span style="font-weight:700;color:var(--accent);">إعدادات هذا الملف</span>
       <label>القالب:
         <select id="dpProfile">
           <option value="screenplay">سيناريو</option><option value="treatment">معالجة</option>
@@ -1531,8 +1781,7 @@ function tryUnlock(){
     appContainer.classList.add('unlocked');
   } else { alert('كلمة المرور غير صحيحة!'); }
 }
-$('unlockBtn').addEventListener('click', tryUnlock);
-lockInput.addEventListener('keydown', e => { if(e.key === 'Enter') tryUnlock(); });
+lockScreen.addEventListener('submit', e => { e.preventDefault(); tryUnlock(); });
 const toggleLockBtn = $('toggleLockFeature');
 toggleLockBtn.textContent = isLockEnabled ? 'تعطيل القفل' : 'تفعيل القفل';
 toggleLockBtn.addEventListener('click', () => {
@@ -1594,6 +1843,42 @@ $('sideBackdrop').addEventListener('click', () => sidebar.classList.add('collaps
 const catalogModal = $('catalogModal');
 $('openCatalogBtn').addEventListener('click', () => showModal(catalogModal));
 $('closeCatalog').addEventListener('click', () => hideModal(catalogModal));
+// PHASE 17: searchable, audience-friendly catalog filtering; this only hides guide content and never alters documents.
+(function initInteractiveCatalog(){
+  const search = $('catalogSearch'), filters = $('catalogFilters'), count = $('catalogResultCount');
+  if(!search || !filters || !count) return;
+  let active = 'all';
+  const headings = Array.from(catalogModal.querySelectorAll('[data-catalog-section]'));
+  function apply(){
+    const q = (search.value || '').trim().toLocaleLowerCase('ar');
+    let visibleItems = 0;
+    headings.forEach(h => {
+      const cat = h.dataset.catalogSection;
+      const list = h.nextElementSibling;
+      if(!list || list.tagName !== 'UL') return;
+      let sectionMatches = 0;
+      Array.from(list.querySelectorAll('li')).forEach(li => {
+        const match = (!q || li.textContent.toLocaleLowerCase('ar').includes(q) || h.textContent.toLocaleLowerCase('ar').includes(q)) && (active === 'all' || active === cat || (active === 'projects' && cat === 'projects'));
+        li.hidden = !match;
+        if(match){ sectionMatches++; visibleItems++; }
+      });
+      const showHeading = sectionMatches > 0 && (active === 'all' || active === cat);
+      h.hidden = !showHeading;
+      list.hidden = !showHeading;
+    });
+    count.textContent = q ? `نتائج البحث: ${visibleItems}` : (active === 'all' ? `يعرض الدليل الكامل — ${visibleItems} بنداً` : `البنود الظاهرة: ${visibleItems}`);
+  }
+  filters.addEventListener('click', e => {
+    const b = e.target.closest('[data-catalog-filter]'); if(!b) return;
+    active = b.dataset.catalogFilter;
+    filters.querySelectorAll('[data-catalog-filter]').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    apply();
+  });
+  search.addEventListener('input', apply);
+  // Avoid surprising hidden sections when the modal is reopened.
+  catalogModal.addEventListener('transitionend', () => { if(!catalogModal.classList.contains('hidden')) apply(); });
+  apply();
+})();
 
 /* =====================================================================
    البيانات والحفظ
@@ -1653,12 +1938,30 @@ function queueWorkspaceSave(){
   try{ serialized = JSON.stringify({ docs, index, trash }); }
   catch(err){ throw new Error('تعذّر تجهيز بيانات الحفظ: ' + err.message); }
   persistQueue = persistQueue.then(() => writeWorkspaceDb(workspaceDb, serialized));
-  persistQueue = persistQueue.catch(err => {
+  persistQueue = persistQueue.then(() => {
+    // Do not report success until IndexedDB confirms the transaction committed.
+    if(!saveTimer) saveStatus.textContent = '✓ تم الحفظ';
+  }).catch(err => {
     console.error('Varry Studio IndexedDB save failed:', err);
-    saveStatus.textContent = '⚠️ تعذّر الحفظ';
-    if(!storageWarned){
-      storageWarned = true;
-      alert('تعذّر الحفظ في قاعدة بيانات المتصفح. صدّري نسخة احتياطية من قائمة التصدير قبل إغلاق الصفحة.');
+    // Phase 15: attempt a durable browser-storage fallback if IndexedDB becomes
+    // unavailable after startup, instead of leaving the latest edits only in memory.
+    try{
+      localStorage.setItem('varry:docs', JSON.stringify(docs));
+      localStorage.setItem('varry:index', JSON.stringify(index));
+      localStorage.setItem('varry:trash', JSON.stringify(trash));
+      workspaceDb = null;
+      saveStatus.textContent = '✓ تم الحفظ (تخزين بديل)';
+      if(!storageWarned){
+        storageWarned = true;
+        alert('تعذّر الحفظ في قاعدة البيانات الأساسية، لكن حُفظت البيانات في التخزين البديل للمتصفح. يُفضّل تصدير نسخة احتياطية.');
+      }
+    }catch(fallbackErr){
+      saveStatus.textContent = '⚠️ تعذّر الحفظ';
+      console.error('Varry Studio fallback storage save failed:', fallbackErr);
+      if(!storageWarned){
+        storageWarned = true;
+        alert('تعذّر الحفظ في قاعدة البيانات والتخزين البديل. صدّري نسخة احتياطية إن أمكن قبل إغلاق الصفحة.');
+      }
     }
   });
   return true;
@@ -1718,11 +2021,15 @@ function bridgeHtml(typeId){
 
 function defaultHtmlFor(type){
   if(RECORD_TYPES.includes(type)) return recordDocHtml(KIND_OF[type]);
-  if(isBoxType(type)) return boxesHtml(BOX_TEMPLATES[type]);
-  if(type === 'docu_script') return '<p class="block-scene">المقطع الأول — الافتتاح</p><p class="block-action">وصف اللقطة / المادة البصرية...</p><p><br></p>';
+  if(isBoxType(type) && !['content_plan','content_article','content_social','content_ad'].includes(type)) return boxesHtml(BOX_TEMPLATES[type]);
+  if(type === 'docu_script') return '<h1 class="docu-project-title">عنوان الفيلم الوثائقي</h1><p class="docu-meta">السيناريو التنفيذي · الإصدار: — · المدة الإجمالية: —</p><hr><section class="docu-segment"><p class="docu-segment-title">المقطع 01 · الافتتاح <span class="docu-duration">المدة: —</span></p><table class="docu-table" dir="rtl"><thead><tr><th>الصورة (VIDEO)</th><th>الصوت (AUDIO)</th></tr></thead><tbody><tr><td><div contenteditable="true" class="docu-edit-cell"><p><br></p></div></td><td><div contenteditable="true" class="docu-edit-cell"><p><br></p></div></td></tr></tbody></table><p class="docu-source">المصدر / رقم المادة / التوقيت / الحقوق: <span contenteditable="true"> </span></p></section><section class="docu-segment"><p class="docu-segment-title">المقطع 02 · <span contenteditable="true">عنوان المقطع</span><span class="docu-duration">المدة: —</span></p><table class="docu-table" dir="rtl"><thead><tr><th>الصورة (VIDEO)</th><th>الصوت (AUDIO)</th></tr></thead><tbody><tr><td><div contenteditable="true" class="docu-edit-cell"><p><br></p></div></td><td><div contenteditable="true" class="docu-edit-cell"><p><br></p></div></td></tr></tbody></table><p class="docu-source">المصدر / رقم المادة / التوقيت / الحقوق: <span contenteditable="true"> </span></p></section><p><br></p>';
   if(type === 'screenplay_fr') return frTableHtml();
   if(type === 'novel') return '<p class="block-scene">الفصل الأول</p><p class="block-action">ابدأ السرد هنا...</p>';
-  if(type === 'chapter') return '<p class="block-scene">عنوان الفصل</p><p><br></p>';
+  if(type === 'chapter') return '<p style="text-align:center;font-weight:700;font-size:1.35em">عنوان الفصل</p><p><br></p>'; 
+  if(type === 'content_article') return '<h1>عنوان المقال</h1><table class="content-meta"><tr><td><strong>الجمهور</strong><p class="content-slot"><br></p></td><td><strong>الهدف / الكلمة المفتاحية</strong><p class="content-slot"><br></p></td></tr></table><h2>المقدمة</h2><p><br></p><h2>العنوان الفرعي الأول</h2><p><br></p><h2>العنوان الفرعي الثاني</h2><p><br></p><h2>الخاتمة</h2><p><br></p><p><b>الدعوة إلى إجراء (اختيارية)</b></p><p><br></p><h2>المصادر</h2><p><br></p>';
+  if(type === 'content_social') return '<h1>عنوان / فكرة المنشور</h1><table class="content-meta"><tr><td><strong>المنصة</strong><p><br></p></td><td><strong>الهدف والجمهور</strong><p><br></p></td></tr></table><h2>الخطاف</h2><p><br></p><h2>النص النهائي</h2><div class="social-final"><p><br></p></div><h2>التوجيه البصري</h2><p><br></p><p><b>الدعوة إلى إجراء</b></p><p><br></p><h2>نسخة بديلة</h2><p><br></p><p><b>الوسوم:</b> </p><p><b>موعد النشر:</b> </p>';
+  if(type === 'content_ad') return '<h1>عنوان الحملة / الإعلان</h1><table class="content-meta"><tr><td><strong>المنتج / الخدمة</strong><p><br></p></td><td><strong>الجمهور / الهدف</strong><p><br></p></td></tr></table><h2>العنوان الرئيسي</h2><p class="ad-hero"><br></p><h2>النص الإعلاني الأساسي</h2><p><br></p><p><b>الدعوة إلى إجراء (CTA)</b></p><p><br></p><p><b>الشروط / الإفصاحات</b></p><p><br></p><h2>نسخ بديلة للاختبار</h2><p><b>A</b></p><p><br></p><p><b>B</b></p><p><br></p><p><b>القناة والمقاس:</b> </p><p><b>مؤشر النجاح:</b> </p>';
+  if(type === 'content_plan') return '<h1>خطة المحتوى</h1><table class="content-meta"><tr><td><strong>الهدف الرئيسي</strong><p><br></p></td><td><strong>الفترة الزمنية</strong><p><br></p></td></tr><tr><td><strong>الجمهور</strong><p><br></p></td><td><strong>نبرة الصوت / الرسالة</strong><p><br></p></td></tr></table><h2>محاور المحتوى</h2><table class="free-table"><thead><tr><th>المحور</th><th>القيمة للجمهور</th><th>الصيغ المناسبة</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td></tr></tbody></table><h2>تقويم النشر</h2><table class="free-table"><thead><tr><th>التاريخ</th><th>المنصة</th><th>الفكرة / العنوان</th><th>الصيغة</th><th>الحالة</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><h2>القياس والمراجعة</h2><table class="free-table"><thead><tr><th>المؤشر</th><th>خط الأساس</th><th>الهدف</th><th>موعد المراجعة</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><h2>بنك الأفكار</h2><p><br></p>';
   if(type === 'short_story') return '<p style="text-align:center;font-weight:700;">عنوان القصة</p><p><br></p>';
   if(type === 'story_scene') return '<p class="block-scene">مشهد 1</p><p class="block-action">الزمان والمكان...</p><p><br></p>';
   return '<p><br></p>';
@@ -1812,6 +2119,61 @@ function normalizeHtml(type, html){
     });
   });
   tmp.querySelectorAll('.fr-table').forEach(upgradeFrenchTable);
+  // Phase 14: restore visible French row controls for old/new documents and provide scene controls
+  // for scene-based formats. Idempotent: never duplicates controls when opening/saving repeatedly.
+  if(type === 'screenplay_fr'){
+    tmp.querySelectorAll('.fr-table').forEach(table => {
+      const next = table.nextElementSibling;
+      if(next && next.classList && next.classList.contains('fr-add-row-control')) return;
+      const control = document.createElement('button');
+      control.type = 'button'; control.className = 'fr-add-row-control';
+      control.setAttribute('contenteditable','false'); control.setAttribute('aria-label','إضافة صف متقابل للسيناريو الفرنسي');
+      control.textContent = '＋ إضافة صف متقابل';
+      table.insertAdjacentElement('afterend', control);
+    });
+  }
+  if(['screenplay_us','screenplay_fr','theatre','yt','radio'].includes(type) && !tmp.querySelector('.add-scene-control')){
+    const control = document.createElement('button');
+    control.type = 'button'; control.className = 'add-scene-control';
+    control.setAttribute('contenteditable','false'); control.setAttribute('aria-label','إضافة مشهد جديد');
+    control.textContent = '＋ إضافة مشهد';
+    const firstTable = tmp.querySelector('.fr-table');
+    if(type === 'screenplay_fr' && firstTable) firstTable.insertAdjacentElement('beforebegin', control);
+    else if(tmp.firstElementChild) tmp.firstElementChild.insertAdjacentElement('beforebegin', control);
+    else tmp.appendChild(control);
+  }
+  // Phase 11 QA fix: the documentary row handler and CSS existed, but the default
+  // and legacy documentary templates did not contain the actual control. Restore it
+  // idempotently after each VIDEO/AUDIO table without touching the writer's cells.
+  if(type === 'docu_script'){
+    // A whole documentary segment is a single reusable unit: title + duration + VIDEO/AUDIO table + source note.
+    const firstSegment = tmp.querySelector('.docu-segment');
+    if(firstSegment && !tmp.querySelector('.docu-add-segment')){
+      const addSegment = document.createElement('button');
+      addSegment.type = 'button'; addSegment.className = 'docu-add-segment';
+      addSegment.setAttribute('contenteditable','false');
+      addSegment.setAttribute('aria-label','إضافة مقطع وثائقي كامل');
+      addSegment.textContent = '＋ إضافة مقطع وثائقي كامل';
+      const divider = tmp.querySelector('hr');
+      if(divider) divider.insertAdjacentElement('afterend', addSegment);
+      else firstSegment.insertAdjacentElement('beforebegin', addSegment);
+    }
+    tmp.querySelectorAll('.docu-table').forEach(table => {
+      const next = table.nextElementSibling;
+      if(next && next.classList && next.classList.contains('docu-add-row')){
+        next.setAttribute('type', 'button');
+        next.setAttribute('contenteditable', 'false');
+        return;
+      }
+      const control = document.createElement('button');
+      control.type = 'button';
+      control.className = 'docu-add-row';
+      control.setAttribute('contenteditable', 'false');
+      control.setAttribute('aria-label', 'إضافة صف جديد للصورة والصوت');
+      control.textContent = '＋ إضافة صف للصورة والصوت';
+      table.insertAdjacentElement('afterend', control);
+    });
+  }
   tmp.querySelectorAll('[contenteditable="true"]').forEach(n => {
     if(n !== tmp) n.setAttribute('tabindex', '0');
   });
@@ -1845,60 +2207,69 @@ function upgradeDoc(doc){
   return before < SCHEMA;
 }
 
-/* إصلاح سلامة البيانات: أبناء بلا أب، أب بلا أبناء، معرّفات مكررة، عناصر يتيمة */
+/* إصلاح سلامة البيانات: يحافظ على شجرة الملفات النشطة والمحذوفة ولا يفكّ ارتباط أبناء الحاويات المحذوفة. */
 function repairData(){
   let changed = false;
+  Object.keys(docs).forEach(id => {
+    if(!docs[id] || typeof docs[id] !== 'object' || Array.isArray(docs[id])){ delete docs[id]; changed = true; }
+  });
+  // إصلاح الحالات القديمة التي حُذفت فيها الحاوية بينما بقي بعض أبنائها في مساحة العمل.
+  // أبناء السلة يبقون في السلة ويحتفظون بعلاقاتهم؛ لا يجوز تحويلهم إلى ملفات رئيسية عند بدء التشغيل.
   Object.keys(trash).forEach(tid => {
     const td = trash[tid];
-    if(!isContainer(td) || !Array.isArray(td.children)) return;
-    const children = [...td.children];
-    children.forEach(cid => {
+    if(!td || !isContainer(td)) return;
+    const childIds = Array.isArray(td.children) ? [...td.children] : [];
+    if(!Array.isArray(td.children)){ td.children = []; changed = true; }
+    childIds.forEach(cid => {
       if(docs[cid]){
-        delete docs[cid].parentId;
-        if(!index.includes(cid)) index.push(cid);
+        trashDoc(cid, tid);
         changed = true;
-      } else if(trash[cid] && trash[cid]._trashedWith === tid){
-        const child = trash[cid];
-        delete child._trashedWith;
-        delete child.parentId;
-        docs[cid] = child;
-        delete trash[cid];
-        if(!index.includes(cid)) index.push(cid);
-        changed = true;
+      } else if(trash[cid]){
+        if(trash[cid]._trashedWith !== tid){ trash[cid]._trashedWith = tid; changed = true; }
       }
     });
-    if(children.length){ td.children = []; changed = true; }
+    const kept = childIds.filter(cid => !!trash[cid]);
+    if(kept.length !== td.children.length || kept.some((cid,i)=>cid!==td.children[i])){ td.children = kept; changed = true; }
   });
-  Object.keys(docs).forEach(id => { if(!docs[id] || typeof docs[id] !== 'object'){ delete docs[id]; changed = true; } });
   Object.keys(docs).forEach(id => {
     const d = docs[id];
     if(isContainer(d)){
       if(!Array.isArray(d.children)){ d.children = []; changed = true; }
       const seen = new Set();
-      const kept = d.children.filter(c => {
-        const cd = docs[c];
-        const ok = cd && !isContainer(cd) && !seen.has(c) && (!cd.parentId || cd.parentId === id);
-        if(ok) seen.add(c);
-        return ok;
+      const kept = [];
+      d.children.forEach(cid => {
+        const cd = docs[cid];
+        if(!cd || cid === id || seen.has(cid)) return;
+        // إذا كان العنصر مرتبطاً فعلاً بحاوية أخرى، لا نسمح بإنشاء رابط أب ثانٍ.
+        if(cd.parentId && cd.parentId !== id && docs[cd.parentId] && isContainer(docs[cd.parentId])) return;
+        // منع الدورات عند استيراد بيانات قديمة أو تالفة.
+        let ancestor = id, cycle = false, guard = new Set();
+        while(ancestor && docs[ancestor] && !guard.has(ancestor)){
+          if(ancestor === cid){ cycle = true; break; }
+          guard.add(ancestor); ancestor = docs[ancestor].parentId;
+        }
+        if(cycle) return;
+        seen.add(cid); kept.push(cid);
+        if(cd.parentId !== id){ cd.parentId = id; changed = true; }
       });
-      if(kept.length !== d.children.length) changed = true;
+      if(kept.length !== d.children.length || kept.some((cid,i)=>cid!==d.children[i])) changed = true;
       d.children = kept;
-      kept.forEach(c => { if(docs[c].parentId !== id){ docs[c].parentId = id; changed = true; } });
-      if(d.parentId){ delete d.parentId; changed = true; }
     }
   });
+  // parentId is authoritative for items already nested; repair the inverse children link.
   Object.keys(docs).forEach(id => {
     const d = docs[id];
-    if(!isContainer(d) && d.parentId){
-      const p = docs[d.parentId];
-      if(!p || !isContainer(p)){ delete d.parentId; changed = true; }
-      else if(!p.children.includes(id)){ p.children.push(id); changed = true; }
-    }
+    if(!d.parentId) return;
+    const parent = docs[d.parentId];
+    if(!parent || !isContainer(parent) || d.parentId === id){ delete d.parentId; changed = true; return; }
+    if(!Array.isArray(parent.children)) parent.children = [];
+    if(!parent.children.includes(id)){ parent.children.push(id); changed = true; }
   });
-  const oldLen = index.length;
-  index = index.filter((id, i) => docs[id] && !docs[id].parentId && index.indexOf(id) === i);
-  if(index.length !== oldLen) changed = true;
-  Object.keys(docs).forEach(id => { if(!docs[id].parentId && !index.includes(id)){ index.push(id); changed = true; } });
+  // Root index contains only top-level elements, including formerly nested containers correctly.
+  const oldIndex = JSON.stringify(index);
+  index = (Array.isArray(index) ? index : []).filter((id,i,arr) => docs[id] && !docs[id].parentId && arr.indexOf(id) === i);
+  Object.keys(docs).forEach(id => { if(!docs[id].parentId && !index.includes(id)) index.push(id); });
+  if(JSON.stringify(index) !== oldIndex) changed = true;
   Object.keys(docs).forEach(id => { if(upgradeDoc(docs[id])) changed = true; });
   return changed;
 }
@@ -2187,7 +2558,11 @@ function doSave(){
   if(!d) return;
   flushEditorToDoc();
   d.updatedAt = Date.now();
-  if(persist()) saveStatus.textContent = '✓ تم الحفظ';
+  if(persist()) {
+    // IndexedDB writes are asynchronous; persist() schedules the durable write.
+    // Only the localStorage fallback can be reported as saved synchronously.
+    if(!workspaceDb) saveStatus.textContent = '✓ تم الحفظ';
+  }
   if(isContainer(d)) renderDashboard(currentId); else { updateStats(); refreshRecordSummaryIfAny(); }
   renderList();
   typingSnapshotPending = true;
@@ -2213,6 +2588,7 @@ try{
 
 /* =====================================================================
    عمليات الملفات: سلة، نقل، نسخ، إنشاء
+   PHASE 16: preserve batch paste order and guard copying against malformed cycles.
    ===================================================================== */
 function detachFromLists(id){
   const i = index.indexOf(id);
@@ -2222,44 +2598,47 @@ function detachFromLists(id){
     if(Array.isArray(c)){ const j = c.indexOf(id); if(j > -1) c.splice(j, 1); }
   });
 }
-function trashDoc(id){
+function trashDoc(id, trashedWith=null){
   const d = docs[id];
   if(!d) return;
-  if(isContainer(d)){
-    (d.children || []).slice().forEach(cid => {
-      if(docs[cid]){
-        delete docs[cid].parentId;
-        if(!index.includes(cid)) index.push(cid);
-      }
-    });
-    d.children = [];
-  }
-  detachFromLists(id);
+  const childIds = isContainer(d) ? (d.children || []).filter(cid => docs[cid]).slice() : [];
+  // Keep the tree intact in the trash; descendants are hidden under their parent there.
+  childIds.forEach(cid => trashDoc(cid, id));
+  if(isContainer(d)) d.children = childIds;
+  if(trashedWith) d._trashedWith = trashedWith;
+  else { delete d._trashedWith; detachFromLists(id); }
   trash[id] = d;
   delete docs[id];
 }
 function restoreDoc(id){
   const d = trash[id];
   if(!d) return;
+  const parentId = d.parentId;
   delete d._trashedWith;
   docs[id] = d;
   delete trash[id];
   if(isContainer(d)){
-    d.children = (d.children || []).filter(cid => {
-      const cd = trash[cid];
-      if(cd && cd._trashedWith === id){ delete cd._trashedWith; docs[cid] = cd; delete trash[cid]; return true; }
-      return !!docs[cid];
+    const childIds = (d.children || []).slice();
+    childIds.forEach(cid => {
+      if(trash[cid] && trash[cid]._trashedWith === id) restoreDoc(cid);
     });
-    index.unshift(id);
-  } else if(d.parentId && docs[d.parentId] && isContainer(docs[d.parentId])){
-    const p = docs[d.parentId];
-    if(!p.children.includes(id)) p.children.push(id);
-  } else {
-    delete d.parentId;
-    index.unshift(id);
+    d.children = childIds.filter(cid => !!docs[cid]);
   }
+  if(parentId && docs[parentId] && isContainer(docs[parentId])){
+    const parent = docs[parentId];
+    parent.children = parent.children || [];
+    if(!parent.children.includes(id)) parent.children.push(id);
+  } else if(!parentId && !index.includes(id)) index.unshift(id);
+  else if(parentId && !docs[parentId]) { delete d.parentId; if(!index.includes(id)) index.unshift(id); }
 }
 function permDelete(id){
+  const root = trash[id];
+  if(root && isContainer(root)){
+    (root.children || []).slice().forEach(cid => {
+      if(trash[cid] && trash[cid]._trashedWith === id) permDelete(cid);
+    });
+  }
+  // Defensive cleanup for any orphaned descendants carrying this parent marker.
   Object.keys(trash).forEach(k => { if(trash[k] && trash[k]._trashedWith === id) delete trash[k]; });
   delete trash[id];
 }
@@ -2274,7 +2653,8 @@ function afterDelete(affected, fallbackParent){
 }
 function deleteSingle(id){
   flushEditorToDoc();
-  const affected = isCurrentAffectedBy([id]);
+  const affectedIds = [id, ...descendantsOf(id, [])];
+  const affected = isCurrentAffectedBy(affectedIds);
   const pid = docs[id] && docs[id].parentId;
   pushUndoSnapshot();
   trashDoc(id);
@@ -2284,22 +2664,35 @@ function deleteSingle(id){
 function moveDoc(dragId, targetId){
   const d = docs[dragId], t = docs[targetId];
   if(!d || !t || dragId === targetId) return;
+  // Prevent dropping a container into itself or one of its descendants.
+  if(isContainer(d) && descendantsOf(dragId, []).includes(targetId)){
+    alert('لا يمكن نقل حاوية إلى داخل نفسها أو أحد أبنائها.'); return;
+  }
   flushEditorToDoc();
   pushUndoSnapshot();
   detachFromLists(dragId);
-  if(isContainer(d)){
-    const anchorId = (t.parentId && docs[t.parentId]) ? t.parentId : targetId;
+  const targetParent = t.parentId && docs[t.parentId] && isContainer(docs[t.parentId]) ? docs[t.parentId] : null;
+  if(isContainer(d) && isContainer(t)){
+    t.children = Array.isArray(t.children) ? t.children : [];
+    if(!t.children.includes(dragId)) t.children.push(dragId);
+    d.parentId = targetId;
+  } else if(isContainer(d) && targetParent){
+    targetParent.children = Array.isArray(targetParent.children) ? targetParent.children : [];
+    const at = targetParent.children.indexOf(targetId);
+    targetParent.children.splice(at > -1 ? at : targetParent.children.length, 0, dragId);
+    d.parentId = t.parentId;
+  } else if(isContainer(d)){
     delete d.parentId;
-    const at = index.indexOf(anchorId);
+    const at = index.indexOf(targetId);
     index.splice(at > -1 ? at : 0, 0, dragId);
   } else if(isContainer(t)){
-    t.children = t.children || [];
-    t.children.push(dragId);
+    t.children = Array.isArray(t.children) ? t.children : [];
+    if(!t.children.includes(dragId)) t.children.push(dragId);
     d.parentId = targetId;
-  } else if(t.parentId && docs[t.parentId]){
-    const list = docs[t.parentId].children;
-    const at = list.indexOf(targetId);
-    list.splice(at > -1 ? at : list.length, 0, dragId);
+  } else if(targetParent){
+    targetParent.children = Array.isArray(targetParent.children) ? targetParent.children : [];
+    const at = targetParent.children.indexOf(targetId);
+    targetParent.children.splice(at > -1 ? at : targetParent.children.length, 0, dragId);
     d.parentId = t.parentId;
   } else {
     delete d.parentId;
@@ -2310,7 +2703,6 @@ function moveDoc(dragId, targetId){
   renderList();
   if(currentId && docs[currentId] && isContainer(docs[currentId])) renderDashboard(currentId);
 }
-
 function getActiveOrderList(){
   if(!currentId || !docs[currentId]) return null;
   const pid = docs[currentId].parentId;
@@ -2329,9 +2721,14 @@ function moveCurrent(dir){
   persist();
   renderList();
 }
-function cloneDocTree(id, parentId, addSuffix, idMap){
+function cloneDocTree(id, parentId, addSuffix, idMap, recursionGuard){
   idMap = idMap || {};
+  recursionGuard = recursionGuard || new Set();
   const src = docs[id];
+  if(!src) return null;
+  // Defensive guard: malformed legacy trees must never cause infinite recursion while copying.
+  if(recursionGuard.has(id)) return null;
+  recursionGuard.add(id);
   const nid = uid();
   const c = deepClone(src);
   if(addSuffix) c.title = (c.title || 'مشروع') + ' (نسخة)';
@@ -2341,8 +2738,13 @@ function cloneDocTree(id, parentId, addSuffix, idMap){
   idMap[id] = nid;
   if(isContainer(src)){
     c.children = [];
-    (src.children || []).forEach(cid => { if(docs[cid]) c.children.push(cloneDocTree(cid, nid, false, idMap)); });
+    (src.children || []).forEach(cid => {
+      if(!docs[cid] || recursionGuard.has(cid)) return;
+      const childCloneId = cloneDocTree(cid, nid, false, idMap, recursionGuard);
+      if(childCloneId) c.children.push(childCloneId);
+    });
   }
+  recursionGuard.delete(id);
   return nid;
 }
 function remapClonedRelations(idMap){
@@ -2370,14 +2772,17 @@ function duplicateCurrent(){
   openDoc(nid);
 }
 let copiedDocIds = [];
+// اختيار الملفات محفوظ كحالة مستقلة عن DOM، حتى تبقى التحديدات صحيحة عند طي/فتح الحاويات أو إعادة رسم القائمة.
+const selectedDocIds = new Set();
 function selectedTopLevelIds(){
-  const selected = [...document.querySelectorAll('.doc-checkbox:checked')].map(cb => cb.dataset.id).filter(id => docs[id]);
+  const selected = [...selectedDocIds].filter(id => docs[id]);
   const set = new Set(selected);
   return selected.filter(id => {
     let parent = docs[id] && docs[id].parentId;
-    while(parent && docs[parent]){
+    const guard = new Set();
+    while(parent && docs[parent] && !guard.has(parent)){
       if(set.has(parent)) return false;
-      parent = docs[parent].parentId;
+      guard.add(parent); parent = docs[parent].parentId;
     }
     return true;
   });
@@ -2398,16 +2803,20 @@ function pasteCopiedDocs(){
   const parentId = current && isContainer(current) ? currentId :
     current && current.parentId && docs[current.parentId] ? current.parentId : null;
   const inserted = [], idMap = {};
+  // Insert as a batch while advancing the insertion point, preserving the user's selection order.
+  let anchor = parentId
+    ? (current && docs[parentId].children.includes(currentId) ? docs[parentId].children.indexOf(currentId) + 1 : docs[parentId].children.length)
+    : (currentId && index.includes(currentId) ? index.indexOf(currentId) + 1 : 0);
   sources.forEach(sourceId => {
     const nid = cloneDocTree(sourceId, parentId, true, idMap);
+    if(!nid) return;
     if(parentId){
       const list = docs[parentId].children;
-      const anchor = current && list.includes(currentId) ? list.indexOf(currentId) + 1 : list.length;
-      list.splice(anchor, 0, nid);
+      list.splice(Math.min(anchor, list.length), 0, nid);
     } else {
-      const anchor = currentId && index.includes(currentId) ? index.indexOf(currentId) + 1 : 0;
-      index.splice(anchor, 0, nid);
+      index.splice(Math.min(anchor, index.length), 0, nid);
     }
+    anchor++;
     inserted.push(nid);
   });
   remapClonedRelations(idMap);
@@ -2448,8 +2857,10 @@ function newDoc(type, opts){
   type = type || 'screenplay_us';
   flushEditorToDoc();
   pushUndoSnapshot();
-  const parent = resolveParent(type);
-  const id = makeDoc(type, null, parent, opts);
+  const parent = opts && opts.parentId && docs[opts.parentId] && isContainer(docs[opts.parentId]) ? opts.parentId : resolveParent(type);
+  const makeOpts = opts ? Object.assign({}, opts) : {};
+  delete makeOpts.parentId;
+  const id = makeDoc(type, null, parent, makeOpts);
   (CONTAINER_BLUEPRINTS[type] || []).forEach(([name, t]) => makeDoc(t, name, id));
   persist();
   openDoc(id);
@@ -2522,7 +2933,7 @@ function buildDocItem(id, doc, nested){
   item.className = 'doc-item' + (id === currentId ? ' active' : '');
   if(nested) item.style.marginRight = '12px';
   item.innerHTML = `
-    <input type="checkbox" class="doc-checkbox" data-id="${esc(id)}">
+    <input type="checkbox" class="doc-checkbox" data-id="${esc(id)}"${selectedDocIds.has(id) ? ' checked' : ''}>
     <div class="doc-title">${coverChipHtml(doc)} ${esc(doc.title || 'بلا عنوان')}</div>
     <div class="doc-meta">${esc(typeLabel(doc))}</div>
     <div class="doc-actions-inline"><button class="doc-action-btn doc-del-single" title="حذف">×</button></div>`;
@@ -2532,54 +2943,73 @@ function buildDocItem(id, doc, nested){
   return item;
 }
 
+function buildDocNode(id, nested=false, seen=new Set()){
+  const doc = docs[id];
+  if(!doc || seen.has(id)) return null;
+  if(!isContainer(doc)){ seen.add(id); return buildDocItem(id, doc, nested); }
+  seen.add(id);
+  const group = document.createElement('div');
+  group.className = 'folder-group' + (id === currentId ? ' active' : '') + (doc.collapsed ? ' folded' : '') + (nested ? ' nested-folder' : '');
+  const kids = (Array.isArray(doc.children) ? doc.children : []).filter(c => docs[c] && !seen.has(c));
+  group.innerHTML = `
+    <div class="folder-title">
+      <div class="ft-main">
+        <input type="checkbox" class="doc-checkbox" data-id="${esc(id)}" aria-label="تحديد ${esc(doc.title || 'مجلد')}"${selectedDocIds.has(id) ? ' checked' : ''}>
+        ${coverChipHtml(doc)}
+        <span>${TYPE_ICONS[doc.docType] || '📁'}</span>
+        <span class="ft-name">${esc(doc.title || 'بدون اسم')}</span>
+        <span class="folder-count">(${kids.length})</span>
+      </div>
+      <div class="folder-actions">
+        <button class="doc-action-btn fold-btn" title="طي/توسيع">${doc.collapsed ? '◀' : '▼'}</button>
+        <button class="doc-action-btn doc-del-single" title="حذف">×</button>
+      </div>
+    </div>
+    <div class="folder-docs"></div>`;
+  const title = group.querySelector('.folder-title');
+  title.addEventListener('click', e => { if(!e.target.closest('.doc-checkbox, .doc-del-single, .fold-btn')) openDoc(id); });
+  group.querySelector('.fold-btn').addEventListener('click', e => {
+    e.stopPropagation(); doc.collapsed = !doc.collapsed; persist(); renderList();
+  });
+  group.querySelector('.doc-del-single').addEventListener('click', e => { e.stopPropagation(); deleteSingle(id); });
+  attachDnD(title, id);
+  const sub = group.querySelector('.folder-docs');
+  if(!doc.collapsed){
+    kids.forEach(cid => {
+      const node = buildDocNode(cid, true, seen);
+      if(node) sub.appendChild(node);
+    });
+  }
+  return group;
+}
 function renderList(){
   docList.innerHTML = '';
-  if(!index.length){
+  [...selectedDocIds].forEach(id => { if(!docs[id]) selectedDocIds.delete(id); });
+  const roots = (Array.isArray(index) ? index : []).filter(id => docs[id] && !docs[id].parentId);
+  if(!roots.length){
     docList.innerHTML = '<div style="font-size:10px; color:var(--ink-soft); text-align:center; padding:6px;">لا توجد مشاريع بعد</div>';
     sidebarFoot.textContent = '0 عنصر';
     return;
   }
-  index.forEach(id => {
-    const doc = docs[id];
-    if(!doc) return;
-    if(isContainer(doc)){
-      const group = document.createElement('div');
-      group.className = 'folder-group' + (id === currentId ? ' active' : '') + (doc.collapsed ? ' folded' : '');
-      const kids = (doc.children || []).filter(c => docs[c]);
-      group.innerHTML = `
-        <div class="folder-title">
-          <div class="ft-main">
-            <input type="checkbox" class="doc-checkbox" data-id="${esc(id)}">
-            ${coverChipHtml(doc)}
-            <span>${TYPE_ICONS[doc.docType] || '📁'}</span>
-            <span class="ft-name">${esc(doc.title || 'بدون اسم')}</span>
-            <span style="font-size:9px; color:var(--ink-soft);">(${kids.length})</span>
-          </div>
-          <div style="display:flex; gap:4px;">
-            <button class="doc-action-btn fold-btn" title="طي/توسيع">${doc.collapsed ? '◀' : '▼'}</button>
-            <button class="doc-action-btn doc-del-single" title="حذف">×</button>
-          </div>
-        </div>
-        <div class="folder-docs"></div>`;
-      const title = group.querySelector('.folder-title');
-      title.addEventListener('click', e => { if(!e.target.closest('.doc-checkbox, .doc-del-single, .fold-btn')) openDoc(id); });
-      group.querySelector('.fold-btn').addEventListener('click', e => {
-        e.stopPropagation();
-        doc.collapsed = !doc.collapsed;
-        persist(); renderList();
-      });
-      group.querySelector('.doc-del-single').addEventListener('click', e => { e.stopPropagation(); deleteSingle(id); });
-      attachDnD(title, id);
-      const sub = group.querySelector('.folder-docs');
-      kids.forEach(cid => sub.appendChild(buildDocItem(cid, docs[cid], true)));
-      docList.appendChild(group);
-    } else if(!doc.parentId){
-      docList.appendChild(buildDocItem(id, doc, false));
-    }
+  const seen = new Set();
+  roots.forEach(id => {
+    const node = buildDocNode(id, false, seen);
+    if(node){ docList.appendChild(node); markRenderedTree(id, seen); }
   });
-  sidebarFoot.textContent = `${index.length} عنصر رئيسي`;
+  // Repair/display any recoverable orphan roots without hiding their contents.
+  Object.keys(docs).forEach(id => {
+    if(seen.has(id) || (docs[id] && docs[id].parentId && docs[docs[id].parentId])) return;
+    const node = buildDocNode(id, false, seen);
+    if(node){ docList.appendChild(node); markRenderedTree(id, seen); }
+  });
+  sidebarFoot.textContent = `${roots.length} عنصر رئيسي`;
+  refreshSelectionVisuals();
 }
-
+function markRenderedTree(id, seen, walked=new Set()){
+  const d = docs[id]; if(!d || walked.has(id)) return;
+  walked.add(id); seen.add(id);
+  if(isContainer(d)) (d.children || []).forEach(cid => markRenderedTree(cid, seen, walked));
+}
 function renderTrashBox(){
   trashBox.innerHTML = '';
   const keys = Object.keys(trash).filter(id => trash[id] && !(trash[id]._trashedWith && trash[trash[id]._trashedWith]));
@@ -2751,8 +3181,8 @@ function renderDashboard(id){
       <div class="dash-row">
         <select class="dash-select" id="dashAddType">${types.map(t => `<option value="${t}">${esc(TYPE_LABELS[t])}</option>`).join('')}</select>
         <button class="dash-btn primary" data-act="add">➕ إضافة قسم</button>
-        <button class="dash-btn" data-act="extract-loc">📍 تفريغ اللوكيشنات</button>
-        <button class="dash-btn" data-act="extract-cp">🪪 تفريغ الشخصيات</button>
+        <button class="dash-btn" data-act="add-locations">➕ قسم تفريغ اللوكيشنات</button>
+        <button class="dash-btn" data-act="add-char-profile">➕ قسم كاراكتر بروفايل</button>
       </div>
       ${kids.length ? `<ul class="dash-children">${rows}</ul>` : '<div style="text-align:center; color:var(--ink-soft); font-size:13px; padding:20px;">لا أقسام بعد — أضيفي قسماً من الأعلى.</div>'}
     </div>`;
@@ -2763,9 +3193,18 @@ dashboard.addEventListener('click', e => {
   const act = b.dataset.act, cid = b.dataset.id, cont = docs[currentId];
   if(act === 'open'){ openDoc(cid); return; }
   if(act === 'cover'){ openCoverModal(currentId); return; }
-  if(act === 'add'){ const sel = $('dashAddType'); if(sel) newDoc(sel.value); return; }
-  if(act === 'extract-loc'){ openExtract('loc'); return; }
-  if(act === 'extract-cp'){ openExtract('cp'); return; }
+  if(act === 'add'){ const sel = $('dashAddType'); if(sel) newDoc(sel.value, { parentId: currentId }); return; }
+  if(act === 'add-locations' || act === 'add-char-profile'){
+    const type = act === 'add-locations' ? 'locations' : 'char_profile';
+    const parentId = currentId;
+    if(!parentId || !docs[parentId] || !isContainer(docs[parentId])) return;
+    pushUndoSnapshot();
+    const label = type === 'locations' ? 'تفريغ اللوكيشنات' : 'كاراكتر بروفايل';
+    const childId = makeDoc(type, label, parentId);
+    persist(); openDoc(parentId); renderDashboard(parentId); renderList();
+    alert(`تم إنشاء قسم «${label}» داخل المشروع الحالي.`);
+    return;
+  }
   if(act === 'up' || act === 'down'){
     const list = cont.children, i = list.indexOf(cid), j = i + (act === 'up' ? -1 : 1);
     if(i < 0 || j < 0 || j >= list.length) return;
@@ -3060,6 +3499,7 @@ function openDoc(id){
   emptyState.style.display = 'none';
   saveStatus.textContent = '✓ تم الحفظ';
   if(cont){
+    panelOpen = false;
     editor.innerHTML = '';
     editorScroll.style.display = 'none';
     docPanel.classList.remove('open');
@@ -3321,9 +3761,53 @@ function insertFrRow(){
   scheduleSave();
 }
 $('addFrRowBtn').addEventListener('click', insertFrRow);
+if($('addFrSceneBtn')) $('addFrSceneBtn').addEventListener('click', () => insertNewScene('screenplay_fr'));
+function insertNewScene(type){
+  snap(); restoreCaret();
+  const ce = caretElement();
+  if(type === 'screenplay_fr'){
+    const table = ce && ce.closest('.fr-table');
+    const scene = document.createElement('p'); scene.className = 'block-scene';
+    const count = editor.querySelectorAll('.fr-table').length + 1;
+    scene.textContent = 'مشهد ' + count + ' — داخلي / خارجي · المكان · الزمن';
+    const tmp = document.createElement('div'); tmp.innerHTML = frTableHtml();
+    const newTable = tmp.firstElementChild;
+    if(table){ table.insertAdjacentElement('afterend', scene); scene.insertAdjacentElement('afterend', newTable); }
+    else { editor.append(scene, newTable); }
+    // normalizeHtml adds the paired-row control when the document is next saved/reopened;
+    // add it now as well so it is immediately usable.
+    const rowControl = document.createElement('button'); rowControl.type='button'; rowControl.className='fr-add-row-control';
+    rowControl.setAttribute('contenteditable','false'); rowControl.textContent='＋ إضافة صف متقابل';
+    newTable.insertAdjacentElement('afterend', rowControl);
+    placeCaret(newTable.querySelector('.fr-col-action'), false); scrollToEl(scene);
+  } else {
+    const scene = document.createElement('p'); scene.className = type === 'radio' ? 'radio-scene' : 'block-scene';
+    const count = editor.querySelectorAll('.block-scene, .radio-scene').length + 1;
+    scene.textContent = 'مشهد ' + count + ' — داخلي / خارجي · المكان · الزمن';
+    const action = document.createElement('p'); action.className = 'block-action'; action.innerHTML = '<br>';
+    // Append a complete new scene at the end so existing scene blocks are never split.
+    editor.appendChild(scene);
+    scene.insertAdjacentElement('afterend', action); placeCaret(action, false); scrollToEl(scene);
+  }
+  scheduleSave();
+}
 
 editor.addEventListener('click', e => {
   const t = e.target;
+  const frAdd = t.closest('.fr-add-row-control');
+  if(frAdd && editor.contains(frAdd)){
+    snap();
+    const table = frAdd.previousElementSibling && frAdd.previousElementSibling.classList.contains('fr-table') ? frAdd.previousElementSibling : frAdd.closest('.fr-table');
+    const tmp = document.createElement('tbody'); tmp.innerHTML = frRowHtml();
+    const row = tmp.firstElementChild;
+    if(table){ const body = table.querySelector('tbody') || table.appendChild(document.createElement('tbody')); body.appendChild(row); placeCaret(row.querySelector('.fr-col-action'), false); }
+    scheduleSave(); return;
+  }
+  const addScene = t.closest('.add-scene-control');
+  if(addScene && editor.contains(addScene)){
+    const docType = docs[currentId] && docs[currentId].docType || 'screenplay_us';
+    insertNewScene(docType); return;
+  }
   if(handleRecordClick(t, e)) return;
   if(t.closest('.del-treatment-box')){
     snap(); t.closest('.treatment-box').remove(); scheduleSave(); return;
@@ -3447,7 +3931,7 @@ function insertImageBlock(src){
   scrollToEl(fig);
   scheduleSave();
 }
-let quoteImageData = '', quoteMainData = '';
+let quoteImageData = '', quoteMainData = '', quoteSelectedText = '';
 function quoteCardMarkup(status, quote, attribution, image, shot){
   const draft = status === 'draft' ? '<span class="quote-draft">مسودة</span>' : '';
   if(shot){
@@ -3457,16 +3941,45 @@ function quoteCardMarkup(status, quote, attribution, image, shot){
   const img = image ? `<img src="${esc(image)}" alt="">` : '';
   return `<figure class="quote-image-card" data-quote-status="${status}">${img}${draft}<blockquote>${esc(quote)}</blockquote>${attribution ? `<cite>${esc(attribution)}</cite>` : ''}</figure>`;
 }
+function quoteDesign(){
+  const themes={
+    warm:{a:'#211b19',b:'#7a3b2e',ink:'#ffffff',overlay:.34},
+    night:{a:'#080b16',b:'#292943',ink:'#ffffff',overlay:.30},
+    ocean:{a:'#062d3a',b:'#176b78',ink:'#ffffff',overlay:.30},
+    paper:{a:'#f4ead7',b:'#d7c3a1',ink:'#29231d',overlay:.06},
+    forest:{a:'#102b24',b:'#35614a',ink:'#ffffff',overlay:.30}
+  };
+  const theme=themes[$('qiTheme')?.value||'warm']||themes.warm;
+  const ink=$('qiInk')?.value||'auto';
+  return {theme,ink,format:$('qiFormat')?.value||'square',fontScale:$('qiFontScale')?.value||'normal',signature:$('qiSignature')?.checked!==false};
+}
 function refreshQuotePreview(){
   $('qiPreview').innerHTML = quoteMainData
     ? quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData)
     : quoteCardMarkup($('qiStatus').value, $('qiText').value || 'نص الاقتباس', $('qiAttribution').value, quoteImageData);
+  const card=$('qiPreview').querySelector('.quote-image-card');
+  if(card){
+    const d=quoteDesign(), t=d.theme;
+    card.style.background=`linear-gradient(135deg,${t.a},${t.b})`;
+    card.style.color=d.ink==='dark'?'#29231d':d.ink==='gold'?'#f4d58a':d.ink==='light'?'#fff':t.ink;
+    card.style.setProperty('--qi-overlay',`rgba(0,0,0,${t.overlay})`);
+    const ratio={square:'1 / 1',portrait:'4 / 5',story:'9 / 16',landscape:'16 / 9'}[d.format]||'1 / 1';
+    card.style.aspectRatio=ratio; card.style.minHeight='0';
+    card.style.padding=d.format==='story'?'9% 7%':'7%';
+    const q=card.querySelector('blockquote');
+    if(q) q.style.fontSize=d.fontScale==='compact'?'1.15em':d.fontScale==='large'?'1.8em':'1.45em';
+    const sig=card.querySelector('.qi-platform-signature');
+    if(sig) sig.remove();
+    if(d.signature && !quoteMainData){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
+  }
 }
 function openQuoteImageModal(){
   if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً لإضافة اقتباس مصوّر.'); return; }
+  const sel = window.getSelection();
+  quoteSelectedText = sel && sel.rangeCount && editor.contains(sel.anchorNode) ? sel.toString().trim() : '';
   saveCurrentRange();
   quoteImageData = '';
-  $('qiText').value = '';
+  $('qiText').value = quoteSelectedText;
   $('qiAttribution').value = '';
   $('qiImage').value = '';
   $('qiMain').value = '';
@@ -3476,74 +3989,98 @@ function openQuoteImageModal(){
   showModal($('quoteImageModal'));
 }
 $('quoteImageBtn').addEventListener('click', openQuoteImageModal);
-['qiText','qiAttribution','qiStatus'].forEach(id => $(id).addEventListener('input', refreshQuotePreview));
+['qiText','qiAttribution','qiStatus','qiFormat','qiTheme','qiInk','qiFontScale','qiSignature'].forEach(id => { const el=$(id); if(el) el.addEventListener('input', refreshQuotePreview); });
 $('qiImage').addEventListener('change', async e => {
   const file = e.target.files[0];
   if(!file) return;
   try{ quoteImageData = await readImageScaled(file, 1400, true); refreshQuotePreview(); }
-  catch(err){ alert(err.message); }
+  catch(err){ alert(err.message); } finally { e.target.value = ''; }
 });
 $('qiCancel').addEventListener('click', () => hideModal($('quoteImageModal')));
+$('qiUseSelection').addEventListener('click', () => {
+  const sel = window.getSelection();
+  const textNow = sel && sel.rangeCount && editor.contains(sel.anchorNode) ? sel.toString().trim() : '';
+  const picked = textNow || quoteSelectedText;
+  if(!picked){ alert('حددي فقرة أو جملة في المحرر أولاً، أو اكتبي الاقتباس يدوياً.'); return; }
+  $('qiText').value = picked;
+  refreshQuotePreview();
+});
+$('qiClearText').addEventListener('click', () => { $('qiText').value = ''; refreshQuotePreview(); });
 function downloadQuotePng(){
   if(quoteMainData){ downloadShotPng(); return; }
-  const quote = $('qiText').value.trim();
+  const quote=$('qiText').value.trim();
   if(!quote){ alert('اكتبي نص الاقتباس أولاً.'); return; }
-  const width = 1200, height = 900, canvas = document.createElement('canvas');
-  canvas.width = width; canvas.height = height;
-  const ctx = canvas.getContext('2d');
+  const formats={square:[1200,1200],portrait:[1200,1500],story:[1080,1920],landscape:[1600,900]};
+  const [width,height]=formats[quoteDesign().format]||formats.square;
+  const design=quoteDesign(), theme=design.theme;
+  const canvas=document.createElement('canvas'); canvas.width=width; canvas.height=height;
+  const ctx=canvas.getContext('2d');
   if(!ctx){ alert('تعذّر إنشاء صورة الاقتباس في هذا المتصفح.'); return; }
-  const draw = () => {
-    const gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#211b19'); gradient.addColorStop(1, '#7a3b2e');
-    ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
-    const paintText = () => {
-      ctx.fillStyle = 'rgba(0,0,0,.48)'; ctx.fillRect(0, 0, width, height);
-      ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      const family = getComputedStyle(editor).fontFamily || 'Arial, sans-serif';
-      const fontSize = quote.length > 180 ? 42 : quote.length > 95 ? 50 : 58;
-      ctx.font = `700 ${fontSize}px ${family}`;
-      const maxWidth = width - 170, lines = [];
-      let line = '';
-      quote.split(/\s+/).forEach(word => {
-        const candidate = line ? line + ' ' + word : word;
-        if(line && ctx.measureText(candidate).width > maxWidth){ lines.push(line); line = word; }
-        else line = candidate;
-      });
-      if(line) lines.push(line);
-      const lineHeight = fontSize * 1.75;
-      let y = height / 2 - (lines.length - 1) * lineHeight / 2;
-      ctx.fillStyle = '#fff';
-      lines.forEach(text => { ctx.fillText(text, width / 2, y, maxWidth); y += lineHeight; });
-      const attribution = $('qiAttribution').value.trim();
-      if(attribution){
-        ctx.font = `500 28px ${family}`; ctx.fillStyle = 'rgba(255,255,255,.88)';
-        ctx.fillText(attribution, width / 2, Math.min(height - 130, y + 45), maxWidth);
-      }
-      if($('qiStatus').value === 'draft'){
-        ctx.font = `700 22px ${family}`; ctx.textAlign = 'right';
-        ctx.fillStyle = '#fff'; ctx.fillRect(width - 184, 46, 136, 48);
-        ctx.fillStyle = '#7a3b2e'; ctx.fillText('مسودة', width - 68, 70);
-      }
-      ctx.textAlign = 'center'; ctx.font = `16px ${family}`;
-      ctx.fillStyle = 'rgba(255,255,255,.68)'; ctx.fillText(PLATFORM_SIGNATURE, width / 2, height - 42);
-      const link = document.createElement('a');
-      link.download = safeFileName($('qiStatus').value === 'draft' ? 'اقتباس-مسودة' : 'اقتباس-جاهز-للغلاف') + '.png';
-      link.href = canvas.toDataURL('image/png');
-      document.body.appendChild(link); link.click(); link.remove();
-    };
+  const paint=()=>{
     if(quoteImageData){
-      const img = new Image();
-      img.onload = () => {
-        const scale = Math.max(width / img.width, height / img.height);
-        const sw = width / scale, sh = height / scale;
-        ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, 0, 0, width, height);
-        paintText();
-      };
-      img.onerror = () => { alert('تعذّر فتح صورة الخلفية.'); };
-      img.src = quoteImageData;
-    } else paintText();
+      const img=new Image();
+      img.onload=()=>{const scale=Math.max(width/img.width,height/img.height),sw=width/scale,sh=height/scale;ctx.drawImage(img,(img.width-sw)/2,(img.height-sh)/2,sw,sh,0,0,width,height);paintText();};
+      img.onerror=()=>alert('تعذّر فتح صورة الخلفية.'); img.src=quoteImageData;
+    }else{
+      const g=ctx.createLinearGradient(0,0,width,height);g.addColorStop(0,theme.a);g.addColorStop(1,theme.b);ctx.fillStyle=g;ctx.fillRect(0,0,width,height);paintText();
+    }
   };
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(draw); else draw();
+  const paintText=()=>{
+    ctx.fillStyle=`rgba(0,0,0,${theme.overlay})`;ctx.fillRect(0,0,width,height);
+    const ink=design.ink==='dark'?'#29231d':design.ink==='gold'?'#f4d58a':design.ink==='light'?'#ffffff':theme.ink;
+    const family='Arial, Tahoma, sans-serif';
+    let base=design.format==='story'?64:design.format==='landscape'?58:62;
+    if(design.fontScale==='compact')base*=.82; if(design.fontScale==='large')base*=1.16;
+    const maxWidth=width*.82, maxHeight=height*.58;
+    let fontSize=base, lines=[], lineHeight;
+    const makeLines=()=>{
+      ctx.font=`700 ${fontSize}px ${family}`;lines=[];let line='';
+      const graphemes = value => {
+        try { return [...new Intl.Segmenter('ar', {granularity:'grapheme'}).segment(value)].map(x=>x.segment); }
+        catch(err) { return Array.from(value); }
+      };
+      const pushToken = token => {
+        const candidate = line ? line + ' ' + token : token;
+        if(!line || ctx.measureText(candidate).width <= maxWidth){ line = candidate; return; }
+        lines.push(line); line = '';
+        if(ctx.measureText(token).width <= maxWidth){ line = token; return; }
+        let fragment = '';
+        graphemes(token).forEach(g => {
+          const next = fragment + g;
+          if(fragment && ctx.measureText(next).width > maxWidth){ lines.push(fragment); fragment = g; }
+          else fragment = next;
+        });
+        line = fragment;
+      };
+      quote.split(/\s+/).filter(Boolean).forEach(pushToken);
+      if(line) lines.push(line);
+      lineHeight=fontSize*1.48;
+    };
+    makeLines();
+    const attrForFit = $('qiAttribution').value.trim();
+    const fitsVertically = () => lines.length*lineHeight + (attrForFit ? fontSize*.9+28 : 0) + (design.signature ? Math.max(22,Math.round(width*.022)) : 0) + 18 <= height*.78;
+    while(fontSize>12 && !fitsVertically()){fontSize=Math.max(12,fontSize-2);makeLines();}
+    if(!fitsVertically()){
+      alert('الاقتباس أطول من المساحة المتاحة حتى بعد تصغير الخط. اختصري النص أو اختاري مقاسًا أكبر.');
+      return;
+    }
+    ctx.direction='rtl';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=ink;
+    const attribution=$('qiAttribution').value.trim();
+    const sig=design.signature?Math.max(22,Math.round(width*.022)):0;
+    const attrH=attribution?fontSize*.9+20:0;
+    const blockH=lines.length*lineHeight+attrH+sig+18;
+    let y=Math.max(height*.13,(height-blockH)/2+lineHeight/2);
+    lines.forEach(line=>{ctx.fillText(line,width/2,y,maxWidth);y+=lineHeight;});
+    if(attribution){y+=12;ctx.font=`500 ${Math.max(20,Math.round(fontSize*.48))}px ${family}`;ctx.fillStyle=ink;ctx.fillText(attribution,width/2,y,maxWidth);y+=Math.max(20,Math.round(fontSize*.48))+10;}
+    if($('qiStatus').value==='draft'){
+      const fs=Math.max(20,Math.round(width*.025)),bw=fs*4.3,bh=fs*1.9;ctx.direction='rtl';ctx.font=`700 ${fs}px ${family}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(width-bw-24,24,bw,bh);ctx.fillStyle='#7a3b2e';ctx.fillText('مسودة',width-bw/2-24,24+bh/2);
+    }
+    if(design.signature){ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font=`${Math.max(15,Math.round(width*.014))}px ${family}`;ctx.fillStyle=ink;ctx.globalAlpha=.76;ctx.fillText(PLATFORM_SIGNATURE,width/2,height-Math.max(24,height*.035));ctx.globalAlpha=1;}
+    const link=document.createElement('a');link.download=safeFileName($('qiStatus').value==='draft'?'اقتباس-مسودة':'اقتباس-جاهز-للغلاف')+'.png';
+    try{link.href=canvas.toDataURL('image/png');document.body.appendChild(link);link.click();link.remove();}
+    catch(err){alert('تعذّر تصدير الصورة. جرّبي صورة خلفية أخرى أو أزيليها ثم أعيدي المحاولة.');}
+  };
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(paint);else paint();
 }
 $('qiExport').addEventListener('click', downloadQuotePng);
 $('qiInsert').addEventListener('click', () => {
@@ -3692,8 +4229,41 @@ document.addEventListener('keydown', e => {
 
 /* ===== لوحة إعدادات الملف ===== */
 $('docPanelToggle').addEventListener('click', () => {
-  panelOpen = !panelOpen;
+  let d = currentId && docs[currentId];
+  let switchedFromContainer = false;
+  // عند اختيار حاوية مشروع، ابحثي عن أول مستند فعلي تابع لها.
+  if(d && isContainer(d)){
+    let targetId = null;
+    if(typeof descendantsOf === 'function'){
+      const descendants = descendantsOf(currentId) || [];
+      targetId = descendants.find(item => {
+        const id = typeof item === 'string' ? item : (item && item.id);
+        return !!(id && docs[id] && !isContainer(docs[id]));
+      });
+      if(targetId && typeof targetId !== 'string') targetId = targetId.id;
+    }
+    // احتياط للملفات القديمة التي قد لا تملك children مكتملة.
+    if(!targetId){
+      const fallback = Object.keys(docs).find(id => docs[id] && !isContainer(docs[id]) && docs[id].parentId === currentId);
+      if(fallback) targetId = fallback;
+    }
+    if(targetId && docs[targetId]){
+      openDoc(targetId);
+      d = docs[targetId];
+      switchedFromContainer = true;
+      // فتح اللوحة صراحةً هنا؛ لا نعكس حالتها السابقة بعد تبديل الملف.
+      panelOpen = true;
+    } else {
+      alert('لا يوجد ملف داخل هذا المشروع لعرض إعداداته بعد. أضيفي قسماً أولاً.');
+      return;
+    }
+  }
+  if(!d){ alert('افتحي ملفاً أولاً لعرض إعداداته.'); return; }
+  // إذا انتقلنا من حاوية مشروع، فالهدف فتح اللوحة لا إغلاقها بسبب حالة سابقة.
+  if(!switchedFromContainer) panelOpen = !(panelOpen && docPanel.classList.contains('open'));
+  updateDocPanel(d);
   docPanel.classList.toggle('open', panelOpen);
+  if(panelOpen){ docPanel.scrollIntoView({behavior:'smooth', block:'nearest'}); }
 });
 function panelChanged(field, value){
   const d = currentId && docs[currentId];
@@ -3722,10 +4292,10 @@ $('dpProfile').addEventListener('change', e => {
 });
 $('dpDuration').addEventListener('change', e => {
   const d = currentId && docs[currentId];
-  if(!d) return;
+  if(!d || isContainer(d)) return;
   pushUndoSnapshot(); typingSnapshotPending = false;
   d.sceneDuration = e.target.checked;
-  persist();
+  persist(); updateDocPanel(d);
 });
 $('dpWorkMode').addEventListener('change', e => {
   const d = currentId && docs[currentId];
@@ -3808,14 +4378,57 @@ $('templateList').addEventListener('click', e => {
 });
 $('emptyNewBtn').addEventListener('click', () => newDoc('screenplay_us'));
 
+function descendantsOf(id, out=[], seen=new Set()){
+  const d = docs[id];
+  if(!d || !isContainer(d) || seen.has(id)) return out;
+  seen.add(id);
+  (Array.isArray(d.children) ? d.children : []).forEach(cid => {
+    if(docs[cid] && !seen.has(cid)){ out.push(cid); descendantsOf(cid, out, seen); }
+  });
+  return out;
+}
+function syncAncestorCheckboxes(id){
+  let pid = docs[id] && docs[id].parentId;
+  const guard = new Set();
+  while(pid && docs[pid] && !guard.has(pid)){
+    guard.add(pid);
+    const children = (docs[pid].children || []).filter(cid => docs[cid]);
+    if(children.length && children.every(cid => selectedDocIds.has(cid))) selectedDocIds.add(pid);
+    else selectedDocIds.delete(pid);
+    pid = docs[pid].parentId;
+  }
+}
+function refreshSelectionVisuals(){
+  document.querySelectorAll('.doc-checkbox').forEach(cb => {
+    const id = cb.dataset.id, d = docs[id];
+    if(!d){ cb.checked = false; cb.indeterminate = false; return; }
+    cb.checked = selectedDocIds.has(id);
+    const kids = isContainer(d) ? descendantsOf(id, []) : [];
+    const selectedKids = kids.filter(cid => selectedDocIds.has(cid)).length;
+    cb.indeterminate = !cb.checked && selectedKids > 0;
+  });
+}
+docList.addEventListener('change', e => {
+  const cb = e.target.closest('.doc-checkbox');
+  if(!cb) return;
+  const id = cb.dataset.id, d = docs[id];
+  if(!d) return;
+  if(cb.checked) selectedDocIds.add(id); else selectedDocIds.delete(id);
+  if(isContainer(d)){
+    descendantsOf(id, []).forEach(cid => { if(cb.checked) selectedDocIds.add(cid); else selectedDocIds.delete(cid); });
+  }
+  syncAncestorCheckboxes(id);
+  renderList();
+});
 $('batchDelBtn').addEventListener('click', () => {
-  const ids = [...document.querySelectorAll('.doc-checkbox:checked')].map(cb => cb.dataset.id);
-  if(!ids.length){ alert('الرجاء تحديد ملف واحد على الأقل للحذف.'); return; }
-  if(!confirm(`هل أنتِ متأكدة من حذف ${ids.length} عنصر ونقلها للسلة؟`)) return;
+  const ids = selectedTopLevelIds();
+  if(!ids.length){ alert('الرجاء تحديد ملف أو مشروع واحد على الأقل للحذف.'); return; }
+  if(!confirm(`سيُنقل ${ids.length} عنصر محدد إلى السلة مع جميع الملفات والأقسام التابعة له. متابعة؟`)) return;
   flushEditorToDoc();
-  const affected = isCurrentAffectedBy(ids);
+  const allAffected = ids.flatMap(id => [id, ...descendantsOf(id)]);
+  const affected = isCurrentAffectedBy(allAffected);
   pushUndoSnapshot();
-  ids.forEach(trashDoc);
+  ids.forEach(id => trashDoc(id));
   afterDelete(affected, null);
 });
 $('moveUpBtn').addEventListener('click', () => moveCurrent(-1));
@@ -4065,7 +4678,8 @@ function modernizeIds(ids){
   ids.forEach(id => {
     const d = docs[id];
     if(!d) return;
-    if(isContainer(d)) (d.children || []).forEach(k => { if(docs[k]) set.add(k); }); else set.add(id);
+    if(isContainer(d)) descendantsOf(id, []).forEach(k => { if(docs[k] && !isContainer(docs[k])) set.add(k); });
+    else set.add(id);
   });
   const targets = [...set];
   if(!targets.length){ alert('لا توجد ملفات للتحديث (الحاويات الفارغة لا تُحدَّث).'); return; }
@@ -4114,7 +4728,7 @@ function auditAndFixDoc(doc){
   return rep;
 }
 $('fixDocBtn').addEventListener('click', () => {
-  const checked = [...document.querySelectorAll('.doc-checkbox:checked')].map(cb => cb.dataset.id).filter(id => docs[id] && !isContainer(docs[id]));
+  const checked = [...selectedDocIds].filter(id => docs[id] && !isContainer(docs[id]));
   const targets = checked.length ? checked : (currentId && docs[currentId] && !isContainer(docs[currentId]) ? [currentId] : []);
   if(!targets.length){ alert('افتحي ملفاً (غير حاوية) أولاً، أو حددي ملفات من القائمة الجانبية.'); return; }
   const classify = confirm('تدقيق وإصلاح ' + targets.length + ' ملف.\n\nموافق = مع محاولة تصنيف الفقرات العادية تلقائياً (مشهد/شخصية/حوار)\nإلغاء = إصلاح البنية والأخطاء فقط بدون تصنيف');
@@ -4136,7 +4750,7 @@ $('fixDocBtn').addEventListener('click', () => {
 });
 
 $('modernizeBtn').addEventListener('click', () => {
-  const checked = [...document.querySelectorAll('.doc-checkbox:checked')].map(cb => cb.dataset.id);
+  const checked = selectedTopLevelIds();
   if(checked.length){ modernizeIds(checked); return; }
   if(!Object.keys(docs).length) return;
   if(confirm('لا يوجد ملف محدد. هل تريدين تحديث كل الملفات؟\n(حددي ملفات بالمربعات أولاً إن أردتِ تحديد بعضها فقط.)')) modernizeIds(index.slice());
@@ -4303,6 +4917,30 @@ function renderDocBody(doc, options){
     });
     inlineComputed(host);
     convertLayouts(host, options);
+    // Export-safe normalization: preserve RTL in nested blocks/tables and keep media within page bounds.
+    host.querySelectorAll('table').forEach(t => {
+      if(!t.getAttribute('dir')) t.setAttribute('dir', 'rtl');
+      t.style.maxWidth = '100%';
+      t.style.boxSizing = 'border-box';
+    });
+    host.querySelectorAll('td,th').forEach(cell => {
+      if(!cell.getAttribute('dir')) cell.setAttribute('dir', 'auto');
+      cell.style.verticalAlign = cell.style.verticalAlign || 'top';
+      cell.style.overflowWrap = 'anywhere';
+    });
+    host.querySelectorAll('img,video,iframe,svg').forEach(media => {
+      if(media.tagName === 'IMG') {
+        media.style.maxWidth = '100%';
+        media.style.height = media.style.height || 'auto';
+        media.style.objectFit = media.style.objectFit || 'contain';
+      } else if(media.tagName === 'VIDEO' || media.tagName === 'IFRAME') {
+        media.style.maxWidth = '100%';
+        media.style.height = media.style.height || 'auto';
+      }
+    });
+    host.querySelectorAll('p,div,li,h1,h2,h3,h4,blockquote').forEach(el => {
+      if(!el.getAttribute('dir')) el.setAttribute('dir', 'auto');
+    });
     const cs = getComputedStyle(host);
     const ff = cs.fontFamily.replace(/"/g, "'");
     out = `<div dir="rtl" style="font-family:${ff};font-size:${cs.fontSize};line-height:${cs.lineHeight};color:${cs.color};${doc.style && doc.style.pageBg ? 'background-color:' + doc.style.pageBg + ';padding:12px;' : ''}">${host.innerHTML}</div>`;
@@ -4356,7 +4994,31 @@ function buildExport(rootId, opts){
   return { title: root.title || 'مشروع', body, list };
 }
 function wordHtml(title, body){
-  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40" dir="rtl"><head><meta charset="utf-8"><title>${esc(title)}</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Bidi/></w:WordDocument></xml><![endif]--><style>@page{size:A4;margin:2cm}body{direction:rtl;}</style></head><body dir="rtl">${body}</body></html>`;
+  // Explicit bidi rules are repeated on common Word elements because Word's HTML importer
+  // does not consistently inherit direction through nested tables and paragraphs.
+  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40" lang="ar" dir="rtl"><head><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>${esc(title)}</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom><w:DoNotOptimizeForBrowser/><w:Bidi/></w:WordDocument></xml><![endif]--><style>
+@page{size:A4;margin:2cm 1.7cm 2.2cm 1.7cm;mso-page-orientation:portrait}
+html,body{direction:rtl;unicode-bidi:embed;font-family:Arial,'Times New Roman',sans-serif;font-size:11pt;line-height:1.6;color:#111;orphans:3;widows:3}
+body{margin:0;word-wrap:break-word;overflow-wrap:anywhere}
+p,div,li,blockquote,td,th{unicode-bidi:embed;word-wrap:break-word;overflow-wrap:anywhere}
+p{margin:0 0 6pt}
+h1{font-size:22pt;text-align:center;margin:0 0 14pt;page-break-after:avoid;direction:rtl}
+h2{font-size:15pt;color:#7a3b2e;margin:16pt 0 6pt;page-break-after:avoid;direction:rtl}
+h3{font-size:12pt;color:#7a3b2e;margin:10pt 0 4pt;page-break-after:avoid;direction:rtl}
+section{direction:rtl}
+table{direction:rtl;width:100%;max-width:100%;border-collapse:collapse;table-layout:fixed;mso-table-dir:rtl}
+td,th{direction:auto;vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere}
+img{max-width:100%;height:auto;object-fit:contain}
+ul,ol{direction:rtl;padding-right:24pt;padding-left:0}
+a{color:#7a3b2e;text-decoration:underline}
+.treatment-container{display:block;width:100%}.treatment-box{display:block;border-bottom:1px solid #d7d0c8;padding:0 0 10pt;margin:0 0 13pt;page-break-inside:avoid}.treatment-title{font-size:13pt;font-weight:bold;color:#7a3b2e;margin:0 0 5pt}.treatment-input{font-size:11pt;line-height:1.7;white-space:pre-wrap}
+.block-scene,.radio-scene{font-weight:bold;text-transform:uppercase;margin:18pt 0 7pt;page-break-after:avoid}.block-action{margin:0 0 10pt}.block-char{font-weight:bold;text-align:center;margin:12pt auto 0}.block-dialogue{margin:2pt auto 10pt;text-align:center}.block-parenthetical{font-style:italic;text-align:center}.block-transition{text-align:left;text-transform:uppercase;font-weight:bold}
+.fr-table,.free-table,.content-meta{width:100%;border-collapse:collapse;table-layout:fixed}.fr-table th,.fr-table td,.free-table th,.free-table td,.content-meta td{border:1px solid #aaa;padding:6pt;vertical-align:top}.fr-head th{background:#eee;color:#111}.fr-del-row,.del-treatment-box,.dual-ctl,.dual-x,.fr-label{display:none!important}
+.docu-segment{border:1px solid #bbb;padding:8pt;margin:12pt 0;page-break-inside:avoid}.docu-grid{width:100%;display:table;table-layout:fixed}.docu-cell{display:table-cell;width:50%;border:1px solid #ccc;padding:7pt;vertical-align:top}.docu-cell h3{border-bottom:1px solid #ddd}.social-final,.ad-hero{border:1px solid #ccc;padding:9pt}.quote-image-card{margin:12pt auto;text-align:center}
+.page-break-marker{page-break-before:always;break-before:page;height:0}
+</style></head><body dir="rtl">${body}
+<!-- Phase 27: extraction preview now reports totals after saved corrections; evidence list remains original for auditability. -->
+</body></html>`;
 }
 function exportWordFile(rootId, opts){
   if(!window.htmlDocx || typeof window.htmlDocx.asBlob !== 'function'){
@@ -4521,13 +5183,18 @@ function prepPrint(rootId, opts){
   printArea.innerHTML = b.body;
   while(printArea.lastElementChild && !printArea.lastElementChild.textContent.trim() && !printArea.lastElementChild.querySelector('img,table')) printArea.lastElementChild.remove();
   const rootDoc0 = docs[rootId] || {};
-  const pageMargin = (rootDoc0.style && rootDoc0.style.pageMargin) || '2cm 1.5cm 2.5cm 1.5cm';
+  const printType = rootDoc0.docType || 'text_document';
+  printArea.classList.remove(...[...printArea.classList].filter(c => c.startsWith('print-type-')));
+  printArea.classList.add('print-type-' + printType.replace(/[^a-z0-9_-]/gi, ''));
+  const screenplayMargin = ['screenplay_us','screenplay_fr'].includes(printType) ? '2.5cm 2.5cm 2.5cm 2.5cm' : '2cm 1.5cm 2.5cm 1.5cm';
+  const pageMargin = (rootDoc0.style && rootDoc0.style.pageMargin) || screenplayMargin;
   const withNums = !opts || opts.nums !== false;
-  dynStyle.textContent = `@page{margin:${pageMargin};${withNums ? '@bottom-center{content:"صفحة " counter(page) " من " counter(pages);font-size:10pt;}' : ''}@bottom-left{content:"${cssStr(PLATFORM_SIGNATURE)}";font-size:9pt;}${showAuthorSig ? `@bottom-right{content:"${cssStr(AUTHOR_NAME)}";font-size:9pt;}` : ''}} #printArea > :last-child{page-break-after:auto;} #printArea p:empty{display:none;}`;
+  dynStyle.textContent = `@page{size:A4;margin:${pageMargin};${withNums ? '@bottom-center{content:"صفحة " counter(page) " من " counter(pages);font-size:9pt;}' : ''}@bottom-left{content:"${cssStr(PLATFORM_SIGNATURE)}";font-size:8pt;}${showAuthorSig ? `@bottom-right{content:"${cssStr(AUTHOR_NAME)}";font-size:8pt;}` : ''}} #printArea{direction:rtl;unicode-bidi:embed;width:100%;color:#000;background:#fff} #printArea img,#printArea svg,#printArea video{max-width:100%!important;height:auto!important;object-fit:contain} #printArea table{max-width:100%;table-layout:fixed} #printArea td,#printArea th{overflow-wrap:anywhere;vertical-align:top} #printArea h1,#printArea h2,#printArea h3{break-after:avoid;page-break-after:avoid} #printArea p{orphans:3;widows:3} #printArea > :last-child{page-break-after:auto;} #printArea p:empty{display:none;}`;
   document.body.classList.add('printing');
 }
 function cleanupPrint(){
   document.body.classList.remove('printing');
+  [...printArea.classList].filter(c => c.startsWith('print-type-')).forEach(c => printArea.classList.remove(c));
   printArea.innerHTML = '';
   dynStyle.textContent = '';
 }
@@ -4614,7 +5281,7 @@ $('pvCancelEdit').addEventListener('click', () => {
 $('expHtml').addEventListener('click', () => {
   if(!needDoc()) return;
   const b = buildExport(currentId, null);
-  const page = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>${esc(b.title)}</title><style>body{font-family:'Noto Naskh Arabic',Georgia,serif;background:#f7f3ea;color:#2b2620;max-width:820px;margin:0 auto;padding:40px 20px;line-height:1.9}h1,h2{color:#7a3b2e}table{border-collapse:collapse;width:100%}td,th{border:1px solid #999;padding:8px}p{margin:0 0 .5em 0}</style></head><body>${b.body}</body></html>`;
+  const page = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(b.title)}</title><style>@page{size:A4;margin:2cm 1.7cm}*{box-sizing:border-box}html,body{direction:rtl;unicode-bidi:embed}body{font-family:'Noto Naskh Arabic',Arial,Georgia,serif;background:#fff;color:#222;max-width:820px;margin:0 auto;padding:28px 20px;line-height:1.85;overflow-wrap:anywhere}h1,h2,h3{color:#7a3b2e;break-after:avoid;page-break-after:avoid}table{direction:rtl;border-collapse:collapse;width:100%;max-width:100%;table-layout:fixed;break-inside:auto}td,th{border:1px solid #999;padding:8px;vertical-align:top;overflow-wrap:anywhere}tr{break-inside:avoid;page-break-inside:avoid}img,svg,video{max-width:100%;height:auto}p{margin:0 0 .6em}section{break-before:page;page-break-before:always}.del-treatment-box,.fr-del-row,.dual-ctl,.dual-x,.docu-add-row{display:none!important}@media screen{body{box-shadow:0 0 0 1px #ddd;max-width:860px;margin:20px auto;padding:36px}}@media print{body{max-width:none;margin:0;padding:0;box-shadow:none;background:#fff}section:first-child{break-before:auto;page-break-before:auto}}</style></head><body>${b.body}</body></html>`;
   downloadBlob(safeFileName(b.title) + '.html', page, 'text/html;charset=utf-8');
 });
 
@@ -4791,38 +5458,75 @@ importBackupInput.addEventListener('change', e => {
   const file = e.target.files[0];
   e.target.value = '';
   if(!file) return;
+  // A backup import is a merge, never a destructive replacement. Validate it before
+  // touching the live workspace, then roll back if any later operation fails.
+  if(file.size > 100 * 1024 * 1024){
+    alert('حجم النسخة الاحتياطية أكبر من الحد المدعوم (100 ميغابايت).');
+    return;
+  }
   const reader = new FileReader();
   reader.onload = () => {
+    let rollback = null, templatesBefore = null;
     try{
       const data = JSON.parse(reader.result);
-      if(!data || typeof data.docs !== 'object' || !Array.isArray(data.index)){ alert('ملف النسخة الاحتياطية غير صالح.'); return; }
-      flushEditorToDoc(); pushUndoSnapshot();
-      const idMap = {};
-      Object.keys(data.docs).forEach(o => { idMap[o] = uid(); });
+      const isRecord = value => !!value && typeof value === 'object' && !Array.isArray(value);
+      if(!isRecord(data) || !isRecord(data.docs) || !Array.isArray(data.index)){
+        throw new Error('بنية النسخة الاحتياطية غير صحيحة: الملفات أو الفهرس مفقود.');
+      }
+      if(data.trash !== undefined && !isRecord(data.trash)) throw new Error('بنية سلة المحذوفات غير صحيحة.');
+      if(data.templates !== undefined && !Array.isArray(data.templates)) throw new Error('بنية القوالب غير صحيحة.');
+      const docKeys = Object.keys(data.docs), trashKeys = Object.keys(data.trash || {});
+      const docKeySet = new Set(docKeys), trashKeySet = new Set(trashKeys);
+      if(docKeys.some(k => !isRecord(data.docs[k]))) throw new Error('تحتوي النسخة على سجل ملف غير صالح.');
+      if(trashKeys.some(k => !isRecord(data.trash[k]))) throw new Error('تحتوي سلة المحذوفات على سجل غير صالح.');
+      if(docKeys.some(k => trashKeySet.has(k))) throw new Error('النسخة غير متسقة: يوجد معرّف مشترك بين الملفات النشطة والمحذوفة.');
+      if(data.index.some(k => typeof k !== 'string' || !docKeySet.has(k))) throw new Error('الفهرس يشير إلى ملف غير موجود داخل النسخة.');
+      if(data.templates && data.templates.some(t => !isRecord(t) || typeof t.name !== 'string')) throw new Error('تحتوي النسخة على قالب غير صالح.');
+
+      // Snapshot live state before commit; all source data is JSON-safe after parsing.
+      flushEditorToDoc();
+      rollback = snapshotState();
+      templatesBefore = deepClone(templates);
+      pushUndoSnapshot();
+      const idMap = Object.create(null);
+      [...docKeys, ...trashKeys].forEach(oldId => { idMap[oldId] = uid(); });
       const remap = (doc) => {
         const c = deepClone(doc);
-        if(c.parentId) { if(idMap[c.parentId]) c.parentId = idMap[c.parentId]; else delete c.parentId; }
+        if(c.parentId){ if(idMap[c.parentId]) c.parentId = idMap[c.parentId]; else delete c.parentId; }
         if(Array.isArray(c.children)) c.children = c.children.map(k => idMap[k]).filter(Boolean);
         if(Array.isArray(c.relatedDocs)) c.relatedDocs = c.relatedDocs.map(k => idMap[k]).filter(Boolean);
         if(c._trashedWith){ if(idMap[c._trashedWith]) c._trashedWith = idMap[c._trashedWith]; else delete c._trashedWith; }
         return c;
       };
-      Object.keys(data.docs).forEach(o => { docs[idMap[o]] = remap(data.docs[o]); });
-      index = [...data.index.map(o => idMap[o]).filter(Boolean), ...index];
-      if(data.trash && typeof data.trash === 'object'){
-        Object.keys(data.trash).forEach(o => { if(!idMap[o]) idMap[o] = uid(); });
-        Object.keys(data.trash).forEach(o => { trash[idMap[o]] = remap(data.trash[o]); });
-      }
+      // Prepare records before attaching them to the live maps.
+      const importedDocs = {}, importedTrash = {};
+      docKeys.forEach(oldId => { importedDocs[idMap[oldId]] = remap(data.docs[oldId]); });
+      trashKeys.forEach(oldId => { importedTrash[idMap[oldId]] = remap(data.trash[oldId]); });
+      Object.assign(docs, importedDocs);
+      index = [...data.index.map(oldId => idMap[oldId]).filter(Boolean), ...index];
+      Object.assign(trash, importedTrash);
       if(Array.isArray(data.templates)){
         data.templates.forEach(t => { if(t && t.name && !templates.some(x => x.name === t.name)) templates.push(Object.assign({}, t, { id: uid() })); });
         persistTemplates(); renderTemplates();
       }
-      repairData();     // يرقّي الملفات القديمة للبنية الجديدة ويصلح أي روابط ناقصة
-      persist();
+      repairData();
+      if(!persist()) throw new Error('تعذّر حفظ النسخة المستوردة في مساحة التخزين الحالية.');
       openDoc(currentId && docs[currentId] ? currentId : (index[0] || null));
-      alert('تم استيراد النسخة الاحتياطية بكل محتوياتها. ملفاتك الحالية لم تتأثر.');
-    } catch(err){ alert('تعذر قراءة الملف: ' + err.message); }
+      alert('تم دمج النسخة الاحتياطية بنجاح. لم تُستبدل ملفاتك الحالية.');
+    } catch(err){
+      if(rollback){
+        try{
+          docs = deepClone(rollback.docs); index = deepClone(rollback.index); trash = deepClone(rollback.trash);
+          if(templatesBefore) templates = deepClone(templatesBefore);
+          persistTemplates(); persist(); renderTemplates();
+          openDoc(rollback.currentId && docs[rollback.currentId] ? rollback.currentId : (index[0] || null));
+        }catch(rollbackErr){ console.error('Varry Studio backup-import rollback failed:', rollbackErr); }
+      }
+      console.error('Varry Studio backup import rejected:', err);
+      alert('لم تُستورد النسخة الاحتياطية، ولم تُستبدل ملفاتك الحالية. السبب: ' + err.message);
+    }
   };
+  reader.onerror = () => alert('تعذّرت قراءة ملف النسخة الاحتياطية من الجهاز.');
   reader.readAsText(file);
 });
 
@@ -4837,11 +5541,13 @@ function recordCardHtml(kind, data){
   const s = RECORD_SCHEMAS[kind];
   const chips = s.chips.map(c => {
     const v = (data.chips && data.chips[c.key]) || '';
-    return '<div class="rc-chip' + (v ? ' set' : '') + '" data-key="' + c.key + '" data-val="' + esc(v) + '" contenteditable="false" title="انقر للتبديل · Shift+نقر لقيمة مخصصة">' + esc(c.label + ': ' + (v || '—')) + '</div>';
+    const autoVal = data.auto && Object.prototype.hasOwnProperty.call(data.auto, c.key) ? data.auto[c.key] : '';
+    return '<div class="rc-chip' + (v ? ' set' : '') + '" data-key="' + c.key + '" data-val="' + esc(v) + '"' + (autoVal ? ' data-auto-val="' + esc(autoVal) + '"' : '') + ' contenteditable="false" title="انقر للتبديل · Shift+نقر لقيمة مخصصة">' + esc(c.label + ': ' + (v || '—')) + '</div>';
   }).join('');
   const fields = s.fields.map(f => {
     const v = (data.fields && data.fields[f.key]) || '';
-    return '<div class="rc-field' + (f.wide ? ' wide' : '') + (f.auto ? ' auto' : '') + '"><span class="rc-label" contenteditable="false">' + esc(f.label) + '</span><div class="rc-val" data-key="' + f.key + '" contenteditable="true" tabindex="0" data-ph="' + esc(f.ph || '') + '">' + esc(v) + '</div></div>';
+    const autoVal = f.auto && data.fields && Object.prototype.hasOwnProperty.call(data.fields, f.key) ? v : '';
+    return '<div class="rc-field' + (f.wide ? ' wide' : '') + (f.auto ? ' auto' : '') + '"><span class="rc-label" contenteditable="false">' + esc(f.label) + '</span><div class="rc-val" data-key="' + f.key + '" contenteditable="true" tabindex="0" data-ph="' + esc(f.ph || '') + '"' + (autoVal ? ' data-auto-value="' + esc(autoVal) + '"' : '') + '>' + esc(v) + '</div></div>';
   }).join('');
   return '<div class="rc-card" data-rc="' + kind + '"><div class="rc-tools" contenteditable="false"><button class="rc-dup" title="نسخ البطاقة">📑</button><button class="rc-del" title="حذف البطاقة">✕</button></div><div class="rc-name" contenteditable="true" tabindex="0" data-ph="' + esc(s.namePh) + '">' + esc(data.name || '') + '</div><div class="rc-chips" contenteditable="false">' + chips + '</div><div class="rc-grid">' + fields + '</div></div>';
 }
@@ -4869,6 +5575,9 @@ function handleRecordClick(t, e){
       next = opts[(opts.indexOf(chip.dataset.val || '') + 1) % opts.length];
     }
     setChip(chip, def, next);
+    // التغيير اليدوي (حتى لو كان مسح القيمة) لا يُستبدل بتحديث تلقائي لاحق.
+    chip.dataset.autoManual = 'true';
+    delete chip.dataset.autoVal;
     scheduleSave();
     return true;
   }
@@ -4878,6 +5587,12 @@ function handleRecordClick(t, e){
   if(dup){ const card = dup.closest('.rc-card'); if(card){ snap(); card.after(card.cloneNode(true)); scheduleSave(); } return true; }
   return false;
 }
+// أي تحرير يدوي لحقل بطاقة التفريغ يُعلّم الحقل كيدوي، حتى لو مسح المستخدم النص لاحقاً.
+editor.addEventListener('input', e => {
+  const field = e.target.closest && e.target.closest('.rc-val[data-key]');
+  if(field){ field.dataset.autoManual = 'true'; delete field.dataset.autoValue; }
+});
+
 function addRecordCard(kind){
   snap(); restoreCaret();
   let list = editor.querySelector('.rc-list');
@@ -4991,6 +5706,19 @@ function parseSceneHeading(text){
   });
   return { num, ie, tod, name: names.join(' - ').replace(/^[.\s]+|[.\s]+$/g, '') };
 }
+/* فلترة محافظة لأسماء الشخصيات: تستبعد التسميات الإخراجية والعناوين الشائعة فقط، ولا تحاول الحكم على الأسماء الشخصية اعتماداً على معناها وحده. */
+const NON_CHARACTER_LABEL_RE = /^(?:شخصية|الشخصية|حوار|الكلام|الوصف|وصف|تعليق صوتي|راوي|الراوي|المعلق|المكان|الموقع|اللوكيشن|الوقت|الزمن|عنوان المشهد|المشهد|مشهد|لقطة|صورة أمامية|صورة امامية|صورة جانبية|صورة خلفية|لقطة قريبة|لقطة بعيدة|لقطة عامة|لقطة متوسطة|كاميرا|زاوية الكاميرا|تعليمات|ملاحظات|ملاحظة|انتقال|قطع|صمت|موسيقى|مؤثر صوتي|مؤثرات صوتية|إضاءة|اضاءة|داخلي|خارجي|نهار|ليل|فجر|غروب|صباح|مساء|int|ext|interior|exterior|day|night|camera|shot|close.?up|wide.?shot|voice.?over|v\.o\.|o\.s\.)$/i;
+const NON_CHARACTER_ACTION_RE = /^(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يقف|تقف|ينظر|تنظر|يلتفت|تلتفت|يمشي|تمشي|يركض|تركض|يبكي|تبكي|يضحك|تضحك|يفتح|تفتح|يغلق|تغلق|يصرخ|تصرخ|يتحدث|تتحدث|صوت|صوت من الخارج|صوت من الداخل|من خلف الكاميرا|خارج الكادر|من خارج الكادر|من الداخل|من الخارج|يظهر|تظهر|يختفي|تختفي|enter|exits?|walks?|runs?|looks?|sits?|stands?|whispers?|shouts?)\b/i;
+function looksLikeNonCharacterName(name){
+  const t = String(name || '').replace(/[()\[\]{}]/g, ' ').replace(/[:：]+$/,'').replace(/\s+/g,' ').trim();
+  if(!t) return true;
+  if(NON_CHARACTER_LABEL_RE.test(t)) return true;
+  if(looksLikeShotDirection(t)) return true;
+  if(t.length > 40 || t.split(/\s+/).length > 4) return true;
+  if(NON_CHARACTER_ACTION_RE.test(t) && (t.split(/\s+/).length > 1 || /^(?:صوت|يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|ينظر|تنظر|enter|exits?)$/i.test(t))) return true;
+  if(/^(?:\d+|[\-–—_*#]+|[.!؟?…]+)$/.test(t)) return true;
+  return false;
+}
 function cleanCharName(s){
   const t = String(s || '').replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）/g, ' ').replace(/[:：]+\s*$/, '').replace(/\s+/g, ' ').trim();
   return (t.length > 40 || t.split(' ').length > 4) ? '' : t;
@@ -5005,13 +5733,12 @@ function analyseScript(doc, id, smart){
   const tmp = document.createElement('div');
   tmp.innerHTML = doc.html || '';
   tmp.querySelectorAll('.treatment-container, .rc-list, .rc-summary, .quote-image-card, .scene-duration, .page-break-marker').forEach(n => n.remove());
-  const scriptLike = SCENE_TYPES.includes(doc.docType) || doc.docType === 'story_scene';
   const out = { docId:id, title: doc.title || 'بلا عنوان', scenes:[], prelude:{ n:0, chars:new Map() } };
   let cur = null, last = null, waiting = false;
   const touch = raw => {
     const name = cleanCharName(raw);
     const key = normKey(name);
-    if(!name || !key) return null;
+    if(!name || !key || (smart && looksLikeNonCharacterName(name))) return null;
     const b = (cur || out.prelude).chars;
     let e = b.get(key);
     if(!e){ e = { name, lines:0, words:0, sample:'' }; b.set(key, e); }
@@ -5054,9 +5781,13 @@ function analyseScript(doc, id, smart){
       if(cur && !cur.tod){ const p = parseSceneHeading(tm[1]); cur.tod = p.tod || ''; if(p.ie && !cur.ie) cur.ie = p.ie; }
       return;
     }
-    if(!scriptLike) return;
-    const m = text.match(/^([^:：]{1,25})[:：]\s+(.+)$/);
+    if(!CHAR_SOURCE_TYPES.includes(doc.docType)) return;
+    const m = text.match(/^([^:：]{1,25})[:：]\s*(\S[\s\S]*)$/);
     if(m && m[1].trim().split(/\s+/).length <= 2 && !SCENE_RE.test(m[1])){
+      const labelKey = normKey(m[1]);
+      if(['عنوان', 'عنوان المشهد', 'المكان', 'الموقع', 'اللوكيشن', 'الوقت', 'الزمن', 'المشهد', 'ملاحظه', 'ملاحظات', 'ملخص', 'الخلاصه', 'وصف', 'المصدر', 'المصادر', 'سؤال', 'اسئله', 'اجابه', 'اجابات'].includes(labelKey)){
+        last = null; waiting = false; return;
+      }
       const e = touch(m[1]);
       if(e) addLine(e, m[2]);
       last = null; waiting = false; return;
@@ -5071,28 +5802,70 @@ function uniqSorted(a){ return [...new Set(a)].sort((x, y) => x - y); }
 function refsText(refs, multi){
   return [...refs.values()].map(r => (multi ? r.title + ': ' : '') + uniqSorted(r.nums).join('، ')).join(' · ');
 }
+/* التمييز الدلالي بين المكان وبين وصف الكاميرا/حجم اللقطة؛ هذه أوصاف إخراجية وليست لوكيشنات. */
+const SHOT_OR_CAMERA_RE = /^(?:صورة|لقطة|كادر|زاوية|كاميرا|منظور|تأطير|بانوراما|زووم|كلوز.?ا?ب|كلوز.?أب|وايد.?شوت|ميديم.?شوت|فول.?شوت|اوف.?سكرين|وجهة.?نظر|من.?وجهة.?نظر|من.?خلف.?الكتف|لقطة.?تأسيسية|لقطة.?عامة|لقطة.?قريبة|لقطة.?بعيدة|لقطة.?متوسطة|صورة.?أمامية|صورة.?جانبية|صورة.?خلفية|close.?up|wide.?shot|medium.?shot|long.?shot|full.?shot|over.?the.?shoulder|point.?of.?view|pov|camera|angle|frame|shot|zoom|pan|tilt)(?:\s+(?:أمامية|امامية|جانبية|خلفية|قريبة|بعيدة|متوسطة|عامة|واسعة|تأسيسية|منخفضة|مرتفعة|من.?الأعلى|من.?الأسفل|front|side|back|close|wide|medium|long|full|high|low|shot|up|down))?$/i;
+function looksLikeShotDirection(name){ return !!name && SHOT_OR_CAMERA_RE.test(arPlain(name).trim()); }
+/* لا نفترض أن العنوان كله مكان: قد يجمع اسم الموقع مع توجيه تصوير مفصول بشرطة أو فاصلة. */
+function classifyLocationHeading(rawName){
+  const original = String(rawName || '').trim();
+  if(!original) return { name:'', removed:[], onlyShot:false };
+  const parts = original.split(/\s*[-–—|،,؛;]\s*/).map(x => x.trim()).filter(Boolean);
+  if(parts.length < 2){
+    return looksLikeShotDirection(original) ? { name:'', removed:[original], onlyShot:true } : { name:original, removed:[], onlyShot:false };
+  }
+  const kept = [], removed = [];
+  parts.forEach(part => (looksLikeShotDirection(part) ? removed : kept).push(part));
+  if(!kept.length) return { name:'', removed, onlyShot:true };
+  return { name:kept.join(' - '), removed, onlyShot:false };
+}
 function buildLocations(analyses){
   const multi = analyses.length > 1, map = new Map();
-  let total = 0, unnamed = 0;
+  let total = 0, unnamed = 0, suspicious = [], adjusted = [];
   analyses.forEach(a => a.scenes.forEach(sc => {
     total++;
-    const key = sc.name ? normKey(sc.name) : '';
-    if(!key){ unnamed++; return; }
+    const classified = classifyLocationHeading(sc.name);
+    const locationName = classified.name;
+    const key = locationName ? normKey(locationName) : '';
+    if(!key){
+      if(classified.removed.length) suspicious.push({name:sc.name, removed:classified.removed, title:a.title, scene:sc.n, heading:sc.heading});
+      unnamed++; return;
+    }
+    if(classified.removed.length) adjusted.push({original:sc.name, name:locationName, removed:classified.removed, title:a.title, scene:sc.n, heading:sc.heading});
     let L = map.get(key);
-    if(!L) map.set(key, L = { name:sc.name, ies:new Set(), tods:new Set(), refs:new Map(), chars:new Map(), count:0 });
+    if(!L) map.set(key, L = { name:locationName, ies:new Set(), tods:new Set(), refs:new Map(), chars:new Map(), count:0, removedDirections:[] });
     L.count++;
+    classified.removed.forEach(x => { if(!L.removedDirections.includes(x)) L.removedDirections.push(x); });
     if(sc.ie) L.ies.add(sc.ie);
     if(sc.tod) L.tods.add(sc.tod);
     if(!L.refs.has(a.docId)) L.refs.set(a.docId, { title:a.title, nums:[] });
     L.refs.get(a.docId).nums.push(sc.n);
     sc.chars.forEach((e, k) => { if(!L.chars.has(k)) L.chars.set(k, e.name); });
   }));
-  const items = [...map.values()].map(L => ({
-    name: L.name, note: L.count + ' مشهد',
-    chips: { ie: L.ies.size > 1 ? 'داخلي/خارجي' : ([...L.ies][0] || ''), tod: L.tods.size > 1 ? 'متعدد' : ([...L.tods][0] || '') },
-    auto: { scenes: refsText(L.refs, multi), chars: [...L.chars.values()].join('، ') }
-  }));
-  return { items, total, unnamed };
+  const items = [...map.values()].map(L => {
+    const nameWords = L.name.trim().split(/\s+/).length;
+    const looksLikeAction = /\b(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يركض|تركض|ينظر|تنظر|يفتح|تفتح|enter|exits?|walks?|runs?|looks?)\b/i.test(L.name);
+    const warnings = [
+      L.ies.size > 1 ? 'ظهر المكان داخلياً وخارجياً؛ يلزم التأكد هل هو موقع واحد أم أكثر.' : '',
+      L.tods.size > 1 ? 'وردت أوقات مختلفة لهذا المكان.' : '',
+      nameWords > 5 ? 'اسم طويل نسبياً؛ قد يحتوي على وصف حدث أو حركة لا على اسم المكان وحده.' : '',
+      looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ راجعي هل هو موقع فعلي أم وصف حدث.' : '',
+      L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ تحققي من كونه مكاناً فعلياً.' : '',
+      L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. راجعي العنوان الأصلي للتأكد من أن الفصل صحيح.' : ''
+    ].filter(Boolean);
+    const weakName = nameWords > 5 || looksLikeAction;
+    const confidence = weakName ? 'يحتاج مراجعة' : L.count >= 3 ? 'مرجّح' : L.count === 2 ? 'متوسط' : 'يحتاج مراجعة';
+    return {
+      name: L.name,
+      note: L.count + ' مشهد · الثقة: ' + confidence,
+      sources: [...L.refs.values()].map(r => r.title),
+      evidenceCount: L.count,
+      confidence,
+      warnings,
+      chips: { ie: L.ies.size > 1 ? 'داخلي/خارجي' : ([...L.ies][0] || ''), tod: L.tods.size > 1 ? 'متعدد' : ([...L.tods][0] || '') },
+      auto: { scenes: refsText(L.refs, multi), chars: [...L.chars.values()].join('، ') }
+    };
+  });
+  return { items, total, unnamed, suspicious, adjusted };
 }
 function buildCharacters(analyses, minLines){
   const multi = analyses.length > 1, map = new Map();
@@ -5114,34 +5887,61 @@ function buildCharacters(analyses, minLines){
       });
     });
   });
-  /* دمج صيغ الاسم: «سلمى» تُدمج في «سلمى الأحمد» إن كانت الصيغة الأطول وحيدة */
+  /* دمج محافظ لصيغ الاسم: لا ندمج الاسم المختصر مع الأطول إلا إذا كانت الصيغة الأطول وحيدة
+     ولم يظهر الاسمان معاً في المشهد نفسه. الحالات الملتبسة تبقى منفصلة بدلاً من دمج شخصيتين خطأً. */
   [...map.keys()].forEach(k => {
     const C = map.get(k);
     if(!C) return;
     const w = k.split(' ');
     const longer = [...map.keys()].filter(k2 => k2 !== k && k2.split(' ').length > w.length && k2.split(' ').slice(0, w.length).join(' ') === k);
     if(longer.length !== 1) return;
-    const L = map.get(longer[0]);
+    const longKey = longer[0], L = map.get(longKey);
+    const sharedScenes = [...C.refs.entries()].some(([id, r]) => {
+      const lr = L.refs.get(id);
+      return lr && r.nums.some(n => lr.nums.includes(n));
+    });
+    if(sharedScenes) return;
     L.lines += C.lines; L.words += C.words;
     if(!L.sample && C.sample) L.sample = C.sample;
     C.refs.forEach((r, id) => { if(!L.refs.has(id)) L.refs.set(id, { title:r.title, nums:[] }); r.nums.forEach(n => L.refs.get(id).nums.push(n)); });
-    C.together.forEach((n, k2) => { if(k2 !== longer[0] && k2 !== k) L.together.set(k2, (L.together.get(k2) || 0) + n); });
-    if(!L.first) L.first = C.first;
-    if(!L.last) L.last = C.last;
+    C.together.forEach((n, k2) => { if(k2 !== longKey && k2 !== k) L.together.set(k2, (L.together.get(k2) || 0) + n); });
+    if(!L.first || (C.first && C.first.n < L.first.n)) L.first = C.first;
+    if(!L.last || (C.last && C.last.n > L.last.n)) L.last = C.last;
     map.delete(k);
   });
   const all = [...map.values()].filter(C => C.lines >= minLines).sort((x, y) => y.lines - x.lines);
   const max = Math.max(1, ...all.map(C => C.lines));
   const refLabel = r => (multi ? r.title + ' · ' : '') + 'مشهد ' + r.n;
   const totalScenes = analyses.reduce((n, a) => n + a.scenes.length, 0);
+  // لا ندمج الشخصيات التي تتشارك الاسم الأول تلقائياً؛ نعرض تنبيهاً للمراجعة فقط.
+  const firstNameGroups = new Map();
+  all.forEach(C => {
+    const first = C.name.trim().split(/\s+/)[0];
+    if(!first) return;
+    const k = first.toLocaleLowerCase();
+    if(!firstNameGroups.has(k)) firstNameGroups.set(k, []);
+    firstNameGroups.get(k).push(C.name);
+  });
   const items = all.map(C => {
     const sceneCount = [...C.refs.values()].reduce((n, r) => n + new Set(r.nums).size, 0);
     let st = C.lines + ' سطر حوار · ' + C.words + ' كلمة · ' + sceneCount + ' مشهد';
     if(C.first) st += ' · أول ظهور: ' + refLabel(C.first);
     if(C.last && (C.last.n !== C.first.n || C.last.title !== C.first.title)) st += ' · آخر ظهور: ' + refLabel(C.last);
     const ratio = C.lines / max;
+    const warnings = [];
+    if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحققي من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
+    if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجعي السطر المستخرج قبل اعتماد بطاقة الشخصية.');
+    if(!C.sample) warnings.push('لم يُلتقط مثال حوار واضح لهذه الشخصية.');
+    const first = C.name.trim().split(/\s+/)[0];
+    const sameFirst = (firstNameGroups.get((first || '').toLocaleLowerCase()) || []).filter(n => n !== C.name);
+    if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحققي مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
+    // ترتيب أرقام المشاهد وإزالة تكرارها في بيانات العرض، مع الإبقاء على الأدلة الأصلية.
+    const sceneEvidence = [...C.refs.values()].map(r => ({title:r.title, nums:[...new Set(r.nums)].sort((a,b) => Number(a)-Number(b))}));
     return {
-      name: C.name, note: C.lines + ' سطر',
+      name: C.name, note: C.lines + ' سطر · ' + (warnings.length ? 'يحتاج مراجعة' : 'أدلة متعددة'),
+      sources: sceneEvidence.map(r => r.title),
+      evidenceCount: sceneCount,
+      warnings,
       chips: { role: (ratio >= 0.5 && (totalScenes <= 3 || (sceneCount >= 3 && sceneCount / totalScenes >= 0.25))) ? 'رئيسية' : (sceneCount >= 2 || ratio >= 0.2) ? 'ثانوية' : 'ظهور عابر' },
       auto: {
         stats: st, scenes: refsText(C.refs, multi), sample: C.sample ? '«' + C.sample + '»' : '',
@@ -5168,17 +5968,34 @@ function mergeRecordItems(doc, kind, items, mode, stamp){
     const k = normKey(it.name), ex = byKey.get(k);
     if(ex){
       if(mode === 'update'){
-        Object.keys(it.auto).forEach(fk => { const v = ex.querySelector('.rc-val[data-key="' + fk + '"]'); if(v) v.textContent = it.auto[fk]; });
+        // تحديث ذكي: لا نكتب فوق تعديل يدوي. يتحدّث الحقل فقط إذا كان فارغاً
+        // أو ما زال يساوي آخر قيمة أنشأها التفريغ التلقائي.
+        Object.keys(it.auto).forEach(fk => {
+          const v = ex.querySelector('.rc-val[data-key="' + fk + '"]');
+          if(!v || v.dataset.autoManual === 'true') return;
+          const current = v.textContent.trim();
+          const previousAuto = v.dataset.autoValue || '';
+          if(!current || (previousAuto && current === previousAuto)){
+            v.textContent = it.auto[fk] || '';
+            if(it.auto[fk]) v.dataset.autoValue = it.auto[fk];
+            else delete v.dataset.autoValue;
+          }
+        });
         Object.keys(it.chips).forEach(ck => {
           const ch = ex.querySelector('.rc-chip[data-key="' + ck + '"]'), def = s.chips.find(c => c.key === ck);
-          if(ch && def && !ch.dataset.val && it.chips[ck]) setChip(ch, def, it.chips[ck]);
+          if(!ch || !def || ch.dataset.autoManual === 'true') return;
+          const current = ch.dataset.val || '', previousAuto = ch.dataset.autoVal || '';
+          if((!current || (previousAuto && current === previousAuto)) && it.chips[ck]){
+            setChip(ch, def, it.chips[ck]);
+            ch.dataset.autoVal = it.chips[ck];
+          }
         });
         res.updated++;
       } else res.kept++;
       return;
     }
     const t = document.createElement('div');
-    t.innerHTML = recordCardHtml(kind, { name:it.name, chips:it.chips, fields:it.auto });
+    t.innerHTML = recordCardHtml(kind, { name:it.name, chips:it.chips, fields:it.auto, auto:it.chips });
     list.appendChild(t.firstElementChild);
     byKey.set(k, list.lastElementChild);
     res.added++;
@@ -5196,12 +6013,23 @@ function isSourceDoc(kind, id){
   return !!d && !isContainer(d) && (kind === 'loc' ? EXTRACT_SOURCE_TYPES : CHAR_SOURCE_TYPES).includes(d.docType);
 }
 function scopeSourceIds(kind, scopeId){
-  if(scopeId && docs[scopeId]) return (docs[scopeId].children || []).filter(id => isSourceDoc(kind, id));
-  return index.filter(id => isSourceDoc(kind, id));
+  // النطاق المحدد يشمل جميع المستندات المتداخلة داخل الحاوية، لا أبناء المستوى الأول فقط.
+  if(scopeId && docs[scopeId]) return descendantsOf(scopeId, []).filter(id => isSourceDoc(kind, id));
+  // النطاق العام يشمل كل المستندات داخل جميع مستويات الحاويات، مع الحفاظ على ترتيبها.
+  return orderedDocIds().filter(id => isSourceDoc(kind, id));
 }
 function orderedDocIds(){
-  const out = [];
-  index.forEach(id => { const d = docs[id]; if(!d) return; if(isContainer(d)) (d.children || []).forEach(c => { if(docs[c]) out.push(c); }); else out.push(id); });
+  const out = [], seen = new Set();
+  const visit = id => {
+    if(!id || seen.has(id) || !docs[id]) return;
+    seen.add(id);
+    const d = docs[id];
+    if(isContainer(d)) (Array.isArray(d.children) ? d.children : []).forEach(visit);
+    else out.push(id);
+  };
+  (Array.isArray(index) ? index : []).forEach(visit);
+  // Include recoverable/orphaned documents too, but never duplicate a reachable item.
+  Object.keys(docs).forEach(id => visit(id));
   return out;
 }
 function docLabel(id){
@@ -5215,7 +6043,8 @@ function renderExManual(){
   $('exManualList').innerHTML = ids.length ? ids.map(id => '<label><input type="checkbox" data-ex-id="' + esc(id) + '"' + (defaults.has(id) ? ' checked' : '') + '> ' + esc(docLabel(id)) + '</label>').join('') : '<span style="font-size:11px;color:var(--ink-soft);">لا توجد ملفات كتابة مناسبة.</span>';
 }
 function getExSources(){
-  const mode = exSrcMode();
+  const selectedMode = document.querySelector('input[name="exSrc"]:checked');
+  const mode = selectedMode ? selectedMode.value : 'auto';
   if(mode === 'current') return isSourceDoc(exKind, currentId) ? [currentId] : [];
   if(mode === 'manual') return [...$('exManualList').querySelectorAll('input:checked')].map(i => i.dataset.exId).filter(id => isSourceDoc(exKind, id));
   return scopeSourceIds(exKind, exScope);
@@ -5244,14 +6073,99 @@ function openExtract(kind){
   renderExManual();
   $('exManualList').style.display = 'none';
   $('exPreview').textContent = '';
+  $('exCorrectionList').innerHTML = '';
+  $('exCorrectionStatus').textContent = '';
   showModal(exModal);
+}
+// تصحيحات محلية للتفريغ: تُحفظ في المتصفح ولا تغيّر المصدر الأصلي للسيناريو.
+const EX_CORRECTIONS_KEY = 'varryStudioExtractionCorrectionsV1';
+function loadExtractionCorrections(){
+  try { const v = JSON.parse(localStorage.getItem(EX_CORRECTIONS_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; }
+  catch(e){ return {}; }
+}
+let extractionCorrections = loadExtractionCorrections();
+function saveExtractionCorrections(){
+  try { localStorage.setItem(EX_CORRECTIONS_KEY, JSON.stringify(extractionCorrections)); return true; }
+  catch(e){ alert('تعذّر حفظ التصحيح في تخزين المتصفح. سيبقى التصحيح الحالي مؤقتاً حتى إغلاق الصفحة.'); return false; }
+}
+function extractionCorrectionScope(){
+  // Corrections are isolated to the current project/container. Standalone files use their own ID.
+  return exScope && docs[exScope] ? String(exScope) : (currentId && docs[currentId] ? String(currentId) : 'standalone');
+}
+function extractionCorrectionKey(kind, name, scope){
+  return String(scope || extractionCorrectionScope()) + '|' + kind + ':' + normKey(name);
+}
+function correctedExtractionItems(kind, items){
+  const scope = extractionCorrectionScope();
+  return (items || []).reduce((out, item) => {
+    const correction = extractionCorrections[extractionCorrectionKey(kind, item.name, scope)];
+    if(correction && correction.action === 'exclude') return out;
+    const copy = Object.assign({}, item);
+    if(correction && correction.action === 'rename' && String(correction.name || '').trim()){
+      copy.name = String(correction.name).trim();
+      copy.note = (copy.note ? copy.note + ' · ' : '') + 'اسم مصحح يدوياً';
+    }
+    out.push(copy);
+  }, []);
+}
+function renderExtractionCorrections(items, kind){
+  const host = $('exCorrectionList'), status = $('exCorrectionStatus');
+  const scope = extractionCorrectionScope();
+  const scopePrefix = scope + '|';
+  const scopedCount = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix)).length;
+  if(status) status.textContent = scopedCount ? 'التصحيحات المحفوظة لهذا العمل: ' + scopedCount : 'لا توجد تصحيحات محفوظة لهذا العمل.';
+  const list = (items || []).slice(0, 40);
+  if(!list.length){ host.innerHTML = ''; return; }
+  host.innerHTML = '<b style="font-size:12px;">مراجعة وتصحيح النتائج (أول 40 نتيجة)</b>' + list.map(item => {
+    const key = extractionCorrectionKey(kind, item.name, scope), c = extractionCorrections[key] || {};
+    const action = c.action || 'keep';
+    return '<div class="ex-correction" data-correction-key="' + esc(key) + '">' +
+      '<div class="ex-c-name">' + esc(item.name) + '</div>' +
+      '<select class="ex-c-action" aria-label="قرار نتيجة ' + esc(item.name) + '">' +
+      '<option value="keep"' + (action==='keep'?' selected':'') + '>اعتماد الاسم</option>' +
+      '<option value="rename"' + (action==='rename'?' selected':'') + '>تصحيح الاسم</option>' +
+      '<option value="exclude"' + (action==='exclude'?' selected':'') + '>استبعاد النتيجة</option></select>' +
+      '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="اكتبي الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
+      '<small>' + esc((item.note || 'نتيجة مستخرجة') + ((item.sources || []).length ? ' · المصدر: ' + [...new Set(item.sources)].join('، ') : '')) + '</small></div>';
+  }).join('') + ((items || []).length > 40 ? '<small>تُعرض أول 40 نتيجة فقط في واجهة التصحيح؛ تبقى النتائج الأخرى ضمن التفريغ.</small>' : '');
+  host.querySelectorAll('.ex-correction').forEach(row => {
+    const key = row.dataset.correctionKey, actionEl = row.querySelector('.ex-c-action'), nameEl = row.querySelector('.ex-c-rename');
+    const saveRow = () => {
+      const action = actionEl.value;
+      if(action === 'keep') delete extractionCorrections[key];
+      else extractionCorrections[key] = {action, name: nameEl.value.trim(), updatedAt: Date.now()};
+      nameEl.disabled = action !== 'rename';
+      saveExtractionCorrections();
+      const n = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix)).length;
+      if(status) status.textContent = n ? 'التصحيحات المحفوظة لهذا العمل: ' + n : 'لا توجد تصحيحات محفوظة لهذا العمل.';
+    };
+    actionEl.addEventListener('change', saveRow);
+    nameEl.addEventListener('change', saveRow);
+  });
+}
+function clearExtractionCorrectionsForCurrentScope(){
+  const scopePrefix = extractionCorrectionScope() + '|';
+  const keys = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix));
+  if(!keys.length){ alert('لا توجد تصحيحات محفوظة لهذا العمل.'); return; }
+  if(!confirm('سيتم مسح ' + keys.length + ' تصحيحاً محفوظاً لهذا العمل فقط. لن تتأثر تصحيحات الأعمال الأخرى. هل تريدين المتابعة؟')) return;
+  keys.forEach(k => delete extractionCorrections[k]);
+  saveExtractionCorrections();
+  const res = computeExtraction();
+  if(res){
+    const box = $('exPreview');
+    // Refresh correction controls without changing the extraction preview text.
+    renderExtractionCorrections(res.items, res.kind);
+  } else {
+    $('exCorrectionList').innerHTML = '';
+    $('exCorrectionStatus').textContent = 'لا توجد تصحيحات محفوظة لهذا العمل.';
+  }
 }
 function computeExtraction(){
   const ids = getExSources();
   if(!ids.length) return null;
   const analyses = ids.map(id => analyseScript(docs[id], id, $('exSmart').checked));
   const r = exKind === 'loc' ? buildLocations(analyses) : buildCharacters(analyses, parseInt($('exMin').value, 10) || 0);
-  return { kind:exKind, ids, analyses, items:r.items, unnamed:r.unnamed };
+  return { kind:exKind, ids, analyses, items:r.items, unnamed:r.unnamed, suspicious:r.suspicious || [] };
 }
 function existingKeys(tid){
   const set = new Set();
@@ -5262,41 +6176,94 @@ function previewExtraction(){
   const res = computeExtraction(), box = $('exPreview');
   if(!res){ box.textContent = 'يرجى اختيار ملف مصدر واحد على الأقل.'; return; }
   const s = RECORD_SCHEMAS[res.kind], ex = existingKeys($('exTarget').value);
-  const fresh = res.items.filter(i => !ex.has(normKey(i.name))).length;
+  const rawItems = res.items;
+  const reviewedItems = correctedExtractionItems(res.kind, rawItems);
+  const fresh = reviewedItems.filter(i => !ex.has(normKey(i.name))).length;
+  const excludedByCorrection = rawItems.length - reviewedItems.length;
+  const renamedByCorrection = rawItems.filter(i => {
+    const c = extractionCorrections[extractionCorrectionKey(res.kind, i.name)];
+    return c && c.action === 'rename' && String(c.name || '').trim();
+  }).length;
   const sc = res.analyses.reduce((n, a) => n + a.scenes.length, 0);
-  let t = 'تم فحص ' + res.ids.length + ' ملف · ' + sc + ' مشهد\n' + res.items.length + ' ' + s.noun + ' (جديد: ' + fresh + ' · موجود: ' + (res.items.length - fresh) + ')';
-  if(res.kind === 'loc' && res.unnamed) t += '\n' + res.unnamed + ' مشهد بلا اسم مكان واضح (لم يُحتسب)';
-  t += '\n' + res.items.slice(0, 12).map(i => '• ' + i.name + ' — ' + i.note).join('\n');
-  if(res.items.length > 12) t += '\n… و' + (res.items.length - 12) + ' أخرى';
+  const sourceNames = res.ids.map(id => docLabel(id));
+  const warnings = [];
+  if(!sc && res.kind === 'loc') warnings.push('لم تُكتشف عناوين مشاهد واضحة. قد تكون صيغة العناوين غير مدعومة أو النص غير منسق كعناوين مشاهد.');
+  if(res.kind === 'loc' && res.unnamed) warnings.push(res.unnamed + ' مشهد بلا اسم مكان واضح، ولذلك لم يُنشأ له سجل مكان.');
+  if(res.kind === 'loc' && res.suspicious.length){
+    const examples = [...new Set(res.suspicious.slice(0, 5).map(x => '«' + x.name + '»'))].join('، ');
+    warnings.push('استُبعدت ' + res.suspicious.length + ' نتيجة لا تحتوي إلا على وصف تصوير محتمل (مثل ' + examples + '). راجعي عناوين هذه المشاهد قبل اعتماد التفريغ.');
+  }
+  if(res.kind === 'loc' && res.adjusted && res.adjusted.length){
+    const examples = [...new Set(res.adjusted.slice(0, 5).map(x => '«' + x.original + '» ← «' + x.name + '»'))].join('، ');
+    warnings.push('فُصل وصف تصوير محتمل عن اسم الموقع في ' + res.adjusted.length + ' عنوان. أمثلة: ' + examples + '. هذا اقتراح آلي يحتاج إلى مراجعة العناوين الأصلية.');
+  }
+  if(res.kind === 'cp' && !res.items.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
+  let t = 'ملخص المعاينة\nتم فحص ' + res.ids.length + ' ملف · ' + sc + ' مشهد\n' + reviewedItems.length + ' ' + s.noun + ' بعد تطبيق التصحيحات (جديد: ' + fresh + ' · موجود: ' + (reviewedItems.length - fresh) + ')';
+  if(excludedByCorrection || renamedByCorrection){
+    t += '\nالتصحيحات المطبقة: ' + renamedByCorrection + ' اسم مصحح · ' + excludedByCorrection + ' نتيجة مستبعدة';
+  }
+  if(reviewedItems.length !== rawItems.length){
+    t += '\nتنبيه: العدد أعلاه بعد التصحيحات المحفوظة؛ تفاصيل الأدلة أدناه تعرض النتائج الأصلية للمراجعة.';
+  }
+  t += '\n\nالمصادر:\n' + sourceNames.slice(0, 10).map(n => '• ' + n).join('\n');
+  if(sourceNames.length > 10) t += '\n… و' + (sourceNames.length - 10) + ' ملفات أخرى';
+  if(warnings.length) t += '\n\nملاحظات تحتاج انتباهك:\n' + warnings.map(w => '⚠ ' + w).join('\n');
+  t += '\n\nالنتائج مع الأدلة:\n' + res.items.slice(0, 20).map(i => {
+    const src = (i.sources || []).filter(Boolean);
+    const uniqueSources = [...new Set(src)];
+    const evidence = uniqueSources.length ? ' — المصدر: ' + uniqueSources.join('، ') : '';
+    const warn = (i.warnings || []).length ? '\n  ⚠ ' + i.warnings.join(' ') : '';
+    return '• ' + i.name + ' — ' + i.note + evidence + (i.auto && i.auto.scenes ? ' — المشاهد: ' + i.auto.scenes : '') + warn;
+  }).join('\n');
+  if(res.items.length > 20) t += '\n… و' + (res.items.length - 20) + ' نتائج أخرى';
   box.textContent = t;
+  renderExtractionCorrections(res.items, res.kind);
 }
 function runExtraction(){
-  const res = computeExtraction();
-  if(!res){ alert('يرجى اختيار ملف مصدر واحد على الأقل.'); return; }
-  if(!res.items.length){
-    alert(res.kind === 'loc' ? 'لم يُعثر على مشاهد بأسماء أماكن في الملفات المحددة. يُفضَّل كتابة عنوان المشهد بصيغة: مشهد 1 - داخلي - شقة سلمى - ليل' : 'لم يُعثر على شخصيات في الملفات المحددة. يُفضَّل استخدام زر «شخصية» و«حوار» أو كتابة: الاسم: الحوار');
-    return;
+  try {
+    const res = computeExtraction();
+    if(!res){
+      alert('لم يتم اختيار أي ملف مصدر صالح. اختاري «تلقائي» أو «الملف المفتوح فقط» أو حددي الملفات يدوياً.');
+      return;
+    }
+    res.items = correctedExtractionItems(res.kind, res.items);
+    if(!res.items.length){
+      alert(res.kind === 'loc' ? 'لم يُعثر على مشاهد بأسماء أماكن في الملفات المحددة. تأكدي من اختيار ملف سيناريو يحتوي عناوين مشاهد، مثل: مشهد 1 - داخلي - شقة سلمى - ليل.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
+      return;
+    }
+    const targetEl = $('exTarget');
+    const target = targetEl ? targetEl.value : '';
+    const mergeEl = document.querySelector('input[name="exMerge"]:checked');
+    const mode = mergeEl ? mergeEl.value : 'update';
+    if(target !== '__new' && (!docs[target] || docs[target].docType !== TYPE_OF[res.kind])){
+      alert('الملف الهدف غير متاح أو لا يطابق نوع التفريغ. اختاري ملفاً صالحاً أو «إنشاء ملف جديد».');
+      return;
+    }
+    if(mode === 'replace' && target !== '__new' && !confirm('سيتم استبدال كل البطاقات الحالية (بما فيها ما كُتب يدوياً) بالنتيجة الجديدة. المتابعة؟')) return;
+    flushEditorToDoc();
+    clearTimeout(saveTimer); saveTimer = null;
+    pushUndoSnapshot();
+    let tid = target;
+    if(tid === '__new') tid = makeDoc(TYPE_OF[res.kind], null, exScope);
+    if(!docs[tid]) throw new Error('لم يتم إنشاء أو العثور على ملف الهدف.');
+    const r = mergeRecordItems(docs[tid], res.kind, res.items, mode, new Date().toLocaleString('ar-EG'));
+    docs[tid].updatedAt = Date.now();
+    persist();
+    hideModal(exModal);
+    openDoc(tid);
+    const noun = RECORD_SCHEMAS[res.kind].noun;
+    alert('تم التفريغ بنجاح:\n• ' + r.added + ' ' + noun + ' جديدة\n• ' + r.updated + ' محدّثة\n• ' + r.kept + ' موجودة دون تعديل\nللتراجع: زر ↩️ أو Ctrl+Z.');
+  } catch(err) {
+    console.error('Varry Studio extraction failed:', err);
+    alert('تعذّر إكمال التفريغ بسبب خطأ داخلي. لم تُحذف ملفات المصدر.\nالتفاصيل: ' + (err && err.message ? err.message : String(err)));
   }
-  const target = $('exTarget').value, mode = document.querySelector('input[name="exMerge"]:checked').value;
-  if(mode === 'replace' && target !== '__new' && !confirm('سيتم استبدال كل البطاقات الحالية (بما فيها ما كُتب يدوياً) بالنتيجة الجديدة. المتابعة؟')) return;
-  flushEditorToDoc();
-  clearTimeout(saveTimer); saveTimer = null;
-  pushUndoSnapshot();
-  let tid = target;
-  if(tid === '__new') tid = makeDoc(TYPE_OF[res.kind], null, exScope);
-  const r = mergeRecordItems(docs[tid], res.kind, res.items, mode, new Date().toLocaleString('ar-EG'));
-  docs[tid].updatedAt = Date.now();
-  persist();
-  hideModal(exModal);
-  openDoc(tid);
-  const noun = RECORD_SCHEMAS[res.kind].noun;
-  alert('تم التفريغ:\n• ' + r.added + ' ' + noun + ' جديدة\n• ' + r.updated + ' محدّثة\n• ' + r.kept + ' موجودة دون تعديل\nللتراجع: زر ↩️ أو Ctrl+Z.');
 }
 document.querySelectorAll('input[name="exSrc"]').forEach(r => r.addEventListener('change', () => {
   $('exManualList').style.display = exSrcMode() === 'manual' ? 'flex' : 'none';
   $('exPreview').textContent = '';
 }));
 $('exPreviewBtn').addEventListener('click', previewExtraction);
+$('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
 $('exRun').addEventListener('click', runExtraction);
 $('exCancel').addEventListener('click', () => hideModal(exModal));
 $('addLocBtn').addEventListener('click', () => addRecordCard('loc'));
@@ -5305,20 +6272,20 @@ $('locAutoBtn').addEventListener('click', () => openExtract('loc'));
 $('cpAutoBtn').addEventListener('click', () => openExtract('cp'));
 $('locSortBtn').addEventListener('click', sortRecords);
 $('cpSortBtn').addEventListener('click', sortRecords);
-$('exLocBtn').addEventListener('click', () => openExtract('loc'));
-$('exCpBtn').addEventListener('click', () => openExtract('cp'));
 
 /* ===== تصدير ملفات محددة بصيغة النسخة الاحتياطية للمنصة ===== */
 function buildPartialBackup(ids){
-  const out = {}, keep = [];
-  ids.forEach(id => {
+  const out = {}, keep = [], visited = new Set();
+  const includeTree = id => {
     const d = docs[id];
-    if(!d) return;
+    if(!d || visited.has(id)) return;
+    visited.add(id);
     out[id] = deepClone(d);
-    delete out[id].parentId;
-    if(isContainer(d)) (d.children || []).forEach(k => { if(docs[k]) out[k] = deepClone(docs[k]); });
-    keep.push(id);
-  });
+    if(isContainer(d)) (Array.isArray(d.children) ? d.children : []).forEach(includeTree);
+  };
+  ids.forEach(id => { if(docs[id]){ includeTree(id); keep.push(id); } });
+  // Remove parent pointers only for exported roots; preserve internal tree relationships.
+  keep.forEach(id => { if(out[id]) delete out[id].parentId; });
   Object.keys(out).forEach(k => { if(Array.isArray(out[k].relatedDocs)) out[k].relatedDocs = out[k].relatedDocs.filter(r => out[r]); });
   return { platform:'Varry Studio: Multiple scenario platform', app:'Varry Studio', author:AUTHOR_NAME, docs:out, index:keep, trash:{}, exportedAt:new Date().toISOString() };
 }
@@ -5343,12 +6310,48 @@ document.addEventListener('keydown', e => {
 
 
 
+/* Documentary script controls: add a complete segment or add a row inside an existing segment. */
+editor.addEventListener('click', e => {
+  const addSegmentButton = e.target.closest('.docu-add-segment');
+  if(addSegmentButton && editor.contains(addSegmentButton)){
+    const title = editor.querySelector('.docu-project-title');
+    if(!title || !editor.querySelector('.docu-segment')) return;
+    snap();
+    const sections = [...editor.querySelectorAll('.docu-segment')];
+    const number = String(sections.length + 1).padStart(2, '0');
+    const section = document.createElement('section');
+    section.className = 'docu-segment';
+    section.innerHTML = '<p class="docu-segment-title">المقطع ' + number + ' · <span contenteditable="true" tabindex="0">عنوان المقطع</span><span class="docu-duration" contenteditable="true" tabindex="0">المدة: —</span></p>' +
+      '<table class="docu-table" dir="rtl"><thead><tr><th>الصورة (VIDEO)</th><th>الصوت (AUDIO)</th></tr></thead><tbody><tr><td><div contenteditable="true" tabindex="0" class="docu-edit-cell"><p><br></p></div></td><td><div contenteditable="true" tabindex="0" class="docu-edit-cell"><p><br></p></div></td></tr></tbody></table>' +
+      '<button type="button" class="docu-add-row" contenteditable="false" aria-label="إضافة صف جديد للصورة والصوت">＋ إضافة صف للصورة والصوت</button>' +
+      '<p class="docu-source">المصدر / رقم المادة / التوقيت / الحقوق: <span contenteditable="true" tabindex="0"> </span></p>';
+    const lastSection = sections[sections.length - 1];
+    lastSection.insertAdjacentElement('afterend', section);
+    scheduleSave();
+    const target = section.querySelector('.docu-edit-cell');
+    if(target) placeCaret(target, false);
+    return;
+  }
+  const button = e.target.closest('.docu-add-row');
+  if(!button || !editor.contains(button)) return;
+  const section = button.closest('.docu-segment');
+  const tbody = section && section.querySelector('.docu-table tbody');
+  if(!tbody) return;
+  snap();
+  const row = document.createElement('tr');
+  row.innerHTML = '<td><div contenteditable="true" tabindex="0" class="docu-edit-cell"><p><br></p></div></td><td><div contenteditable="true" tabindex="0" class="docu-edit-cell"><p><br></p></div></td>';
+  tbody.appendChild(row);
+  scheduleSave();
+  const target = row.querySelector('.docu-edit-cell');
+  if(target) placeCaret(target, false);
+});
+
 /* ===== اقتباس مصوّر: صورة / لقطة شاشة (مسودة أو جاهزة) ===== */
 $('qiMain').addEventListener('change', async e => {
   const f = e.target.files[0];
   if(!f) return;
   try{ quoteMainData = await readImageScaled(f, 1600, true); refreshQuotePreview(); }
-  catch(err){ alert(err.message); }
+  catch(err){ alert(err.message); } finally { e.target.value = ''; }
 });
 document.addEventListener('paste', async e => {
   if(!$('quoteImageModal').classList.contains('open')) return;
@@ -5454,6 +6457,29 @@ function needFormatTarget(){
   if(!t) alert('يرجى وضع المؤشر داخل فقرة أو مربع أولاً.');
   return t;
 }
+const FORMAT_CONTAINER_SELECTOR = '.treatment-container, .rc-list, .fr-table, .dual-dialogue-wrap, .bridge-block, .img-block, .quote-image-card, .page-break-marker';
+function formatParagraphTargets(){
+  const ce = caretElement();
+  if(!ce) return [];
+  const complex = ce.closest('.treatment-box, .rc-card');
+  if(complex) return [complex];
+  const r = savedEditorRange;
+  if(!r || !editor.contains(r.startContainer)) return [];
+  const eligible = el => el && el.nodeType === 1 && !el.matches(FORMAT_CONTAINER_SELECTOR);
+  if(r.collapsed){
+    const a = getAnchorBlock();
+    return eligible(a) ? [a] : [];
+  }
+  return [...editor.children].filter(el => {
+    if(!eligible(el)) return false;
+    try{ return r.intersectsNode(el); } catch(e){ return false; }
+  });
+}
+function needFormatParagraphTargets(){
+  const targets = formatParagraphTargets();
+  if(!targets.length) alert('يرجى وضع المؤشر داخل فقرة أو تحديد الفقرات المراد تنسيقها أولاً.');
+  return targets;
+}
 function applyBox(el, kind, color, radius, width){
   ['border', 'borderRight', 'background', 'borderRadius'].forEach(k => { el.style[k] = ''; });
   if(!el.matches('.treatment-box, .rc-card')) el.style.padding = '';
@@ -5493,21 +6519,23 @@ const HEADING_STYLES = { h1:['2em', '700'], h2:['1.5em', '700'], h3:['1.2em', '7
 $('fmtHeading').addEventListener('change', e => {
   const v = e.target.value; e.target.value = '';
   if(!v) return;
-  const t = needFormatTarget();
-  if(!t) return;
+  const targets = needFormatParagraphTargets();
+  if(!targets.length) return;
   snap();
-  if(v === 'none'){ t.style.fontSize = ''; t.style.fontWeight = ''; t.style.color = ''; }
-  else { t.style.fontSize = HEADING_STYLES[v][0]; t.style.fontWeight = HEADING_STYLES[v][1]; t.style.color = 'var(--accent)'; }
+  targets.forEach(t => {
+    if(v === 'none'){ t.style.fontSize = ''; t.style.fontWeight = ''; t.style.color = ''; }
+    else if(HEADING_STYLES[v]){ t.style.fontSize = HEADING_STYLES[v][0]; t.style.fontWeight = HEADING_STYLES[v][1]; t.style.color = 'var(--accent)'; }
+  });
   scheduleSave();
 });
 [['fmtLine', 'lineHeight'], ['fmtSpace', 'marginBottom'], ['fmtIndent', 'marginRight']].forEach(([id, prop]) => {
   $(id).addEventListener('change', e => {
     const v = e.target.value; e.target.value = '';
     if(v === '') return;
-    const t = needFormatTarget();
-    if(!t) return;
+    const targets = needFormatParagraphTargets();
+    if(!targets.length) return;
     snap();
-    t.style[prop] = v === '0' ? (prop === 'marginBottom' ? '0' : '') : v;
+    targets.forEach(t => { t.style[prop] = v === '0' ? (prop === 'marginBottom' ? '0' : '') : v; });
     scheduleSave();
   });
 });
@@ -5624,12 +6652,18 @@ initializeWorkspace().catch(err => {
 
 })();
 
+/* PHASE 11 QA FIX: documentary table row controls are now injected idempotently
+   into both new and upgraded existing docu_script documents. */
 /* =====================================================================
    VARRY STAGE 32
    إصلاح الجدول الفرنسي (جدول موحّد) · إزالة الصفحة الأخيرة الفارغة بالتصدير
    هوية Varry Hiba · فهم بنية الاستيراد تلقائياً · توقيع يدوي بالصورة
    أنواع روايات وقصص · الدليل الموسيقي · تحكم مستقل بعناصر الغلاف + خطوط إرشادية
    هوامش لكل ملف · لا حذف لأي ميزة قائمة
+   ===================================================================== */
+/* =====================================================================
+   VARRY STAGE 34
+   استيراد احتياطي أكثر أماناً: فحص مسبق للبنية، دمج غير هدّام، واسترجاع الحالة عند الفشل.
    ===================================================================== */
 /* =====================================================================
    VARRY STAGE 33
@@ -5641,3 +6675,10 @@ initializeWorkspace().catch(err => {
 </script>
 </body>
 </html>
+
+<!-- PHASE 12: save status now reflects IndexedDB transaction completion; French screenplay cells wrap long Arabic/French text more safely. -->
+
+<!-- PHASE 14: French paired-row and scene insertion controls across scene-based screenplay formats.
+   PHASE 15: حفظ احتياطي عند تعطل IndexedDB بعد بدء التشغيل. -->
+<!-- PHASE 15: IndexedDB failure fallback attempts to preserve workspace data in localStorage. -->
+<!-- PHASE 13: added complete documentary segment control (heading + duration + paired VIDEO/AUDIO table + source/rights note); row-add remains available per segment. -->
