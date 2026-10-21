@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Phase 37: restore contextual toolbar setup and add nested/embedded screenplay scenes; extraction action hardened. -->
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -974,9 +975,9 @@
     </div>
     <div id="exCorrectionList"></div>
     <div class="modal-actions">
-      <button id="exCancel">إلغاء</button>
-      <button id="exPreviewBtn">معاينة النتيجة</button>
-      <button class="primary" id="exRun">تفريغ</button>
+      <button type="button" id="exCancel">إلغاء</button>
+      <button type="button" id="exPreviewBtn">معاينة النتيجة</button>
+      <button type="button" class="primary" id="exRun">تفريغ</button>
     </div>
   </div>
 </div>
@@ -1545,7 +1546,7 @@ const FX_TYPES = [
 const FX_CLASSES = FX_TYPES.map(x => x[0]);
 const FX_SELECTOR = FX_CLASSES.map(c => '.' + c).join(',');
 const BLOCK_CLASSES = FX_CLASSES.concat(['block-scene','block-action','block-char','block-dialogue','block-parenthetical','block-transition','radio-scene','radio-narrator','radio-char','radio-dialogue']);
-const NON_LINE = '.fr-table, .treatment-container, .rc-list, .rc-summary, .dual-dialogue-wrap, .bridge-block, .img-block, .page-break-marker, .scene-duration';
+const NON_LINE = '.fr-table, .treatment-container, .rc-list, .rc-summary, .dual-dialogue-wrap, .bridge-block, .img-block, .page-break-marker, .scene-duration, .nested-scene';
 const BRIDGE_TYPES = [
   { id:'match', label:'تطابق شكلي (Match Cut)' }, { id:'dissolve', label:'ذوبان (Dissolve)' },
   { id:'motion', label:'تطابق حركة' }, { id:'sound', label:'جسر صوتي' },
@@ -3467,8 +3468,46 @@ function setupToolbar(type){
   $('treatmentAddGroup').style.display = isBoxType(type) ? 'flex' : 'none';
   const gid = TYPE_GROUP[type];
   if(gid) $(gid).style.display = 'flex';
-  $('group_extract').style.display = EXTRACT_SOURCE_TYPES.includes(type) ? 'flex' : 'none';
+  // The retired general extraction group no longer exists; contextual extraction controls remain in their own sections.
+  ensureNestedSceneButton(type);
 }
+
+const NESTED_SCENE_KINDS = [
+  'فلاشباك / استرجاع','خيال / تصور','حلم','ذكرى خاطفة','رؤيا / هلوسة','مشهد افتراضي / احتمال','مشهد متوازٍ','مشهد داخل شاشة / تسجيل','استعادة حدث / إعادة تمثيل','مونولوج داخلي مصوّر','مشهد ضمني آخر'
+];
+function ensureNestedSceneButton(type){
+  const supported = ['screenplay_us','screenplay_fr','theatre','yt','radio','docu_script'].includes(type);
+  document.querySelectorAll('#group_screenplay_us,#group_screenplay_fr,#group_theatre,#group_yt,#group_radio,#group_docu').forEach(g=>{
+    let b=g.querySelector('.nested-scene-toolbar-btn');
+    if(!supported || g.id !== TYPE_GROUP[type]) { if(b) b.remove(); return; }
+    if(!b){ b=document.createElement('button'); b.type='button'; b.className='fmt-btn nested-scene-toolbar-btn'; b.textContent='⤷ مشهد ضمني'; b.title='إدراج مشهد متضمّن داخل المشهد الحالي، مع بداية ونهاية مستقلتين'; b.addEventListener('click', insertNestedScene); g.appendChild(b); }
+  });
+}
+function insertNestedScene(){
+  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملف سيناريو أولاً.'); return; }
+  const kind = prompt('اختاري نوع المشهد الضمني بكتابة رقمه أو اسمه:\n'+NESTED_SCENE_KINDS.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nيمكنك كتابة نوع آخر.', '1');
+  if(kind === null) return;
+  const trimmed=kind.trim(); if(!trimmed) return;
+  const num=parseInt(trimmed,10); const label=(num>=1 && num<=NESTED_SCENE_KINDS.length && /^\d+$/.test(trimmed))?NESTED_SCENE_KINDS[num-1]:trimmed;
+  snap(); restoreCaret();
+  const wrapper=document.createElement('section'); wrapper.className='nested-scene'; wrapper.dataset.nestedKind=label; wrapper.setAttribute('data-nested-scene','true');
+  const safe=esc(label);
+  wrapper.innerHTML='<div class="nested-scene-head" contenteditable="false"><span class="nested-scene-kind">⟦ '+safe+' — بداية المشهد الضمني ⟧</span><span class="nested-scene-tools"><button type="button" data-nested-action="interrupt">＋ مقطع متداخل</button><button type="button" data-nested-action="end">تحديد النهاية</button><button type="button" data-nested-action="remove">إزالة الإطار فقط</button></span></div><div class="nested-scene-body" contenteditable="true"><p><br></p></div><div class="nested-scene-end" contenteditable="false">⟦ نهاية '+safe+' — استكمال المشهد الأصلي ⟧</div>' ;
+  const anchor=getAnchorBlock();
+  if(anchor && anchor.parentNode===editor) anchor.after(wrapper); else placeTopLevel(wrapper);
+  const continuation=document.createElement('p'); continuation.innerHTML='<br>'; wrapper.after(continuation);
+  placeCaret(wrapper.querySelector('.nested-scene-body'),false); scheduleSave(); scrollToEl(wrapper);
+}
+function insertNestedInterruption(parent){
+  const kind=prompt('نوع المقطع المتداخل (مثلاً: فلاشباك، حلم، صوت من الذاكرة، مشهد متوازٍ):','ذكرى خاطفة');
+  if(kind===null || !kind.trim()) return;
+  snap(); const wrap=document.createElement('section'); wrap.className='nested-scene'; wrap.dataset.nestedKind=kind.trim(); wrap.setAttribute('data-nested-scene','true');
+  wrap.innerHTML='<div class="nested-scene-head" contenteditable="false"><span class="nested-scene-kind">⟦ '+esc(kind.trim())+' — بداية المقطع المتداخل ⟧</span><span class="nested-scene-tools"><button type="button" data-nested-action="interrupt">＋ مقطع متداخل</button><button type="button" data-nested-action="end">تحديد النهاية</button><button type="button" data-nested-action="remove">إزالة الإطار فقط</button></span></div><div class="nested-scene-body" contenteditable="true"><p><br></p></div><div class="nested-scene-end" contenteditable="false">⟦ نهاية المقطع المتداخل — عودة إلى المشهد الحاضن ⟧</div>' ;
+  const sel=window.getSelection(); let node=sel && sel.anchorNode; if(node && node.nodeType===3) node=node.parentElement; const host=node && node.closest('.nested-scene-body');
+  if(host){ const block=host.lastElementChild || host; block.after(wrap); } else parent.querySelector('.nested-scene-body').appendChild(wrap);
+  const p=document.createElement('p');p.innerHTML='<br>';wrap.after(p);placeCaret(wrap.querySelector('.nested-scene-body'),false);scheduleSave();
+}
+
 function openDoc(id){
   if(!isRestoringHistory && currentId && docs[currentId] && saveTimer){
     // كان يُفقد آخر تعديل إن بدّلتِ الملف خلال 400ms من الكتابة
@@ -3793,6 +3832,13 @@ function insertNewScene(type){
 }
 
 editor.addEventListener('click', e => {
+  const nestedAction=e.target.closest('[data-nested-action]');
+  if(nestedAction && editor.contains(nestedAction)){
+    const wrapper=nestedAction.closest('.nested-scene');
+    if(nestedAction.dataset.nestedAction==='interrupt' && wrapper){ e.preventDefault(); insertNestedInterruption(wrapper); return; }
+    if(nestedAction.dataset.nestedAction==='end' && wrapper){ e.preventDefault(); snap(); const label=wrapper.dataset.nestedKind || 'المشهد الضمني'; const end=wrapper.querySelector('.nested-scene-end'); if(end) end.textContent='⟦ نهاية '+label+' — استكمال المشهد الحاضن ⟧'; scheduleSave(); return; }
+    if(nestedAction.dataset.nestedAction==='remove' && wrapper){ e.preventDefault(); snap(); const body=wrapper.querySelector('.nested-scene-body'); if(body){ const frag=document.createDocumentFragment(); while(body.firstChild) frag.appendChild(body.firstChild); wrapper.replaceWith(frag); } else wrapper.remove(); scheduleSave(); return; }
+  }
   const t = e.target;
   const frAdd = t.closest('.fr-add-row-control');
   if(frAdd && editor.contains(frAdd)){
@@ -5281,7 +5327,16 @@ $('pvCancelEdit').addEventListener('click', () => {
 $('expHtml').addEventListener('click', () => {
   if(!needDoc()) return;
   const b = buildExport(currentId, null);
-  const page = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(b.title)}</title><style>@page{size:A4;margin:2cm 1.7cm}*{box-sizing:border-box}html,body{direction:rtl;unicode-bidi:embed}body{font-family:'Noto Naskh Arabic',Arial,Georgia,serif;background:#fff;color:#222;max-width:820px;margin:0 auto;padding:28px 20px;line-height:1.85;overflow-wrap:anywhere}h1,h2,h3{color:#7a3b2e;break-after:avoid;page-break-after:avoid}table{direction:rtl;border-collapse:collapse;width:100%;max-width:100%;table-layout:fixed;break-inside:auto}td,th{border:1px solid #999;padding:8px;vertical-align:top;overflow-wrap:anywhere}tr{break-inside:avoid;page-break-inside:avoid}img,svg,video{max-width:100%;height:auto}p{margin:0 0 .6em}section{break-before:page;page-break-before:always}.del-treatment-box,.fr-del-row,.dual-ctl,.dual-x,.docu-add-row{display:none!important}@media screen{body{box-shadow:0 0 0 1px #ddd;max-width:860px;margin:20px auto;padding:36px}}@media print{body{max-width:none;margin:0;padding:0;box-shadow:none;background:#fff}section:first-child{break-before:auto;page-break-before:auto}}</style></head><body>${b.body}</body></html>`;
+  const page = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(b.title)}</title><style>@page{size:A4;margin:2cm 1.7cm}*{box-sizing:border-box}html,body{direction:rtl;unicode-bidi:embed}body{font-family:'Noto Naskh Arabic',Arial,Georgia,serif;background:#fff;color:#222;max-width:820px;margin:0 auto;padding:28px 20px;line-height:1.85;overflow-wrap:anywhere}h1,h2,h3{color:#7a3b2e;break-after:avoid;page-break-after:avoid}table{direction:rtl;border-collapse:collapse;width:100%;max-width:100%;table-layout:fixed;break-inside:auto}td,th{border:1px solid #999;padding:8px;vertical-align:top;overflow-wrap:anywhere}tr{break-inside:avoid;page-break-inside:avoid}img,svg,video{max-width:100%;height:auto}p{margin:0 0 .6em}section{break-before:page;page-break-before:always}.del-treatment-box,.fr-del-row,.dual-ctl,.dual-x,.docu-add-row{display:none!important}@media screen{body{box-shadow:0 0 0 1px #ddd;max-width:860px;margin:20px auto;padding:36px}}@media print{body{max-width:none;margin:0;padding:0;box-shadow:none;background:#fff}section:first-child{break-before:auto;page-break-before:auto}}
+  .nested-scene{border:2px dashed var(--accent);border-radius:9px;margin:12px 0;padding:10px 12px;background:color-mix(in srgb,var(--panel) 82%,var(--accent) 18%);}
+  .nested-scene-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .nested-scene-head .nested-scene-kind{color:var(--accent);}
+  .nested-scene-body{padding:4px 8px;min-height:28px;border-inline-start:3px solid var(--accent);}
+  .nested-scene-end{font-size:.85em;font-weight:700;color:var(--accent);margin-top:8px;text-align:end;}
+  .nested-scene-tools{display:flex;gap:6px;flex-wrap:wrap;margin:5px 0;}
+  .nested-scene-tools button{font:inherit;font-size:.82em;border:1px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--panel);cursor:pointer;color:var(--ink);}
+  @media print{.nested-scene-tools{display:none}.nested-scene{break-inside:avoid;border:1px dashed #777;background:transparent}}
+</style></head><body>${b.body}</body></html>`;
   downloadBlob(safeFileName(b.title) + '.html', page, 'text/html;charset=utf-8');
 });
 
@@ -6036,7 +6091,7 @@ function docLabel(id){
   const d = docs[id], p = d.parentId && docs[d.parentId];
   return (d.title || 'بلا عنوان') + (p ? ' — ' + (p.title || '') : '');
 }
-function exSrcMode(){ return document.querySelector('input[name="exSrc"]:checked').value; }
+function exSrcMode(){ const selected=document.querySelector('input[name="exSrc"]:checked'); return selected ? selected.value : 'auto'; }
 function renderExManual(){
   const defaults = new Set(scopeSourceIds(exKind, exScope));
   const ids = orderedDocIds().filter(id => isSourceDoc(exKind, id));
@@ -6262,9 +6317,9 @@ document.querySelectorAll('input[name="exSrc"]').forEach(r => r.addEventListener
   $('exManualList').style.display = exSrcMode() === 'manual' ? 'flex' : 'none';
   $('exPreview').textContent = '';
 }));
-$('exPreviewBtn').addEventListener('click', previewExtraction);
+$('exPreviewBtn').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); try { previewExtraction(); } catch(err) { console.error(err); $('exPreview').textContent='تعذّرت المعاينة: '+(err.message||String(err)); } });
 $('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
-$('exRun').addEventListener('click', runExtraction);
+$('exRun').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); runExtraction(); });
 $('exCancel').addEventListener('click', () => hideModal(exModal));
 $('addLocBtn').addEventListener('click', () => addRecordCard('loc'));
 $('addCpBtn').addEventListener('click', () => addRecordCard('cp'));
