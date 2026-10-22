@@ -469,6 +469,33 @@
   .dash-stat{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:10px; text-align:center;}
   .dash-stat b{display:block; font-size:20px; color:var(--accent);}
   .dash-stat span{font-size:11px; color:var(--ink-soft);}
+  .smart-index{border:1px solid var(--border);border-radius:14px;background:linear-gradient(145deg,var(--panel),color-mix(in srgb,var(--paper) 74%,var(--panel)));padding:16px;box-shadow:var(--ui-shadow-sm);}
+  .smart-index-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .smart-index-head h3{margin:0;color:var(--ink);font-size:16px;}
+  .smart-index-head p{margin:0;color:var(--ink-soft);font-size:11px;flex:1 1 220px;}
+  .smart-index-search{min-width:min(230px,100%);height:34px;}
+  .smart-index-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin:10px 0 14px;}
+  .smart-index-metric{padding:10px;border:1px solid var(--border);border-radius:10px;background:var(--paper);text-align:center;}
+  .smart-index-metric b{display:block;font-size:22px;line-height:1.2;color:var(--accent);}
+  .smart-index-metric span{display:block;margin-top:3px;color:var(--ink-soft);font-size:10px;}
+  .smart-index-sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:9px;}
+  .smart-index-section{min-width:0;border:1px solid var(--border);border-radius:10px;background:var(--paper);overflow:hidden;}
+  .smart-index-section summary{cursor:pointer;padding:10px 12px;font-weight:700;color:var(--ink);list-style:none;}
+  .smart-index-section summary::-webkit-details-marker{display:none;}
+  .smart-index-section summary::after{content:'＋';float:left;color:var(--accent);}
+  .smart-index-section[open] summary::after{content:'−';}
+  .smart-index-list{display:flex;flex-direction:column;gap:5px;padding:0 8px 8px;max-height:360px;overflow:auto;}
+  .smart-index-row{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:right;padding:8px;border:1px solid transparent;border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;}
+  .smart-index-row:hover{border-color:var(--accent);transform:translateY(-1px);}
+  .smart-index-row[hidden]{display:none;}
+  .smart-index-badge{flex:0 0 auto;min-width:28px;padding:2px 5px;border-radius:7px;background:color-mix(in srgb,var(--accent) 13%,var(--paper));color:var(--accent);font-weight:700;font-size:11px;text-align:center;}
+  .smart-index-copy{min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .smart-index-copy strong{font-size:12px;overflow-wrap:anywhere;}
+  .smart-index-copy small{font-size:10px;color:var(--ink-soft);line-height:1.5;}
+  .smart-index-warnings{margin-top:10px;padding:9px 11px;border-radius:8px;background:color-mix(in srgb,#f59e0b 10%,var(--paper));color:var(--ink);font-size:11px;}
+  .smart-index-warnings ul{margin:5px 0 0;padding-inline-start:18px;}
+  .smart-index-note{margin:10px 0 0;color:var(--ink-soft);font-size:10px;}
+  .smart-index-focus{outline:3px solid color-mix(in srgb,var(--accent) 48%,transparent)!important;outline-offset:3px!important;transition:outline-color .3s ease;}
   .dash-btn{background:var(--panel); color:var(--ink); border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;}
   .dash-btn:hover{border-color:var(--accent);}
   .dash-btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
@@ -477,6 +504,7 @@
   .dash-child{display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:8px 12px;}
   .dash-child .dc-name{flex:1; font-size:13px; font-weight:600; cursor:pointer; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .dash-child .dc-name:hover{color:var(--accent);}
+  @media(max-width:640px){.smart-index{padding:11px}.smart-index-head{align-items:stretch}.smart-index-search{flex:1 1 100%;width:100%}.smart-index-sections{grid-template-columns:1fr}.smart-index-list{max-height:280px}}
   .dash-child .dc-meta{font-size:10px; color:var(--ink-soft); white-space:nowrap;}
 
     /* ===== بطاقات التفريغ (لوكيشنات / كاراكتر بروفايل) ===== */
@@ -859,16 +887,17 @@
 <!-- نافذة الاقتباس المصوّر -->
 <div class="modal" id="quoteImageModal">
   <div class="modal-box">
-    <h3>🖼️ اقتباس مصوّر</h3>
-    <label>صورة الاقتباس (لقطة شاشة أو صورة جاهزة):
+    <h3>🖼️ تصدير اقتباس من المنصة</h3>
+    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حددي نصًا من الملف قبل فتح هذه النافذة ليُلتقط تلقائيًا، ثم نزّليه كصورة مستقلة. لن يُدرج الاقتباس داخل السيناريو أو ملف المشروع. «مسودة» تضيف شارة، و«جاهز» يصدّر الصورة دونها.</p>
+    <label>صورة اختيارية للاقتباس (لقطة شاشة أو خلفية جاهزة):
       <input id="qiMain" type="file" accept="image/*">
     </label>
-    <div style="font-size:11px;color:var(--ink-soft);line-height:1.6;">يمكن أيضاً لصق لقطة الشاشة مباشرة داخل هذه النافذة (Ctrl+V). الصورة تدخل كما هي، ثم تُحدَّد حالتها: مسودة أو جاهزة. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</div>
-    <label>نص الاقتباس (اختياري عند رفع صورة):
+    <div style="font-size:11px;color:var(--ink-soft);line-height:1.6;">يمكن لصق صورة اختيارية هنا أيضًا؛ وعند عدم رفع صورة تُنشأ بطاقة الاقتباس من النص بتصميم عربي وتُنزّل كملف PNG حقيقي.</div>
+    <label>نص الاقتباس (يُلتقط من التحديد أو يمكن تحريره هنا):
       <textarea id="qiText" rows="4" placeholder="اكتبي النص الذي تريدين إظهاره على الصورة" style="width:100%;resize:vertical;"></textarea>
     </label>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;">
-      <button id="qiUseSelection" type="button">استخدام النص المحدد من المحرر</button>
+      <button id="qiUseSelection" type="button">سحب النص المحدد من الملف الحالي</button>
       <button id="qiClearText" type="button">مسح النص</button>
     </div>
     <label>الكاتبة / المصدر:
@@ -879,8 +908,8 @@
     </label>
     <label>حالة الاقتباس:
       <select id="qiStatus">
-        <option value="draft">مسودة — مع علامة مسودة</option>
-        <option value="ready">جاهز للغلاف — دون علامة مسودة</option>
+        <option value="draft">مسودة — تصدير مع شارة مسودة</option>
+        <option value="ready">جاهز — تصدير دون شارة مسودة</option>
       </select>
     </label>
     <div class="qi-design-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:10px 0;">
@@ -921,8 +950,7 @@
     <div id="qiPreview" style="margin:12px 0;"></div>
     <div class="modal-actions">
       <button id="qiCancel">إلغاء</button>
-      <button id="qiExport">تنزيل الاقتباس كصورة PNG</button>
-      <button id="qiInsert" class="primary">إدراج في المستند</button>
+      <button id="qiExport" class="primary">تنزيل صورة الاقتباس PNG</button>
     </div>
   </div>
 </div>
@@ -1266,7 +1294,11 @@
         <button class="fmt-btn" id="cpSortBtn" title="ترتيب البطاقات (كل نقرة تغيّر طريقة الترتيب)">🔀 ترتيب</button>
       </div>
 
-      <!-- أزيلت أزرار الاستخراج العامة غير المفعّلة؛ تبقى أقسام اللوكيشنات والشخصيات داخل المشروع وأدواتها الخاصة. -->
+      <div class="fmt-group extract-source-options" id="group_source_extraction" style="display:none;">
+        <button class="fmt-btn" id="sourceLocExtractBtn" title="تفريغ لوكيشنات من الملف المفتوح فقط">📍 تفريغ اللوكيشنات</button>
+        <button class="fmt-btn" id="sourceCpExtractBtn" title="تفريغ شخصيات من الملف المفتوح فقط">🪪 تفريغ الشخصيات</button>
+      </div>
+      <!-- تظهر أزرار التفريغ على ملفات المصدر المناسبة، وتبقى أدوات البطاقات في أقسام النتائج. -->
 
       
 <div class="fmt-group screenplay-options" id="group_docu" style="display:none;">
@@ -1427,10 +1459,12 @@
       </label>
       <label id="dpTypeWrap">النوع:
         <select id="dpType">
-          <option value="text_document">مستند نصي</option><option value="screenplay_us">سيناريو سينمائي</option>
+          <option value="text_document">مستند نصي</option><option value="screenplay_us">سيناريو سينمائي</option><option value="screenplay_fr">سيناريو فرنسي (3 أعمدة)</option>
           <option value="theatre">نص مسرحي</option><option value="docu_script">سيناريو وثائقي</option><option value="yt">سكربت يوتيوب</option><option value="radio">سيناريو إذاعي</option>
           <option value="novel">رواية</option><option value="short_story">قصة قصيرة</option>
           <option value="chapter">فصل</option><option value="story_scene">مشهد قصصي</option>
+        </select>
+      </label>
         </select>
       </label>
       <label>طبيعة العمل لتقدير المشاهد:
@@ -1567,6 +1601,8 @@ const TYPE_LABELS = {
 const TYPE_ICONS = { folder:'📁', film_project:'🎬', series_project:'📺', master_project:'📦', documentary_project:'🎞️', content_project:'🗂️' };
 const DEFAULT_TITLES = {
   folder:'مسلسل جديد', film_project:'فيلم جديد', series_project:'مسلسل جديد', master_project:'مشروع جديد',
+  text_document:'مستند نصي جديد', treatment_cinematic:'معالجة سينمائية جديدة', treatment_series:'معالجة مسلسل جديدة', treatment_docu:'معالجة وثائقية جديدة',
+  screenplay_us:'سيناريو سينمائي جديد', screenplay_fr:'سيناريو فرنسي جديد', theatre:'نص مسرحي جديد', yt:'سيناريو يوتيوب جديد',
   treatment_radio:'معالجة إذاعية', radio:'سيناريو إذاعي جديد', music:'مكتبة الموسيقى', song:'أغنية جديدة',
   visual_refs:'مراجع بصرية', characters:'الشخصيات المشتركة', world:'عالم العمل', writer_notes:'مساحة الكاتبة',
   novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل',
@@ -2503,7 +2539,7 @@ function updateDocPanel(doc){
   $('dpMargin').value = (doc.style && doc.style.pageMargin) || '';
   $('dpPageBg').value = (doc.style && doc.style.pageBg) || '#f7f3ea';
   $('dpTextColor').value = (doc.style && doc.style.textColor) || '#2b2620';
-  const conv = ['text_document','screenplay_us','theatre','yt','radio','docu_script','novel','short_story','chapter','story_scene'].includes(doc.docType);
+  const conv = ['text_document','screenplay_us','screenplay_fr','theatre','yt','radio','docu_script','novel','short_story','chapter','story_scene'].includes(doc.docType);
   $('dpTypeWrap').style.display = conv ? '' : 'none';
   if(conv) $('dpType').value = doc.docType;
   docPanel.classList.toggle('open', panelOpen);
@@ -3146,6 +3182,105 @@ function coverBoxHtml(m, doc, o){
   const sColor = m.subColor || tc;
   return `<div style="position:relative;overflow:hidden;min-height:${h}px;${coverBgCss(m)}">${img}${ov}${frame}${m.guides ? `<div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.4);"></div><div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.4);"></div>` : ''}<div style="position:relative;display:flex;flex-direction:column;justify-content:${jc};align-items:${ai};text-align:${m.align};min-height:${h}px;padding:26px;color:${tc};${ff}">${(m.icon && m.showIcon) ? `<div style="font-size:${iconSz}px;line-height:1.1;margin-bottom:8px;">${esc(m.icon)}</div>` : ''}<div style="font-size:${m.titleSize}px;font-weight:700;line-height:1.3;white-space:pre-line;${tFont}">${title}</div>${(m.subtitle && m.showSub) ? `<div style="font-size:${subSz}px;margin-top:8px;opacity:.92;color:${sColor};white-space:pre-line;">${esc(m.subtitle)}</div>` : ''}${author}</div></div>`;
 }
+function smartProjectLeaves(rootId){
+  const out=[],seen=new Set();
+  const walk=id=>{
+    const d=docs[id];
+    if(!d || seen.has(id)) return;
+    seen.add(id);
+    if(isContainer(d)) (Array.isArray(d.children)?d.children:[]).forEach(walk);
+    else out.push({id,doc:d});
+  };
+  const root=docs[rootId];
+  if(root) walk(rootId);
+  return out;
+}
+function buildSmartProjectIndex(rootId){
+  const sourceTypes=new Set([...EXTRACT_SOURCE_TYPES,...CHAR_SOURCE_TYPES]);
+  const sourceDocs=smartProjectLeaves(rootId).filter(entry=>sourceTypes.has(entry.doc.docType));
+  const analyses=sourceDocs.map(entry=>analyseScript(entry.doc,entry.id,true));
+  const scenes=[],characters=new Map(),locations=new Map();
+  let missingLocations=0,duplicateNumbers=0;
+  analyses.forEach(a=>{
+    const usedNumbers=new Set();
+    a.scenes.forEach((sc,sceneIndex)=>{
+      const sceneLabel=sc.sceneLabel || String(sc.n);
+      if(sceneLabel){
+        const number=sceneLabel;
+        if(usedNumbers.has(number)) duplicateNumbers++;
+        usedNumbers.add(number);
+      }
+      const place=classifyLocationHeading(sc.name || ''), ref={id:a.docId,title:a.title,sceneIndex,n:sc.n,sceneLabel};
+      if(!place.name) missingLocations++;
+      const charNames=[];
+      sc.chars.forEach((entry,key)=>{
+        const name=entry.name || key; charNames.push(name);
+        let C=characters.get(key);
+        if(!C) characters.set(key,C={name,scenes:0,lines:0,refs:[],docs:new Set()});
+        C.scenes++; C.lines+=entry.lines || 0; C.docs.add(a.title);
+        if(!C.refs.length) C.refs.push(ref);
+      });
+      if(place.name){
+        const key=normKey(place.name); let L=locations.get(key);
+        if(!L) locations.set(key,L={name:place.name,scenes:0,ies:new Set(),tods:new Set(),refs:[],docs:new Set()});
+        L.scenes++; if(sc.ie) L.ies.add(sc.ie); if(sc.tod) L.tods.add(sc.tod); L.docs.add(a.title);
+        if(!L.refs.length) L.refs.push(ref);
+      }
+      scenes.push({ref,heading:sc.heading || ('مشهد '+sc.n),place:place.name,ie:sc.ie,tod:sc.tod,characters:charNames});
+    });
+  });
+  const chars=[...characters.values()].sort((a,b)=>b.scenes-a.scenes || b.lines-a.lines || a.name.localeCompare(b.name,'ar'));
+  const places=[...locations.values()].sort((a,b)=>b.scenes-a.scenes || a.name.localeCompare(b.name,'ar'));
+  const firstNameGroups=new Map();
+  chars.forEach(c=>{const first=c.name.trim().split(/\s+/)[0],key=normKey(first);if(!key)return;if(!firstNameGroups.has(key))firstNameGroups.set(key,[]);firstNameGroups.get(key).push(c.name);});
+  const nameCollisions=[...firstNameGroups.values()].filter(names=>names.length>1);
+  return {sourceCount:sourceDocs.length,scenes,characters:chars,locations:places,missingLocations,duplicateNumbers,singleSceneCharacters:chars.filter(c=>c.scenes===1).length,singleSceneLocations:places.filter(L=>L.scenes===1).length,nameCollisions};
+}
+function renderSmartProjectIndex(rootId){
+  const data=buildSmartProjectIndex(rootId);
+  const jump=(ref,label,meta,badge)=>`<button type="button" class="smart-index-row" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}"><span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}</small></span></button>`;
+  const sceneRows=data.scenes.map(s=>jump(s.ref,s.heading,`${s.ref.title} · ${s.place || 'الموقع غير واضح'}${s.ie?' · '+s.ie:''}${s.tod?' · '+s.tod:''}${s.characters.length?' · '+s.characters.join('، '):''}`,s.ref.sceneLabel));
+  const charRows=data.characters.map(c=>jump(c.refs[0],c.name,`${c.scenes} مشهد · ${c.lines} سطر حوار · ${c.docs.size} ملف`,c.scenes));
+  const placeRows=data.locations.map(L=>jump(L.refs[0],L.name,`${L.scenes} مشهد${L.ies.size?' · '+[...L.ies].join(' / '):''}${L.tods.size?' · '+[...L.tods].join(' / '):''}`,L.scenes));
+  const warnings=[];
+  if(!data.sourceCount) warnings.push('لم يُعثر على ملفات كتابة قابلة للتحليل داخل هذا المشروع.');
+  if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ راجعي عناوين المشاهد.`);
+  if(data.duplicateNumbers) warnings.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف أو أكثر؛ تحققي من الترقيم.`);
+  if(data.singleSceneCharacters) warnings.push(`${data.singleSceneCharacters} شخصية ظهرت في مشهد واحد فقط؛ قد يكون ذلك مقصوداً، أو قد يشير إلى اختلاف في كتابة الاسم.`);
+  if(data.singleSceneLocations) warnings.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط؛ تأكدي من توحيد كتابة اسمه بين الملفات.`);
+  if(data.nameCollisions.length) warnings.push(`توجد ${data.nameCollisions.length} مجموعة أسماء تبدأ بالاسم نفسه (${data.nameCollisions.map(g=>g.join(' / ')).join('؛ ')}). لم تُدمج الشخصيات تلقائياً؛ راجعي التشابه.`);
+  const empty=label=>`<div class="smart-index-note" style="padding:8px 10px;">${esc(label)}</div>`;
+  return `<section class="smart-index" aria-label="الفهرس الذكي للمشروع">
+    <div class="smart-index-head"><div><h3>✦ الفهرس الذكي</h3><p>ملخص للمشاهد والشخصيات والمواقع؛ يُعاد تحليله عند فتح المشروع أو تحديث الفهرس.</p></div><input id="smartIndexSearch" class="smart-index-search" type="search" placeholder="ابحثي عن مشهد أو اسم أو موقع…" aria-label="بحث في الفهرس الذكي"><button type="button" class="dash-btn" data-act="smart-refresh">↻ تحديث</button><button type="button" class="dash-btn primary" data-act="smart-report">⇩ تقرير الإنتاج</button></div>
+    <div class="smart-index-metrics"><div class="smart-index-metric"><b>${data.scenes.length}</b><span>مشهد مكتشف</span></div><div class="smart-index-metric"><b>${data.characters.length}</b><span>شخصية فريدة</span></div><div class="smart-index-metric"><b>${data.locations.length}</b><span>موقع فريد</span></div><div class="smart-index-metric"><b>${data.sourceCount}</b><span>ملف كتابة محلل</span></div></div>
+    <div class="smart-index-sections"><details class="smart-index-section"><summary>المشاهد · ${data.scenes.length}</summary><div class="smart-index-list">${sceneRows.join('') || empty('لا توجد مشاهد مكتشفة بعد.')}</div></details><details class="smart-index-section"><summary>الشخصيات · ${data.characters.length}</summary><div class="smart-index-list">${charRows.join('') || empty('لم تُكتشف شخصيات في ملفات المشروع بعد.')}</div></details><details class="smart-index-section"><summary>المواقع · ${data.locations.length}</summary><div class="smart-index-list">${placeRows.join('') || empty('لم تُكتشف مواقع واضحة بعد.')}</div></details></div>
+    ${warnings.length?`<div class="smart-index-warnings"><strong>مراجعات مقترحة</strong><ul>${warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:''}
+    <p class="smart-index-note">النتائج آلية ومساعدة؛ أسماء الشخصيات والمواقع قد تحتاج مراجعتك، ولا يغيّر الفهرس نص السيناريو.</p>
+  </section>`;
+}
+function downloadProductionReport(rootId){
+  const root=docs[rootId];
+  if(!root || !isContainer(root)) return;
+  const data=buildSmartProjectIndex(rootId);
+  const table=(heads,rows,emptyText)=>rows.length
+    ? `<div class="table-wrap"><table><thead><tr>${heads.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`
+    : `<p class="empty">${esc(emptyText)}</p>`;
+  const sceneRows=data.scenes.map(s=>[
+    esc(s.ref.sceneLabel || s.ref.n),esc(s.heading),esc(s.ref.title),esc(s.place || 'غير محدد'),esc(s.ie || '—'),esc(s.tod || '—'),esc(s.characters.join('، ') || '—')
+  ]);
+  const charRows=data.characters.map(c=>[esc(c.name),String(c.scenes),String(c.lines),esc([...c.docs].join('، '))]);
+  const placeRows=data.locations.map(L=>[esc(L.name),String(L.scenes),esc([...L.ies].join(' / ') || '—'),esc([...L.tods].join(' / ') || '—'),esc([...L.docs].join('، '))]);
+  const issues=[];
+  if(data.missingLocations) issues.push(`${data.missingLocations} مشهد بلا موقع واضح.`);
+  if(data.duplicateNumbers) issues.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف.`);
+  if(data.singleSceneCharacters) issues.push(`${data.singleSceneCharacters} شخصية ظهرت في مشهد واحد فقط.`);
+  if(data.singleSceneLocations) issues.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط.`);
+  data.nameCollisions.forEach(g=>issues.push(`أسماء تبدأ بالاسم نفسه وتحتاج مراجعة: ${g.join(' / ')}.`));
+  const html=`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تقرير إنتاج — ${esc(root.title || 'مشروع')}</title><style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f2ec;color:#24211e;font:14px/1.7 Tahoma,Arial,sans-serif}.wrap{max-width:1180px;margin:28px auto;padding:0 18px}.hero{padding:26px;border-radius:18px;background:linear-gradient(135deg,#251d1b,#7a3b2e);color:#fff}.hero h1{margin:0 0 4px;font-size:28px}.hero p{margin:0;opacity:.86}.actions{display:flex;gap:8px;margin:14px 0}.actions button{border:0;border-radius:8px;padding:10px 15px;background:#7a3b2e;color:#fff;font:inherit;cursor:pointer}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}.metric,.panel{background:#fff;border:1px solid #e1dbd1;border-radius:12px;padding:13px}.metric b{display:block;color:#7a3b2e;font-size:24px}.metric span,.meta{font-size:11px;color:#716960}.panel{margin:12px 0}.panel h2{margin:0 0 10px;color:#7a3b2e;font-size:18px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:760px}th,td{border:1px solid #ded8cf;padding:8px;text-align:right;vertical-align:top;overflow-wrap:anywhere}th{background:#f1ece4;color:#44352e}tbody tr:nth-child(even){background:#faf8f4}.issues{background:#fff7e6;border-color:#e7c97b}.issues ul{margin:4px 0;padding-inline-start:22px}.empty{color:#716960}.foot{margin:16px 0;color:#716960;font-size:11px}@media print{body{background:#fff}.wrap{max-width:none;margin:0;padding:0}.hero{border-radius:0;background:#7a3b2e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.actions{display:none}.panel,.metric{break-inside:avoid}table{font-size:9pt}th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style></head><body><main class="wrap"><header class="hero"><h1>${esc(root.title || 'مشروع')}</h1><p>تقرير إنتاج وكتاب عمل · ${new Date().toLocaleDateString('ar')} · ${data.sourceCount} ملف كتابة محلل</p></header><div class="actions"><button onclick="window.print()">طباعة التقرير / حفظ PDF</button></div><section class="metrics"><div class="metric"><b>${data.scenes.length}</b><span>مشهد</span></div><div class="metric"><b>${data.characters.length}</b><span>شخصية مكتشفة</span></div><div class="metric"><b>${data.locations.length}</b><span>موقع مكتشف</span></div><div class="metric"><b>${data.sourceCount}</b><span>ملف كتابة</span></div></section>${issues.length?`<section class="panel issues"><h2>مراجعات استمرارية مقترحة</h2><ul>${issues.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="meta">التنبيهات مؤشرات للمراجعة وليست أخطاء مؤكدة؛ لا تُدمج الأسماء ولا تُعدّل النص تلقائيًا.</p></section>`:''}<section class="panel"><h2>المشاهد</h2>${table(['رقم','عنوان المشهد','الملف','الموقع','داخلي/خارجي','الزمن','الشخصيات'],sceneRows,'لا توجد مشاهد مكتشفة.')}</section><section class="panel"><h2>الشخصيات / كتاب العمل</h2>${table(['الشخصية','عدد المشاهد','أسطر الحوار','الملفات'],charRows,'لا توجد شخصيات مكتشفة.')}</section><section class="panel"><h2>المواقع</h2>${table(['الموقع','عدد المشاهد','داخلي/خارجي','الأزمنة','الملفات'],placeRows,'لا توجد مواقع مكتشفة.')}</section><p class="foot">أُنشئ هذا التقرير محليًا من محتوى المشروع. قد تتطلب النتائج مراجعة بشرية، خصوصًا الأسماء المستعارة والعناوين غير القياسية.</p></main></body></html>`;
+  downloadBlob(safeFileName(root.title || 'Varry')+'-تقرير-إنتاج.html',html,'text/html;charset=utf-8');
+}
 function renderDashboard(id){
   const doc = docs[id];
   if(!doc || !isContainer(doc)) return;
@@ -3179,6 +3314,7 @@ function renderDashboard(id){
         <div class="dash-stat"><b>${fmtMin(est)}</b><span>دقيقة قراءة تقديرية لجميع الكلمات (180 كلمة/دقيقة)</span></div>
         ${tot.scenes ? `<div class="dash-stat"><b>${fmtMin(tot.sceneMin)}</b><span>دقيقة مشاهد متوقعة · متوسط المشهد ${fmtMin(tot.sceneMin / tot.scenes)} د${tot.timed ? ` · المدد المدخلة يدوياً ${fmtMin(tot.manualSceneMin)} د` : ''}</span></div>` : ''}
       </div>
+      ${renderSmartProjectIndex(id)}
       <div class="dash-row">
         <select class="dash-select" id="dashAddType">${types.map(t => `<option value="${t}">${esc(TYPE_LABELS[t])}</option>`).join('')}</select>
         <button class="dash-btn primary" data-act="add">➕ إضافة قسم</button>
@@ -3192,6 +3328,25 @@ dashboard.addEventListener('click', e => {
   const b = e.target.closest('[data-act]');
   if(!b || !currentId || !docs[currentId]) return;
   const act = b.dataset.act, cid = b.dataset.id, cont = docs[currentId];
+  if(act === 'smart-refresh'){ renderDashboard(currentId); return; }
+  if(act === 'smart-report'){ downloadProductionReport(currentId); return; }
+  if(act === 'smart-jump'){
+    const targetId=cid, sceneIndex=parseInt(b.dataset.sceneIndex,10);
+    if(!targetId || !docs[targetId]) return;
+    openDoc(targetId);
+    setTimeout(()=>{
+      const targets=[...editor.querySelectorAll(SCENE_SELECTOR+', .fr-col-action')].filter(n=>{
+        if(n.matches(SCENE_SELECTOR)) return true;
+        const line=(n.innerText || n.textContent || '').split(/\n/).map(x=>x.trim()).find(Boolean) || '';
+        return !!line && SCENE_RE.test(line);
+      });
+      const target=targets[sceneIndex];
+      if(!target) return;
+      scrollToEl(target); target.classList.add('smart-index-focus');
+      setTimeout(()=>target.classList.remove('smart-index-focus'),1800);
+    },80);
+    return;
+  }
   if(act === 'open'){ openDoc(cid); return; }
   if(act === 'cover'){ openCoverModal(currentId); return; }
   if(act === 'add'){ const sel = $('dashAddType'); if(sel) newDoc(sel.value, { parentId: currentId }); return; }
@@ -3220,6 +3375,11 @@ dashboard.addEventListener('click', e => {
     trashDoc(cid);
     persist(); renderDashboard(currentId); renderList();
   }
+});
+dashboard.addEventListener('input',e=>{
+  if(e.target.id!=='smartIndexSearch') return;
+  const query=normKey(e.target.value);
+  dashboard.querySelectorAll('.smart-index-row').forEach(row=>{ row.hidden=!!query && !normKey(row.textContent).includes(query); });
 });
 
 /* ===== نافذة الغلاف ===== */
@@ -3464,10 +3624,14 @@ function readImageScaled(file, maxW, keepPng){
    ===================================================================== */
 const TYPE_GROUP = { screenplay_us:'group_screenplay_us', screenplay_fr:'group_screenplay_fr', theatre:'group_theatre', yt:'group_yt', radio:'group_radio', novel:'group_prose', short_story:'group_prose', chapter:'group_prose', story_scene:'group_prose', docu_script:'group_docu', locations:'group_locations', char_profile:'group_char_profile' };
 function setupToolbar(type){
-  document.querySelectorAll('.screenplay-options, .prose-options, .record-options').forEach(g => { g.style.display = 'none'; });
+  document.querySelectorAll('.screenplay-options, .prose-options, .record-options, .extract-source-options').forEach(g => { g.style.display = 'none'; });
   $('treatmentAddGroup').style.display = isBoxType(type) ? 'flex' : 'none';
   const gid = TYPE_GROUP[type];
   if(gid) $(gid).style.display = 'flex';
+  const canExtractLoc=EXTRACT_SOURCE_TYPES.includes(type), canExtractChars=CHAR_SOURCE_TYPES.includes(type);
+  $('sourceLocExtractBtn').style.display=canExtractLoc ? '' : 'none';
+  $('sourceCpExtractBtn').style.display=canExtractChars ? '' : 'none';
+  $('group_source_extraction').style.display=(canExtractLoc || canExtractChars) ? 'flex' : 'none';
   // The retired general extraction group no longer exists; contextual extraction controls remain in their own sections.
   ensureNestedSceneButton(type);
 }
@@ -3493,8 +3657,11 @@ function insertNestedScene(){
   const wrapper=document.createElement('section'); wrapper.className='nested-scene'; wrapper.dataset.nestedKind=label; wrapper.setAttribute('data-nested-scene','true');
   const safe=esc(label);
   wrapper.innerHTML='<div class="nested-scene-head" contenteditable="false"><span class="nested-scene-kind">⟦ '+safe+' — بداية المشهد الضمني ⟧</span><span class="nested-scene-tools"><button type="button" data-nested-action="interrupt">＋ مقطع متداخل</button><button type="button" data-nested-action="end">تحديد النهاية</button><button type="button" data-nested-action="remove">إزالة الإطار فقط</button></span></div><div class="nested-scene-body" contenteditable="true"><p><br></p></div><div class="nested-scene-end" contenteditable="false">⟦ نهاية '+safe+' — استكمال المشهد الأصلي ⟧</div>' ;
-  const anchor=getAnchorBlock();
-  if(anchor && anchor.parentNode===editor) anchor.after(wrapper); else placeTopLevel(wrapper);
+  const sel=window.getSelection(); let node=sel && sel.anchorNode; if(node && node.nodeType===3) node=node.parentElement;
+  const host=node && node.closest('.nested-scene-body');
+  const nestedAnchor=node && node.closest('.nested-scene-body > *');
+  if(host){ if(nestedAnchor && nestedAnchor.parentElement===host) nestedAnchor.after(wrapper); else host.appendChild(wrapper); }
+  else { const anchor=getAnchorBlock(); if(anchor && anchor.parentNode===editor) anchor.after(wrapper); else placeTopLevel(wrapper); }
   const continuation=document.createElement('p'); continuation.innerHTML='<br>'; wrapper.after(continuation);
   placeCaret(wrapper.querySelector('.nested-scene-body'),false); scheduleSave(); scrollToEl(wrapper);
 }
@@ -3504,7 +3671,9 @@ function insertNestedInterruption(parent){
   snap(); const wrap=document.createElement('section'); wrap.className='nested-scene'; wrap.dataset.nestedKind=kind.trim(); wrap.setAttribute('data-nested-scene','true');
   wrap.innerHTML='<div class="nested-scene-head" contenteditable="false"><span class="nested-scene-kind">⟦ '+esc(kind.trim())+' — بداية المقطع المتداخل ⟧</span><span class="nested-scene-tools"><button type="button" data-nested-action="interrupt">＋ مقطع متداخل</button><button type="button" data-nested-action="end">تحديد النهاية</button><button type="button" data-nested-action="remove">إزالة الإطار فقط</button></span></div><div class="nested-scene-body" contenteditable="true"><p><br></p></div><div class="nested-scene-end" contenteditable="false">⟦ نهاية المقطع المتداخل — عودة إلى المشهد الحاضن ⟧</div>' ;
   const sel=window.getSelection(); let node=sel && sel.anchorNode; if(node && node.nodeType===3) node=node.parentElement; const host=node && node.closest('.nested-scene-body');
-  if(host){ const block=host.lastElementChild || host; block.after(wrap); } else parent.querySelector('.nested-scene-body').appendChild(wrap);
+  const block=node && node.closest('.nested-scene-body > *');
+  if(host){ if(block && block.parentElement===host) block.after(wrap); else host.appendChild(wrap); }
+  else { const body=parent && parent.querySelector('.nested-scene-body'); if(body) body.appendChild(wrap); }
   const p=document.createElement('p');p.innerHTML='<br>';wrap.after(p);placeCaret(wrap.querySelector('.nested-scene-body'),false);scheduleSave();
 }
 
@@ -3836,7 +4005,25 @@ editor.addEventListener('click', e => {
   if(nestedAction && editor.contains(nestedAction)){
     const wrapper=nestedAction.closest('.nested-scene');
     if(nestedAction.dataset.nestedAction==='interrupt' && wrapper){ e.preventDefault(); insertNestedInterruption(wrapper); return; }
-    if(nestedAction.dataset.nestedAction==='end' && wrapper){ e.preventDefault(); snap(); const label=wrapper.dataset.nestedKind || 'المشهد الضمني'; const end=wrapper.querySelector('.nested-scene-end'); if(end) end.textContent='⟦ نهاية '+label+' — استكمال المشهد الحاضن ⟧'; scheduleSave(); return; }
+    if(nestedAction.dataset.nestedAction==='end' && wrapper){
+      e.preventDefault();
+      const body=wrapper.querySelector('.nested-scene-body');
+      const saved=savedEditorRange && body && body.contains(savedEditorRange.startContainer) ? savedEditorRange.cloneRange() : null;
+      const live=window.getSelection(), caret=saved || (live && live.rangeCount && body && body.contains(live.getRangeAt(0).startContainer) ? live.getRangeAt(0).cloneRange() : null);
+      snap();
+      const label=wrapper.dataset.nestedKind || 'المشهد الضمني', end=wrapper.querySelector('.nested-scene-end');
+      if(caret && body){
+        const tailRange=document.createRange(); tailRange.selectNodeContents(body);
+        try{ tailRange.setStart(caret.endContainer,caret.endOffset); }catch(err){ tailRange.collapse(false); }
+        const tail=tailRange.extractContents(), continuation=document.createElement('div');
+        continuation.className='nested-scene-continuation'; continuation.setAttribute('contenteditable','true');
+        if(tail.childNodes.length) continuation.appendChild(tail); else continuation.innerHTML='<p><br></p>';
+        wrapper.after(continuation);
+        if(end) end.textContent='⟦ نهاية '+label+' — استكمال المشهد الحاضن ⟧';
+        placeCaret(continuation,false);
+      } else if(end) end.textContent='⟦ نهاية '+label+' — استكمال المشهد الحاضن ⟧';
+      scheduleSave(); return;
+    }
     if(nestedAction.dataset.nestedAction==='remove' && wrapper){ e.preventDefault(); snap(); const body=wrapper.querySelector('.nested-scene-body'); if(body){ const frag=document.createDocumentFragment(); while(body.firstChild) frag.appendChild(body.firstChild); wrapper.replaceWith(frag); } else wrapper.remove(); scheduleSave(); return; }
   }
   const t = e.target;
@@ -3999,25 +4186,26 @@ function quoteDesign(){
   const ink=$('qiInk')?.value||'auto';
   return {theme,ink,format:$('qiFormat')?.value||'square',fontScale:$('qiFontScale')?.value||'normal',signature:$('qiSignature')?.checked!==false};
 }
+function applyQuoteDesign(card){
+  if(!card) return;
+  const d=quoteDesign(), t=d.theme;
+  card.style.background=`linear-gradient(135deg,${t.a},${t.b})`;
+  card.style.color=d.ink==='dark'?'#29231d':d.ink==='gold'?'#f4d58a':d.ink==='light'?'#fff':t.ink;
+  card.style.setProperty('--qi-overlay',`rgba(0,0,0,${t.overlay})`);
+  const ratio={square:'1 / 1',portrait:'4 / 5',story:'9 / 16',landscape:'16 / 9'}[d.format]||'1 / 1';
+  card.style.aspectRatio=ratio; card.style.minHeight='0';
+  card.style.padding=d.format==='story'?'9% 7%':'7%';
+  const q=card.querySelector('blockquote');
+  if(q) q.style.fontSize=d.fontScale==='compact'?'1.15em':d.fontScale==='large'?'1.8em':'1.45em';
+  const sig=card.querySelector('.qi-platform-signature');
+  if(sig) sig.remove();
+  if(d.signature && !quoteMainData){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
+}
 function refreshQuotePreview(){
   $('qiPreview').innerHTML = quoteMainData
     ? quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData)
     : quoteCardMarkup($('qiStatus').value, $('qiText').value || 'نص الاقتباس', $('qiAttribution').value, quoteImageData);
-  const card=$('qiPreview').querySelector('.quote-image-card');
-  if(card){
-    const d=quoteDesign(), t=d.theme;
-    card.style.background=`linear-gradient(135deg,${t.a},${t.b})`;
-    card.style.color=d.ink==='dark'?'#29231d':d.ink==='gold'?'#f4d58a':d.ink==='light'?'#fff':t.ink;
-    card.style.setProperty('--qi-overlay',`rgba(0,0,0,${t.overlay})`);
-    const ratio={square:'1 / 1',portrait:'4 / 5',story:'9 / 16',landscape:'16 / 9'}[d.format]||'1 / 1';
-    card.style.aspectRatio=ratio; card.style.minHeight='0';
-    card.style.padding=d.format==='story'?'9% 7%':'7%';
-    const q=card.querySelector('blockquote');
-    if(q) q.style.fontSize=d.fontScale==='compact'?'1.15em':d.fontScale==='large'?'1.8em':'1.45em';
-    const sig=card.querySelector('.qi-platform-signature');
-    if(sig) sig.remove();
-    if(d.signature && !quoteMainData){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
-  }
+  applyQuoteDesign($('qiPreview').querySelector('.quote-image-card'));
 }
 function openQuoteImageModal(){
   if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً لإضافة اقتباس مصوّر.'); return; }
@@ -4122,28 +4310,20 @@ function downloadQuotePng(){
       const fs=Math.max(20,Math.round(width*.025)),bw=fs*4.3,bh=fs*1.9;ctx.direction='rtl';ctx.font=`700 ${fs}px ${family}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(width-bw-24,24,bw,bh);ctx.fillStyle='#7a3b2e';ctx.fillText('مسودة',width-bw/2-24,24+bh/2);
     }
     if(design.signature){ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font=`${Math.max(15,Math.round(width*.014))}px ${family}`;ctx.fillStyle=ink;ctx.globalAlpha=.76;ctx.fillText(PLATFORM_SIGNATURE,width/2,height-Math.max(24,height*.035));ctx.globalAlpha=1;}
-    const link=document.createElement('a');link.download=safeFileName($('qiStatus').value==='draft'?'اقتباس-مسودة':'اقتباس-جاهز-للغلاف')+'.png';
-    try{link.href=canvas.toDataURL('image/png');document.body.appendChild(link);link.click();link.remove();}
-    catch(err){alert('تعذّر تصدير الصورة. جرّبي صورة خلفية أخرى أو أزيليها ثم أعيدي المحاولة.');}
+    const state=$('qiStatus').value==='draft'?'مسودة':'جاهز';
+    const fileName=safeFileName((docs[currentId]?.title || 'Varry')+'-اقتباس-'+state)+'.png';
+    const saveUrl=url=>{const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();};
+    try{
+      if(canvas.toBlob) canvas.toBlob(blob=>{
+        if(!blob){alert('تعذّر إنشاء ملف PNG. أعيدي المحاولة أو اختاري مقاسًا أصغر.');return;}
+        const url=URL.createObjectURL(blob);saveUrl(url);setTimeout(()=>URL.revokeObjectURL(url),2000);
+      },'image/png');
+      else saveUrl(canvas.toDataURL('image/png'));
+    }catch(err){alert('تعذّر تصدير الصورة. جرّبي صورة خلفية أخرى أو أزيليها ثم أعيدي المحاولة.');}
   };
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(paint);else paint();
 }
 $('qiExport').addEventListener('click', downloadQuotePng);
-$('qiInsert').addEventListener('click', () => {
-  if(quoteMainData){ insertQuoteShot(); return; }
-  const quote = $('qiText').value.trim();
-  if(!quote){ alert('اكتبي نص الاقتباس أولاً.'); return; }
-  snap(); restoreCaret();
-  const box = document.createElement('div');
-  box.innerHTML = quoteCardMarkup($('qiStatus').value, quote, $('qiAttribution').value.trim(), quoteImageData);
-  const card = box.firstElementChild;
-  const anchor = getAnchorBlock();
-  if(anchor && isBlankBlock(anchor)){ anchor.replaceWith(card); card.after(document.createElement('p')); }
-  else { placeTopLevel(card); card.after(document.createElement('p')); }
-  hideModal($('quoteImageModal'));
-  scheduleSave();
-  scrollToEl(card);
-});
 imageInsertInput.addEventListener('change', async e => {
   const f = e.target.files[0];
   e.target.value = '';
@@ -4998,28 +5178,30 @@ function sigLine(){
   return `<p style="text-align:center;color:#777;font-size:11px;margin-top:24px;">${sig}${esc(PLATFORM_SIGNATURE)}</p>`;
 }
 function coverPageHtml(doc){
-  const m = coverModel(doc), tc = coverTextColor(m);
-  const title = esc(m.title || doc.title || '');
-  const authorInner = (showAuthorSig && SIG_IMG) ? `<img src="${esc(SIG_IMG)}" alt="" style="height:38px;">` : `إعداد: ${esc(AUTHOR_NAME)}`;
-  const author = (m.showAuthor && showAuthorSig) ? `<div style="margin-top:26px;font-size:16px;">${authorInner}</div>` : '';
-  const authorC = (m.showAuthor && showAuthorSig) ? `<div style="margin-top:26px;font-size:16px;color:${tc};">${authorInner}</div>` : '';
-  const ff = m.font ? `font-family:${m.font.replace(/"/g, "'")};` : '';
-  const align = m.align;
-  let inner;
-  if(m.type === 'image' && m.image){
-    inner = `<div style="text-align:center;"><img src="${esc(m.image)}" style="max-width:100%;max-height:440px;"></div><div style="text-align:${align};color:#222;${ff}">${m.icon ? `<div style="font-size:${m.titleSize * 2}px;">${esc(m.icon)}</div>` : ''}<h1 style="font-size:${m.titleSize}px;margin:22px 0 0;white-space:pre-line;">${title}</h1>${m.subtitle ? `<p style="font-size:18px;white-space:pre-line;">${esc(m.subtitle)}</p>` : ''}${author}</div>`;
-  } else {
-    inner = `<div style="${coverBgCss(m)}color:${tc};padding:100px 28px;border-radius:8px;text-align:${align};${ff}${m.frame ? `border:4px double ${tc};` : ''}-webkit-print-color-adjust:exact;print-color-adjust:exact;">${m.icon ? `<div style="font-size:${m.titleSize * 2}px;">${esc(m.icon)}</div>` : ''}<h1 style="margin:0;font-size:${m.titleSize}px;color:${tc};white-space:pre-line;">${title}</h1>${m.subtitle ? `<p style="font-size:18px;color:${tc};white-space:pre-line;">${esc(m.subtitle)}</p>` : ''}${authorC}</div>`;
-  }
-  return `<div style="page-break-after:always;padding:50px 6px;color:#222;">${inner}<p style="text-align:center;color:#777;font-size:12px;margin-top:20px;">${esc(PLATFORM_SIGNATURE)}</p></div>`;
+  const m = coverModel(doc);
+  return `<div style="page-break-after:always;padding:50px 6px;color:#222;">${coverBoxHtml(m, doc, { height:560 })}<p style="text-align:center;color:#777;font-size:12px;margin-top:20px;">${esc(PLATFORM_SIGNATURE)}</p></div>`;
+}
+function collectDocEntries(rootId){
+  const root=docs[rootId], out=[], seen=new Set();
+  if(!root) return out;
+  const visit=(id,path)=>{
+    const d=docs[id];
+    if(!d || seen.has(id)) return;
+    seen.add(id);
+    if(isContainer(d)){
+      const nextPath=id===rootId ? path : path.concat(d.title || 'مجلد');
+      (Array.isArray(d.children) ? d.children : []).forEach(child=>visit(child,nextPath));
+    } else out.push({id,doc:d,path});
+  };
+  if(isContainer(root)) (Array.isArray(root.children) ? root.children : []).forEach(id=>visit(id,[]));
+  else visit(rootId,[]);
+  return out;
 }
 function collectDocs(rootId){
-  const r = docs[rootId];
-  return isContainer(r) ? (r.children || []).filter(c => docs[c]).map(c => docs[c]) : [r];
+  return collectDocEntries(rootId).map(({doc,path})=>path.length ? Object.assign({},doc,{title:path.concat(doc.title || 'بلا عنوان').join(' / ')}) : doc);
 }
 function collectDocIds(rootId){
-  const r = docs[rootId];
-  return isContainer(r) ? (r.children || []).filter(c => docs[c]) : [rootId];
+  return collectDocEntries(rootId).map(entry=>entry.id);
 }
 // يبني المستند كاملاً: غلاف + فهرس (للحاويات) + الأقسام بالترتيب الحالي + التوقيع
 function buildExport(rootId, opts){
@@ -5365,10 +5547,7 @@ $('expSlidesHtml').addEventListener('click', () => {
 });
 $('expSingleJson').addEventListener('click', () => {
   if(!needDoc()) return;
-  const root = docs[currentId], out = {};
-  [currentId, ...(isContainer(root) ? root.children : [])].forEach(k => { if(docs[k]) out[k] = deepClone(docs[k]); });
-  delete out[currentId].parentId;
-  const data = { platform: 'Varry Studio: Multiple scenario platform', app: 'Varry Studio', author: AUTHOR_NAME, docs: out, index: [currentId], trash: {}, exportedAt: new Date().toISOString() };
+  const root = docs[currentId], data = buildPartialBackup([currentId]);
   downloadBlob(safeFileName(root.title) + '-varry.json', JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
 });
 $('expBackup').addEventListener('click', () => {
@@ -5747,8 +5926,8 @@ function parseSceneHeading(text){
   let t = String(text || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\s+/g, ' ').trim();
   t = t.replace(/^(?:مشهد|المشهد|لقطة|scene|sc)(?=$|[\s.:\-–—#\d])\s*/i, '');
   let num = '';
-  const nm = t.match(/^#?\s*(\d+)\s*[.:\-–—)\/]*\s*/);
-  if(nm){ num = nm[1]; t = t.slice(nm[0].length); }
+  const nm = t.match(/^#?\s*(\d+[A-Za-z\u0621-\u064A]?)\s*[.:\-–—)\/]*\s*/);
+  if(nm){ num = nm[1].toUpperCase(); t = t.slice(nm[0].length); }
   let ie = '', tod = '';
   const names = [];
   const isIE = w => IE_W.test(arPlain(w)), isTOD = w => TOD_W.test(arPlain(w));
@@ -5803,12 +5982,17 @@ function analyseScript(doc, id, smart){
   const startScene = text => {
     const p = parseSceneHeading(text);
     const seq = out.scenes.length + 1;
-    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, heading:text.trim(), chars:new Map() });
+    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, sceneLabel:p.num || String(seq), heading:text.trim(), chars:new Map() });
     out.scenes.push(cur); last = null; waiting = false;
   };
-  tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p').forEach(n => {
+  tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .fr-col-action, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p').forEach(n => {
     const text = (n.textContent || '').trim();
     if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text); return; }
+    if(n.matches('.fr-col-action')){
+      const firstLine=(n.innerText || text).split(/\n/).map(x=>x.trim()).find(Boolean) || '';
+      if(firstLine && SCENE_RE.test(firstLine) && firstLine.split(/\s+/).length<=14) startScene(firstLine);
+      return;
+    }
     if(n.matches('.block-char, .radio-char, .dual-char, .fr-col-char')){
       /* Enter يكرّر تنسيق «شخصية» على السطر التالي: إن كان النص جملة حوار يُحسب حواراً للشخصية السابقة لا اسماً جديداً */
       if(last && text && (text.split(/\s+/).length > 3 || /[.!؟?…،,]\s*$/.test(text))){ addLine(last, text); waiting = false; return; }
@@ -6161,6 +6345,7 @@ function correctedExtractionItems(kind, items){
       copy.note = (copy.note ? copy.note + ' · ' : '') + 'اسم مصحح يدوياً';
     }
     out.push(copy);
+    return out;
   }, []);
 }
 function renderExtractionCorrections(items, kind){
@@ -6220,7 +6405,7 @@ function computeExtraction(){
   if(!ids.length) return null;
   const analyses = ids.map(id => analyseScript(docs[id], id, $('exSmart').checked));
   const r = exKind === 'loc' ? buildLocations(analyses) : buildCharacters(analyses, parseInt($('exMin').value, 10) || 0);
-  return { kind:exKind, ids, analyses, items:r.items, unnamed:r.unnamed, suspicious:r.suspicious || [] };
+  return { kind:exKind, ids, analyses, items:Array.isArray(r && r.items) ? r.items : [], unnamed:(r && r.unnamed) || 0, suspicious:(r && r.suspicious) || [], adjusted:(r && r.adjusted) || [] };
 }
 function existingKeys(tid){
   const set = new Set();
@@ -6231,7 +6416,7 @@ function previewExtraction(){
   const res = computeExtraction(), box = $('exPreview');
   if(!res){ box.textContent = 'يرجى اختيار ملف مصدر واحد على الأقل.'; return; }
   const s = RECORD_SCHEMAS[res.kind], ex = existingKeys($('exTarget').value);
-  const rawItems = res.items;
+  const rawItems = Array.isArray(res.items) ? res.items : [];
   const reviewedItems = correctedExtractionItems(res.kind, rawItems);
   const fresh = reviewedItems.filter(i => !ex.has(normKey(i.name))).length;
   const excludedByCorrection = rawItems.length - reviewedItems.length;
@@ -6281,7 +6466,7 @@ function runExtraction(){
       alert('لم يتم اختيار أي ملف مصدر صالح. اختاري «تلقائي» أو «الملف المفتوح فقط» أو حددي الملفات يدوياً.');
       return;
     }
-    res.items = correctedExtractionItems(res.kind, res.items);
+    res.items = correctedExtractionItems(res.kind, Array.isArray(res.items) ? res.items : []);
     if(!res.items.length){
       alert(res.kind === 'loc' ? 'لم يُعثر على مشاهد بأسماء أماكن في الملفات المحددة. تأكدي من اختيار ملف سيناريو يحتوي عناوين مشاهد، مثل: مشهد 1 - داخلي - شقة سلمى - ليل.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
       return;
@@ -6303,7 +6488,7 @@ function runExtraction(){
     if(!docs[tid]) throw new Error('لم يتم إنشاء أو العثور على ملف الهدف.');
     const r = mergeRecordItems(docs[tid], res.kind, res.items, mode, new Date().toLocaleString('ar-EG'));
     docs[tid].updatedAt = Date.now();
-    persist();
+    if(!persist()) throw new Error('تعذّر تأكيد حفظ نتائج التفريغ في مساحة التخزين. صدّري نسخة احتياطية قبل إغلاق الصفحة.');
     hideModal(exModal);
     openDoc(tid);
     const noun = RECORD_SCHEMAS[res.kind].noun;
@@ -6321,6 +6506,8 @@ $('exPreviewBtn').addEventListener('click', e => { e.preventDefault(); e.stopPro
 $('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
 $('exRun').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); runExtraction(); });
 $('exCancel').addEventListener('click', () => hideModal(exModal));
+$('sourceLocExtractBtn').addEventListener('click', () => openExtract('loc'));
+$('sourceCpExtractBtn').addEventListener('click', () => openExtract('cp'));
 $('addLocBtn').addEventListener('click', () => addRecordCard('loc'));
 $('addCpBtn').addEventListener('click', () => addRecordCard('cp'));
 $('locAutoBtn').addEventListener('click', () => openExtract('loc'));
@@ -6420,8 +6607,9 @@ document.addEventListener('paste', async e => {
 function insertQuoteShot(){
   snap(); restoreCaret();
   const box = document.createElement('div');
-  box.innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData);
+  box.innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), quoteImageData, quoteMainData);
   const card = box.firstElementChild;
+  applyQuoteDesign(card);
   const anchor = getAnchorBlock();
   if(anchor && isBlankBlock(anchor)){ anchor.replaceWith(card); card.after(document.createElement('p')); }
   else { placeTopLevel(card); card.after(document.createElement('p')); }
