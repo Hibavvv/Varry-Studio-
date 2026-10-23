@@ -488,6 +488,14 @@
   .smart-index-row{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:right;padding:8px;border:1px solid transparent;border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;}
   .smart-index-row:hover{border-color:var(--accent);transform:translateY(-1px);}
   .smart-index-row[hidden]{display:none;}
+  .smart-index-entry{display:flex;align-items:stretch;gap:4px;min-width:0;}
+  .smart-index-entry .smart-index-row{flex:1;min-width:0;}
+  .smart-index-row.is-static{cursor:default;}
+  .smart-index-actions{display:flex;flex-direction:column;gap:3px;}
+  .smart-index-actions button{border:1px solid var(--border);border-radius:6px;background:var(--panel);color:var(--ink-soft);padding:3px 6px;font:inherit;font-size:10px;cursor:pointer;}
+  .smart-index-actions button:hover{border-color:var(--accent);color:var(--accent);}
+  .smart-index-section-tools{display:flex;justify-content:flex-end;padding:0 8px 6px;}
+  .smart-index-section-tools button{font:inherit;font-size:10px;border:1px dashed var(--border);border-radius:6px;background:transparent;color:var(--accent);padding:3px 8px;cursor:pointer;}
   .smart-index-badge{flex:0 0 auto;min-width:28px;padding:2px 5px;border-radius:7px;background:color-mix(in srgb,var(--accent) 13%,var(--paper));color:var(--accent);font-weight:700;font-size:11px;text-align:center;}
   .smart-index-copy{min-width:0;display:flex;flex-direction:column;gap:2px;}
   .smart-index-copy strong{font-size:12px;overflow-wrap:anywhere;}
@@ -537,6 +545,20 @@
   .ex-correction input,.ex-correction select{min-width:0;width:100%;padding:6px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--ink);}
   .ex-correction .ex-c-name{font-weight:700;overflow-wrap:anywhere;}
   .ex-correction-note{font-size:11px;color:var(--ink-soft);margin:4px 0;}
+  .ex-ai-tools{border:1px solid var(--border);border-radius:8px;padding:9px;background:color-mix(in srgb,var(--accent) 5%,var(--paper));margin:8px 0;}
+  .ex-ai-toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+  .ex-ai-config{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:8px;}
+  .ex-ai-config[hidden]{display:none;}
+  .ex-ai-config label,.manual-form label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-soft);}
+  .ex-ai-config input,.manual-form input,.manual-form select,.manual-form textarea{width:100%;min-width:0;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--ink);padding:7px;font:inherit;}
+  .ex-ai-note{font-size:10px;line-height:1.6;color:var(--ink-soft);margin:6px 0 0;}
+  .manual-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:9px;}
+  .manual-form .wide{grid-column:1/-1;}
+  .manual-form textarea{min-height:74px;resize:vertical;}
+  .manual-field-hidden{display:none!important;}
+  .ex-manual-entry{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px dashed var(--accent);border-radius:7px;padding:6px 8px;background:var(--paper);font-size:11px;}
+  .ex-manual-entry small{color:var(--ink-soft);}
+  .ex-manual-entry button{border:0;background:transparent;color:var(--accent);cursor:pointer;font:inherit;font-size:10px;}
 
   .quote-image-card.is-shot{padding:0;min-height:0;display:block;background:none;border-radius:8px;max-width:760px;cursor:pointer;}
   .quote-image-card.is-shot:after{display:none;}
@@ -888,22 +910,14 @@
 <div class="modal" id="quoteImageModal">
   <div class="modal-box">
     <h3>🖼️ تصدير اقتباس من المنصة</h3>
-    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حددي نصًا من الملف قبل فتح هذه النافذة ليُلتقط تلقائيًا، ثم نزّليه كصورة مستقلة. لن يُدرج الاقتباس داخل السيناريو أو ملف المشروع. «مسودة» تضيف شارة، و«جاهز» يصدّر الصورة دونها.</p>
-    <label>صورة اختيارية للاقتباس (لقطة شاشة أو خلفية جاهزة):
-      <input id="qiMain" type="file" accept="image/*">
+    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حددي جملة من الملف ثم افتحي هذه الأداة. تُحوّل المنصة النص المحدد مباشرةً إلى PNG قابل للتنزيل؛ لا حاجة إلى نسخ أو لصق، ولا يُضاف شيء إلى السيناريو. «مسودة» تضيف شارة، و«جاهز» يصدّر دونها.</p>
+    <label>النص المحدد من الملف:
+      <textarea id="qiText" rows="4" placeholder="حددي النص داخل الملف أولاً" readonly style="width:100%;resize:vertical;opacity:.92;"></textarea>
     </label>
-    <div style="font-size:11px;color:var(--ink-soft);line-height:1.6;">يمكن لصق صورة اختيارية هنا أيضًا؛ وعند عدم رفع صورة تُنشأ بطاقة الاقتباس من النص بتصميم عربي وتُنزّل كملف PNG حقيقي.</div>
-    <label>نص الاقتباس (يُلتقط من التحديد أو يمكن تحريره هنا):
-      <textarea id="qiText" rows="4" placeholder="اكتبي النص الذي تريدين إظهاره على الصورة" style="width:100%;resize:vertical;"></textarea>
-    </label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;">
-      <button id="qiUseSelection" type="button">سحب النص المحدد من الملف الحالي</button>
-      <button id="qiClearText" type="button">مسح النص</button>
-    </div>
     <label>الكاتبة / المصدر:
       <input id="qiAttribution" type="text" placeholder="اختياري" style="width:100%;">
     </label>
-    <label>صورة خلفية:
+    <label>صورة خلفية اختيارية لتصميم PNG:
       <input id="qiImage" type="file" accept="image/*">
     </label>
     <label>حالة الاقتباس:
@@ -950,8 +964,10 @@
     <div id="qiPreview" style="margin:12px 0;"></div>
     <div class="modal-actions">
       <button id="qiCancel">إلغاء</button>
-      <button id="qiExport" class="primary">تنزيل صورة الاقتباس PNG</button>
+      <button id="qiExport" class="primary">إنشاء وتنزيل صورة PNG</button>
+      <a id="qiDownloadLink" style="display:none;padding:8px 12px;border-radius:8px;background:#28624e;color:#fff;text-decoration:none;font-weight:700;" download>إذا لم يبدأ التنزيل، اضغطي هنا</a>
     </div>
+    <small id="qiExportStatus" role="status" aria-live="polite"></small>
   </div>
 </div>
 
@@ -996,9 +1012,19 @@
       <label><input type="radio" name="exMerge" value="replace"> استبدال كل البطاقات بالنتيجة الجديدة</label>
     </div>
     <div id="exPreview"></div>
+    <div class="ex-ai-tools">
+      <div class="ex-ai-toolbar"><button type="button" id="exAiToggle" class="dash-btn">⚙️ إعداد AI</button><button type="button" id="exAiRun" class="dash-btn primary">✦ تحليل دلالي بالذكاء الاصطناعي</button><small id="exAiStatus" role="status" aria-live="polite"></small></div>
+      <div id="exAiConfig" class="ex-ai-config" hidden>
+        <label class="wide">رابط Chat Completions متوافق<input id="exAiEndpoint" type="url" placeholder="https://…/v1/chat/completions" autocomplete="off"></label>
+        <label>اسم النموذج<input id="exAiModel" type="text" placeholder="Model ID" autocomplete="off"></label>
+        <label>مفتاح API — يبقى في جلسة التبويب<input id="exAiKey" type="password" placeholder="أدخلي مفتاحك" autocomplete="new-password"></label>
+        <p class="ex-ai-note wide">تحليل AI اختياري ويتطلب مزوّداً متوافقاً ومفتاحك الخاص. لن يُضمّن أي مفتاح في الملف أو يُحفظ في التخزين الدائم. قبل كل طلب ستظهر موافقة؛ نصوص السيناريو المحددة ستُرسل إلى المزوّد وقد تُحتسب عليها رسوم. بعض الخدمات لا تسمح بطلبات مباشرة من ملف محلي وتحتاج خادماً وسيطاً آمناً.</p>
+      </div>
+    </div>
     <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجعي النتائج قبل اعتمادها.</p>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0;">
       <button type="button" id="exClearCorrections" class="dash-btn">مسح تصحيحات هذا العمل</button>
+      <button type="button" id="exAddManual" class="dash-btn">＋ إضافة نتيجة يدوية</button>
       <small id="exCorrectionStatus" style="color:var(--ink-soft);"></small>
     </div>
     <div id="exCorrectionList"></div>
@@ -1007,6 +1033,25 @@
       <button type="button" id="exPreviewBtn">معاينة النتيجة</button>
       <button type="button" class="primary" id="exRun">تفريغ</button>
     </div>
+  </div>
+</div>
+
+<!-- محرر يدوي مشترك للفهرس والتفريغ -->
+<div class="modal" id="manualItemModal">
+  <div class="modal-box" style="max-width:620px;">
+    <h3 id="manualItemTitle">✎ تحرير عنصر</h3>
+    <p id="manualItemHelp" style="font-size:11px;color:var(--ink-soft);margin:0 0 10px;"></p>
+    <form id="manualItemForm" class="manual-form">
+      <label id="manualNameWrap" class="wide"><span id="manualNameLabel">الاسم / العنوان</span><input id="manualName" required maxlength="180"></label>
+      <label id="manualPlaceWrap">الموقع<input id="manualPlace" maxlength="140"></label>
+      <label id="manualIEWrap">داخلي / خارجي<select id="manualIE"><option value="">غير محدد</option><option>داخلي</option><option>خارجي</option><option>داخلي/خارجي</option></select></label>
+      <label id="manualTodWrap">الزمن<select id="manualTod"><option value="">غير محدد</option><option>نهار</option><option>ليل</option><option>فجر</option><option>غروب</option><option>متعدد</option></select></label>
+      <label id="manualCharactersWrap" class="wide">الشخصيات (افصلي بينها بفاصلة)<input id="manualCharacters" maxlength="500"></label>
+      <label id="manualCountWrap">عدد المشاهد / الظهور<input id="manualCount" type="number" min="0" max="999" value="0"></label>
+      <label id="manualLinesWrap">أسطر الحوار<input id="manualLines" type="number" min="0" max="99999" value="0"></label>
+      <label id="manualNotesWrap" class="wide">ملاحظة أو دليل للمراجعة<textarea id="manualNotes" maxlength="1000"></textarea></label>
+    </form>
+    <div class="modal-actions"><button type="button" id="manualItemDelete" style="display:none;color:var(--danger);">حذف</button><button type="button" id="manualItemCancel">إلغاء</button><button type="button" class="primary" id="manualItemSave">حفظ التعديل</button></div>
   </div>
 </div>
 
@@ -3195,10 +3240,132 @@ function smartProjectLeaves(rootId){
   if(root) walk(rootId);
   return out;
 }
+const SMART_INDEX_MANUAL_PREFIX='varrySmartIndexManualV1:';
+const EXTRACTION_MANUAL_KEY='varryStudioExtractionManualV1';
+let manualEditorContext=null;
+function newManualId(){ return (globalThis.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9); }
+function emptySmartManual(){ return {overrides:{scene:{},character:{},location:{}},hidden:{scene:[],character:[],location:[]},added:{scene:[],character:[],location:[]}}; }
+function loadSmartIndexManual(rootId){
+  try{
+    const raw=JSON.parse(localStorage.getItem(SMART_INDEX_MANUAL_PREFIX+String(rootId))||'null');
+    const base=emptySmartManual(); if(!raw||typeof raw!=='object') return base;
+    ['scene','character','location'].forEach(k=>{base.overrides[k]=raw.overrides?.[k]&&typeof raw.overrides[k]==='object'?raw.overrides[k]:{};base.hidden[k]=Array.isArray(raw.hidden?.[k])?raw.hidden[k]:[];base.added[k]=Array.isArray(raw.added?.[k])?raw.added[k]:[];});
+    return base;
+  }catch(e){return emptySmartManual();}
+}
+function saveSmartIndexManual(rootId,value){
+  try{localStorage.setItem(SMART_INDEX_MANUAL_PREFIX+String(rootId),JSON.stringify(value));return true;}
+  catch(e){alert('تعذّر حفظ تعديل الفهرس في تخزين المتصفح. تحققي من المساحة المتاحة.');return false;}
+}
+function loadExtractionManual(){try{const x=JSON.parse(localStorage.getItem(EXTRACTION_MANUAL_KEY)||'{}');return x&&typeof x==='object'?x:{};}catch(e){return {};}}
+function extractionManualBucket(scope,kind){return String(scope||'standalone')+'|'+String(kind||'loc');}
+function getExtractionManualItems(scope,kind){const all=loadExtractionManual(),x=all[extractionManualBucket(scope,kind)];return Array.isArray(x)?x:[];}
+function saveExtractionManualItem(scope,kind,itemId,values){
+  const all=loadExtractionManual(),bucket=extractionManualBucket(scope,kind),rows=Array.isArray(all[bucket])?all[bucket]:[];
+  const item=Object.assign({id:itemId||newManualId(),kind,createdAt:Date.now()},values,{updatedAt:Date.now()});
+  const i=rows.findIndex(x=>x.id===item.id);if(i<0)rows.push(item);else rows[i]=item;all[bucket]=rows;
+  try{localStorage.setItem(EXTRACTION_MANUAL_KEY,JSON.stringify(all));return item;}catch(e){alert('تعذّر حفظ النتيجة اليدوية في المتصفح.');return null;}
+}
+function deleteExtractionManualItem(scope,kind,itemId){
+  const all=loadExtractionManual(),bucket=extractionManualBucket(scope,kind);all[bucket]=(Array.isArray(all[bucket])?all[bucket]:[]).filter(x=>x.id!==itemId);
+  try{localStorage.setItem(EXTRACTION_MANUAL_KEY,JSON.stringify(all));return true;}catch(e){alert('تعذّر حذف النتيجة اليدوية.');return false;}
+}
+function showManualField(id,on){const el=$(id);if(el)el.classList.toggle('manual-field-hidden',!on);}
+function openManualItemEditor(context,item){
+  manualEditorContext=Object.assign({},context||{});const ctx=manualEditorContext,x=item||{};
+  const kind=ctx.kind||'scene', extraction=ctx.zone==='extraction', isScene=kind==='scene', isChar=kind==='character';
+  $('manualItemTitle').textContent=ctx.action==='add'?'＋ إضافة عنصر يدوياً':'✎ تعديل عنصر يدوياً';
+  $('manualItemHelp').textContent=extraction?'هذه النتيجة اليدوية مستقلة عن نص السيناريو؛ ستُضاف فقط عند اعتماد التفريغ.':'هذا التعديل يخص الفهرس والتقرير فقط ولا يغيّر نص المصدر.';
+  $('manualNameLabel').textContent=extraction?(kind==='loc'?'اسم الموقع':'اسم الشخصية'):isScene?'عنوان المشهد':isChar?'اسم الشخصية':'اسم الموقع';
+  $('manualName').value=x.name||x.heading||'';
+  $('manualPlace').value=x.place||'';$('manualIE').value=x.ie||'';$('manualTod').value=x.tod||'';
+  $('manualCharacters').value=Array.isArray(x.characters)?x.characters.join('، '):(x.characters||'');
+  $('manualCount').value=Number(x.scenes??x.count??(isScene?1:0))||0;$('manualLines').value=Number(x.lines)||0;$('manualNotes').value=x.notes||x.note||'';
+  showManualField('manualPlaceWrap',!extraction&&isScene);showManualField('manualIEWrap',!extraction&&isScene);showManualField('manualTodWrap',!extraction&&isScene);showManualField('manualCharactersWrap',!extraction&&isScene);
+  showManualField('manualCountWrap',!extraction&&!isScene);showManualField('manualLinesWrap',!extraction&&isChar);showManualField('manualNotesWrap',true);
+  $('manualItemDelete').style.display=ctx.action==='edit'?'':'none';$('manualItemSave').textContent=extraction?'حفظ النتيجة اليدوية':'حفظ التعديل';
+  showModal($('manualItemModal'));
+}
+function saveManualEditor(){
+  const ctx=manualEditorContext;if(!ctx)return;
+  const name=$('manualName').value.trim();if(!name){alert('أدخلي اسماً أو عنواناً أولاً.');return;}
+  const values={name,heading:name,place:$('manualPlace').value.trim(),ie:$('manualIE').value,tod:$('manualTod').value,characters:$('manualCharacters').value.split(/[،,؛;]+/).map(x=>x.trim()).filter(Boolean),scenes:Math.max(0,parseInt($('manualCount').value,10)||0),lines:Math.max(0,parseInt($('manualLines').value,10)||0),notes:$('manualNotes').value.trim()};
+  if(ctx.zone==='extraction'){
+    const saved=saveExtractionManualItem(ctx.scope,ctx.kind,ctx.itemId, {name,notes:values.notes});if(!saved)return;
+    hideModal($('manualItemModal'));manualEditorContext=null;previewExtraction();return;
+  }
+  const store=loadSmartIndexManual(ctx.rootId);
+  if(ctx.action==='add'){
+    values.id=newManualId();store.added[ctx.kind].push(values);
+  }else if(ctx.isAdded){
+    const item=store.added[ctx.kind].find(x=>x.id===ctx.itemId);if(!item)return;
+    Object.assign(item,values);
+  }else{
+    store.overrides[ctx.kind][ctx.key]=Object.assign({},store.overrides[ctx.kind][ctx.key]||{},values);
+  }
+  if(!saveSmartIndexManual(ctx.rootId,store))return;
+  hideModal($('manualItemModal'));manualEditorContext=null;renderDashboard(ctx.rootId);
+}
+function deleteManualEditorItem(){
+  const ctx=manualEditorContext;if(!ctx||ctx.action!=='edit')return;
+  if(!confirm('حذف هذا العنصر من الفهرس/النتائج اليدوية؟ لن يُحذف أو يتغير نص السيناريو.'))return;
+  if(ctx.zone==='extraction') deleteExtractionManualItem(ctx.scope,ctx.kind,ctx.itemId);
+  else{
+    const store=loadSmartIndexManual(ctx.rootId);
+    if(ctx.isAdded)store.added[ctx.kind]=store.added[ctx.kind].filter(x=>x.id!==ctx.itemId);
+    else{if(!store.hidden[ctx.kind].includes(ctx.key))store.hidden[ctx.kind].push(ctx.key);delete store.overrides[ctx.kind][ctx.key];}
+    if(!saveSmartIndexManual(ctx.rootId,store))return;
+  }
+  hideModal($('manualItemModal'));manualEditorContext=null;
+  if(ctx.zone==='extraction')previewExtraction();else renderDashboard(ctx.rootId);
+}
+$('manualItemSave').addEventListener('click',saveManualEditor);
+$('manualItemDelete').addEventListener('click',deleteManualEditorItem);
+$('manualItemCancel').addEventListener('click',()=>{hideModal($('manualItemModal'));manualEditorContext=null;});
+function applySmartManualData(rootId,data){
+  const store=loadSmartIndexManual(rootId),specs=[['scene','scenes'],['character','characters'],['location','locations']];
+  specs.forEach(([kind,prop])=>{
+    const hidden=new Set(store.hidden[kind]||[]),overrides=store.overrides[kind]||{};
+    data[prop]=(data[prop]||[]).filter(item=>!hidden.has(item.key)).map(item=>{
+      const o=overrides[item.key];if(!o)return item;
+      const next=Object.assign({},item);
+      if(kind==='scene'){
+        if(o.heading)next.heading=o.heading;if(Object.prototype.hasOwnProperty.call(o,'place'))next.place=o.place;
+        if(Object.prototype.hasOwnProperty.call(o,'ie'))next.ie=o.ie;if(Object.prototype.hasOwnProperty.call(o,'tod'))next.tod=o.tod;
+        if(Array.isArray(o.characters))next.characters=o.characters;if(o.notes)next.notes=o.notes;
+      }else{
+        if(o.name)next.name=o.name;if(Number.isFinite(Number(o.scenes)))next.scenes=Number(o.scenes);
+        if(kind==='character'&&Number.isFinite(Number(o.lines)))next.lines=Number(o.lines);
+        if(kind==='location'){
+          if(o.ie)next.ies=new Set([o.ie]);if(o.tod)next.tods=new Set([o.tod]);
+        }
+        if(o.notes)next.notes=o.notes;
+      }
+      return next;
+    });
+    (store.added[kind]||[]).forEach(x=>{
+      if(kind==='scene') data.scenes.push({key:'manual-scene:'+x.id,manual:true,ref:null,heading:x.heading||x.name,place:x.place||'',ie:x.ie||'',tod:x.tod||'',characters:Array.isArray(x.characters)?x.characters:[],notes:x.notes||'',sceneLabel:'يدوي'});
+      else if(kind==='character') data.characters.push({key:'manual-character:'+x.id,manual:true,name:x.name,scenes:Number(x.scenes)||0,lines:Number(x.lines)||0,docs:new Set(['إدخال يدوي']),refs:[],notes:x.notes||''});
+      else data.locations.push({key:'manual-location:'+x.id,manual:true,name:x.name,scenes:Number(x.scenes)||0,ies:new Set(x.ie?[x.ie]:[]),tods:new Set(x.tod?[x.tod]:[]),docs:new Set(['إدخال يدوي']),refs:[],notes:x.notes||''});
+    });
+  });
+  data.missingLocations=data.scenes.filter(s=>!String(s.place||'').trim()).length;
+  data.singleSceneCharacters=data.characters.filter(c=>Number(c.scenes)===1).length;
+  data.singleSceneLocations=data.locations.filter(L=>Number(L.scenes)===1).length;
+  const groups=new Map();data.characters.forEach(c=>{const first=String(c.name||'').trim().split(/\s+/)[0],k=normKey(first);if(!k)return;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(c.name);});
+  data.nameCollisions=[...groups.values()].filter(names=>names.length>1);
+  return data;
+}
 function buildSmartProjectIndex(rootId){
   const sourceTypes=new Set([...EXTRACT_SOURCE_TYPES,...CHAR_SOURCE_TYPES]);
-  const sourceDocs=smartProjectLeaves(rootId).filter(entry=>sourceTypes.has(entry.doc.docType));
-  const analyses=sourceDocs.map(entry=>analyseScript(entry.doc,entry.id,true));
+  const candidates=smartProjectLeaves(rootId).filter(entry=>sourceTypes.has(entry.doc.docType));
+  const analyses=candidates.map(entry=>analyseScript(entry.doc,entry.id,true)).filter(a=>{
+    const d=docs[a.docId], html=d && d.html || '';
+    const structured=/class=["'][^"']*(?:block-scene|radio-scene|fr-col-action|block-char|radio-char|dual-char)[^"']*["']/i.test(html);
+    const knownScript=['screenplay_us','screenplay_fr','theatre','yt','radio','story_scene'].includes(d && d.docType);
+    const hasDialogue=a.scenes.some(sc=>sc.chars && sc.chars.size>0);
+    return a.scenes.length>0 && (structured || knownScript || hasDialogue || a.scenes.length>=2);
+  });
   const scenes=[],characters=new Map(),locations=new Map();
   let missingLocations=0,duplicateNumbers=0;
   analyses.forEach(a=>{
@@ -3221,27 +3388,32 @@ function buildSmartProjectIndex(rootId){
         if(!C.refs.length) C.refs.push(ref);
       });
       if(place.name){
-        const key=normKey(place.name); let L=locations.get(key);
+        const key=normLocationKey(place.name); let L=locations.get(key);
         if(!L) locations.set(key,L={name:place.name,scenes:0,ies:new Set(),tods:new Set(),refs:[],docs:new Set()});
         L.scenes++; if(sc.ie) L.ies.add(sc.ie); if(sc.tod) L.tods.add(sc.tod); L.docs.add(a.title);
         if(!L.refs.length) L.refs.push(ref);
       }
-      scenes.push({ref,heading:sc.heading || ('مشهد '+sc.n),place:place.name,ie:sc.ie,tod:sc.tod,characters:charNames});
+      scenes.push({key:'auto-scene:'+a.docId+':'+sceneIndex,manual:false,ref,heading:sc.heading || ('مشهد '+sc.n),place:place.name,ie:sc.ie,tod:sc.tod,characters:charNames});
     });
   });
-  const chars=[...characters.values()].sort((a,b)=>b.scenes-a.scenes || b.lines-a.lines || a.name.localeCompare(b.name,'ar'));
-  const places=[...locations.values()].sort((a,b)=>b.scenes-a.scenes || a.name.localeCompare(b.name,'ar'));
+  const chars=[...characters.values()].map(c=>Object.assign({key:'auto-character:'+normKey(c.name),manual:false},c)).sort((a,b)=>b.scenes-a.scenes || b.lines-a.lines || a.name.localeCompare(b.name,'ar'));
+  const places=[...locations.values()].map(L=>Object.assign({key:'auto-location:'+normLocationKey(L.name),manual:false},L)).sort((a,b)=>b.scenes-a.scenes || a.name.localeCompare(b.name,'ar'));
   const firstNameGroups=new Map();
   chars.forEach(c=>{const first=c.name.trim().split(/\s+/)[0],key=normKey(first);if(!key)return;if(!firstNameGroups.has(key))firstNameGroups.set(key,[]);firstNameGroups.get(key).push(c.name);});
   const nameCollisions=[...firstNameGroups.values()].filter(names=>names.length>1);
-  return {sourceCount:sourceDocs.length,scenes,characters:chars,locations:places,missingLocations,duplicateNumbers,singleSceneCharacters:chars.filter(c=>c.scenes===1).length,singleSceneLocations:places.filter(L=>L.scenes===1).length,nameCollisions};
+  return applySmartManualData(rootId,{sourceCount:analyses.length,scenes,characters:chars,locations:places,missingLocations,duplicateNumbers,singleSceneCharacters:chars.filter(c=>c.scenes===1).length,singleSceneLocations:places.filter(L=>L.scenes===1).length,nameCollisions});
 }
 function renderSmartProjectIndex(rootId){
   const data=buildSmartProjectIndex(rootId);
-  const jump=(ref,label,meta,badge)=>`<button type="button" class="smart-index-row" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}"><span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}</small></span></button>`;
-  const sceneRows=data.scenes.map(s=>jump(s.ref,s.heading,`${s.ref.title} · ${s.place || 'الموقع غير واضح'}${s.ie?' · '+s.ie:''}${s.tod?' · '+s.tod:''}${s.characters.length?' · '+s.characters.join('، '):''}`,s.ref.sceneLabel));
-  const charRows=data.characters.map(c=>jump(c.refs[0],c.name,`${c.scenes} مشهد · ${c.lines} سطر حوار · ${c.docs.size} ملف`,c.scenes));
-  const placeRows=data.locations.map(L=>jump(L.refs[0],L.name,`${L.scenes} مشهد${L.ies.size?' · '+[...L.ies].join(' / '):''}${L.tods.size?' · '+[...L.tods].join(' / '):''}`,L.scenes));
+  const jump=(kind,item,label,meta,badge)=>{
+    const ref=item.ref || (item.refs&&item.refs[0]) || null, canJump=!!(ref&&ref.id&&Number.isInteger(ref.sceneIndex)&&ref.sceneIndex>=0);
+    const content=`<span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}${item.notes?' · '+esc(item.notes):''}${item.manual?' · إدخال يدوي':''}</small></span>`;
+    const main=canJump?`<button type="button" class="smart-index-row" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}">${content}</button>`:`<div class="smart-index-row is-static">${content}</div>`;
+    return `<div class="smart-index-entry">${main}<div class="smart-index-actions"><button type="button" title="تعديل" aria-label="تعديل ${esc(label)}" data-act="smart-edit" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>✎</button><button type="button" title="إخفاء من الفهرس" aria-label="إخفاء ${esc(label)}" data-act="smart-delete" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>×</button></div></div>`;
+  };
+  const sceneRows=data.scenes.map(s=>jump('scene',s,s.heading,`${s.ref?.title || 'إدخال يدوي'} · ${s.place || 'الموقع غير واضح'}${s.ie?' · '+s.ie:''}${s.tod?' · '+s.tod:''}${s.characters.length?' · '+s.characters.join('، '):''}`,s.ref?.sceneLabel||s.sceneLabel||'يدوي'));
+  const charRows=data.characters.map(c=>jump('character',c,c.name,`${c.scenes} مشهد · ${c.lines} سطر حوار · ${c.docs?.size||0} ملف`,c.scenes));
+  const placeRows=data.locations.map(L=>jump('location',L,L.name,`${L.scenes} مشهد${L.ies?.size?' · '+[...L.ies].join(' / '):''}${L.tods?.size?' · '+[...L.tods].join(' / '):''}`,L.scenes));
   const warnings=[];
   if(!data.sourceCount) warnings.push('لم يُعثر على ملفات كتابة قابلة للتحليل داخل هذا المشروع.');
   if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ راجعي عناوين المشاهد.`);
@@ -3251,11 +3423,11 @@ function renderSmartProjectIndex(rootId){
   if(data.nameCollisions.length) warnings.push(`توجد ${data.nameCollisions.length} مجموعة أسماء تبدأ بالاسم نفسه (${data.nameCollisions.map(g=>g.join(' / ')).join('؛ ')}). لم تُدمج الشخصيات تلقائياً؛ راجعي التشابه.`);
   const empty=label=>`<div class="smart-index-note" style="padding:8px 10px;">${esc(label)}</div>`;
   return `<section class="smart-index" aria-label="الفهرس الذكي للمشروع">
-    <div class="smart-index-head"><div><h3>✦ الفهرس الذكي</h3><p>ملخص للمشاهد والشخصيات والمواقع؛ يُعاد تحليله عند فتح المشروع أو تحديث الفهرس.</p></div><input id="smartIndexSearch" class="smart-index-search" type="search" placeholder="ابحثي عن مشهد أو اسم أو موقع…" aria-label="بحث في الفهرس الذكي"><button type="button" class="dash-btn" data-act="smart-refresh">↻ تحديث</button><button type="button" class="dash-btn primary" data-act="smart-report">⇩ تقرير الإنتاج</button></div>
+    <div class="smart-index-head"><div><h3>✦ الفهرس الذكي</h3><p>نتائج موثّقة بالمشاهد والملفات؛ يمكنك تعديلها أو إضافة إدخالات يدوية دون لمس السيناريو.</p></div><input id="smartIndexSearch" class="smart-index-search" type="search" placeholder="ابحثي عن مشهد أو اسم أو موقع…" aria-label="بحث في الفهرس الذكي"><button type="button" class="dash-btn" data-act="smart-refresh">↻ إعادة التحليل</button><button type="button" class="dash-btn primary" data-act="smart-report">⇩ تقرير الإنتاج</button></div>
     <div class="smart-index-metrics"><div class="smart-index-metric"><b>${data.scenes.length}</b><span>مشهد مكتشف</span></div><div class="smart-index-metric"><b>${data.characters.length}</b><span>شخصية فريدة</span></div><div class="smart-index-metric"><b>${data.locations.length}</b><span>موقع فريد</span></div><div class="smart-index-metric"><b>${data.sourceCount}</b><span>ملف كتابة محلل</span></div></div>
-    <div class="smart-index-sections"><details class="smart-index-section"><summary>المشاهد · ${data.scenes.length}</summary><div class="smart-index-list">${sceneRows.join('') || empty('لا توجد مشاهد مكتشفة بعد.')}</div></details><details class="smart-index-section"><summary>الشخصيات · ${data.characters.length}</summary><div class="smart-index-list">${charRows.join('') || empty('لم تُكتشف شخصيات في ملفات المشروع بعد.')}</div></details><details class="smart-index-section"><summary>المواقع · ${data.locations.length}</summary><div class="smart-index-list">${placeRows.join('') || empty('لم تُكتشف مواقع واضحة بعد.')}</div></details></div>
+    <div class="smart-index-sections"><details class="smart-index-section"><summary>المشاهد · ${data.scenes.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="scene">＋ إضافة مشهد يدوي</button></div><div class="smart-index-list">${sceneRows.join('') || empty('لا توجد مشاهد مكتشفة بعد.')}</div></details><details class="smart-index-section"><summary>الشخصيات · ${data.characters.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="character">＋ إضافة شخصية يدوية</button></div><div class="smart-index-list">${charRows.join('') || empty('لم تُكتشف شخصيات في ملفات المشروع بعد.')}</div></details><details class="smart-index-section"><summary>المواقع · ${data.locations.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="location">＋ إضافة موقع يدوي</button></div><div class="smart-index-list">${placeRows.join('') || empty('لم تُكتشف مواقع واضحة بعد.')}</div></details></div>
     ${warnings.length?`<div class="smart-index-warnings"><strong>مراجعات مقترحة</strong><ul>${warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:''}
-    <p class="smart-index-note">النتائج آلية ومساعدة؛ أسماء الشخصيات والمواقع قد تحتاج مراجعتك، ولا يغيّر الفهرس نص السيناريو.</p>
+    <p class="smart-index-note">تُحفظ التعديلات والإضافات اليدوية محلياً لهذا المشروع وتظهر في التقرير؛ حذف عنصر هنا يخفيه من الفهرس فقط ولا يحذف نص المصدر.</p>
   </section>`;
 }
 function downloadProductionReport(rootId){
@@ -3266,7 +3438,7 @@ function downloadProductionReport(rootId){
     ? `<div class="table-wrap"><table><thead><tr>${heads.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`
     : `<p class="empty">${esc(emptyText)}</p>`;
   const sceneRows=data.scenes.map(s=>[
-    esc(s.ref.sceneLabel || s.ref.n),esc(s.heading),esc(s.ref.title),esc(s.place || 'غير محدد'),esc(s.ie || '—'),esc(s.tod || '—'),esc(s.characters.join('، ') || '—')
+    esc(s.ref?.sceneLabel || s.sceneLabel || s.ref?.n || 'يدوي'),esc(s.heading),esc(s.ref?.title || 'إدخال يدوي'),esc(s.place || 'غير محدد'),esc(s.ie || '—'),esc(s.tod || '—'),esc(s.characters.join('، ') || '—')
   ]);
   const charRows=data.characters.map(c=>[esc(c.name),String(c.scenes),String(c.lines),esc([...c.docs].join('، '))]);
   const placeRows=data.locations.map(L=>[esc(L.name),String(L.scenes),esc([...L.ies].join(' / ') || '—'),esc([...L.tods].join(' / ') || '—'),esc([...L.docs].join('، '))]);
@@ -3330,6 +3502,19 @@ dashboard.addEventListener('click', e => {
   const act = b.dataset.act, cid = b.dataset.id, cont = docs[currentId];
   if(act === 'smart-refresh'){ renderDashboard(currentId); return; }
   if(act === 'smart-report'){ downloadProductionReport(currentId); return; }
+  if(act === 'smart-add'){
+    e.preventDefault();openManualItemEditor({zone:'index',rootId:currentId,kind:b.dataset.kind,action:'add'},null);return;
+  }
+  if(act === 'smart-edit' || act === 'smart-delete'){
+    e.preventDefault();
+    const kind=b.dataset.kind,key=b.dataset.key,isAdded=b.dataset.added==='true',data=buildSmartProjectIndex(currentId);
+    const source=kind==='scene'?data.scenes:kind==='character'?data.characters:data.locations,item=source.find(x=>x.key===key);
+    if(!item)return;
+    const context={zone:'index',rootId:currentId,kind,key,isAdded,itemId:isAdded?key.replace(/^manual-(?:scene|character|location):/,''):null,action:'edit'};
+    if(act==='smart-delete'){manualEditorContext=context;deleteManualEditorItem();}
+    else openManualItemEditor(context,item);
+    return;
+  }
   if(act === 'smart-jump'){
     const targetId=cid, sceneIndex=parseInt(b.dataset.sceneIndex,10);
     if(!targetId || !docs[targetId]) return;
@@ -3338,7 +3523,7 @@ dashboard.addEventListener('click', e => {
       const targets=[...editor.querySelectorAll(SCENE_SELECTOR+', .fr-col-action')].filter(n=>{
         if(n.matches(SCENE_SELECTOR)) return true;
         const line=(n.innerText || n.textContent || '').split(/\n/).map(x=>x.trim()).find(Boolean) || '';
-        return !!line && SCENE_RE.test(line);
+        return !!line && isStrongSceneHeading(line);
       });
       const target=targets[sceneIndex];
       if(!target) return;
@@ -4164,13 +4349,9 @@ function insertImageBlock(src){
   scrollToEl(fig);
   scheduleSave();
 }
-let quoteImageData = '', quoteMainData = '', quoteSelectedText = '';
-function quoteCardMarkup(status, quote, attribution, image, shot){
+let quoteImageData = '', quoteSelectedText = '', quoteExportUrl = '';
+function quoteCardMarkup(status, quote, attribution, image){
   const draft = status === 'draft' ? '<span class="quote-draft">مسودة</span>' : '';
-  if(shot){
-    const cap = [quote, attribution].filter(Boolean).join(' — ');
-    return `<figure class="quote-image-card is-shot" contenteditable="false" data-quote-status="${status}" title="انقر على «مسودة» لتحويلها إلى جاهزة · Alt+نقر للعودة إلى مسودة · نقرتان للحذف">${draft}<img class="qi-shot" src="${esc(shot)}" alt="">${cap ? `<cite>${esc(cap)}</cite>` : ''}</figure>`;
-  }
   const img = image ? `<img src="${esc(image)}" alt="">` : '';
   return `<figure class="quote-image-card" data-quote-status="${status}">${img}${draft}<blockquote>${esc(quote)}</blockquote>${attribution ? `<cite>${esc(attribution)}</cite>` : ''}</figure>`;
 }
@@ -4199,25 +4380,25 @@ function applyQuoteDesign(card){
   if(q) q.style.fontSize=d.fontScale==='compact'?'1.15em':d.fontScale==='large'?'1.8em':'1.45em';
   const sig=card.querySelector('.qi-platform-signature');
   if(sig) sig.remove();
-  if(d.signature && !quoteMainData){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
+  if(d.signature){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
 }
 function refreshQuotePreview(){
-  $('qiPreview').innerHTML = quoteMainData
-    ? quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), '', quoteMainData)
-    : quoteCardMarkup($('qiStatus').value, $('qiText').value || 'نص الاقتباس', $('qiAttribution').value, quoteImageData);
+  $('qiPreview').innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value || 'حددي نصًا من الملف', $('qiAttribution').value, quoteImageData);
   applyQuoteDesign($('qiPreview').querySelector('.quote-image-card'));
 }
 function openQuoteImageModal(){
-  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً لإضافة اقتباس مصوّر.'); return; }
+  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً ثم حددي النص المراد تصديره.'); return; }
   const sel = window.getSelection();
   quoteSelectedText = sel && sel.rangeCount && editor.contains(sel.anchorNode) ? sel.toString().trim() : '';
+  if(!quoteSelectedText){ alert('حددي جملة أو فقرة من الملف أولاً، ثم اختاري «تصدير اقتباس مصوّر».'); return; }
   saveCurrentRange();
   quoteImageData = '';
   $('qiText').value = quoteSelectedText;
   $('qiAttribution').value = '';
   $('qiImage').value = '';
-  $('qiMain').value = '';
-  quoteMainData = '';
+  if(quoteExportUrl){ URL.revokeObjectURL(quoteExportUrl); quoteExportUrl=''; }
+  $('qiDownloadLink').style.display='none'; $('qiDownloadLink').removeAttribute('href');
+  $('qiExportStatus').textContent='';
   $('qiStatus').value = 'draft';
   refreshQuotePreview();
   showModal($('quoteImageModal'));
@@ -4230,20 +4411,14 @@ $('qiImage').addEventListener('change', async e => {
   try{ quoteImageData = await readImageScaled(file, 1400, true); refreshQuotePreview(); }
   catch(err){ alert(err.message); } finally { e.target.value = ''; }
 });
-$('qiCancel').addEventListener('click', () => hideModal($('quoteImageModal')));
-$('qiUseSelection').addEventListener('click', () => {
-  const sel = window.getSelection();
-  const textNow = sel && sel.rangeCount && editor.contains(sel.anchorNode) ? sel.toString().trim() : '';
-  const picked = textNow || quoteSelectedText;
-  if(!picked){ alert('حددي فقرة أو جملة في المحرر أولاً، أو اكتبي الاقتباس يدوياً.'); return; }
-  $('qiText').value = picked;
-  refreshQuotePreview();
+$('qiCancel').addEventListener('click', () => {
+  hideModal($('quoteImageModal'));
+  if(quoteExportUrl){URL.revokeObjectURL(quoteExportUrl);quoteExportUrl='';}
+  $('qiDownloadLink').style.display='none';$('qiDownloadLink').removeAttribute('href');
 });
-$('qiClearText').addEventListener('click', () => { $('qiText').value = ''; refreshQuotePreview(); });
 function downloadQuotePng(){
-  if(quoteMainData){ downloadShotPng(); return; }
   const quote=$('qiText').value.trim();
-  if(!quote){ alert('اكتبي نص الاقتباس أولاً.'); return; }
+  if(!quote || !quoteSelectedText){ alert('حددي نصًا من الملف الحالي أولاً.'); return; }
   const formats={square:[1200,1200],portrait:[1200,1500],story:[1080,1920],landscape:[1600,900]};
   const [width,height]=formats[quoteDesign().format]||formats.square;
   const design=quoteDesign(), theme=design.theme;
@@ -4312,13 +4487,20 @@ function downloadQuotePng(){
     if(design.signature){ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font=`${Math.max(15,Math.round(width*.014))}px ${family}`;ctx.fillStyle=ink;ctx.globalAlpha=.76;ctx.fillText(PLATFORM_SIGNATURE,width/2,height-Math.max(24,height*.035));ctx.globalAlpha=1;}
     const state=$('qiStatus').value==='draft'?'مسودة':'جاهز';
     const fileName=safeFileName((docs[currentId]?.title || 'Varry')+'-اقتباس-'+state)+'.png';
-    const saveUrl=url=>{const link=document.createElement('a');link.href=url;link.download=fileName;document.body.appendChild(link);link.click();link.remove();};
+    const readyLink=$('qiDownloadLink');
+    if(quoteExportUrl){URL.revokeObjectURL(quoteExportUrl);quoteExportUrl='';}
+    readyLink.style.display='none';readyLink.removeAttribute('href');
+    $('qiExportStatus').textContent='جارٍ توليد ملف الصورة…';
+    const saveBlob=blob=>{
+      if(!blob){$('qiExportStatus').textContent='تعذّر إنشاء PNG؛ جرّبي مقاسًا أصغر.';return;}
+      quoteExportUrl=URL.createObjectURL(blob);readyLink.href=quoteExportUrl;readyLink.download=fileName;
+      readyLink.textContent='تنزيل ملف PNG الآن';readyLink.style.display='inline-flex';
+      $('qiExportStatus').textContent=`تم إنشاء صورة ${state} بدقة ${width}×${height}. إذا لم يبدأ التنزيل تلقائيًا، اضغطي رابط التنزيل.`;
+      try{readyLink.click();}catch(err){}
+    };
     try{
-      if(canvas.toBlob) canvas.toBlob(blob=>{
-        if(!blob){alert('تعذّر إنشاء ملف PNG. أعيدي المحاولة أو اختاري مقاسًا أصغر.');return;}
-        const url=URL.createObjectURL(blob);saveUrl(url);setTimeout(()=>URL.revokeObjectURL(url),2000);
-      },'image/png');
-      else saveUrl(canvas.toDataURL('image/png'));
+      if(canvas.toBlob) canvas.toBlob(saveBlob,'image/png');
+      else {const raw=canvas.toDataURL('image/png');fetch(raw).then(r=>r.blob()).then(saveBlob).catch(()=>saveBlob(null));}
     }catch(err){alert('تعذّر تصدير الصورة. جرّبي صورة خلفية أخرى أو أزيليها ثم أعيدي المحاولة.');}
   };
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(paint);else paint();
@@ -4852,7 +5034,6 @@ document.querySelectorAll('.bridge-btn').forEach(b => b.addEventListener('click'
 /* =====================================================================
    تحديث المحتوى القديم للميزات الجديدة
    ===================================================================== */
-const SCENE_RE = /^(?:مشهد|المشهد|لقطة|داخلي|خارجي|INT|EXT|SCENE)(?:[\s.:\-–—\/]|$)/i;
 const TRANS_RE = /^(?:قطع|انتقال|ذوبان|تلاشي|CUT TO|FADE|DISSOLVE)/i;
 function classifyPlain(tmp, radio){
   const C = radio
@@ -4864,7 +5045,7 @@ function classifyPlain(tmp, radio){
     const t = el.textContent.trim();
     if(!t){ state = 'none'; return; }
     const words = t.split(/\s+/).length;
-    if(SCENE_RE.test(t) && words <= 14){ el.className = C.scene; state = 'none'; n++; return; }
+    if(isStrongSceneHeading(t)){ el.className = C.scene; state = 'none'; n++; return; }
     if(TRANS_RE.test(t) && words <= 4){ el.className = 'block-transition'; state = 'none'; n++; return; }
     if(/^[\(（].*[\)）]$/.test(t)){ el.className = 'block-parenthetical'; n++; return; }
     if(/[:：]$/.test(t) && words <= 5){ el.className = C.char; el.textContent = t.replace(/[:：]\s*$/, ''); state = 'dialogue'; n++; return; }
@@ -5908,32 +6089,37 @@ function isEmptyCard(c){
 }
 
 /* ===== تحليل السيناريوهات ===== */
-const IE_W = /^(?:داخلي|داخل|خارجي|خارج|int|ext|interior|exterior)\.?$/i;
-const TOD_W = /^(?:نهار|نهارا|ليل|ليلا|فجر|غروب|صباح|صباحا|ظهر|عصر|مساء|day|night|dawn|dusk|morning|evening|noon|afternoon|sunset|sunrise)\.?$/i;
+const IE_W = /^(?:داخلي|داخل|خارجي|خارج|int|ext|interior|exterior|i\/e|int\.?\/\s*ext\.?|ext\.?\/\s*int\.?)\.?$/i;
+const TOD_W = /^(?:نهار|نهارا|النهار|ليل|ليلا|الليل|فجر|الفجر|غروب|الغروب|صباح|صباحا|الصباح|ظهر|الظهر|عصر|العصر|مساء|المساء|day|night|dawn|dusk|morning|evening|noon|afternoon|sunset|sunrise)\.?$/i;
 function arPlain(s){ return String(s || '').replace(/[\u064B-\u065F\u0670\u0640]/g, ''); }
 function normKey(s){
   return arPlain(s).replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^\p{L}\p{N}]+/gu, ' ').trim().toLowerCase();
 }
-function ieNorm(w){ return /^(?:داخلي|داخل|int|interior)/i.test(w) ? 'داخلي' : 'خارجي'; }
+function normLocationKey(s){ return normKey(s).replace(/(^|\s)ال(?=\S)/g,'$1').replace(/\s+/g,' ').trim(); }
+function ieNorm(w){
+  if(/^(?:i\/e|int\.?\/\s*ext|ext\.?\/\s*int)/i.test(w)) return 'داخلي/خارجي';
+  return /^(?:داخلي|داخل|int|interior)/i.test(w) ? 'داخلي' : 'خارجي';
+}
 function todNorm(w){
   w = arPlain(w).toLowerCase().replace(/\./g, '');
-  if(/^(?:ليل|مساء|night|evening)/.test(w)) return 'ليل';
-  if(/^(?:فجر|dawn|sunrise)/.test(w)) return 'فجر';
-  if(/^(?:غروب|dusk|sunset)/.test(w)) return 'غروب';
+  if(/^(?:ليل|الليل|مساء|المساء|night|evening)/.test(w)) return 'ليل';
+  if(/^(?:فجر|الفجر|dawn|sunrise)/.test(w)) return 'فجر';
+  if(/^(?:غروب|الغروب|dusk|sunset)/.test(w)) return 'غروب';
   return 'نهار';
 }
 function parseSceneHeading(text){
-  let t = String(text || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\s+/g, ' ').trim();
+  let t = arPlain(String(text || '')).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\s+/g, ' ').trim();
   t = t.replace(/^(?:مشهد|المشهد|لقطة|scene|sc)(?=$|[\s.:\-–—#\d])\s*/i, '');
   let num = '';
   const nm = t.match(/^#?\s*(\d+[A-Za-z\u0621-\u064A]?)\s*[.:\-–—)\/]*\s*/);
   if(nm){ num = nm[1].toUpperCase(); t = t.slice(nm[0].length); }
+  t=t.replace(/(?:INT\.?\s*\/\s*EXT\.?|EXT\.?\s*\/\s*INT\.?|I\s*\/\s*E\.?)/ig,m=>m.replace(/\//g,'\uE000'));
   let ie = '', tod = '';
   const names = [];
   const isIE = w => IE_W.test(arPlain(w)), isTOD = w => TOD_W.test(arPlain(w));
   const take = w => { if(isIE(w)){ if(!ie) ie = ieNorm(arPlain(w)); } else if(!tod) tod = todNorm(w); };
   t.split(/\s*[-–—|،,؛;:\/()\[\]]+\s*/).forEach(seg => {
-    const words = seg.split(' ').filter(Boolean);
+    const words = seg.replace(/\uE000/g,'/').split(' ').filter(Boolean);
     while(words.length && (isIE(words[0]) || isTOD(words[0]))) take(words.shift());
     while(words.length && (isIE(words[words.length - 1]) || isTOD(words[words.length - 1]))) take(words.pop());
     if(words.length) names.push(words.join(' '));
@@ -5942,11 +6128,18 @@ function parseSceneHeading(text){
 }
 /* فلترة محافظة لأسماء الشخصيات: تستبعد التسميات الإخراجية والعناوين الشائعة فقط، ولا تحاول الحكم على الأسماء الشخصية اعتماداً على معناها وحده. */
 const NON_CHARACTER_LABEL_RE = /^(?:شخصية|الشخصية|حوار|الكلام|الوصف|وصف|تعليق صوتي|راوي|الراوي|المعلق|المكان|الموقع|اللوكيشن|الوقت|الزمن|عنوان المشهد|المشهد|مشهد|لقطة|صورة أمامية|صورة امامية|صورة جانبية|صورة خلفية|لقطة قريبة|لقطة بعيدة|لقطة عامة|لقطة متوسطة|كاميرا|زاوية الكاميرا|تعليمات|ملاحظات|ملاحظة|انتقال|قطع|صمت|موسيقى|مؤثر صوتي|مؤثرات صوتية|إضاءة|اضاءة|داخلي|خارجي|نهار|ليل|فجر|غروب|صباح|مساء|int|ext|interior|exterior|day|night|camera|shot|close.?up|wide.?shot|voice.?over|v\.o\.|o\.s\.)$/i;
-const NON_CHARACTER_ACTION_RE = /^(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يقف|تقف|ينظر|تنظر|يلتفت|تلتفت|يمشي|تمشي|يركض|تركض|يبكي|تبكي|يضحك|تضحك|يفتح|تفتح|يغلق|تغلق|يصرخ|تصرخ|يتحدث|تتحدث|صوت|صوت من الخارج|صوت من الداخل|من خلف الكاميرا|خارج الكادر|من خارج الكادر|من الداخل|من الخارج|يظهر|تظهر|يختفي|تختفي|enter|exits?|walks?|runs?|looks?|sits?|stands?|whispers?|shouts?)\b/i;
+const NON_CHARACTER_ACTION_RE = /^(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يقف|تقف|ينظر|تنظر|يلتفت|تلتفت|يمشي|تمشي|يركض|تركض|يبكي|تبكي|يضحك|تضحك|يفتح|تفتح|يغلق|تغلق|يصرخ|تصرخ|يتحدث|تتحدث|يقترب|تقترب|يتجه|تتجه|يتقدم|تتقدم|يغادر|تغادر|يحمل|تحمل|يضع|تضع|يلتقط|تلتقط|يدور|تدور|يرفع|ترفع|يخفض|تخفض|يتنفس|تتنفس|يتوقف|تتوقف|يبدأ|تبدأ|يعود|تعود|يبحث|تبحث|يقفز|تقفز|يفكر|تفكر|يهمس|تهمس|يسمع|تسمع|يحرك|تحرك|يتذكر|تتذكر|يراجع|تراجع|يمد|تمد|يمسك|تمسك|صوت|صوت من الخارج|صوت من الداخل|من خلف الكاميرا|خارج الكادر|من خارج الكادر|من الداخل|من الخارج|يظهر|تظهر|يختفي|تختفي|enter|exits?|walks?|runs?|looks?|sits?|stands?|whispers?|shouts?|approaches|moves?|turns?|reaches|leaves?|pauses?|smiles?|cries|laughs?|opens?|closes?|listens?|speaks?|picks? up)(?=$|[\s:،؛,.!?])/i;
+const NON_LOCATION_META_RE = /^(?:(?:قبل|بعد|خلال|منتصف)\s+(?:النهاية|البداية|المشهد|مشهد|المقطع|الفصل|الجزء|النص|السيناريو)|تتمة|تكملة|استكمال|متابعة|بداية|نهاية|إعادة|اعاده|مثال|أمثلة|امثله|تجربة|اختبار|مسودة|ملخص|ملخصات|وصف|تعليق|ملاحظات?|توجيهات?|انتقال|مشهد\s+(?:متداخل|فرعي|ضمني|تجريبي))(?:\s+(?:المشهد|مشهد|المثال|مثال|السيناريو|الجزء|المقطع|الفصل|الموقع|مكان))?(?:\s|$|[:：،,؛;.!؟?…])/i;
+function isMetaLocationName(name){
+  const t=arPlain(String(name||'')).replace(/[()[\]{}]/g,' ').replace(/\s+/g,' ').trim().replace(/[.،,؛;:!?؟]+$/,'');
+  return !t || NON_LOCATION_META_RE.test(t) || /^(?:before\s+the\s+end|after\s+the\s+scene|scene\s+continuation|continued\s+scene|scene\s+example|example|examples|sample|test|transition|montage|tbd|unknown)$/i.test(t);
+}
 function looksLikeNonCharacterName(name){
   const t = String(name || '').replace(/[()\[\]{}]/g, ' ').replace(/[:：]+$/,'').replace(/\s+/g,' ').trim();
   if(!t) return true;
+  if(isMetaLocationName(t)) return true;
   if(NON_CHARACTER_LABEL_RE.test(t)) return true;
+  if(isStrongSceneHeading(t)) return true;
   if(looksLikeShotDirection(t)) return true;
   if(t.length > 40 || t.split(/\s+/).length > 4) return true;
   if(NON_CHARACTER_ACTION_RE.test(t) && (t.split(/\s+/).length > 1 || /^(?:صوت|يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|ينظر|تنظر|enter|exits?)$/i.test(t))) return true;
@@ -5957,40 +6150,54 @@ function cleanCharName(s){
   const t = String(s || '').replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）/g, ' ').replace(/[:：]+\s*$/, '').replace(/\s+/g, ' ').trim();
   return (t.length > 40 || t.split(' ').length > 4) ? '' : t;
 }
+function isStrongSceneHeading(text){
+  const t=String(text || '').replace(/\s+/g,' ').trim();
+  if(!t || t.split(/\s+/).length>18) return false;
+  const p=parseSceneHeading(t), hasSep=/[-–—|:]/.test(t);
+  const numberedMarker=/^(?:المشهد|مشهد|scene|sc|لقطة|shot)\s*#?\s*[0-9٠-٩]+[A-Za-z\u0621-\u064A]?(?=$|[\s.:\-–—/])/i.test(t);
+  if(numberedMarker) return true;
+  const sceneMarker=/^(?:المشهد|مشهد|scene|sc)(?=$|[\s.:\-–—/])/i.test(t);
+  if(sceneMarker && hasSep && p.name && (p.ie || p.tod)) return true;
+  const bareNumber=/^#?\s*[0-9٠-٩]+[A-Za-z\u0621-\u064A]?(?=$|[\s.:\-–—/])/i.test(t);
+  if(bareNumber && hasSep && p.name && p.ie && p.tod) return true;
+  const startsWithFormat=/^(?:داخلي|داخل|خارجي|خارج|interior|exterior|int\.?|ext\.?|i\/e)(?=$|[\s.:\-–—/])/i.test(t);
+  return !!(startsWithFormat && hasSep && p.name && (p.ie || p.tod));
+}
 function looksHeading(text, words){
-  if(words > 12 || /[.!؟?…،]\s*$/.test(text)) return false;
-  const p = parseSceneHeading(text);
-  if(!p.name) return false;
-  return !!((p.ie && p.tod) || (/^\d+\s*[-–.)\/]/.test(text) && (p.ie || p.tod)));
+  if(words > 14 || /[.!؟?…،]\s*$/.test(text)) return false;
+  if(/^(?:لقطة|shot)(?:\s|$)/i.test(text) && !/^(?:لقطة|shot)\s*#?\s*[0-9٠-٩]+/i.test(text)) return false;
+  const p=parseSceneHeading(text);
+  return !!(p.name && p.ie && p.tod);
 }
 function analyseScript(doc, id, smart){
   const tmp = document.createElement('div');
   tmp.innerHTML = doc.html || '';
-  tmp.querySelectorAll('.treatment-container, .rc-list, .rc-summary, .quote-image-card, .scene-duration, .page-break-marker').forEach(n => n.remove());
+  tmp.querySelectorAll('.treatment-container, .treatment-box, .rc-list, .rc-summary, .quote-image-card, .scene-duration, .page-break-marker, .docu-segment, .docu-table, .docu-source, .img-block').forEach(n => n.remove());
   const out = { docId:id, title: doc.title || 'بلا عنوان', scenes:[], prelude:{ n:0, chars:new Map() } };
   let cur = null, last = null, waiting = false;
   const touch = raw => {
     const name = cleanCharName(raw);
     const key = normKey(name);
-    if(!name || !key || (smart && looksLikeNonCharacterName(name))) return null;
+    if(!name || !key || isMetaLocationName(name) || (smart && looksLikeNonCharacterName(name))) return null;
     const b = (cur || out.prelude).chars;
     let e = b.get(key);
     if(!e){ e = { name, lines:0, words:0, sample:'' }; b.set(key, e); }
     return e;
   };
   const addLine = (e, txt) => { e.lines++; e.words += countWords(txt); if(!e.sample && txt) e.sample = String(txt).trim().slice(0, 90); };
-  const startScene = text => {
+  const startScene = (text, confidence='structured') => {
     const p = parseSceneHeading(text);
     const seq = out.scenes.length + 1;
-    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, sceneLabel:p.num || String(seq), heading:text.trim(), chars:new Map() });
+    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, sceneOrder:seq, sceneLabel:p.num || String(seq), heading:text.trim(), confidence, chars:new Map() });
     out.scenes.push(cur); last = null; waiting = false;
   };
-  tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .fr-col-action, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p').forEach(n => {
+  const parseNodes=[...tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .fr-col-action, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p')];
+  parseNodes.forEach((n,nodeIndex) => {
     const text = (n.textContent || '').trim();
-    if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text); return; }
+    if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text,'structured'); return; }
     if(n.matches('.fr-col-action')){
       const firstLine=(n.innerText || text).split(/\n/).map(x=>x.trim()).find(Boolean) || '';
-      if(firstLine && SCENE_RE.test(firstLine) && firstLine.split(/\s+/).length<=14) startScene(firstLine);
+      if(firstLine && isStrongSceneHeading(firstLine)) startScene(firstLine,'structured-header');
       return;
     }
     if(n.matches('.block-char, .radio-char, .dual-char, .fr-col-char')){
@@ -6009,7 +6216,8 @@ function analyseScript(doc, id, smart){
     const isActionLine = n.classList.contains('block-action') || n.classList.contains('radio-narrator');
     if(n.closest('.dual-column, .fr-table, .bridge-block')) return;
     const words = text.split(/\s+/).length;
-    if((SCENE_RE.test(text) && words <= 14) || looksHeading(text, words)){ startScene(text); return; }
+    if(isStrongSceneHeading(text)){ startScene(text,'explicit-text'); return; }
+    if(looksHeading(text, words)){ startScene(text,'inferred'); return; }
     const lm = text.match(/^(?:المكان|الموقع|اللوكيشن|location)\s*[:：]\s*(.+)$/i);
     if(lm){
       if(cur && !cur.name){ const p = parseSceneHeading(lm[1]); cur.name = p.name || lm[1].trim(); if(p.ie && !cur.ie) cur.ie = p.ie; if(p.tod && !cur.tod) cur.tod = p.tod; }
@@ -6021,33 +6229,47 @@ function analyseScript(doc, id, smart){
       return;
     }
     if(!CHAR_SOURCE_TYPES.includes(doc.docType)) return;
-    const m = text.match(/^([^:：]{1,25})[:：]\s*(\S[\s\S]*)$/);
-    if(m && m[1].trim().split(/\s+/).length <= 2 && !SCENE_RE.test(m[1])){
-      const labelKey = normKey(m[1]);
+    const m = text.match(/^([^:：—–]{1,40}?)\s*(?:[:：]|[—–])\s*(\S[\s\S]*)$/);
+    const cueName=m?cleanCharName(m[1]):'';
+    if(m && cueName && cueName.length<=40 && cueName.split(/\s+/).length<=4 && !isStrongSceneHeading(cueName) && !looksLikeNonCharacterName(cueName)){
+      const labelKey = normKey(cueName);
       if(['عنوان', 'عنوان المشهد', 'المكان', 'الموقع', 'اللوكيشن', 'الوقت', 'الزمن', 'المشهد', 'ملاحظه', 'ملاحظات', 'ملخص', 'الخلاصه', 'وصف', 'المصدر', 'المصادر', 'سؤال', 'اسئله', 'اجابه', 'اجابات'].includes(labelKey)){
         last = null; waiting = false; return;
       }
-      const e = touch(m[1]);
+      const e = touch(cueName);
       if(e) addLine(e, m[2]);
       last = null; waiting = false; return;
     }
     if(isActionLine){ last = null; waiting = false; return; }
     if(/[:：]$/.test(text) && words <= 5){ last = touch(text); waiting = !!last; return; }
+    // كثير من السيناريوهات تضع اسم المتحدث في فقرة مستقلة بلا نقطتين؛ لا نقبله إلا إذا تبعه سطر حوار واضح.
+    const cue=cleanCharName(text), cueWords=cue.split(/\s+/).filter(Boolean).length;
+    const nextNode=parseNodes.slice(nodeIndex+1).find(x=>x.tagName==='P'&&String(x.textContent||'').trim());
+    const nextText=nextNode?String(nextNode.textContent||'').trim():'';
+    const nextWords=nextText.split(/\s+/).filter(Boolean).length;
+    const nextIsSpeakerLabel=/^[^:：—–]{1,40}\s*[:：—–]\s*\S/.test(nextText)||/[:：]$/.test(nextText);
+    const looksLikeStandaloneCue=!!cue&&cue.length<=40&&cueWords<=4&&!/[.!؟?…،,؛:：]/.test(cue)&&!isStrongSceneHeading(cue)&&!looksLikeNonCharacterName(cue);
+    const looksLikeDialogue=nextText.length>=3&&!isStrongSceneHeading(nextText)&&!looksLikeShotDirection(nextText)&&!nextIsSpeakerLabel&&(nextWords>=2||/[.!؟?…،,؛]$/.test(nextText));
+    if(looksLikeStandaloneCue&&looksLikeDialogue){const speaker=touch(cue);if(speaker)addLine(speaker,nextText);last=null;waiting=false;return;}
     if(waiting && last){ addLine(last, text); last = null; waiting = false; }
   });
   return out;
 }
-function uniqSorted(a){ return [...new Set(a)].sort((x, y) => x - y); }
+function uniqSorted(a){ return [...new Set(a.map(String))].sort((x,y)=>x.localeCompare(y,'en',{numeric:true,sensitivity:'base'})); }
 function refsText(refs, multi){
   return [...refs.values()].map(r => (multi ? r.title + ': ' : '') + uniqSorted(r.nums).join('، ')).join(' · ');
 }
 /* التمييز الدلالي بين المكان وبين وصف الكاميرا/حجم اللقطة؛ هذه أوصاف إخراجية وليست لوكيشنات. */
 const SHOT_OR_CAMERA_RE = /^(?:صورة|لقطة|كادر|زاوية|كاميرا|منظور|تأطير|بانوراما|زووم|كلوز.?ا?ب|كلوز.?أب|وايد.?شوت|ميديم.?شوت|فول.?شوت|اوف.?سكرين|وجهة.?نظر|من.?وجهة.?نظر|من.?خلف.?الكتف|لقطة.?تأسيسية|لقطة.?عامة|لقطة.?قريبة|لقطة.?بعيدة|لقطة.?متوسطة|صورة.?أمامية|صورة.?جانبية|صورة.?خلفية|close.?up|wide.?shot|medium.?shot|long.?shot|full.?shot|over.?the.?shoulder|point.?of.?view|pov|camera|angle|frame|shot|zoom|pan|tilt)(?:\s+(?:أمامية|امامية|جانبية|خلفية|قريبة|بعيدة|متوسطة|عامة|واسعة|تأسيسية|منخفضة|مرتفعة|من.?الأعلى|من.?الأسفل|front|side|back|close|wide|medium|long|full|high|low|shot|up|down))?$/i;
-function looksLikeShotDirection(name){ return !!name && SHOT_OR_CAMERA_RE.test(arPlain(name).trim()); }
+function looksLikeShotDirection(name){
+  const t=arPlain(name).trim();
+  return !!t && (SHOT_OR_CAMERA_RE.test(t) || /^(?:لقطة|صورة|كادر|زاوية|كاميرا|منظور|تأطير|بانوراما|زووم|camera|shot|pov|close.?up|wide.?shot|medium.?shot|long.?shot|full.?shot|cutaway|establishing\s+shot|ecu|ots|cu|ws|ms)(?:\s|$|[:：])/i.test(t));
+}
 /* لا نفترض أن العنوان كله مكان: قد يجمع اسم الموقع مع توجيه تصوير مفصول بشرطة أو فاصلة. */
 function classifyLocationHeading(rawName){
   const original = String(rawName || '').trim();
   if(!original) return { name:'', removed:[], onlyShot:false };
+  if(isMetaLocationName(original)) return {name:'',removed:[original],onlyShot:false,reason:'meta'};
   const parts = original.split(/\s*[-–—|،,؛;]\s*/).map(x => x.trim()).filter(Boolean);
   if(parts.length < 2){
     return looksLikeShotDirection(original) ? { name:'', removed:[original], onlyShot:true } : { name:original, removed:[], onlyShot:false };
@@ -6055,43 +6277,49 @@ function classifyLocationHeading(rawName){
   const kept = [], removed = [];
   parts.forEach(part => (looksLikeShotDirection(part) ? removed : kept).push(part));
   if(!kept.length) return { name:'', removed, onlyShot:true };
-  return { name:kept.join(' - '), removed, onlyShot:false };
+  const name=kept.join(' - ');
+  if(isMetaLocationName(name)) return {name:'',removed:[original],onlyShot:false,reason:'meta'};
+  if(/^(?:المكان|مكان|الموقع|موقع|اللوكيشن|لوكيشن|غير محدد|غير معروف|داخلي|خارجي|نهار|ليل|صباح|مساء|unknown|tbd|int|ext|day|night)$/i.test(arPlain(name).trim())) return { name:'', removed:[], onlyShot:false };
+  return { name, removed, onlyShot:false };
 }
 function buildLocations(analyses){
   const multi = analyses.length > 1, map = new Map();
-  let total = 0, unnamed = 0, suspicious = [], adjusted = [];
+  let total = 0, unnamed = 0, suspicious = [], adjusted = [], nonLocation = [];
   analyses.forEach(a => a.scenes.forEach(sc => {
     total++;
     const classified = classifyLocationHeading(sc.name);
     const locationName = classified.name;
-    const key = locationName ? normKey(locationName) : '';
+    const key = locationName ? normLocationKey(locationName) : '';
     if(!key){
-      if(classified.removed.length) suspicious.push({name:sc.name, removed:classified.removed, title:a.title, scene:sc.n, heading:sc.heading});
+      if(classified.reason==='meta') nonLocation.push({name:sc.name,title:a.title,scene:sc.n,heading:sc.heading});
+      else if(classified.removed.length) suspicious.push({name:sc.name, removed:classified.removed, title:a.title, scene:sc.n, heading:sc.heading});
       unnamed++; return;
     }
     if(classified.removed.length) adjusted.push({original:sc.name, name:locationName, removed:classified.removed, title:a.title, scene:sc.n, heading:sc.heading});
     let L = map.get(key);
-    if(!L) map.set(key, L = { name:locationName, ies:new Set(), tods:new Set(), refs:new Map(), chars:new Map(), count:0, removedDirections:[] });
+    if(!L) map.set(key, L = { name:locationName, ies:new Set(), tods:new Set(), refs:new Map(), chars:new Map(), count:0, inferredScenes:0, removedDirections:[] });
     L.count++;
+    if(sc.confidence==='inferred') L.inferredScenes++;
     classified.removed.forEach(x => { if(!L.removedDirections.includes(x)) L.removedDirections.push(x); });
     if(sc.ie) L.ies.add(sc.ie);
     if(sc.tod) L.tods.add(sc.tod);
     if(!L.refs.has(a.docId)) L.refs.set(a.docId, { title:a.title, nums:[] });
-    L.refs.get(a.docId).nums.push(sc.n);
+    L.refs.get(a.docId).nums.push(sc.sceneLabel || sc.n);
     sc.chars.forEach((e, k) => { if(!L.chars.has(k)) L.chars.set(k, e.name); });
   }));
   const items = [...map.values()].map(L => {
     const nameWords = L.name.trim().split(/\s+/).length;
-    const looksLikeAction = /\b(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يركض|تركض|ينظر|تنظر|يفتح|تفتح|enter|exits?|walks?|runs?|looks?)\b/i.test(L.name);
+    const looksLikeAction = /(?:^|[\s\-–—])(?:يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|يركض|تركض|ينظر|تنظر|يفتح|تفتح|enter|exits?|walks?|runs?|looks?)(?=$|[\s\-–—،,.!?])/i.test(L.name);
     const warnings = [
       L.ies.size > 1 ? 'ظهر المكان داخلياً وخارجياً؛ يلزم التأكد هل هو موقع واحد أم أكثر.' : '',
       L.tods.size > 1 ? 'وردت أوقات مختلفة لهذا المكان.' : '',
+      L.inferredScenes ? 'استُنتج ' + L.inferredScenes + ' عنوان مشهد من فقرة غير منسّقة؛ تحققي من العنوان الأصلي.' : '',
       nameWords > 5 ? 'اسم طويل نسبياً؛ قد يحتوي على وصف حدث أو حركة لا على اسم المكان وحده.' : '',
       looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ راجعي هل هو موقع فعلي أم وصف حدث.' : '',
       L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ تحققي من كونه مكاناً فعلياً.' : '',
       L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. راجعي العنوان الأصلي للتأكد من أن الفصل صحيح.' : ''
     ].filter(Boolean);
-    const weakName = nameWords > 5 || looksLikeAction;
+    const weakName = nameWords > 5 || looksLikeAction || L.inferredScenes > 0;
     const confidence = weakName ? 'يحتاج مراجعة' : L.count >= 3 ? 'مرجّح' : L.count === 2 ? 'متوسط' : 'يحتاج مراجعة';
     return {
       name: L.name,
@@ -6104,60 +6332,43 @@ function buildLocations(analyses){
       auto: { scenes: refsText(L.refs, multi), chars: [...L.chars.values()].join('، ') }
     };
   });
-  return { items, total, unnamed, suspicious, adjusted };
+  return { items, total, unnamed, suspicious, adjusted, nonLocation };
 }
 function buildCharacters(analyses, minLines){
   const multi = analyses.length > 1, map = new Map();
+  let globalSceneOrder=0;
   analyses.forEach(a => {
     [a.prelude].concat(a.scenes).forEach(sc => {
       const real = sc !== a.prelude, keys = [...sc.chars.keys()];
+      const order = real ? globalSceneOrder++ : -1;
       sc.chars.forEach((e, key) => {
         let C = map.get(key);
-        if(!C) map.set(key, C = { name:e.name, lines:0, words:0, sample:'', refs:new Map(), together:new Map(), first:null, last:null });
+        if(!C) map.set(key, C = { name:e.name, lines:0, words:0, sample:'', refs:new Map(), together:new Map(), first:null, last:null, inferredScenes:0 });
         C.lines += e.lines; C.words += e.words;
         if(!C.sample && e.sample) C.sample = e.sample;
         if(!real) return;
+        if(sc.confidence==='inferred') C.inferredScenes++;
         if(!C.refs.has(a.docId)) C.refs.set(a.docId, { title:a.title, nums:[] });
-        C.refs.get(a.docId).nums.push(sc.n);
-        const ref = { title:a.title, n:sc.n };
-        if(!C.first) C.first = ref;
-        C.last = ref;
+        C.refs.get(a.docId).nums.push(sc.sceneLabel || String(sc.n));
+        const ref = { title:a.title, n:sc.n, label:sc.sceneLabel || String(sc.n), order };
+        if(!C.first || ref.order < C.first.order) C.first = ref;
+        if(!C.last || ref.order > C.last.order) C.last = ref;
         keys.forEach(k2 => { if(k2 !== key) C.together.set(k2, (C.together.get(k2) || 0) + 1); });
       });
     });
   });
-  /* دمج محافظ لصيغ الاسم: لا ندمج الاسم المختصر مع الأطول إلا إذا كانت الصيغة الأطول وحيدة
-     ولم يظهر الاسمان معاً في المشهد نفسه. الحالات الملتبسة تبقى منفصلة بدلاً من دمج شخصيتين خطأً. */
-  [...map.keys()].forEach(k => {
-    const C = map.get(k);
-    if(!C) return;
-    const w = k.split(' ');
-    const longer = [...map.keys()].filter(k2 => k2 !== k && k2.split(' ').length > w.length && k2.split(' ').slice(0, w.length).join(' ') === k);
-    if(longer.length !== 1) return;
-    const longKey = longer[0], L = map.get(longKey);
-    const sharedScenes = [...C.refs.entries()].some(([id, r]) => {
-      const lr = L.refs.get(id);
-      return lr && r.nums.some(n => lr.nums.includes(n));
-    });
-    if(sharedScenes) return;
-    L.lines += C.lines; L.words += C.words;
-    if(!L.sample && C.sample) L.sample = C.sample;
-    C.refs.forEach((r, id) => { if(!L.refs.has(id)) L.refs.set(id, { title:r.title, nums:[] }); r.nums.forEach(n => L.refs.get(id).nums.push(n)); });
-    C.together.forEach((n, k2) => { if(k2 !== longKey && k2 !== k) L.together.set(k2, (L.together.get(k2) || 0) + n); });
-    if(!L.first || (C.first && C.first.n < L.first.n)) L.first = C.first;
-    if(!L.last || (C.last && C.last.n > L.last.n)) L.last = C.last;
-    map.delete(k);
-  });
-  const all = [...map.values()].filter(C => C.lines >= minLines).sort((x, y) => y.lines - x.lines);
+  const candidates=[...map.values()].sort((x,y)=>y.lines-x.lines);
+  const filtered=candidates.filter(C=>C.lines<minLines).map(C=>({name:C.name,lines:C.lines}));
+  const all = candidates.filter(C => C.lines >= minLines);
   const max = Math.max(1, ...all.map(C => C.lines));
-  const refLabel = r => (multi ? r.title + ' · ' : '') + 'مشهد ' + r.n;
+  const refLabel = r => (multi ? r.title + ' · ' : '') + 'مشهد ' + r.label;
   const totalScenes = analyses.reduce((n, a) => n + a.scenes.length, 0);
   // لا ندمج الشخصيات التي تتشارك الاسم الأول تلقائياً؛ نعرض تنبيهاً للمراجعة فقط.
   const firstNameGroups = new Map();
   all.forEach(C => {
     const first = C.name.trim().split(/\s+/)[0];
     if(!first) return;
-    const k = first.toLocaleLowerCase();
+    const k = normKey(first);
     if(!firstNameGroups.has(k)) firstNameGroups.set(k, []);
     firstNameGroups.get(k).push(C.name);
   });
@@ -6165,17 +6376,18 @@ function buildCharacters(analyses, minLines){
     const sceneCount = [...C.refs.values()].reduce((n, r) => n + new Set(r.nums).size, 0);
     let st = C.lines + ' سطر حوار · ' + C.words + ' كلمة · ' + sceneCount + ' مشهد';
     if(C.first) st += ' · أول ظهور: ' + refLabel(C.first);
-    if(C.last && (C.last.n !== C.first.n || C.last.title !== C.first.title)) st += ' · آخر ظهور: ' + refLabel(C.last);
+    if(C.last && (C.last.order !== C.first.order || C.last.title !== C.first.title)) st += ' · آخر ظهور: ' + refLabel(C.last);
     const ratio = C.lines / max;
     const warnings = [];
     if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحققي من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
     if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجعي السطر المستخرج قبل اعتماد بطاقة الشخصية.');
+    if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ راجعي المصدر قبل الاعتماد.');
     if(!C.sample) warnings.push('لم يُلتقط مثال حوار واضح لهذه الشخصية.');
     const first = C.name.trim().split(/\s+/)[0];
-    const sameFirst = (firstNameGroups.get((first || '').toLocaleLowerCase()) || []).filter(n => n !== C.name);
+    const sameFirst = (firstNameGroups.get(normKey(first || '')) || []).filter(n => n !== C.name);
     if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحققي مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
     // ترتيب أرقام المشاهد وإزالة تكرارها في بيانات العرض، مع الإبقاء على الأدلة الأصلية.
-    const sceneEvidence = [...C.refs.values()].map(r => ({title:r.title, nums:[...new Set(r.nums)].sort((a,b) => Number(a)-Number(b))}));
+    const sceneEvidence = [...C.refs.values()].map(r => ({title:r.title, nums:uniqSorted(r.nums)}));
     return {
       name: C.name, note: C.lines + ' سطر · ' + (warnings.length ? 'يحتاج مراجعة' : 'أدلة متعددة'),
       sources: sceneEvidence.map(r => r.title),
@@ -6188,7 +6400,7 @@ function buildCharacters(analyses, minLines){
       }
     };
   });
-  return { items, total:0, unnamed:0 };
+  return { items, total:0, unnamed:0, filtered };
 }
 
 /* ===== دمج النتائج في ملف الهدف ===== */
@@ -6245,7 +6457,7 @@ function mergeRecordItems(doc, kind, items, mode, stamp){
 }
 
 /* ===== نافذة التفريغ (تلقائي / يدوي) ===== */
-let exKind = 'loc', exScope = null;
+let exKind = 'loc', exScope = null, aiExtractionResult=null;
 const exModal = $('extractModal');
 function isSourceDoc(kind, id){
   const d = docs[id];
@@ -6314,6 +6526,8 @@ function openExtract(kind){
   $('exPreview').textContent = '';
   $('exCorrectionList').innerHTML = '';
   $('exCorrectionStatus').textContent = '';
+  aiExtractionResult=null;$('exAiStatus').textContent='';$('exAiConfig').hidden=true;
+  try{$('exAiEndpoint').value=sessionStorage.getItem('varry-ai-endpoint')||'';$('exAiModel').value=sessionStorage.getItem('varry-ai-model')||'';$('exAiKey').value=sessionStorage.getItem('varry-ai-key')||'';}catch(e){}
   showModal(exModal);
 }
 // تصحيحات محلية للتفريغ: تُحفظ في المتصفح ولا تغيّر المصدر الأصلي للسيناريو.
@@ -6354,9 +6568,8 @@ function renderExtractionCorrections(items, kind){
   const scopePrefix = scope + '|';
   const scopedCount = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix)).length;
   if(status) status.textContent = scopedCount ? 'التصحيحات المحفوظة لهذا العمل: ' + scopedCount : 'لا توجد تصحيحات محفوظة لهذا العمل.';
-  const list = (items || []).slice(0, 40);
-  if(!list.length){ host.innerHTML = ''; return; }
-  host.innerHTML = '<b style="font-size:12px;">مراجعة وتصحيح النتائج (أول 40 نتيجة)</b>' + list.map(item => {
+  const list = (items || []).slice(0, 40),manualRows=getExtractionManualItems(scope,kind);
+  host.innerHTML = (list.length?'<b style="font-size:12px;">مراجعة وتصحيح النتائج (أول 40 نتيجة)</b>' + list.map(item => {
     const key = extractionCorrectionKey(kind, item.name, scope), c = extractionCorrections[key] || {};
     const action = c.action || 'keep';
     return '<div class="ex-correction" data-correction-key="' + esc(key) + '">' +
@@ -6367,7 +6580,8 @@ function renderExtractionCorrections(items, kind){
       '<option value="exclude"' + (action==='exclude'?' selected':'') + '>استبعاد النتيجة</option></select>' +
       '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="اكتبي الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
       '<small>' + esc((item.note || 'نتيجة مستخرجة') + ((item.sources || []).length ? ' · المصدر: ' + [...new Set(item.sources)].join('، ') : '')) + '</small></div>';
-  }).join('') + ((items || []).length > 40 ? '<small>تُعرض أول 40 نتيجة فقط في واجهة التصحيح؛ تبقى النتائج الأخرى ضمن التفريغ.</small>' : '');
+  }).join('') + ((items || []).length > 40 ? '<small>تُعرض أول 40 نتيجة فقط في واجهة التصحيح؛ تبقى النتائج الأخرى ضمن التفريغ.</small>' : ''):'') +
+    (manualRows.length?'<b style="font-size:12px;margin-top:8px;">إضافات يدوية محفوظة</b>'+manualRows.map(m=>'<div class="ex-manual-entry"><span><b>'+esc(m.name)+'</b><br><small>'+esc(m.notes||'إدخال يدوي')+'</small></span><span><button type="button" data-ex-manual-edit="'+esc(m.id)+'">تعديل</button><button type="button" data-ex-manual-delete="'+esc(m.id)+'">حذف</button></span></div>').join(''):'');
   host.querySelectorAll('.ex-correction').forEach(row => {
     const key = row.dataset.correctionKey, actionEl = row.querySelector('.ex-c-action'), nameEl = row.querySelector('.ex-c-rename');
     const saveRow = () => {
@@ -6394,9 +6608,9 @@ function clearExtractionCorrectionsForCurrentScope(){
   if(res){
     const box = $('exPreview');
     // Refresh correction controls without changing the extraction preview text.
-    renderExtractionCorrections(res.items, res.kind);
+    renderExtractionCorrections(activeExtractionItems(res.kind,res.items,res.ids), res.kind);
   } else {
-    $('exCorrectionList').innerHTML = '';
+    renderExtractionCorrections([],exKind);
     $('exCorrectionStatus').textContent = 'لا توجد تصحيحات محفوظة لهذا العمل.';
   }
 }
@@ -6405,7 +6619,99 @@ function computeExtraction(){
   if(!ids.length) return null;
   const analyses = ids.map(id => analyseScript(docs[id], id, $('exSmart').checked));
   const r = exKind === 'loc' ? buildLocations(analyses) : buildCharacters(analyses, parseInt($('exMin').value, 10) || 0);
-  return { kind:exKind, ids, analyses, items:Array.isArray(r && r.items) ? r.items : [], unnamed:(r && r.unnamed) || 0, suspicious:(r && r.suspicious) || [], adjusted:(r && r.adjusted) || [] };
+  return { kind:exKind, ids, analyses, items:Array.isArray(r && r.items) ? r.items : [], unnamed:(r && r.unnamed) || 0, suspicious:(r && r.suspicious) || [], adjusted:(r && r.adjusted) || [], nonLocation:(r && r.nonLocation) || [], filtered:(r && r.filtered) || [] };
+}
+function extractionSignature(kind,ids){return JSON.stringify([kind,(ids||[]).slice().sort().map(id=>[id,docs[id]?.updatedAt||0]),!!$('exSmart').checked,kind==='cp'?$('exMin').value:'']);}
+function activeExtractionItems(kind,items,ids){
+  const sourceIds=ids||getExSources();
+  return aiExtractionResult&&aiExtractionResult.kind===kind&&aiExtractionResult.signature===extractionSignature(kind,sourceIds)?aiExtractionResult.items:(items||[]);
+}
+function extractionItemsWithManual(kind,items){
+  const out=(items||[]).slice(),seen=new Set(out.map(x=>normKey(x.name)));
+  getExtractionManualItems(extractionCorrectionScope(),kind).forEach(m=>{
+    const name=String(m.name||'').trim(),key=normKey(name);if(!name||!key||seen.has(key))return;seen.add(key);
+    const base={name,note:'إدخال يدوي · '+(m.notes||'راجعِي البيانات قبل الاعتماد.'),sources:['إدخال يدوي'],evidenceCount:0,confidence:'يدوي',warnings:[],chips:{},auto:{}};
+    base.chips=kind==='loc'?{ie:'',tod:''}:{role:'ظهور عابر'};
+    base.auto=kind==='loc'?{scenes:'',chars:''}:{stats:'أُضيفت يدوياً',scenes:'',sample:m.notes||'',with:''};
+    out.push(base);
+  });
+  return out;
+}
+function extractionTextForAI(id){
+  const doc=docs[id];if(!doc)return '';
+  const tmp=document.createElement('div');tmp.innerHTML=doc.html||'';
+  tmp.querySelectorAll('script,style,iframe,object,embed,.rc-list,.quote-image-card,.img-block,.page-break-marker,.scene-duration').forEach(x=>x.remove());
+  return String(tmp.innerText||tmp.textContent||'').replace(/\u00a0/g,' ').replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+function parseAiJson(text){
+  let raw=String(text||'').trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');
+  try{return JSON.parse(raw);}catch(e){const a=raw.indexOf('{'),b=raw.lastIndexOf('}');if(a>=0&&b>a)return JSON.parse(raw.slice(a,b+1));throw e;}
+}
+function normalizeAiExtraction(kind,payload,sourceNames){
+  const rows=Array.isArray(payload.items)?payload.items:(kind==='loc'?payload.locations:payload.characters);
+  if(!Array.isArray(rows))throw new Error('الرد لا يحتوي مصفوفة items صالحة.');
+  const warnings=Array.isArray(payload.warnings)?payload.warnings.filter(x=>typeof x==='string'):[];
+  const max=250;
+  return rows.slice(0,max).map(row=>{
+    const name=String(row.name||row.location||row.character||'').trim().slice(0,180);if(!name)return null;
+    const refs=Array.isArray(row.scenes)?row.scenes:Array.isArray(row.references)?row.references:[];
+    const details=refs.map(r=>typeof r==='string'?r:[r.source||r.file||r.sourceTitle||'',r.sceneLabel||r.scene||r.number?'مشهد '+(r.sceneLabel||r.scene||r.number):'',r.evidence||r.quote||''].filter(Boolean).join(' · ')).filter(Boolean);
+    const sources=[...new Set(refs.map(r=>typeof r==='object'?(r.source||r.file||r.sourceTitle||''): '').filter(Boolean))];
+    const conf=Number(row.confidence);const low=!Number.isFinite(conf)||conf<0.7;
+    const itemWarnings=(Array.isArray(row.warnings)?row.warnings.filter(x=>typeof x==='string'):[]).slice(0,6);
+    if(low)itemWarnings.push('ثقة AI منخفضة أو غير محددة؛ تحققي من الدليل في المصدر.');
+    if(!details.length)itemWarnings.push('لم يرفق AI مرجع مشهد واضح؛ راجعي النتيجة يدوياً.');
+    const confidence=Number.isFinite(conf)?Math.round(Math.max(0,Math.min(1,conf))*100)+'%':'غير محددة';
+    if(kind==='loc'){
+      const sceneText=details.length?details.join('؛ '):'مقترح AI — راجعي المصدر';
+      const chars=Array.isArray(row.characters)?row.characters.join('، '):String(row.characters||'');
+      const ie=String(row.interior_exterior||row.ie||'');const tod=String(row.time_of_day||row.tod||'');
+      return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{ie,tod},auto:{scenes:sceneText,chars}};
+    }
+    const lineCount=Math.max(0,Number(row.dialogue_lines??row.lines)||0);const quote=String(row.quote||row.evidence||'').slice(0,500);
+    return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{role:String(row.role||'')},auto:{stats:(lineCount||'؟')+' سطر حوار · '+details.length+' مشهد',scenes:details.join('؛ ')||'مقترح AI — راجعي المصدر',sample:quote,with:Array.isArray(row.with)?row.with.join('، '):String(row.with||'')}};
+  }).filter(Boolean);
+}
+async function runAiExtraction(){
+  const status=$('exAiStatus'),button=$('exAiRun');if(button.disabled)return;
+  const res=computeExtraction();if(!res){status.textContent='اختاري ملف مصدر أولاً.';return;}
+  const endpoint=String($('exAiEndpoint').value||'').trim(),model=String($('exAiModel').value||'').trim(),key=String($('exAiKey').value||'').trim();
+  if(!endpoint||!model||!key){$('exAiConfig').hidden=false;status.textContent='أدخلي رابط الخدمة واسم النموذج ومفتاح API أولاً.';return;}
+  let url;try{url=new URL(endpoint);}catch(e){status.textContent='رابط الخدمة غير صالح.';return;}
+  if(url.protocol!=='https:'&&!(url.protocol==='http:'&&/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(url.hostname))){status.textContent='استخدمي HTTPS، أو خادماً محلياً موثوقاً.';return;}
+  const sources=res.ids.map(id=>({title:docLabel(id),text:extractionTextForAI(id)})).filter(x=>x.text);
+  const totalChars=sources.reduce((n,x)=>n+x.text.length,0),maxChars=50000;
+  if(!sources.length){status.textContent='لم يُعثر على نص قابل للإرسال في الملفات المحددة.';return;}
+  if(totalChars>maxChars){status.textContent='النص يتجاوز حد الحماية المحلي ('+maxChars.toLocaleString('ar')+' حرف). اختاري ملفات أقل أو جزّئي التحليل.';return;}
+  const consent='سيُرسل نص '+sources.length+' ملف/ملفات ('+totalChars.toLocaleString('ar')+' حرفاً) إلى '+url.host+' باستخدام النموذج '+model+'. قد تُحتسب رسوم لدى مزود API، ولن يُرسل شيء قبل موافقتك. متابعة؟';
+  if(!confirm(consent))return;
+  try{sessionStorage.setItem('varry-ai-endpoint',endpoint);sessionStorage.setItem('varry-ai-model',model);sessionStorage.setItem('varry-ai-key',key);}catch(e){}
+  const draft=activeExtractionItems(res.kind,res.items,res.ids).slice(0,80).map(x=>({name:x.name,evidence:x.auto?.scenes||x.auto?.sample||'',confidence:x.confidence||''}));
+  const task=res.kind==='loc'
+    ?'استخرج المواقع الحقيقية لكل مشهد. فرّق بين عنوان المشهد وبين وصف اللقطة/الكاميرا والحركة. لا تخترع مكاناً عند غياب الدليل. احتفظ بالمواقع المتكررة في مجموعة واحدة فقط عندما يتضح أنها المكان نفسه؛ لا تدمج أسماء محتملة دون دليل.'
+    :'استخرج الشخصيات التي تتكلم أو يثبت النص وجودها كشخصيات. لا تعتبر أفعال السرد أو أوصاف الكاميرا أسماء شخصيات. لا تدمج الاسم المختصر بالاسم الكامل تلقائياً؛ اذكر احتمالات الاسم المستعار في warnings.';
+  const outputShape=res.kind==='loc'
+    ?'أعد JSON: {"items":[{"name":"اسم موقع مثبت","scenes":[{"source":"عنوان الملف كما أُرسل","sceneLabel":"رقم المشهد","sceneHeading":"العنوان كما ورد","evidence":"اقتباس قصير حرفي","interior_exterior":"داخلي أو خارجي أو غير محدد","time_of_day":"نهار أو ليل أو فجر أو غروب أو غير محدد"}],"confidence":0.0,"warnings":[]}],"warnings":[]}. كل موقع يجمع مشاهده مع مراجع منفصلة.'
+    :'أعد JSON: {"items":[{"name":"اسم شخصية مثبت","scenes":[{"source":"عنوان الملف كما أُرسل","sceneLabel":"رقم المشهد","evidence":"اقتباس حوار قصير حرفي"}],"dialogue_lines":0,"quote":"مثال حوار حرفي قصير","role":"رئيسية أو ثانوية أو ظهور عابر أو غير محدد","confidence":0.0,"warnings":[]}],"warnings":[]}. لا تُنشئ شخصية من فعل سردي.';
+  const userPayload={task,output_shape:outputShape,draft_candidates:draft,sources};
+  button.disabled=true;status.textContent='جارٍ إرسال النص بعد الموافقة…';
+  let timer=null;
+  try{
+    const controller=new AbortController();timer=setTimeout(()=>controller.abort(),90000);
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages:[{role:'system',content:'أنت محلل سيناريو عربي/إنجليزي شديد التحفظ. اعتمد فقط على نصوص المصدر المرفقة. لا تخترع مشهداً أو اسماً أو موقعاً. اقتبس دليلاً حرفياً قصيراً واربط كل نتيجة بملف ومشهد. ميّز عنوان المشهد عن توجيه الكاميرا/اللقطة، والسرد عن أسماء المتحدثين. أخرج JSON صالحاً فقط دون Markdown.'},{role:'user',content:JSON.stringify(userPayload)}],temperature:0.1,max_tokens:6000}),signal:controller.signal,credentials:'omit',cache:'no-store',referrerPolicy:'no-referrer'});
+    if(!response.ok)throw new Error('HTTP '+response.status+' من المزوّد.');
+    const envelope=await response.json();
+    const message=envelope?.choices?.[0]?.message?.content;
+    const content=Array.isArray(message)?message.map(x=>x.text||'').join('\n'):message;
+    const parsed=parseAiJson(content),items=normalizeAiExtraction(res.kind,parsed,sources.map(x=>x.title));
+    if(!items.length)throw new Error('لم يُرجع المزوّد نتائج قابلة للاستخدام.');
+    aiExtractionResult={kind:res.kind,signature:extractionSignature(res.kind,res.ids),items,warnings:Array.isArray(parsed.warnings)?parsed.warnings:[]};
+    status.textContent='اكتمل التحليل: '+items.length+' اقتراحاً. راجعي الأدلة وصححيها قبل التفريغ.';
+    previewExtraction();
+  }catch(err){
+    const msg=err&&err.name==='AbortError'?'انتهت مهلة الاتصال.':String(err&&err.message||'تعذّر الاتصال.');
+    status.textContent='لم يُعتمد أي ناتج AI: '+msg+' تحققي من الرابط والسماح بطلبات المتصفح.';
+  }finally{if(timer)clearTimeout(timer);button.disabled=false;}
 }
 function existingKeys(tid){
   const set = new Set();
@@ -6414,12 +6720,13 @@ function existingKeys(tid){
 }
 function previewExtraction(){
   const res = computeExtraction(), box = $('exPreview');
-  if(!res){ box.textContent = 'يرجى اختيار ملف مصدر واحد على الأقل.'; return; }
+  if(!res){ box.textContent = 'يرجى اختيار ملف مصدر واحد على الأقل.';renderExtractionCorrections([],exKind);return; }
   const s = RECORD_SCHEMAS[res.kind], ex = existingKeys($('exTarget').value);
-  const rawItems = Array.isArray(res.items) ? res.items : [];
-  const reviewedItems = correctedExtractionItems(res.kind, rawItems);
+  const rawItems = activeExtractionItems(res.kind,Array.isArray(res.items)?res.items:[],res.ids);
+  const correctedItems=correctedExtractionItems(res.kind,rawItems);
+  const reviewedItems = extractionItemsWithManual(res.kind,correctedItems);
   const fresh = reviewedItems.filter(i => !ex.has(normKey(i.name))).length;
-  const excludedByCorrection = rawItems.length - reviewedItems.length;
+  const excludedByCorrection = rawItems.length - correctedItems.length;
   const renamedByCorrection = rawItems.filter(i => {
     const c = extractionCorrections[extractionCorrectionKey(res.kind, i.name)];
     return c && c.action === 'rename' && String(c.name || '').trim();
@@ -6433,31 +6740,47 @@ function previewExtraction(){
     const examples = [...new Set(res.suspicious.slice(0, 5).map(x => '«' + x.name + '»'))].join('، ');
     warnings.push('استُبعدت ' + res.suspicious.length + ' نتيجة لا تحتوي إلا على وصف تصوير محتمل (مثل ' + examples + '). راجعي عناوين هذه المشاهد قبل اعتماد التفريغ.');
   }
+  if(res.kind === 'loc' && res.nonLocation?.length){
+    const examples=[...new Set(res.nonLocation.slice(0,6).map(x=>'«'+x.name+'»'))].join('، ');
+    warnings.push('لم تُسجّل '+res.nonLocation.length+' عناوين كأماكن لأنها تبدو تتمة/مثالاً/ملاحظة وليست موقعاً فعلياً: '+examples+'. راجعيها يدوياً إذا كانت أسماء أماكن حقيقية.');
+  }
   if(res.kind === 'loc' && res.adjusted && res.adjusted.length){
     const examples = [...new Set(res.adjusted.slice(0, 5).map(x => '«' + x.original + '» ← «' + x.name + '»'))].join('، ');
     warnings.push('فُصل وصف تصوير محتمل عن اسم الموقع في ' + res.adjusted.length + ' عنوان. أمثلة: ' + examples + '. هذا اقتراح آلي يحتاج إلى مراجعة العناوين الأصلية.');
   }
-  if(res.kind === 'cp' && !res.items.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
+  if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
+  if(res.kind === 'cp' && res.filtered?.length){
+    const examples=res.filtered.slice(0,8).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
+    warnings.push('لم تظهر '+res.filtered.length+' شخصيات لأن حدّ الحوارات الحالي هو '+$('exMin').value+'؛ منها: '+examples+'. خفّضي الحد أو اختاري «الكل» لإظهارها.');
+  }
+  const usingAI=!!(aiExtractionResult&&aiExtractionResult.kind===res.kind&&aiExtractionResult.signature===extractionSignature(res.kind,res.ids));
+  if(usingAI)warnings.push('المعاينة الحالية تستخدم اقتراحات AI؛ تحققي من الاقتباسات ومراجع المشاهد قبل اعتمادها.');
+  if(usingAI&&aiExtractionResult.warnings?.length)warnings.push(...aiExtractionResult.warnings.slice(0,5));
+  const manualCount=getExtractionManualItems(extractionCorrectionScope(),res.kind).length;
   let t = 'ملخص المعاينة\nتم فحص ' + res.ids.length + ' ملف · ' + sc + ' مشهد\n' + reviewedItems.length + ' ' + s.noun + ' بعد تطبيق التصحيحات (جديد: ' + fresh + ' · موجود: ' + (reviewedItems.length - fresh) + ')';
+  if(usingAI)t+='\nمصدر النتائج: تحليل AI اختياري مع أدلة؛ لم يتغير نص المصدر.';
+  if(manualCount)t+='\nإضافات يدوية محفوظة: '+manualCount;
   if(excludedByCorrection || renamedByCorrection){
     t += '\nالتصحيحات المطبقة: ' + renamedByCorrection + ' اسم مصحح · ' + excludedByCorrection + ' نتيجة مستبعدة';
   }
   if(reviewedItems.length !== rawItems.length){
-    t += '\nتنبيه: العدد أعلاه بعد التصحيحات المحفوظة؛ تفاصيل الأدلة أدناه تعرض النتائج الأصلية للمراجعة.';
+    t += '\nتنبيه: العدد أعلاه يشمل التصحيحات والإضافات اليدوية المحفوظة؛ تفاصيل النتائج الأصلية أدناه للمراجعة.';
   }
   t += '\n\nالمصادر:\n' + sourceNames.slice(0, 10).map(n => '• ' + n).join('\n');
   if(sourceNames.length > 10) t += '\n… و' + (sourceNames.length - 10) + ' ملفات أخرى';
   if(warnings.length) t += '\n\nملاحظات تحتاج انتباهك:\n' + warnings.map(w => '⚠ ' + w).join('\n');
-  t += '\n\nالنتائج مع الأدلة:\n' + res.items.slice(0, 20).map(i => {
+  t += '\n\nالنتائج مع الأدلة:\n' + rawItems.slice(0, 20).map(i => {
     const src = (i.sources || []).filter(Boolean);
     const uniqueSources = [...new Set(src)];
     const evidence = uniqueSources.length ? ' — المصدر: ' + uniqueSources.join('، ') : '';
     const warn = (i.warnings || []).length ? '\n  ⚠ ' + i.warnings.join(' ') : '';
     return '• ' + i.name + ' — ' + i.note + evidence + (i.auto && i.auto.scenes ? ' — المشاهد: ' + i.auto.scenes : '') + warn;
   }).join('\n');
-  if(res.items.length > 20) t += '\n… و' + (res.items.length - 20) + ' نتائج أخرى';
+  if(rawItems.length > 20) t += '\n… و' + (rawItems.length - 20) + ' نتائج أخرى';
+  const manualPreview=reviewedItems.filter(i=>i.confidence==='يدوي');
+  if(manualPreview.length)t+='\n\nإضافات يدوية للمراجعة:\n'+manualPreview.map(i=>'• '+i.name+' — '+i.note).join('\n');
   box.textContent = t;
-  renderExtractionCorrections(res.items, res.kind);
+  renderExtractionCorrections(rawItems, res.kind);
 }
 function runExtraction(){
   try {
@@ -6466,11 +6789,17 @@ function runExtraction(){
       alert('لم يتم اختيار أي ملف مصدر صالح. اختاري «تلقائي» أو «الملف المفتوح فقط» أو حددي الملفات يدوياً.');
       return;
     }
-    res.items = correctedExtractionItems(res.kind, Array.isArray(res.items) ? res.items : []);
+    const active=activeExtractionItems(res.kind,Array.isArray(res.items)?res.items:[],res.ids);
+    res.items = extractionItemsWithManual(res.kind,correctedExtractionItems(res.kind,active));
     if(!res.items.length){
-      alert(res.kind === 'loc' ? 'لم يُعثر على مشاهد بأسماء أماكن في الملفات المحددة. تأكدي من اختيار ملف سيناريو يحتوي عناوين مشاهد، مثل: مشهد 1 - داخلي - شقة سلمى - ليل.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
+      if(res.kind==='cp'&&res.filtered?.length){
+        const names=res.filtered.slice(0,10).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
+        alert('لم يُنفّذ التفريغ لأن حدّ الحوارات ('+$('exMin').value+') أخفى كل الشخصيات المكتشفة. خفّضي الحد أو اختاري «الكل». الأسماء المستبعدة: '+names);
+      } else alert(res.kind === 'loc' ? 'لم يُعثر على مواقع مؤكدة ضمن عناوين المشاهد. عناوين مثل «تتمة مشهد» أو «مثال» لا تُعامل كمواقع. راجعي المعاينة ثم أضيفي اسم الموقع يدوياً عند الحاجة.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
       return;
     }
+    const needsReview=res.items.filter(item=>(item.warnings||[]).length || item.confidence==='يحتاج مراجعة' || item.inferredScenes);
+    if(needsReview.length && !confirm('توجد ' + needsReview.length + ' نتيجة تحمل تنبيه مراجعة أو استنتاجاً من تنسيق حر. عايني الأدلة وصححي/استبعدي النتائج غير الصحيحة قبل الاعتماد. هل تريدين المتابعة بهذه النتائج؟')) return;
     const targetEl = $('exTarget');
     const target = targetEl ? targetEl.value : '';
     const mergeEl = document.querySelector('input[name="exMerge"]:checked');
@@ -6501,7 +6830,17 @@ function runExtraction(){
 document.querySelectorAll('input[name="exSrc"]').forEach(r => r.addEventListener('change', () => {
   $('exManualList').style.display = exSrcMode() === 'manual' ? 'flex' : 'none';
   $('exPreview').textContent = '';
+  if(aiExtractionResult)$('exAiStatus').textContent='تغيّر اختيار المصدر؛ أطلقي تحليل AI جديداً لتحديث الاقتراحات.';
 }));
+$('exAiToggle').addEventListener('click',()=>{$('exAiConfig').hidden=!$('exAiConfig').hidden;});
+[['exAiEndpoint','varry-ai-endpoint'],['exAiModel','varry-ai-model'],['exAiKey','varry-ai-key']].forEach(([id,key])=>$(id).addEventListener('input',e=>{try{if(e.target.value)sessionStorage.setItem(key,e.target.value);else sessionStorage.removeItem(key);}catch(err){}}));
+$('exAiRun').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();runAiExtraction();});
+$('exAddManual').addEventListener('click',()=>openManualItemEditor({zone:'extraction',scope:extractionCorrectionScope(),kind:exKind,action:'add'},null));
+$('exCorrectionList').addEventListener('click',e=>{
+  const edit=e.target.closest('[data-ex-manual-edit]'),del=e.target.closest('[data-ex-manual-delete]');
+  if(edit){const item=getExtractionManualItems(extractionCorrectionScope(),exKind).find(x=>x.id===edit.dataset.exManualEdit);if(item)openManualItemEditor({zone:'extraction',scope:extractionCorrectionScope(),kind:exKind,action:'edit',itemId:item.id},item);}
+  if(del){if(confirm('حذف هذه النتيجة اليدوية من قائمة التفريغ؟')&&deleteExtractionManualItem(extractionCorrectionScope(),exKind,del.dataset.exManualDelete))previewExtraction();}
+});
 $('exPreviewBtn').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); try { previewExtraction(); } catch(err) { console.error(err); $('exPreview').textContent='تعذّرت المعاينة: '+(err.message||String(err)); } });
 $('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
 $('exRun').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); runExtraction(); });
@@ -6588,59 +6927,7 @@ editor.addEventListener('click', e => {
   if(target) placeCaret(target, false);
 });
 
-/* ===== اقتباس مصوّر: صورة / لقطة شاشة (مسودة أو جاهزة) ===== */
-$('qiMain').addEventListener('change', async e => {
-  const f = e.target.files[0];
-  if(!f) return;
-  try{ quoteMainData = await readImageScaled(f, 1600, true); refreshQuotePreview(); }
-  catch(err){ alert(err.message); } finally { e.target.value = ''; }
-});
-document.addEventListener('paste', async e => {
-  if(!$('quoteImageModal').classList.contains('open')) return;
-  const items = [...((e.clipboardData && e.clipboardData.items) || [])];
-  const it = items.find(x => x.type && x.type.startsWith('image/'));
-  if(!it) return;
-  e.preventDefault();
-  try{ quoteMainData = await readImageScaled(it.getAsFile(), 1600, true); refreshQuotePreview(); }
-  catch(err){ alert(err.message); }
-});
-function insertQuoteShot(){
-  snap(); restoreCaret();
-  const box = document.createElement('div');
-  box.innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value.trim(), $('qiAttribution').value.trim(), quoteImageData, quoteMainData);
-  const card = box.firstElementChild;
-  applyQuoteDesign(card);
-  const anchor = getAnchorBlock();
-  if(anchor && isBlankBlock(anchor)){ anchor.replaceWith(card); card.after(document.createElement('p')); }
-  else { placeTopLevel(card); card.after(document.createElement('p')); }
-  hideModal($('quoteImageModal'));
-  scheduleSave();
-  scrollToEl(card);
-}
-function downloadShotPng(){
-  const img = new Image();
-  img.onload = () => {
-    const sc = Math.min(1, 1600 / img.width), w = Math.round(img.width * sc), h = Math.round(img.height * sc);
-    const cv = document.createElement('canvas');
-    cv.width = w; cv.height = h;
-    const ctx = cv.getContext('2d');
-    if(!ctx){ alert('تعذّر إنشاء الصورة في هذا المتصفح.'); return; }
-    ctx.drawImage(img, 0, 0, w, h);
-    const draft = $('qiStatus').value === 'draft';
-    if(draft){
-      const fs = Math.max(16, Math.round(w / 40)), bw = fs * 4.2, bh = fs * 1.9;
-      ctx.font = '700 ' + fs + 'px sans-serif'; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#fff'; ctx.fillRect(w - bw - 16, 16, bw, bh);
-      ctx.fillStyle = '#7a3b2e'; ctx.fillText('مسودة', w - bw / 2 - 16, 16 + bh / 2);
-    }
-    const link = document.createElement('a');
-    link.download = safeFileName(draft ? 'اقتباس-مسودة' : 'اقتباس-جاهز') + '.png';
-    link.href = cv.toDataURL('image/png');
-    document.body.appendChild(link); link.click(); link.remove();
-  };
-  img.onerror = () => alert('تعذّر فتح الصورة.');
-  img.src = quoteMainData;
-}
+/* ===== اقتباس مصوّر: توليد PNG مباشرة من النص المحدد في الملف ===== */
 editor.addEventListener('click', e => {
   const card = e.target.closest('.quote-image-card.is-shot');
   if(!card) return;
