@@ -713,6 +713,35 @@
 @media(max-width:560px){.editor .docu-table th,.editor .docu-table td{padding:5px;font-size:.88em}.editor .docu-source{overflow-wrap:anywhere}.quote-image-card blockquote{overflow-wrap:anywhere}}
 @media print{.docu-segment,.docu-table tr{break-inside:avoid;page-break-inside:avoid}.docu-table th,.docu-table td{overflow-wrap:anywhere;word-break:normal}.quote-image-card{break-inside:avoid;page-break-inside:avoid}}
 </style>
+<style id="phase38-collapsible-writing-layout">
+  .layout-tool-btn{border:1px solid var(--border);background:var(--panel);color:var(--ink);border-radius:7px;padding:5px 9px;min-height:30px;font-size:11px;cursor:pointer;white-space:nowrap;}
+  .layout-tool-btn:hover{border-color:var(--accent);color:var(--accent);}
+  #app.tools-collapsed #toolbar>.behavior-toggle,
+  #app.tools-collapsed #toolbar>.fmt-group,
+  #app.tools-collapsed #toolbar>.export-wrap,
+  #app.tools-collapsed #toolbar>#docPanelToggle,
+  #app.tools-collapsed #docPanel{display:none!important;}
+  #app.tools-collapsed #toolbar{gap:7px;}
+  #app.tools-collapsed #toolbarStatsText{display:none!important;}
+  #app.writing-focus .sidebar{margin-right:calc(-1 * var(--sidebar-w));}
+  #app.writing-focus .toolbar,#app.writing-focus .doc-panel{display:none!important;}
+  #app.writing-focus #sideBackdrop{display:none!important;}
+  #app.writing-focus .editor-scroll{padding-top:8px;}
+  #app.writing-focus .page{width:min(100%,1200px);max-width:1200px;}
+  #app.writing-focus .nav-fab-wrap{z-index:180;}
+  @media(max-width:760px){
+    .layout-tool-btn{font-size:10px;padding:5px 7px;min-height:32px;}
+    #app.tools-collapsed #toolbar{flex-wrap:nowrap;}
+    #app.tools-collapsed #titleInput{min-width:70px;font-size:14px;}
+    #app.tools-collapsed #saveStatus{min-width:0;margin-left:0;font-size:9px;}
+    #app.tools-collapsed #toggleSidebar{flex:0 0 30px;}
+    #app.tools-collapsed #toggleWritingTools,#app.tools-collapsed #writingFocusBtn{font-size:9px;padding:4px 5px;}
+    #app.writing-focus .page{width:100%;padding:16px 12px;}
+    #app.writing-focus .editor-scroll{padding:6px 3px 48px;}
+    .nav-fab-wrap{bottom:18px;right:14px;}
+  }
+  @media(prefers-reduced-motion:no-preference){#app.writing-focus .sidebar{transition:margin-right .22s ease;}}
+</style>
 <!-- PHASE 17: Interactive searchable general-user catalog -->
 </head>
 <body data-theme="light" data-font="naskh">
@@ -1066,6 +1095,7 @@
         <p class="brand-sub"><span class="user-badge" id="userNameBadge">هبة Varry</span></p>
       </div>
       <button class="icon-btn" id="openCatalogBtn" title="الدليل الشامل">📖</button>
+      <button class="icon-btn" id="sidebarCollapseBtn" title="طي قائمة المشاريع" aria-label="طي قائمة المشاريع">‹</button>
     </div>
 
     <div class="sidebar-toolbar">
@@ -1214,6 +1244,8 @@
       <input type="text" class="title-input" id="titleInput" placeholder="عنوان المشروع أو المسلسل...">
       <span class="save-status" id="saveStatus">✓ تم الحفظ</span>
       <span class="save-status" id="toolbarStatsText" style="min-width:auto; white-space:nowrap;"></span>
+      <button class="layout-tool-btn" id="toggleWritingTools" type="button" title="طيّ أدوات التنسيق والميزات مع إبقاء أدوات الاستعادة متاحة" aria-expanded="true">⌄ طي الأدوات</button>
+      <button class="layout-tool-btn" id="writingFocusBtn" type="button" title="إخفاء القوائم مؤقتاً لتوسيع مساحة الكتابة" aria-pressed="false">⛶ مساحة الكتابة</button>
 
       <button class="behavior-toggle" id="behaviorToggleBtn" title="انقر للتبديل بين الفصل في فقرة جديدة أو التكملة بنفس الفقرة">
         <span>S: فصل جديد</span> 🔄
@@ -1560,6 +1592,8 @@
     <div class="nav-fab-wrap" id="navFabWrap">
       <div class="nav-fab-menu" id="navFabMenu">
         <button data-nav="sidebar">📁 المشاريع</button>
+        <button data-nav="tools">🛠️ طي / إظهار أدوات الكتابة</button>
+        <button data-nav="focus">✍️ مساحة الكتابة (إخفاء القوائم)</button>
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
         <button data-nav="top">⬆️ أعلى الصفحة</button>
@@ -1776,6 +1810,12 @@ const sceneCountText = $('sceneCountText');
 const timePredictText = $('timePredictText');
 const sidebarFoot = $('sidebarFoot');
 const sidebar = $('sidebar');
+const appLayout = $('app');
+const UI_LAYOUT_KEY = 'varry:writingLayout';
+let uiLayoutPref = {};
+try{ uiLayoutPref = JSON.parse(localStorage.getItem(UI_LAYOUT_KEY) || '{}') || {}; }catch(e){ uiLayoutPref = {}; }
+if(uiLayoutPref.toolsCollapsed) appLayout.classList.add('tools-collapsed');
+if(uiLayoutPref.writingFocus) appLayout.classList.add('writing-focus');
 const behaviorToggleBtn = $('behaviorToggleBtn');
 const docPanel = $('docPanel');
 const loadingOverlay = $('loadingOverlay');
@@ -4717,7 +4757,8 @@ $('dpTemplate').addEventListener('click', saveAsTemplate);
 
 /* ===== الفواصل السريعة والتمرير ===== */
 document.querySelectorAll('.collapsible-header').forEach(h => h.addEventListener('click', () => h.closest('.collapsible-section').classList.toggle('open')));
-$('toggleSidebar').addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+$('toggleSidebar').addEventListener('click', () => {sidebar.classList.toggle('collapsed');syncUILayoutControls();});
+$('sidebarCollapseBtn').addEventListener('click', () => {sidebar.classList.add('collapsed');syncUILayoutControls();});
 
 const scrollTopFab = $('scrollTopFab');
 editorScroll.addEventListener('scroll', () => scrollTopFab.classList.toggle('visible', editorScroll.scrollTop > 260));
@@ -4725,6 +4766,23 @@ scrollTopFab.addEventListener('click', () => editorScroll.scrollTo({ top: 0, beh
 
 /* ===== زر التنقل العائم ===== */
 const navFabWrap = $('navFabWrap');
+function persistUILayout(){try{uiLayoutPref.toolsCollapsed=appLayout.classList.contains('tools-collapsed');uiLayoutPref.writingFocus=appLayout.classList.contains('writing-focus');localStorage.setItem(UI_LAYOUT_KEY,JSON.stringify(uiLayoutPref));}catch(e){}}
+function syncUILayoutControls(){
+  const toolsCollapsed=appLayout.classList.contains('tools-collapsed'),focus=appLayout.classList.contains('writing-focus');
+  const toolsBtn=$('toggleWritingTools'),focusBtn=$('writingFocusBtn'),menu=$('navFabMenu');
+  const sidebarHidden=focus||sidebar.classList.contains('collapsed'),sideBtn=$('toggleSidebar');
+  if(toolsBtn){toolsBtn.textContent=toolsCollapsed?'↕ إظهار الأدوات':'⌄ طي الأدوات';toolsBtn.setAttribute('aria-expanded',String(!toolsCollapsed));}
+  if(focusBtn){focusBtn.textContent=focus?'↩ إنهاء التركيز':'⛶ مساحة الكتابة';focusBtn.setAttribute('aria-pressed',String(focus));}
+  if(sideBtn){sideBtn.setAttribute('aria-expanded',String(!sidebarHidden));sideBtn.title=sidebarHidden?'إظهار قائمة المشاريع':'طي قائمة المشاريع';}
+  const toolsItem=menu?.querySelector('[data-nav="tools"]'),focusItem=menu?.querySelector('[data-nav="focus"]');
+  if(toolsItem)toolsItem.textContent=focus?'🛠️ إظهار الأدوات والخروج من التركيز':toolsCollapsed?'🛠️ إظهار أدوات الكتابة':'🛠️ طي أدوات الكتابة';
+  if(focusItem)focusItem.textContent=focus?'↩ إنهاء مساحة الكتابة':'✍️ مساحة الكتابة (إخفاء القوائم)';
+}
+function setToolsCollapsed(value){appLayout.classList.toggle('tools-collapsed',!!value);persistUILayout();syncUILayoutControls();}
+function setWritingFocus(value){appLayout.classList.toggle('writing-focus',!!value);persistUILayout();syncUILayoutControls();}
+syncUILayoutControls();
+$('toggleWritingTools').addEventListener('click',()=>setToolsCollapsed(!appLayout.classList.contains('tools-collapsed')));
+$('writingFocusBtn').addEventListener('click',()=>setWritingFocus(!appLayout.classList.contains('writing-focus')));
 $('navFabBtn').addEventListener('click', e => { e.stopPropagation(); navFabWrap.classList.toggle('open'); });
 document.addEventListener('click', e => { if(!e.target.closest('#navFabWrap')) navFabWrap.classList.remove('open'); });
 $('navFabMenu').addEventListener('click', e => {
@@ -4732,8 +4790,18 @@ $('navFabMenu').addEventListener('click', e => {
   if(!b) return;
   navFabWrap.classList.remove('open');
   const act = b.dataset.nav;
-  if(act === 'sidebar') sidebar.classList.toggle('collapsed');
+  if(act === 'sidebar'){
+    const wasFocus=appLayout.classList.contains('writing-focus');setWritingFocus(false);
+    if(wasFocus)sidebar.classList.remove('collapsed');else sidebar.classList.toggle('collapsed');
+    syncUILayoutControls();
+  }
+  else if(act === 'tools'){
+    const wasFocus=appLayout.classList.contains('writing-focus');setWritingFocus(false);
+    setToolsCollapsed(wasFocus?false:!appLayout.classList.contains('tools-collapsed'));
+  }
+  else if(act === 'focus') setWritingFocus(!appLayout.classList.contains('writing-focus'));
   else if(act === 'docpanel'){
+    setWritingFocus(false);setToolsCollapsed(false);
     if(currentId && docs[currentId] && !isContainer(docs[currentId])){ panelOpen = true; docPanel.classList.add('open'); toolbar.scrollIntoView({ behavior:'smooth' }); }
     else alert('افتحي ملفاً (غير حاوية) أولاً.');
   }
@@ -6136,19 +6204,25 @@ function isMetaLocationName(name){
 }
 function looksLikeNonCharacterName(name){
   const t = String(name || '').replace(/[()\[\]{}]/g, ' ').replace(/[:：]+$/,'').replace(/\s+/g,' ').trim();
+  const semanticT=t.replace(/\b(?:V\.?\s*O\.?|O\.?\s*S\.?|O\.?\s*C\.?)\b/gi,' ').replace(/\s+/g,' ').trim();
   if(!t) return true;
   if(isMetaLocationName(t)) return true;
   if(NON_CHARACTER_LABEL_RE.test(t)) return true;
   if(isStrongSceneHeading(t)) return true;
   if(looksLikeShotDirection(t)) return true;
-  if(t.length > 40 || t.split(/\s+/).length > 4) return true;
+  if(semanticT.length > 40 || semanticT.split(/\s+/).length > 4) return true;
   if(NON_CHARACTER_ACTION_RE.test(t) && (t.split(/\s+/).length > 1 || /^(?:صوت|يدخل|تدخل|يخرج|تخرج|يجلس|تجلس|ينظر|تنظر|enter|exits?)$/i.test(t))) return true;
   if(/^(?:\d+|[\-–—_*#]+|[.!؟?…]+)$/.test(t)) return true;
   return false;
 }
 function cleanCharName(s){
-  const t = String(s || '').replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）/g, ' ').replace(/[:：]+\s*$/, '').replace(/\s+/g, ' ').trim();
-  return (t.length > 40 || t.split(' ').length > 4) ? '' : t;
+  let t=String(s||'').trim();
+  const extensions=[];
+  t=t.replace(/[([{（【]\s*(V\.?\s*O\.?|O\.?\s*S\.?|O\.?\s*C\.?)\s*[)\]}）】]/gi,(_,tag)=>{extensions.push(tag.toUpperCase().replace(/\s+/g,''));return ' ';});
+  t=t.replace(/\([^)]*\)|\[[^\]]*\]|（[^）]*）|【[^】]*】/g,' ').replace(/[:：]+\s*$/,'').replace(/\s+/g,' ').trim();
+  if(extensions.length)t+=' ('+[...new Set(extensions)].join('/')+')';
+  const core=t.replace(/\s*\((?:V\.?O\.?|O\.?S\.?|O\.?C\.?)\)\s*$/i,'').trim();
+  return (t.length>60||core.length>40||core.split(/\s+/).filter(Boolean).length>4)?'':t;
 }
 function isStrongSceneHeading(text){
   const t=String(text || '').replace(/\s+/g,' ').trim();
@@ -6170,91 +6244,202 @@ function looksHeading(text, words){
   return !!(p.name && p.ie && p.tod);
 }
 function analyseScript(doc, id, smart){
-  const tmp = document.createElement('div');
-  tmp.innerHTML = doc.html || '';
-  tmp.querySelectorAll('.treatment-container, .treatment-box, .rc-list, .rc-summary, .quote-image-card, .scene-duration, .page-break-marker, .docu-segment, .docu-table, .docu-source, .img-block').forEach(n => n.remove());
-  const out = { docId:id, title: doc.title || 'بلا عنوان', scenes:[], prelude:{ n:0, chars:new Map() } };
-  let cur = null, last = null, waiting = false;
-  const touch = raw => {
-    const name = cleanCharName(raw);
-    const key = normKey(name);
-    if(!name || !key || isMetaLocationName(name) || (smart && looksLikeNonCharacterName(name))) return null;
-    const b = (cur || out.prelude).chars;
-    let e = b.get(key);
-    if(!e){ e = { name, lines:0, words:0, sample:'' }; b.set(key, e); }
+  const tmp=document.createElement('div');
+  tmp.innerHTML=doc.html||'';
+  tmp.querySelectorAll('.treatment-container,.treatment-box,.rc-list,.rc-summary,.quote-image-card,.scene-duration,.page-break-marker,.docu-segment,.docu-table,.docu-source,.img-block,.bridge-block,.content-meta,.social-final').forEach(n=>n.remove());
+  const out={docId:id,title:doc.title||'بلا عنوان',scenes:[],prelude:{n:0,chars:new Map()},audit:{events:0,speakers:0,dialogueBlocks:0,plainBlocks:0,nested:0}};
+  const events=[], seen=new WeakSet();
+  const cleanText=s=>String(s||'').replace(/\u00a0/g,' ').replace(/[\u200e\u200f\u202a-\u202e]/g,'').replace(/[ \t]+/g,' ').trim();
+  const contentText=node=>{
+    if(!node)return '';
+    const clone=node.cloneNode(true);
+    clone.querySelectorAll('button,[contenteditable="false"],.fr-label,.nested-scene-tools,.del-treatment-box,.rc-tools').forEach(x=>x.remove());
+    return cleanText(clone.innerText||clone.textContent||'');
+  };
+  const pushText=(text,meta={})=>{
+    String(text||'').split(/\n+/).map(cleanText).filter(Boolean).forEach(line=>events.push(Object.assign({type:'text',text:line},meta)));
+  };
+  const pushSemantic=(type,node,meta={})=>{
+    const text=contentText(node); if(!text)return;
+    text.split(/\n+/).map(cleanText).filter(Boolean).forEach(line=>events.push(Object.assign({type,text:line},meta)));
+  };
+  const isSemantic=n=>n.matches(SCENE_SELECTOR+',.block-char,.radio-char,.block-dialogue,.radio-dialogue,.block-action,.radio-narrator,.block-parenthetical,.dual-char,.dual-text,.dual-dir,.fr-col-action,.fr-col-char,.fr-col-dialogue');
+  const skipSelector='.treatment-container,.treatment-box,.rc-list,.rc-summary,.quote-image-card,.scene-duration,.page-break-marker,.docu-segment,.docu-table,.docu-source,.img-block,.bridge-block,.content-meta,.social-final,.nested-scene-head,.nested-scene-end,.nested-scene-tools,button,script,style,textarea,input,select,[data-exclude-analysis="true"]';
+  const addFrTable=table=>{
+    [...table.querySelectorAll('tr')].filter(r=>r.closest('.fr-table')===table&&!r.matches('.fr-head')) .forEach(row=>{
+      const find=sel=>[...row.querySelectorAll(sel)].find(x=>x.closest('.fr-table')===table);
+      const action=find('.fr-col-action'),speaker=find('.fr-col-char'),dialogue=find('.fr-col-dialogue');
+      events.push({type:'frRow',action:contentText(action),speaker:contentText(speaker),dialogue:contentText(dialogue),rowIndex:events.length});
+    });
+  };
+  const addDual=wrap=>{
+    const columns=[...wrap.querySelectorAll('.dual-column')].map(col=>({speaker:contentText(col.querySelector('.dual-char')),dialogue:contentText(col.querySelector('.dual-text'))}));
+    if(columns.length)events.push({type:'dual',columns});
+  };
+  const walk=node=>{
+    if(!node||node.nodeType===8)return;
+    if(node.nodeType===3){const t=cleanText(node.nodeValue);if(t)pushText(t);return;}
+    if(node.nodeType!==1)return;
+    if(seen.has(node))return; seen.add(node);
+    if(node.matches(skipSelector))return;
+    if(node.matches('.nested-scene')){
+      out.audit.nested++;
+      const label=contentText(node.querySelector('.nested-scene-kind'))||'مقطع متداخل';
+      events.push({type:'nestedStart',label});
+      const body=node.querySelector(':scope > .nested-scene-body')||node.querySelector('.nested-scene-body');
+      if(body)[...body.childNodes].forEach(walk);
+      events.push({type:'nestedEnd'});return;
+    }
+    if(node.matches('.fr-table')){addFrTable(node);return;}
+    if(node.matches('.dual-dialogue-wrap')){addDual(node);return;}
+    if(node.matches(SCENE_SELECTOR)){pushSemantic('scene',node);return;}
+    if(node.matches('.block-char,.radio-char')){pushSemantic('speaker',node);return;}
+    if(node.matches('.block-dialogue,.radio-dialogue')){pushSemantic('dialogue',node);return;}
+    if(node.matches('.block-parenthetical,.dual-dir')){pushSemantic('parenthetical',node);return;}
+    if(node.matches('.block-action,.radio-narrator,.fr-col-action')){pushSemantic('action',node);return;}
+    if(node.matches('.fr-col-char')){pushSemantic('speaker',node);return;}
+    if(node.matches('.fr-col-dialogue,.dual-text')){pushSemantic('dialogue',node);return;}
+    if(node.matches('p,li,h1,h2,h3,h4,h5,h6,blockquote')){pushText(contentText(node),{tag:node.tagName.toLowerCase(),classes:[...node.classList]});return;}
+    const children=[...node.children];
+    const hasBlock=children.some(c=>c.matches('p,li,h1,h2,h3,h4,h5,h6,blockquote,table,ul,ol,section,div')||isSemantic(c)||c.matches('.nested-scene,.fr-table,.dual-dialogue-wrap'));
+    if(!hasBlock){pushText(contentText(node),{tag:node.tagName.toLowerCase()});return;}
+    [...node.childNodes].forEach(walk);
+  };
+  [...tmp.childNodes].forEach(walk);
+  out.audit.events=events.length;
+  let cur=null,last=null,waiting=false,nestedStack=[],nestedSeq=0;
+  const touch=(raw,origin='structured')=>{
+    const name=cleanCharName(raw),key=normKey(name);
+    if(!name||!key||isMetaLocationName(name)||(smart&&looksLikeNonCharacterName(name)))return null;
+    const bucket=(cur||out.prelude).chars;
+    let e=bucket.get(key);
+    if(!e)bucket.set(key,e={name,lines:0,words:0,sample:'',origins:[]});
+    if(!e.origins.includes(origin))e.origins.push(origin);out.audit.speakers++;
     return e;
   };
-  const addLine = (e, txt) => { e.lines++; e.words += countWords(txt); if(!e.sample && txt) e.sample = String(txt).trim().slice(0, 90); };
-  const startScene = (text, confidence='structured') => {
-    const p = parseSceneHeading(text);
-    const seq = out.scenes.length + 1;
-    cur = Object.assign(p, { n: p.num ? parseInt(p.num, 10) : seq, sceneOrder:seq, sceneLabel:p.num || String(seq), heading:text.trim(), confidence, chars:new Map() });
-    out.scenes.push(cur); last = null; waiting = false;
+  const addLine=(speaker,text)=>{
+    const t=cleanText(text);if(!speaker||!t||/^(?:\([^)]*\)|\[[^\]]*\])$/.test(t))return;
+    speaker.lines++;speaker.words+=countWords(t);out.audit.dialogueBlocks++;
+    if(!speaker.sample)speaker.sample=t.slice(0,120);
   };
-  const parseNodes=[...tmp.querySelectorAll(SCENE_SELECTOR + ', .block-char, .radio-char, .dual-char, .fr-col-char, .fr-col-action, .block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue, p')];
-  parseNodes.forEach((n,nodeIndex) => {
-    const text = (n.textContent || '').trim();
-    if(n.matches(SCENE_SELECTOR)){ if(text) startScene(text,'structured'); return; }
-    if(n.matches('.fr-col-action')){
-      const firstLine=(n.innerText || text).split(/\n/).map(x=>x.trim()).find(Boolean) || '';
-      if(firstLine && isStrongSceneHeading(firstLine)) startScene(firstLine,'structured-header');
-      return;
+  const nextOrder=()=>out.scenes.length+1;
+  const startScene=(text,confidence='structured')=>{
+    const p=parseSceneHeading(text),frame=nestedStack[nestedStack.length-1];
+    if(frame&&cur===frame.shell&&!frame.shell.explicitHeading){
+      Object.assign(frame.shell,p,{heading:String(text).trim(),confidence,nested:true,explicitHeading:true,n: p.num?parseInt(p.num,10):frame.shell.n,sceneLabel:frame.parentLabel?(frame.parentLabel+'↳'+(p.num||'N1')):(p.num||frame.prefix)});
+      cur=frame.shell;last=null;waiting=false;return cur;
     }
-    if(n.matches('.block-char, .radio-char, .dual-char, .fr-col-char')){
-      /* Enter يكرّر تنسيق «شخصية» على السطر التالي: إن كان النص جملة حوار يُحسب حواراً للشخصية السابقة لا اسماً جديداً */
-      if(last && text && (text.split(/\s+/).length > 3 || /[.!؟?…،,]\s*$/.test(text))){ addLine(last, text); waiting = false; return; }
-      last = text ? touch(text) : null; waiting = !!last; return;
+    const seq=nextOrder();
+    const nested=!!frame;
+    const label=nested?(frame.parentLabel?frame.parentLabel+'↳'+(p.num||'N'+(++frame.childCount)):(p.num||frame.prefix)):p.num||String(seq);
+    cur=Object.assign(p,{n:p.num?parseInt(p.num,10):seq,sceneOrder:seq,sceneLabel:label,heading:String(text).trim(),confidence,nested,parentSceneLabel:nested?frame.parentLabel:'' ,chars:new Map(),explicitHeading:true});
+    out.scenes.push(cur);last=null;waiting=false;return cur;
+  };
+  const isSceneText=text=>isStrongSceneHeading(text)||/^(?:مشهد|المشهد|scene|sc)\s*(?:#?\s*[0-9٠-٩]+[A-Za-z\u0621-\u064A]?(?=$|[\s.\-–—/:])|[-–—:]\s*(?:داخلي|خارجي|int\.?|ext\.?))/i.test(String(text||'').trim());
+  const isEditorialMeta=text=>{
+    const t=normKey(text);
+    return isMetaLocationName(text)||/^(?:(?:تتمه|تكمله|استكمال|متابعه)\s+(?:المشهد|مشهد)(?:\s+[0-9]+[a-z]?)?|(?:continued|continuation)\s+scene|scene\s+continued|to\s+be\s+continued|examples?|sample|demo|end\s+of\s+scene)$/i.test(t);
+  };
+  const processMeta=text=>{
+    const lm=String(text||'').match(/^(?:المكان|الموقع|اللوكيشن|location)\s*[:：]\s*(.+)$/i);
+    if(lm&&cur&&!cur.name){const p=parseSceneHeading(lm[1]);cur.name=p.name||lm[1].trim();if(p.ie&&!cur.ie)cur.ie=p.ie;if(p.tod&&!cur.tod)cur.tod=p.tod;return true;}
+    const tm=String(text||'').match(/^(?:الوقت|الزمن|time)\s*[:：]\s*(.+)$/i);
+    if(tm&&cur&&!cur.tod){const p=parseSceneHeading(tm[1]);cur.tod=p.tod||'';if(p.ie&&!cur.ie)cur.ie=p.ie;return true;}
+    return !!lm||!!tm;
+  };
+  const validSpeaker=name=>{
+    const s=cleanCharName(name);
+    return !!s&&s.length<=60&&s.split(/\s+/).length<=6&&!isStrongSceneHeading(s)&&!looksLikeShotDirection(s)&&!looksLikeNonCharacterName(s);
+  };
+  const parseCueLine=text=>{
+    const m=String(text||'').match(/^(.{1,60}?)\s*(?::|：|—|–)\s*(.*)$/);
+    if(!m||!validSpeaker(m[1]))return null;
+    return {name:cleanCharName(m[1]),dialogue:cleanText(m[2])};
+  };
+  const looksLikeDialogue=text=>{
+    const t=cleanText(text),words=t.split(/\s+/).filter(Boolean).length;
+    return t.length>=3&&!isSceneText(t)&&!looksLikeShotDirection(t)&&!/^\s*[A-Z][A-Z .'-]{0,35}\s*[:：]?\s*$/.test(t)&&(words>=2||/[.!؟?…،,؛]$/.test(t));
+  };
+  const handleSceneText=(text,confidence)=>{if(isSceneText(text)){startScene(text,confidence);return true;}return false;};
+  const processAction=text=>{
+    const t=cleanText(text);if(!t)return;
+    if(isEditorialMeta(t))return;
+    if(handleSceneText(t,'explicit-action-heading'))return;
+    processMeta(t);last=null;waiting=false;
+  };
+  const processFrRow=e=>{
+    if(e.action){const lines=e.action.split(/\n+/).map(cleanText).filter(Boolean);for(const line of lines){if(handleSceneText(line,'french-action-heading'))break;processMeta(line);}}
+    const names=e.speaker.split(/\n+/).map(cleanCharName).filter(validSpeaker);
+    const dialogue=e.dialogue.split(/\n+/).map(cleanText).filter(Boolean);
+    if(names.length){
+      if(names.length>1&&names.length===dialogue.length){names.forEach((name,i)=>addLine(touch(name,'french-row'),dialogue[i]));last=null;waiting=false;return;}
+      last=touch(names[0],'french-row');waiting=!!last;
     }
-    if(n.matches('.block-dialogue, .radio-dialogue, .dual-text, .fr-col-dialogue')){
-      if(last && text) addLine(last, text);
-      if(n.matches('.block-dialogue, .radio-dialogue')) waiting = false;
-      else if(!n.matches('.dual-text')){ last = null; waiting = false; }
-      return;
-    }
-    if(n.tagName !== 'P' || !smart || !text) return;
-    if([...n.classList].some(c => !['has-divider', 'block-action', 'radio-narrator'].includes(c))) return;
-    const isActionLine = n.classList.contains('block-action') || n.classList.contains('radio-narrator');
-    if(n.closest('.dual-column, .fr-table, .bridge-block')) return;
-    const words = text.split(/\s+/).length;
-    if(isStrongSceneHeading(text)){ startScene(text,'explicit-text'); return; }
-    if(looksHeading(text, words)){ startScene(text,'inferred'); return; }
-    const lm = text.match(/^(?:المكان|الموقع|اللوكيشن|location)\s*[:：]\s*(.+)$/i);
-    if(lm){
-      if(cur && !cur.name){ const p = parseSceneHeading(lm[1]); cur.name = p.name || lm[1].trim(); if(p.ie && !cur.ie) cur.ie = p.ie; if(p.tod && !cur.tod) cur.tod = p.tod; }
-      return;
-    }
-    const tm = text.match(/^(?:الوقت|الزمن|time)\s*[:：]\s*(.+)$/i);
-    if(tm){
-      if(cur && !cur.tod){ const p = parseSceneHeading(tm[1]); cur.tod = p.tod || ''; if(p.ie && !cur.ie) cur.ie = p.ie; }
-      return;
-    }
-    if(!CHAR_SOURCE_TYPES.includes(doc.docType)) return;
-    const m = text.match(/^([^:：—–]{1,40}?)\s*(?:[:：]|[—–])\s*(\S[\s\S]*)$/);
-    const cueName=m?cleanCharName(m[1]):'';
-    if(m && cueName && cueName.length<=40 && cueName.split(/\s+/).length<=4 && !isStrongSceneHeading(cueName) && !looksLikeNonCharacterName(cueName)){
-      const labelKey = normKey(cueName);
-      if(['عنوان', 'عنوان المشهد', 'المكان', 'الموقع', 'اللوكيشن', 'الوقت', 'الزمن', 'المشهد', 'ملاحظه', 'ملاحظات', 'ملخص', 'الخلاصه', 'وصف', 'المصدر', 'المصادر', 'سؤال', 'اسئله', 'اجابه', 'اجابات'].includes(labelKey)){
-        last = null; waiting = false; return;
-      }
-      const e = touch(cueName);
-      if(e) addLine(e, m[2]);
-      last = null; waiting = false; return;
-    }
-    if(isActionLine){ last = null; waiting = false; return; }
-    if(/[:：]$/.test(text) && words <= 5){ last = touch(text); waiting = !!last; return; }
-    // كثير من السيناريوهات تضع اسم المتحدث في فقرة مستقلة بلا نقطتين؛ لا نقبله إلا إذا تبعه سطر حوار واضح.
-    const cue=cleanCharName(text), cueWords=cue.split(/\s+/).filter(Boolean).length;
-    const nextNode=parseNodes.slice(nodeIndex+1).find(x=>x.tagName==='P'&&String(x.textContent||'').trim());
-    const nextText=nextNode?String(nextNode.textContent||'').trim():'';
-    const nextWords=nextText.split(/\s+/).filter(Boolean).length;
-    const nextIsSpeakerLabel=/^[^:：—–]{1,40}\s*[:：—–]\s*\S/.test(nextText)||/[:：]$/.test(nextText);
-    const looksLikeStandaloneCue=!!cue&&cue.length<=40&&cueWords<=4&&!/[.!؟?…،,؛:：]/.test(cue)&&!isStrongSceneHeading(cue)&&!looksLikeNonCharacterName(cue);
-    const looksLikeDialogue=nextText.length>=3&&!isStrongSceneHeading(nextText)&&!looksLikeShotDirection(nextText)&&!nextIsSpeakerLabel&&(nextWords>=2||/[.!؟?…،,؛]$/.test(nextText));
-    if(looksLikeStandaloneCue&&looksLikeDialogue){const speaker=touch(cue);if(speaker)addLine(speaker,nextText);last=null;waiting=false;return;}
-    if(waiting && last){ addLine(last, text); last = null; waiting = false; }
+    if(last&&dialogue.length){dialogue.forEach(t=>addLine(last,t));waiting=false;}
+  };
+  const processDual=e=>e.columns.forEach(col=>{
+    const names=col.speaker.split(/\n+/).map(cleanCharName).filter(validSpeaker);
+    const lines=col.dialogue.split(/\n+/).map(cleanText).filter(Boolean);
+    const who=names.length?touch(names[0],'dual-column'):null;
+    if(who)lines.forEach(t=>addLine(who,t));
   });
+  const startNested=label=>{
+    const host=cur,hostLast=last,hostWaiting=waiting;
+    const prefix=(host&&host.sceneLabel?host.sceneLabel+'↳':'')+'N'+(++nestedSeq);
+    const shell={num:host?host.n:nextOrder(),sceneOrder:nextOrder(),sceneLabel:prefix,heading:label||'مقطع متداخل',name:'',ie:'',tod:'',confidence:'nested',nested:true,parentSceneLabel:host?host.sceneLabel:'',chars:new Map(),nestedShell:true,explicitHeading:false};
+    out.scenes.push(shell);nestedStack.push({host,hostLast,hostWaiting,shell,prefix,parentLabel:host?host.sceneLabel:'',childCount:0});cur=shell;last=null;waiting=false;
+  };
+  const endNested=()=>{
+    const f=nestedStack.pop();if(!f)return;
+    const emptyShell=f.shell.nestedShell&&!f.shell.explicitHeading&&!f.shell.name&&!f.shell.ie&&!f.shell.tod&&!f.shell.chars.size;
+    if(emptyShell){const i=out.scenes.indexOf(f.shell);if(i>=0)out.scenes.splice(i,1);}
+    cur=f.host;last=f.hostLast;waiting=f.hostWaiting;
+  };
+  const processPlain=(text,index)=>{
+    const t=cleanText(text);if(!t)return;
+    if(isEditorialMeta(t))return;
+    if(handleSceneText(t,'explicit-text'))return;
+    if(processMeta(t))return;
+    if(!CHAR_SOURCE_TYPES.includes(doc.docType))return;
+    const cue=parseCueLine(t);
+    if(cue){
+      const who=touch(cue.name,'inline-cue');if(who&&cue.dialogue)addLine(who,cue.dialogue);
+      last=who;waiting=!!who;return;
+    }
+    if(/[:：]\s*$/.test(t)&&validSpeaker(t.replace(/[:：]\s*$/,''))){last=touch(t.replace(/[:：]\s*$/,''),'cue-line');waiting=!!last;return;}
+    if(last){addLine(last,t);waiting=false;return;}
+    if(smart&&validSpeaker(t)){
+      let j=index+1;while(j<events.length&&events[j].type==='parenthetical')j++;
+      const n=events[j];
+      const candidateText=n&&(['text','dialogue'].includes(n.type))?n.text:'';
+      if(candidateText&&looksLikeDialogue(candidateText)){last=touch(t,'inferred-cue');waiting=!!last;}
+    }
+  };
+  for(let i=0;i<events.length;i++){
+    const e=events[i];
+    if(e.type==='nestedStart'){startNested(e.label);continue;}
+    if(e.type==='nestedEnd'){endNested();continue;}
+    if(e.type==='scene'){if(e.text&&!isEditorialMeta(e.text))startScene(e.text,'structured');continue;}
+    if(e.type==='speaker'){
+      const t=cleanText(e.text);
+      if(last&&t&&(t.split(/\s+/).length>4||/[.!؟?…،,]$/.test(t))){addLine(last,t);waiting=false;continue;}
+      last=touch(t,'structured-cue');waiting=!!last;continue;
+    }
+    if(e.type==='dialogue'){
+      if(last)addLine(last,e.text);
+      else processPlain(e.text,i);
+      waiting=false;continue;
+    }
+    if(e.type==='action'){processAction(e.text);continue;}
+    if(e.type==='parenthetical')continue;
+    if(e.type==='frRow'){processFrRow(e);continue;}
+    if(e.type==='dual'){processDual(e);continue;}
+    if(e.type==='text'){out.audit.plainBlocks++;processPlain(e.text,i);continue;}
+  }
+  out.scenes=out.scenes.filter(s=>!(s.nestedShell&&!s.explicitHeading&&!s.name&&!s.ie&&!s.tod&&!s.chars.size));
   return out;
 }
+
 function uniqSorted(a){ return [...new Set(a.map(String))].sort((x,y)=>x.localeCompare(y,'en',{numeric:true,sensitivity:'base'})); }
 function refsText(refs, multi){
   return [...refs.values()].map(r => (multi ? r.title + ': ' : '') + uniqSorted(r.nums).join('، ')).join(' · ');
@@ -6359,7 +6544,8 @@ function buildCharacters(analyses, minLines){
   });
   const candidates=[...map.values()].sort((x,y)=>y.lines-x.lines);
   const filtered=candidates.filter(C=>C.lines<minLines).map(C=>({name:C.name,lines:C.lines}));
-  const all = candidates.filter(C => C.lines >= minLines);
+  // العتبة مؤشر مراجعة فقط؛ لا تُسقط أي شخصية من نتائج الفهرس.
+  const all = candidates;
   const max = Math.max(1, ...all.map(C => C.lines));
   const refLabel = r => (multi ? r.title + ' · ' : '') + 'مشهد ' + r.label;
   const totalScenes = analyses.reduce((n, a) => n + a.scenes.length, 0);
@@ -6379,6 +6565,7 @@ function buildCharacters(analyses, minLines){
     if(C.last && (C.last.order !== C.first.order || C.last.title !== C.first.title)) st += ' · آخر ظهور: ' + refLabel(C.last);
     const ratio = C.lines / max;
     const warnings = [];
+    if(C.lines<minLines) warnings.push('أقل من حدّ الحوارات المختار ('+minLines+'); أُبقيت الشخصية ظاهرة وتحتاج مراجعة بدلاً من إخفائها.');
     if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحققي من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
     if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجعي السطر المستخرج قبل اعتماد بطاقة الشخصية.');
     if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ راجعي المصدر قبل الاعتماد.');
@@ -6386,6 +6573,9 @@ function buildCharacters(analyses, minLines){
     const first = C.name.trim().split(/\s+/)[0];
     const sameFirst = (firstNameGroups.get(normKey(first || '')) || []).filter(n => n !== C.name);
     if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحققي مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
+    const sceneShare=totalScenes?sceneCount/totalScenes:0;
+    const mainEvidence=(sceneCount>=3&&sceneShare>=0.2)||(C.lines>=5&&ratio>=0.6&&(sceneCount>=2||totalScenes<=3))||(C.lines>=8&&ratio>=0.75);
+    const secondaryEvidence=sceneCount>=2||(C.lines>=3&&ratio>=0.25);
     // ترتيب أرقام المشاهد وإزالة تكرارها في بيانات العرض، مع الإبقاء على الأدلة الأصلية.
     const sceneEvidence = [...C.refs.values()].map(r => ({title:r.title, nums:uniqSorted(r.nums)}));
     return {
@@ -6393,7 +6583,7 @@ function buildCharacters(analyses, minLines){
       sources: sceneEvidence.map(r => r.title),
       evidenceCount: sceneCount,
       warnings,
-      chips: { role: (ratio >= 0.5 && (totalScenes <= 3 || (sceneCount >= 3 && sceneCount / totalScenes >= 0.25))) ? 'رئيسية' : (sceneCount >= 2 || ratio >= 0.2) ? 'ثانوية' : 'ظهور عابر' },
+      chips: { role: mainEvidence ? 'رئيسية' : secondaryEvidence ? 'ثانوية' : 'ظهور عابر' },
       auto: {
         stats: st, scenes: refsText(C.refs, multi), sample: C.sample ? '«' + C.sample + '»' : '',
         with: [...C.together.entries()].filter(([k]) => map.has(k)).sort((x, y) => y[1] - x[1]).slice(0, 4).map(([k, n]) => map.get(k).name + ' (' + n + ')').join('، ')
@@ -6751,7 +6941,7 @@ function previewExtraction(){
   if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
   if(res.kind === 'cp' && res.filtered?.length){
     const examples=res.filtered.slice(0,8).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
-    warnings.push('لم تظهر '+res.filtered.length+' شخصيات لأن حدّ الحوارات الحالي هو '+$('exMin').value+'؛ منها: '+examples+'. خفّضي الحد أو اختاري «الكل» لإظهارها.');
+    warnings.push('هناك '+res.filtered.length+' شخصيات دون حدّ الحوارات الحالي ('+$('exMin').value+')؛ لم تُخفَ أي نتيجة، وأُبقيت ظاهرة مع وسم مراجعة. منها: '+examples+'.');
   }
   const usingAI=!!(aiExtractionResult&&aiExtractionResult.kind===res.kind&&aiExtractionResult.signature===extractionSignature(res.kind,res.ids));
   if(usingAI)warnings.push('المعاينة الحالية تستخدم اقتراحات AI؛ تحققي من الاقتباسات ومراجع المشاهد قبل اعتمادها.');
