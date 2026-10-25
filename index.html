@@ -1094,8 +1094,7 @@
         <canvas id="shotPreviewCanvas"></canvas><div id="shotCropRect" aria-hidden="true"></div>
       </div>
       <div class="shot-editor-grid">
-        <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="shotStampEnabled" checked style="width:auto;"> شارة المسودة</label>
-        <label>نص الشارة<input id="shotStampText" type="text" maxlength="60" value="مسودة من Varry Studio"></label>
+        <label>شارة المسودة (دائمة)<input id="shotStampText" type="text" maxlength="60" value="مسودة من Varry Studio"></label>
         <label>كتابة إضافية على الصورة<input id="shotOverlayText" type="text" maxlength="160" placeholder="نص اختياري"></label>
         <label>موضع النص والشارة<select id="shotOverlayPosition"><option value="bottom-right">أسفل اليمين</option><option value="bottom-left">أسفل اليسار</option><option value="top-right">أعلى اليمين</option><option value="top-left">أعلى اليسار</option><option value="center">المنتصف</option></select></label>
         <label>لون الكتابة<input id="shotTextColor" type="color" value="#ffffff"></label>
@@ -4752,11 +4751,11 @@ function renderShotPreview(){
   if(!shotBaseCanvas||!shotPreviewCanvas)return;
   shotPreviewCanvas.width=shotBaseCanvas.width;shotPreviewCanvas.height=shotBaseCanvas.height;const ctx=shotPreviewCanvas.getContext('2d');ctx.drawImage(shotBaseCanvas,0,0);
   const pos=$('shotOverlayPosition').value,color=$('shotTextColor').value,size=Number($('shotTextSize').value)||30;
-  const stamp=$('shotStampEnabled').checked?$('shotStampText').value.trim():'';
-  if(stamp)paintShotLabel(ctx,stamp,pos,color,Math.max(15,size*.68),0);
+  const stamp=$('shotStampText').value.trim()||'مسودة من Varry Studio';
+  paintShotLabel(ctx,stamp,pos,color,Math.max(15,size*.68),0);
   const note=$('shotOverlayText').value.trim();if(note)paintShotLabel(ctx,note,pos,color,size,stamp?size*3:0);
 }
-['shotStampEnabled','shotStampText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
+['shotStampText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
 function getShotPoint(e){const r=shotPreviewCanvas.getBoundingClientRect();return{x:Math.max(0,Math.min(shotBaseCanvas.width,(e.clientX-r.left)*shotBaseCanvas.width/Math.max(1,r.width))),y:Math.max(0,Math.min(shotBaseCanvas.height,(e.clientY-r.top)*shotBaseCanvas.height/Math.max(1,r.height))),sx:e.clientX,sy:e.clientY};}
 $('shotCropMode').addEventListener('click',()=>{shotMode='crop';shotCropSelection=null;$('shotApplyCrop').disabled=true;$('shotCropRect').style.display='none';$('shotEditStatus').textContent='اسحب على الصورة لتحديد الجزء المراد الاحتفاظ به، ثم اضغط «تنفيذ القص».';});
 $('shotApplyCrop').addEventListener('click',()=>{
