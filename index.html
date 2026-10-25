@@ -194,6 +194,48 @@
   .nav-fab-wrap.open .nav-fab-menu{display:flex;}
   .nav-fab-menu button{background:none; border:none; color:var(--ink); font-family:inherit; font-size:12px; padding:6px 12px; border-radius:6px; cursor:pointer; text-align:right; white-space:nowrap;}
   .nav-fab-menu button:hover{background:var(--paper); color:var(--accent);}
+  .scenario-fab,.nav-fab{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fdf9f0;border:none;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;font-size:18px;}
+  .scenario-fab{display:none;background:var(--accent-soft);}
+  .scenario-fab.available{display:block;}
+  .scenario-fab-panel{display:none;flex-direction:column;gap:4px;align-items:stretch;max-width:min(280px,84vw);max-height:min(55vh,420px);overflow:auto;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.23);}
+  .scenario-fab-panel.open{display:flex;}
+  .scenario-fab-panel .fmt-btn{justify-content:flex-start;width:100%;height:auto;min-height:32px;padding:5px 10px;border:1px solid var(--border);border-radius:7px;background:var(--paper);color:var(--ink);font-size:12px;}
+  .scenario-fab-panel .fmt-btn:hover{border-color:var(--accent);background:var(--paper-line);}
+  .scenario-fab-quick{display:flex;gap:5px;}
+  .scenario-fab-quick .fmt-btn{flex:1;width:auto;justify-content:center;}
+  .scenario-fab-panel:empty{display:none!important;}
+  .sidebar-tool-btn:disabled{opacity:.42;cursor:not-allowed;}
+  .paste-target-wrap{display:flex;align-items:center;gap:5px;width:100%;font-size:10px;color:var(--ink-soft);}
+  .paste-target-wrap select{flex:1;min-width:0;padding:4px 5px;border:1px solid var(--border);border-radius:5px;background:var(--panel);color:var(--ink);font:inherit;}
+  .sidebar-tool-btn.paste-ready{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+  .screen-shot-fab{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);color:var(--ink);border:1px solid var(--border);box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer;font-size:18px;}
+  .floating-controls-toggle{width:36px;height:36px;border-radius:50%;background:var(--panel);color:var(--ink);border:1px solid var(--border);box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer;font-size:17px;}
+  .floating-controls-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  #app.floating-controls-collapsed .nav-fab,
+  #app.floating-controls-collapsed .scenario-fab,
+  #app.floating-controls-collapsed .screen-shot-fab,
+  #app.floating-controls-collapsed .scroll-top-fab{display:none!important;}
+  #app.floating-controls-collapsed .nav-fab-menu,
+  #app.floating-controls-collapsed .scenario-fab-panel{display:none!important;}
+  .shot-editor[hidden]{display:none!important;}
+  .shot-canvas-frame{position:relative;display:flex;align-items:center;justify-content:center;min-height:140px;max-height:54vh;overflow:auto;margin:8px 0;padding:4px;background:#171717;border:1px solid var(--border);border-radius:8px;touch-action:none;}
+  #shotPreviewCanvas{display:block;max-width:100%;max-height:50vh;width:auto;height:auto;object-fit:contain;touch-action:none;}
+  #shotCropRect{position:absolute;display:none;border:2px dashed #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.34);pointer-events:none;}
+  .shot-tools,.shot-capture-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:8px 0;}
+  .shot-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;}
+  .shot-editor-grid label{font-size:11px;}
+  .shot-editor-grid input:not([type=checkbox]),.shot-editor-grid select{width:100%;}
+  #app.shot-hide-floating-actions .nav-fab,
+  #app.shot-hide-floating-actions .scenario-fab,
+  #app.shot-hide-floating-actions .screen-shot-fab,
+  #app.shot-hide-floating-actions .scroll-top-fab,
+  #app.shot-hide-floating-actions .floating-controls-toggle,
+  #app.shot-hide-floating-actions .nav-fab-menu,
+  #app.shot-hide-floating-actions .scenario-fab-panel{display:none!important;}
+  .shot-capture-overlay{position:fixed;inset:0;z-index:20000;cursor:crosshair;touch-action:none;user-select:none;background:rgba(0,0,0,.08);}
+  .shot-capture-hint{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:2;max-width:92vw;padding:10px 14px;border-radius:10px;background:rgba(25,23,22,.94);color:#fff;font:13px/1.5 Tahoma,Arial,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.3);text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;white-space:normal;}
+  .shot-capture-hint button{margin-inline-start:8px;border:0;border-radius:6px;padding:4px 8px;background:#fff;color:#222;font:inherit;cursor:pointer;}
+  .shot-capture-hint .shot-toggle-floating[aria-pressed="true"]{background:#ffe5b0;color:#462600;}
   .icon-btn{background:none; border:1px solid transparent; border-radius:6px; width:30px; height:30px; cursor:pointer; color:var(--ink-soft); display:flex; align-items:center; justify-content:center;}
   .icon-btn:hover{background:var(--panel); border-color:var(--border);}
   .title-input{flex:1; min-width:90px; font-family:inherit; font-size:16px; font-weight:700; color:var(--ink); background:none; border:none; outline:none;}
@@ -500,6 +542,8 @@
   .smart-index-copy{min-width:0;display:flex;flex-direction:column;gap:2px;}
   .smart-index-copy strong{font-size:12px;overflow-wrap:anywhere;}
   .smart-index-copy small{font-size:10px;color:var(--ink-soft);line-height:1.5;}
+  .smart-index-copy .smart-index-evidence{display:block;margin-top:3px;padding:4px 6px;border-right:2px solid var(--accent-soft);background:rgba(201,141,111,.08);white-space:normal;overflow-wrap:anywhere;}
+  .smart-index-copy .smart-index-evidence b{color:var(--accent);}
   .smart-index-warnings{margin-top:10px;padding:9px 11px;border-radius:8px;background:color-mix(in srgb,#f59e0b 10%,var(--paper));color:var(--ink);font-size:11px;}
   .smart-index-warnings ul{margin:5px 0 0;padding-inline-start:18px;}
   .smart-index-note{margin:10px 0 0;color:var(--ink-soft);font-size:10px;}
@@ -742,6 +786,25 @@
   }
   @media(prefers-reduced-motion:no-preference){#app.writing-focus .sidebar{transition:margin-right .22s ease;}}
 </style>
+<style id="phase39-work-author-export">
+  .export-author-config{min-width:min(310px,86vw);padding:9px 12px;border-bottom:1px solid var(--border);background:var(--paper);font-size:11px;line-height:1.6;}
+  .export-author-config label{display:flex;align-items:flex-start;gap:7px;white-space:normal;font-weight:700;color:var(--ink);}
+  .export-author-config label input{margin-top:3px;flex:0 0 auto;}
+  .export-author-config button{white-space:normal!important;color:var(--accent)!important;padding:6px 0!important;font-weight:700;}
+  .export-author-config small{display:block;color:var(--ink-soft);font-size:10px;}
+  #writerInfoModal textarea{box-sizing:border-box;line-height:1.7;}
+</style>
+<style id="phase40-onboarding-tour">
+  .tour-box{line-height:1.85;}
+  .tour-box p{margin:0 0 12px;color:var(--ink-soft);font-size:13px;}
+  .tour-box h4{margin:5px 0;color:var(--accent);font-size:18px;}
+  .tour-count{font-size:11px;color:var(--ink-soft);}
+  #tourStepBody{font-size:13px;line-height:1.9;min-height:100px;}
+  .tour-actions{align-items:center;}
+  .tour-spacer{flex:1;}
+  .tour-target-active{outline:3px solid var(--accent-soft)!important;outline-offset:3px!important;box-shadow:0 0 0 6px rgba(201,141,111,.2)!important;position:relative;z-index:5;}
+  @media(max-width:600px){.tour-box{width:min(94vw,620px);padding:18px 14px!important}.tour-actions{gap:5px}.tour-actions button{font-size:11px;padding:5px 7px}.tour-spacer{display:none}}
+</style>
 <!-- PHASE 17: Interactive searchable general-user catalog -->
 </head>
 <body data-theme="light" data-font="naskh">
@@ -766,6 +829,7 @@
   <div class="modal-box">
     <h3>📖 دليل منصة Varry Studio الشامل</h3>
     <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما يلزم لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
+    <div style="display:flex;justify-content:flex-start;margin-top:8px;"><button type="button" class="dash-btn" id="startTourFromCatalog">🧭 جولة تعريفية عامة</button></div>
     <div class="catalog-controls" style="position:sticky;top:0;z-index:3;background:var(--panel, #fff);padding:10px 0;display:grid;gap:8px;">
       <input id="catalogSearch" type="search" placeholder="ابحثي في الدليل: مشهد، تصدير، شخصيات، حفظ…" aria-label="البحث في دليل المنصة" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;">
       <div id="catalogFilters" style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -775,6 +839,7 @@
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="tools">الأدوات والتحليل</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="export">الاستيراد والتصدير</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="safety">الحفظ والأمان</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="about">عن هبة</button>
       </div>
       <small id="catalogResultCount" aria-live="polite" style="color:var(--ink-soft)">دليل تفاعلي — ابحثي أو اختاري موضوعاً.</small>
     </div>
@@ -794,7 +859,8 @@
       <ul style="margin:0 0 12px;">
         <li><b>السحب والإفلات:</b> يمكن سحب أي ملف فوق ملف آخر لإعادة الترتيب، أو فوق عنوان حاوية لنقله إليها. أزرار ⬆️⬇️ تعمل أيضاً (مناسبة للجوال).</li>
         <li><b>حذف المحدد / سلة المحذوفات:</b> حذف حاوية ينقل الحاوية وكل ملفاتها وأقسامها التابعة إلى السلة كبنية واحدة؛ ويمكن استعادة البنية كاملة أو حذفها نهائياً.</li>
-        <li><b>نسخ مطابقة:</b> ينسخ الملف، أو الحاوية بكل أقسامها.</li>
+        <li><b>نسخ ولصق:</b> «نسخ المحدد» أو Ctrl+C يضع العناصر المحددة في الحافظة، ثم يمكن اختيار وجهة اللصق والضغط على «لصق» أو Ctrl+V.</li>
+        <li><b>تكرار المحدد:</b> ينشئ نسخة مستقلة بجوار كل عنصر محدد؛ لا يكرر المجلد المفتوح إلا عند تحديده صراحةً.</li>
         <li><b>التراجع/الإعادة:</b> يشمل الكتابة والحذف والنقل (Ctrl+Z / Ctrl+Y).</li>
       </ul>
 
@@ -809,20 +875,24 @@
         <li><b>🌉 الجسر البصري:</b> كتلة انتقال بين مشهدين: «من» ما ينتهي به المشهد، «إلى» ما يبدأ به التالي، مع نوع الجسر (تطابق شكلي، ذوبان، تطابق حركة، جسر صوتي/لوني/عبر غرض) ووقت وملاحظة.</li>
         <li><b>🔄 تحديث المحتوى القديم:</b> من ⚙️ إعدادات الملف (لملف واحد) أو من القائمة الجانبية (للمحدد أو للكل): يضيف نمط الملف وسطر المدة تحت المشاهد، ويحوّل الفقرات العادية اختيارياً إلى مشهد/شخصية/حوار/وصف. قابل للتراجع. ويمكن تغيير «نوع» الملف من نفس اللوحة.</li>
         <li><b>أدوات الغلاف:</b> قوالب جاهزة، ألوان عشوائية، لون/تدرج/صورة مع تعتيم، أيقونة، عنوان وعنوان فرعي، لون وحجم وخط ومحاذاة وموضع النص، إطار، نسخ غلاف من ملف آخر، وتطبيقه على كل أقسام الحاوية.</li>
+        <li><b>تنزيل الغلاف:</b> من لوحة المشروع يمكن تنزيل الغلاف الحالي أو الافتراضي مباشرةً كصورة PNG، أو فتح محرر الغلاف لتعديل تصميمه أولاً.</li>
         <li><b>النوافذ:</b> آخر نافذة تُفتح تكون في الأعلى وحدها تستقبل اللمس والكتابة؛ Esc أو زر ✕ أو النقر خارجها يغلقها.</li>
         <li><b>السيناريو الفرنسي:</b> يمكن الكتابة قبل الجدول وبعده وبين الصفوف؛ زر «صف متقابل» يضيف صفاً بعد الصف الحالي.</li>
         <li><b>نقل الكتلة:</b> ⬆️⬇️ داخل شريط الأدوات (أو Alt+↑/↓) يحرك الكتلة أو الصف أو الفقرة أو البطاقة الحالية.</li>
+        <li><b>🎬 أدوات السيناريو العائمة:</b> الزر الدائري أسفل الصفحة يعرض أدوات الكتابة المناسبة لنوع الملف المفتوح (أمريكي، فرنسي، مسرحي، فيديو، إذاعي أو وثائقي)، مع زري التراجع والإعادة في المقدمة، لتبقى الأدوات قريبة حتى عند طي الشريط أو استخدام مساحة الكتابة.</li>
+        <li><b>طي الأزرار العائمة:</b> زر ⊖ أسفل مجموعة الأزرار يخفي بقية الأزرار لتوسيع الشاشة، ويبقى زر ⊕ ظاهراً لاستعادتها. ويمكن فتح الجولة التعريفية من زر 🧭 في رأس القائمة الجانبية أو من قائمة التنقل.</li>
         <li><b>الصور:</b> بالنقر على الصورة يتغير حجمها (30/50/75/100%)، وبالنقر المزدوج تُحذف.</li>
         <li><b>زر السلوك (S):</b> فصل جديد = تُدرج الأداة كفقرة جديدة، نفس الفقرة = داخل السطر الحالي.</li>
         <li><b>الحفظ الفوري:</b> Ctrl+S يحفظ التعديلات في الحال.</li>
         <li><b>🎨 التنسيق المتقدم:</b> مجموعة أدوات في الشريط: تسطير وشطب وقوائم، نمط العنوان، تباعد الأسطر والمسافة بعد الفقرة والإزاحة، و«🔲 مربع» لتحويل أي فقرة أو مربع إلى إطار بسيط أو منقّط أو مزدوج أو مظلّل أو بشريط جانبي أو ملاحظة ملونة (مع اختيار اللون وشكل الزوايا وسماكة الحد)، وفواصل زخرفية، وجداول حرة، وحجم ولون خط الفقرة أو الحقل، ولون تعبئة المربع، وزر مسح التنسيق. ومن ⚙️ إعدادات الملف يمكن اختيار لون الصفحة ولون النص الأساسي لكل ملف.</li>
         <li><b>المربعات والأسطر:</b> داخل المربعات والبطاقات يضيف Enter سطراً جديداً داخل نفس المربع دون فتح مربع آخر؛ وCtrl+Enter يضيف مربعاً جديداً (أو ينتقل للحقل التالي في البطاقات).</li>
-        <li><b>🖼️ اقتباس مصوّر:</b> يُرفع من الجهاز أو يُلصق (Ctrl+V) صورة أو لقطة شاشة، وتدخل كما هي بحالة «مسودة» أو «جاهزة». بالنقر على علامة «مسودة» تصير جاهزة، وAlt+نقر على الصورة يعيدها مسودة، ونقرتان تحذفانها. ويمكن أيضاً تنزيلها كصورة PNG. وإن لم تُرفع صورة يعمل الاقتباس كنص على خلفية كما كان.</li>
+        <li><b>📸 لقطة شاشة من التطبيق:</b> تتيح تحديد أي منطقة ظاهرة بالسحب، ثم قصّها والرسم عليها وإضافة كتابة وشارة «مسودة من Varry Studio» قبل تنزيلها كصورة PNG. يمكن فتح الأداة من زرها في الشريط أو من الزر العائم، كما يمكن رفع صورة موجودة للتحرير.</li>
       </ul>
 
       <p data-catalog-section="tools" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🧩 أدوات مرتبطة بالسيناريو والمشروع</p>
       <ul style="margin:0 0 12px;">
         <li><b>📍 بيانات المواقع داخل المشروع:</b> تبقى بطاقات المواقع متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج والمراجع. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات.</li>
+        <li><b>الفهرس الذكي ومقتطفات الدليل:</b> داخل لوحة المشروع يعرض المشاهد والشخصيات والمواقع المكتشفة. تحت كل شخصية أو موقع يظهر مقتطف من النص الذي استند إليه التحليل؛ الضغط على النتيجة يفتح ملف المصدر وينقل المؤشر إلى موضع الدليل، أو إلى المشهد عند تعذر العثور على النص المطابق. تبقى النتائج قابلة للمراجعة والتعديل اليدوي.</li>
         <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» عند تفعيل التعرف على النص غير المنسق. يحاول استبعاد أوصاف التصوير مثل «صورة أمامية» من قائمة المواقع والشخصيات، ويعرض عدد المشاهد والأدلة وملاحظات الالتباس ودرجة ثقة مبدئية قبل التطبيق. درجة الثقة إرشادية وليست ضماناً؛ لا يعتمد النظام على التكرار وحده، بل يخفض الثقة عند الأسماء الطويلة أو التي تشبه أفعال الحركة، ويستبعد توجيهات التصوير الواضحة من أسماء الشخصيات والمواقع عند تفعيل الذكاء. راجعي النتائج قبل اعتمادها. تُدمج صيغ الاسم المختصرة مع الكاملة بحذر، وتبقى التعديلات اليدوية محفوظة أثناء التحديث.</li>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
         <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
@@ -836,6 +906,7 @@
         <li><b>التصدير مطابق للمحرر (WYSIWYG):</b> الألوان والخطوط والمحاذاة والجداول تُحفظ في Word وPDF. تصدير حاوية يخرج المشروع كاملاً بغلافه وفهرسه وبترتيب الأقسام الحالي.</li>
         <li><b>نسخة احتياطية لملف واحد أو عدة ملفات:</b> زر 💾 «تصدير المحدد» في القائمة الجانبية (أو من قائمة التصدير) ينتج ملفاً واحداً بصيغة النسخة الاحتياطية للمنصة يمكن استيراده لاحقاً.</li>
         <li><b>التوقيع:</b> توقيع الكاتب (يمكن إخفاؤه) + توقيع المنصة الثابت في الغلاف والتذييل.</li>
+        <li><b>معلومات التواصل:</b> تظهر معلومات مصممة المنصة في التصدير. ويمكن اختيارياً إضافة نبذة كاتب العمل ووسائل تواصله من قائمة التصدير.</li>
         <li><b>العرض التقديمي:</b> ملف HTML بشرائح يُتنقَّل بينها بالأسهم أو اللمس.</li>
         <li><b>PDF:</b> يُفعَّل خيار «الترويسات والتذييلات» من إعدادات الطباعة لتظهر أرقام الصفحات والتوقيع.</li>
       </ul>
@@ -844,11 +915,56 @@
       <ul style="margin:0 0 4px;">
         <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
+        <li><b>حرية مساحة الكتابة:</b> من أعلى شريط الأدوات يمكن طي الأدوات أو تفعيل «مساحة الكتابة» لإخفاء القوائم وتوسيع المحرر. يمكن إظهارها مجدداً من زر 🧭 العائم، ويُحفظ تفضيل الطيّ على هذا الجهاز.</li>
+        <li><b>الجولة التعريفية العامة:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ، بصياغة عامة لا ترتبط بجنس أو نوع كتابة واحد. يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
+        <li><b>نسخ ملفات المشروع ولصقها:</b> حدّد ملفاً أو مجلداً في القائمة الجانبية ثم استخدم Ctrl+C. اختر المجلد من قائمة «وجهة اللصق» أو افتحه، ثم اضغط «لصق» أو استخدم Ctrl+V. يستنسخ النظام العناصر كاملةً، ويعرض الزر عدد العناصر المنسوخة.</li>
+      </ul>
+      <p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">🛠️ عن هبة «Varry» — مصممة المشروع</p>
+      <ul style="margin:0 0 12px;list-style:none;padding:0;">
+        <li style="margin:0 0 8px;"><b>هبة رامز حسن، روائية وسيناريست من سوريا.</b></li>
+        <li style="margin:0 0 8px;">أكتب القصص والروايات والسيناريو. وأجد متعةً خاصة في المشاهد القصصية المكثفة؛ القصة القصيرة.</li>
+        <li style="margin:0 0 8px;">أطمح للتواصل مع فئات واسعة من الجماهير، ولذلك أحاول اكتشاف وتجربة كل الأنواع والتصنيفات الممكنة..</li>
+        <li style="margin:0 0 8px;">بحثت مطولًا عن منصة كتابة يمكنها تلبية شغفي، ولم أجد.. فابتكرت <b>Varry Studio</b>. وأتمنى أنّها ستكون خيارًا ملائمًا للكُتّاب الشّغوفين من أمثالي.</li>
+        <li style="margin:0 0 8px;">وأما عن رحلة تصميم المنصة، فهي حكاية مثيرة وطويلة لا تتسع لها سطوري هذه.. مع كلّ الشكر لكلّ وكلاء الذكاء الاصطناعي الذين ساعدوني في ابتكارها، وتتبع ثغراتها، وتطويرها..</li>
+      </ul>
+      <p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">📬 للتواصل</p>
+      <ul style="margin:0 0 12px;">
+        <li><b>فيسبوك:</b> <a href="https://www.facebook.com/hbt.hsn.349305" target="_blank" rel="noopener noreferrer">facebook.com/hbt.hsn.349305</a></li>
+        <li><b>إنستغرام:</b> <a href="https://www.instagram.com/hbhasan444?vrfl=MTRkbDgxNmhhaHYwaQ==" target="_blank" rel="noopener noreferrer">instagram.com/hbhasan444</a></li>
+        <li><b>واتساب:</b> @varry_hiba</li>
+        <li><b>البريد الإلكتروني:</b> <a href="mailto:varryse@gmail.com">varryse@gmail.com</a></li>
+      </ul>
+      <p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">📚 للاطلاع على أعمالي</p>
+      <ul style="margin:0 0 12px;">
+        <li><b>واتباد:</b> <a href="https://www.wattpad.com/user/Varry-/about" target="_blank" rel="noopener noreferrer">wattpad.com/user/Varry- — حسابي</a></li>
+        <li><b>تليجرام:</b> <a href="https://t.me/varrybooks" target="_blank" rel="noopener noreferrer">t.me/varrybooks — قناة تضم أعمالاً من تأليفي</a></li>
       </ul>
     </div>
     
 <div class="modal-actions"><button class="primary" id="closeCatalog">إغلاق الدليل</button></div>
+  </div>
+</div>
+
+<div class="modal" id="tourModal" aria-labelledby="tourTitle" aria-modal="true" role="dialog">
+  <div class="modal-box tour-box" style="max-width:620px;">
+    <h3 id="tourTitle">🧭 جولة تعريفية عامة</h3>
+    <section id="tourIntro">
+      <p>هذه جولة تعريفية قصيرة بأقسام Varry Studio. لا ترتبط بنوع كتابة واحد، وتتبدل الأدوات المعروضة بحسب الملف المفتوح. يمكن بدء الجولة الآن أو فتحها لاحقاً من زر 🧭 في رأس قائمة المشاريع، أو من الكتالوج وقائمة التنقل.</p>
+      <div class="modal-actions"><button type="button" id="tourNotNow">العودة لاحقاً</button><button type="button" class="primary" id="tourStart">بدء الجولة</button></div>
+    </section>
+    <section id="tourStepView" hidden>
+      <div class="tour-count" id="tourCount"></div>
+      <h4 id="tourStepTitle"></h4>
+      <div id="tourStepBody"></div>
+      <div class="modal-actions tour-actions">
+        <button type="button" id="tourSkip">تخطي الجولة</button>
+        <span class="tour-spacer"></span>
+        <button type="button" id="tourPrev">السابق</button>
+        <button type="button" class="primary" id="tourNext">التالي</button>
+        <button type="button" class="primary" id="tourFinish" hidden>إنهاء الجولة</button>
+      </div>
+    </section>
   </div>
 </div>
 
@@ -907,6 +1023,26 @@
   </div>
 </div>
 
+<div class="modal" id="writerInfoModal">
+  <div class="modal-box" style="max-width:620px;">
+    <h3>بيانات كاتب هذا العمل</h3>
+    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">هذه البيانات اختيارية ومحفوظة مع الملف أو المشروع الحالي. لا تُضاف إلى التصدير إلا عند تفعيل خيار كاتب العمل من قائمة التصدير.</p>
+    <label style="display:flex;flex-direction:column;align-items:stretch;gap:5px;">الاسم المعروض:
+      <input id="writerInfoName" type="text" maxlength="120" placeholder="اسم الكاتب / الكاتبة">
+    </label>
+    <label style="display:flex;flex-direction:column;align-items:stretch;gap:5px;">النبذة:
+      <textarea id="writerInfoBio" rows="4" maxlength="1800" placeholder="نبذة قصيرة عن كاتب هذا العمل" style="width:100%;resize:vertical;border:1px solid var(--border);background:var(--paper);color:var(--ink);border-radius:6px;padding:8px;font:inherit;"></textarea>
+    </label>
+    <label style="display:flex;flex-direction:column;align-items:stretch;gap:5px;">معلومات التواصل (اختياري، كل وسيلة في سطر):
+      <textarea id="writerInfoContact" rows="3" maxlength="1200" placeholder="مثال: البريد الإلكتروني: name@example.com&#10;Instagram: https://..." style="width:100%;resize:vertical;border:1px solid var(--border);background:var(--paper);color:var(--ink);border-radius:6px;padding:8px;font:inherit;"></textarea>
+    </label>
+    <div class="modal-actions">
+      <button type="button" id="writerInfoCancel">إلغاء</button>
+      <button type="button" class="primary" id="writerInfoSave">حفظ بيانات الكاتب</button>
+    </div>
+  </div>
+</div>
+
 <!-- نافذة المعاينة قبل التصدير -->
 <div class="modal" id="previewModal">
   <div class="modal-box" style="max-width:960px;">
@@ -935,68 +1071,44 @@
   </div>
 </div>
 
-<!-- نافذة الاقتباس المصوّر -->
-<div class="modal" id="quoteImageModal">
-  <div class="modal-box">
-    <h3>🖼️ تصدير اقتباس من المنصة</h3>
-    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حددي جملة من الملف ثم افتحي هذه الأداة. تُحوّل المنصة النص المحدد مباشرةً إلى PNG قابل للتنزيل؛ لا حاجة إلى نسخ أو لصق، ولا يُضاف شيء إلى السيناريو. «مسودة» تضيف شارة، و«جاهز» يصدّر دونها.</p>
-    <label>النص المحدد من الملف:
-      <textarea id="qiText" rows="4" placeholder="حددي النص داخل الملف أولاً" readonly style="width:100%;resize:vertical;opacity:.92;"></textarea>
-    </label>
-    <label>الكاتبة / المصدر:
-      <input id="qiAttribution" type="text" placeholder="اختياري" style="width:100%;">
-    </label>
-    <label>صورة خلفية اختيارية لتصميم PNG:
-      <input id="qiImage" type="file" accept="image/*">
-    </label>
-    <label>حالة الاقتباس:
-      <select id="qiStatus">
-        <option value="draft">مسودة — تصدير مع شارة مسودة</option>
-        <option value="ready">جاهز — تصدير دون شارة مسودة</option>
-      </select>
-    </label>
-    <div class="qi-design-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:10px 0;">
-      <label>أبعاد الصورة:
-        <select id="qiFormat" style="width:100%;">
-          <option value="square">مربع 1:1 — 1200×1200</option>
-          <option value="portrait">عمودي 4:5 — 1200×1500</option>
-          <option value="story">قصة 9:16 — 1080×1920</option>
-          <option value="landscape">أفقي 16:9 — 1600×900</option>
-        </select>
-      </label>
-      <label>الخلفية:
-        <select id="qiTheme" style="width:100%;">
-          <option value="warm">عنابي دافئ</option>
-          <option value="night">ليل داكن</option>
-          <option value="ocean">أزرق عميق</option>
-          <option value="paper">ورق فاتح</option>
-          <option value="forest">أخضر غامق</option>
-        </select>
-      </label>
-      <label>لون النص:
-        <select id="qiInk" style="width:100%;">
-          <option value="auto">متباين تلقائيًا</option>
-          <option value="light">أبيض</option>
-          <option value="dark">داكن</option>
-          <option value="gold">ذهبي</option>
-        </select>
-      </label>
-      <label>حجم الخط:
-        <select id="qiFontScale" style="width:100%;">
-          <option value="compact">هادئ</option>
-          <option value="normal" selected>متوسط</option>
-          <option value="large">كبير</option>
-        </select>
-      </label>
+<!-- استوديو لقطة شاشة من واجهة Varry Studio -->
+<div class="modal" id="shotStudioModal" aria-labelledby="shotStudioTitle" aria-modal="true" role="dialog">
+  <div class="modal-box screenshot-box" style="max-width:940px;">
+    <h3 id="shotStudioTitle">📸 لقطة شاشة من Varry Studio</h3>
+    <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حدّد منطقة من واجهة التطبيق بالسحب، ثم قصّ الصورة أو أضف رسماً ونصاً. تُعالج الصورة محلياً ولا تُرسل إلى أي خدمة. يمكن أيضاً فتح صورة أو لقطة شاشة من الجهاز.</p>
+    <div class="shot-capture-tools">
+      <button type="button" id="shotStartCapture" class="primary">▣ تحديد منطقة من التطبيق</button>
+      <button type="button" id="shotUploadBtn">⬆️ فتح صورة للتحرير</button>
+      <input type="file" id="shotUploadInput" accept="image/*" hidden>
+      <small id="shotCaptureStatus" role="status" aria-live="polite"></small>
     </div>
-    <label style="display:flex;align-items:center;gap:8px;margin:8px 0;"><input id="qiSignature" type="checkbox" checked style="width:auto;"> إضافة توقيع Varry Hiba أسفل الصورة</label>
-    <div id="qiPreview" style="margin:12px 0;"></div>
+    <section class="shot-editor" id="shotEditor" hidden>
+      <div class="shot-tools">
+        <button type="button" id="shotCropMode">✂️ تحديد منطقة للقص</button>
+        <button type="button" id="shotApplyCrop" disabled>تنفيذ القص</button>
+        <button type="button" id="shotBrushMode">🖌️ الرسم على الصورة</button>
+        <button type="button" id="shotUndo" disabled>↶ تراجع التحرير</button>
+        <button type="button" id="shotRecapture">▣ لقطة جديدة</button>
+      </div>
+      <div class="shot-canvas-frame" id="shotCanvasFrame" aria-label="معاينة الصورة وأدوات القص والرسم">
+        <canvas id="shotPreviewCanvas"></canvas><div id="shotCropRect" aria-hidden="true"></div>
+      </div>
+      <div class="shot-editor-grid">
+        <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="shotStampEnabled" checked style="width:auto;"> شارة المسودة</label>
+        <label>نص الشارة<input id="shotStampText" type="text" maxlength="60" value="مسودة من Varry Studio"></label>
+        <label>كتابة إضافية على الصورة<input id="shotOverlayText" type="text" maxlength="160" placeholder="نص اختياري"></label>
+        <label>موضع النص والشارة<select id="shotOverlayPosition"><option value="bottom-right">أسفل اليمين</option><option value="bottom-left">أسفل اليسار</option><option value="top-right">أعلى اليمين</option><option value="top-left">أعلى اليسار</option><option value="center">المنتصف</option></select></label>
+        <label>لون الكتابة<input id="shotTextColor" type="color" value="#ffffff"></label>
+        <label>حجم الكتابة<input id="shotTextSize" type="range" min="14" max="64" value="30"></label>
+        <label>لون الرسم<input id="shotBrushColor" type="color" value="#ff3040"></label>
+        <label>سماكة الرسم<input id="shotBrushSize" type="range" min="2" max="28" value="7"></label>
+      </div>
+      <small id="shotEditStatus" role="status" aria-live="polite"></small>
+    </section>
     <div class="modal-actions">
-      <button id="qiCancel">إلغاء</button>
-      <button id="qiExport" class="primary">إنشاء وتنزيل صورة PNG</button>
-      <a id="qiDownloadLink" style="display:none;padding:8px 12px;border-radius:8px;background:#28624e;color:#fff;text-decoration:none;font-weight:700;" download>إذا لم يبدأ التنزيل، اضغطي هنا</a>
+      <button type="button" id="shotCancel">إغلاق</button>
+      <button type="button" id="shotDownload" class="primary" disabled>⬇️ تنزيل صورة PNG</button>
     </div>
-    <small id="qiExportStatus" role="status" aria-live="polite"></small>
   </div>
 </div>
 
@@ -1095,6 +1207,7 @@
         <p class="brand-sub"><span class="user-badge" id="userNameBadge">هبة Varry</span></p>
       </div>
       <button class="icon-btn" id="openCatalogBtn" title="الدليل الشامل">📖</button>
+      <button class="icon-btn" id="startTourBtn" title="الجولة التعريفية العامة" aria-label="فتح الجولة التعريفية العامة">🧭</button>
       <button class="icon-btn" id="sidebarCollapseBtn" title="طي قائمة المشاريع" aria-label="طي قائمة المشاريع">‹</button>
     </div>
 
@@ -1102,9 +1215,10 @@
       <button class="sidebar-tool-btn" id="batchDelBtn" title="حذف المحدد">🗑️ حذف المحدد</button>
       <button class="sidebar-tool-btn" id="moveUpBtn" title="تحريك للأعلى">⬆️</button>
       <button class="sidebar-tool-btn" id="moveDownBtn" title="تحريك للأسفل">⬇️</button>
-      <button class="sidebar-tool-btn" id="duplicateDocBtn" title="نسخ مطابقة">📑 نسخ</button>
-      <button class="sidebar-tool-btn" id="copySelectedBtn" title="نسخ الملفات والمجلدات المحددة">📋 نسخ المحدد</button>
-      <button class="sidebar-tool-btn" id="pasteSelectedBtn" title="لصق نسخة في المجلد المفتوح أو بجوار الملف الحالي">📥 لصق</button>
+      <button class="sidebar-tool-btn" id="copySelectedBtn" title="نسخ العنصر أو العناصر المحددة إلى الحافظة">📋 نسخ المحدد</button>
+      <button class="sidebar-tool-btn" id="duplicateDocBtn" title="إنشاء نسخة مستقلة من العنصر أو العناصر المحددة">📑 تكرار المحدد</button>
+      <label class="paste-target-wrap" for="pasteTargetSelect"><span>وجهة اللصق:</span><select id="pasteTargetSelect" title="اختيار المجلد الذي ستوضع فيه النسخ"><option value="">المجلد المفتوح أو الحالي</option><option value="__root__">مستوى المشاريع الرئيسي</option></select></label>
+      <button class="sidebar-tool-btn" id="pasteSelectedBtn" type="button" title="انسخ ملفاً أو مجلداً عبر Ctrl+C، ثم اختر وجهة واضغط هنا">📥 لصق</button>
       <button class="sidebar-tool-btn" id="modernizeBtn" title="تحديث الملفات القديمة للميزات الجديدة (المحددة، أو الكل)">🔄 تحديث القديم</button>
       <button class="sidebar-tool-btn" id="fixDocBtn" title="تدقيق وإصلاح: بنية + أخطاء كتابة للملف الحالي أو المحدد">✍️ تدقيق وإصلاح</button>
       <button class="sidebar-tool-btn" id="exportSelectedBtn" title="تصدير الملفات والمجلدات المحددة (أو الملف الحالي) كنسخة احتياطية بصيغة المنصة">💾 تصدير المحدد</button>
@@ -1307,7 +1421,7 @@
             <button data-ins="hand">✍️ خط اليد</button>
           </div>
         </div>
-        <button class="fmt-btn" id="quoteImageBtn" title="إدراج اقتباس مصوّر كمسودة أو نسخة جاهزة للغلاف">🖼️ اقتباس مصوّر</button>
+        <button class="fmt-btn" id="screenShotBtn" type="button" title="التقاط منطقة من واجهة Varry Studio وتحريرها كصورة PNG">📸 لقطة شاشة</button>
       </div>
 
       <div class="fmt-group" id="group_format">
@@ -1461,13 +1575,18 @@
         <button class="fmt-btn" data-tag="block-action" title="وصف وسرد">📝 وصف</button>
         <button class="fmt-btn" data-tag="block-char" title="اسم الشخصية">👤 شخصية</button>
         <button class="fmt-btn" data-tag="block-dialogue" title="حوار">💬 حوار</button>
-        <button class="fmt-btn" data-tag="block-note" title="اقتباس أو تعليق كاتب">✒️ اقتباس / تعليق</button>
+        <button class="fmt-btn" data-tag="block-note" title="ملاحظة أو تعليق">✒️ ملاحظة</button>
         <button class="fmt-btn" data-tag="block-transition" title="فاصل زمني / انتقال">⏳ فاصل زمني</button>
       </div>
 
       <div class="export-wrap">
         <button id="exportMainBtn" style="background:var(--accent); color:#fdf9f0; border:none; border-radius:6px; padding:6px 12px; font-size:11px; cursor:pointer; font-weight:bold;">تصدير ومعالجة ▾</button>
         <div class="export-dropdown" id="exportDropdown">
+          <div class="export-author-config">
+            <label><input type="checkbox" id="includeWriterInfoInExport"> إضافة نبذة ومعلومات تواصل كاتب العمل</label>
+            <button type="button" id="editWriterInfoBtn">✍️ إدخال / تعديل بيانات الكاتب</button>
+            <small>إذا لم تفعّلي الخيار، ستظهر معلومات التواصل الخاصة بمصممة المنصة فقط.</small>
+          </div>
           <button id="expPreview" style="font-weight:bold; color:var(--accent);">👁️ معاينة وتنسيق قبل التصدير</button>
           <button id="expTxt">ملف نصي (TXT)</button>
           <button id="expWord">مستند وورد (Word)</button>
@@ -1596,9 +1715,16 @@
         <button data-nav="focus">✍️ مساحة الكتابة (إخفاء القوائم)</button>
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
+        <button data-nav="tour">🧭 جولة تعريفية عامة</button>
+        <button data-nav="floating">⊖ طي الأزرار العائمة</button>
+        <button data-nav="screenshot">📸 لقطة شاشة من التطبيق</button>
         <button data-nav="top">⬆️ أعلى الصفحة</button>
       </div>
+      <div class="scenario-fab-panel" id="scenarioFabPanel" aria-label="أدوات السيناريو السريعة"></div>
+      <button class="screen-shot-fab" id="screenShotFabBtn" type="button" title="لقطة شاشة من التطبيق" aria-label="فتح استوديو لقطة الشاشة">📸</button>
+      <button class="scenario-fab" id="scenarioFabBtn" type="button" title="أدوات السيناريو السريعة" aria-expanded="false" aria-controls="scenarioFabPanel">🎬</button>
       <button class="nav-fab" id="navFabBtn" title="تنقل سريع">🧭</button>
+      <button class="floating-controls-toggle" id="floatingControlsToggle" type="button" title="طي الأزرار العائمة" aria-label="طي الأزرار العائمة" aria-expanded="true">⊖</button>
     </div>
     <button class="scroll-top-fab" id="scrollTopFab" title="ارجعي لأعلى الصفحة / الخيارات">⬆️</button>
 
@@ -1618,6 +1744,12 @@
    ===================================================================== */
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const AUTHOR_CONTACTS = Object.freeze({
+  facebook:{ label:'فيسبوك', href:'https://www.facebook.com/hbt.hsn.349305', display:'facebook.com/hbt.hsn.349305' },
+  instagram:{ label:'إنستغرام', href:'https://www.instagram.com/hbhasan444?vrfl=MTRkbDgxNmhhaHYwaQ==', display:'instagram.com/hbhasan444' },
+  whatsapp:{ label:'واتساب', href:'', display:'@varry_hiba' },
+  email:{ label:'البريد الإلكتروني', href:'mailto:varryse@gmail.com', display:'varryse@gmail.com' }
+});
 const deepClone = o => JSON.parse(JSON.stringify(o));
 let _uidN = 0;
 // معرّف فريد فعلاً (النسخة القديمة كانت تعتمد على Date.now فقط فتتكرر المعرّفات عند إنشاء أكثر من عنصر بنفس اللحظة)
@@ -1901,6 +2033,7 @@ function tryUnlock(){
   if(lockInput.value === userPass){
     lockScreen.style.display = 'none';
     appContainer.classList.add('unlocked');
+    setTimeout(maybeOfferGeneralTour,250);
   } else { alert('كلمة المرور غير صحيحة!'); }
 }
 lockScreen.addEventListener('submit', e => { e.preventDefault(); tryUnlock(); });
@@ -1965,6 +2098,54 @@ $('sideBackdrop').addEventListener('click', () => sidebar.classList.add('collaps
 const catalogModal = $('catalogModal');
 $('openCatalogBtn').addEventListener('click', () => showModal(catalogModal));
 $('closeCatalog').addEventListener('click', () => hideModal(catalogModal));
+const tourModal=$('tourModal'), TOUR_STATE_KEY='varry:generalTourV2';
+let tourStepIndex=0,tourHighlight=null,tourPromptedThisSession=false;
+const generalTourSteps=[
+  {title:'المشاريع والملفات',body:'تبدأ إدارة العمل من قائمة المشاريع: إنشاء مشروع أو فيلم أو مسلسل، ثم إضافة الأقسام المناسبة. تتيح القائمة الجانبية ترتيب الملفات ونسخها ونقلها.',targets:['#sidebar']},
+  {title:'مساحة الكتابة',body:'تتيح قائمة الإضافة اختيار نوع الملف، مثل السيناريو أو القصة أو الرواية أو المعالجة. لكل نوع تنسيق وأدوات ملائمة، مع إمكانية تغيير إعدادات الملف لاحقاً.',targets:['#newDocBtn']},
+  {title:'الكتابة والأدوات',body:'تتبدل الأدوات بحسب نوع الملف. في ملفات السيناريو تظهر أدوات النوع في الشريط العلوي، كما يظهر زر 🎬 العائم للأدوات المتخصصة. ويمكن طي شريط الأدوات أو تفعيل مساحة الكتابة لتوسيع المحرر، مع بقاء لقطة الشاشة متاحة من الزر العائم.',targets:['#scenarioFabBtn','#toolbar','#editor']},
+  {title:'التحليل والفهرسة',body:'داخل المشروع تظهر لوحة تلخص الأقسام والمشاهد والشخصيات والمواقع. يتيح الفهرس الذكي الانتقال من النتيجة إلى المشهد أو مقتطف الدليل في النص، كما يدعم تعديل النتائج وإضافة عناصر يدوياً. النتائج قابلة للمراجعة قبل اعتمادها.',targets:['.smart-index','#dashboard','#sidebar']},
+  {title:'التصدير والحفظ',body:'تتيح قائمة التصدير معاينة العمل وإخراجه بصيغ مختلفة، مع إضافة نبذة كاتب العمل ووسائل التواصل اختيارياً. تُحفظ البيانات محلياً في هذا المتصفح؛ لذلك يُنصح بإنشاء نسخة احتياطية دورية من الأعمال.',targets:['#exportMainBtn','#sidebar']}
+];
+function clearTourHighlight(){if(tourHighlight){tourHighlight.classList.remove('tour-target-active');tourHighlight=null;}}
+function tourSetState(value){try{localStorage.setItem(TOUR_STATE_KEY,value);}catch(e){}}
+function tourVisible(el){return !!el&&el.getClientRects().length>0&&getComputedStyle(el).visibility!=='hidden';}
+function renderGeneralTourStep(){
+  clearTourHighlight();
+  const step=generalTourSteps[tourStepIndex];if(!step)return;
+  $('tourIntro').hidden=true;$('tourStepView').hidden=false;
+  $('tourCount').textContent=`الخطوة ${tourStepIndex+1} من ${generalTourSteps.length}`;
+  $('tourStepTitle').textContent=step.title;$('tourStepBody').textContent=step.body;
+  $('tourPrev').disabled=tourStepIndex===0;
+  $('tourNext').hidden=tourStepIndex===generalTourSteps.length-1;
+  $('tourFinish').hidden=tourStepIndex!==generalTourSteps.length-1;
+  const target=step.targets.map(sel=>document.querySelector(sel)).find(tourVisible);
+  if(target){tourHighlight=target;target.classList.add('tour-target-active');setTimeout(()=>{if(tourModal.classList.contains('open'))target.scrollIntoView({block:'nearest',behavior:'smooth'});},90);}
+}
+function openGeneralTour(){
+  tourPromptedThisSession=true;
+  clearTourHighlight();tourStepIndex=0;
+  $('tourIntro').hidden=false;$('tourStepView').hidden=true;
+  showModal(tourModal);
+}
+function startGeneralTour(){tourStepIndex=0;renderGeneralTourStep();showModal(tourModal);}
+function closeGeneralTour(state){clearTourHighlight();if(state)tourSetState(state);hideModal(tourModal);}
+$('startTourFromCatalog').addEventListener('click',()=>{hideModal(catalogModal);setTimeout(openGeneralTour,80);});
+$('startTourBtn').addEventListener('click',openGeneralTour);
+$('tourNotNow').addEventListener('click',()=>closeGeneralTour('dismissed'));
+$('tourStart').addEventListener('click',startGeneralTour);
+$('tourSkip').addEventListener('click',()=>closeGeneralTour('skipped'));
+$('tourPrev').addEventListener('click',()=>{if(tourStepIndex>0){tourStepIndex--;renderGeneralTourStep();}});
+$('tourNext').addEventListener('click',()=>{if(tourStepIndex<generalTourSteps.length-1){tourStepIndex++;renderGeneralTourStep();}});
+$('tourFinish').addEventListener('click',()=>closeGeneralTour('completed'));
+function maybeOfferGeneralTour(){
+  if(tourPromptedThisSession||!appContainer.classList.contains('unlocked'))return;
+  try{if(localStorage.getItem(TOUR_STATE_KEY))return;}catch(e){}
+  openGeneralTour();
+}
+tourModal.addEventListener('mousedown',e=>{if(e.target===tourModal)closeGeneralTour('dismissed');});
+tourModal.addEventListener('click',e=>{if(e.target.closest('.modal-x'))closeGeneralTour('dismissed');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tourModal.classList.contains('open'))tourSetState('dismissed');},true);
 // PHASE 17: searchable, audience-friendly catalog filtering; this only hides guide content and never alters documents.
 (function initInteractiveCatalog(){
   const search = $('catalogSearch'), filters = $('catalogFilters'), count = $('catalogResultCount');
@@ -2875,81 +3056,98 @@ function remapClonedRelations(idMap){
     if(clone && Array.isArray(clone.relatedDocs)) clone.relatedDocs = clone.relatedDocs.map(id => idMap[id] || id);
   });
 }
-function duplicateCurrent(){
-  if(!currentId || !docs[currentId]) return;
-  flushEditorToDoc();
-  pushUndoSnapshot();
-  const src = docs[currentId];
-  const pid = src.parentId && docs[src.parentId] ? src.parentId : null;
-  const idMap = {};
-  const nid = cloneDocTree(currentId, pid, true, idMap);
-  remapClonedRelations(idMap);
-  if(pid){
-    const list = docs[pid].children;
-    list.splice(list.indexOf(currentId) + 1, 0, nid);
-  } else {
-    index.splice(index.indexOf(currentId) + 1, 0, nid);
-  }
-  persist();
-  openDoc(nid);
+function duplicateSelectedDocs(){
+  let sources=selectedTopLevelIds();
+  if(!sources.length&&currentId&&docs[currentId]&&!isContainer(docs[currentId]))sources=[currentId];
+  if(!sources.length){alert('حدّد ملفاً أو مجلداً واحداً أو أكثر أولاً؛ لن يُكرّر المجلد المفتوح تلقائياً.');return;}
+  flushEditorToDoc();pushUndoSnapshot();
+  const idMap={},inserted=[];
+  sources.forEach(sourceId=>{
+    const src=docs[sourceId];if(!src)return;
+    const pid=src.parentId&&docs[src.parentId]&&isContainer(docs[src.parentId])?src.parentId:null;
+    const list=pid?docs[pid].children:index,nid=cloneDocTree(sourceId,pid,true,idMap);
+    if(!nid)return;
+    const at=list.indexOf(sourceId);list.splice(at>=0?at+1:list.length,0,nid);inserted.push(nid);
+  });
+  if(!inserted.length)return;
+  remapClonedRelations(idMap);selectedDocIds.clear();inserted.forEach(id=>selectedDocIds.add(id));
+  persist();renderList();
+  if(inserted.length===1)openDoc(inserted[0]);
+  else if(currentId&&docs[currentId]&&isContainer(docs[currentId]))renderDashboard(currentId);
 }
 let copiedDocIds = [];
-// اختيار الملفات محفوظ كحالة مستقلة عن DOM، حتى تبقى التحديدات صحيحة عند طي/فتح الحاويات أو إعادة رسم القائمة.
+// Selection is stateful so it survives tree re-renders and folded folders.
 const selectedDocIds = new Set();
 function selectedTopLevelIds(){
-  const selected = [...selectedDocIds].filter(id => docs[id]);
-  const set = new Set(selected);
-  return selected.filter(id => {
-    let parent = docs[id] && docs[id].parentId;
-    const guard = new Set();
-    while(parent && docs[parent] && !guard.has(parent)){
-      if(set.has(parent)) return false;
-      guard.add(parent); parent = docs[parent].parentId;
-    }
-    return true;
-  });
+  const selected=[...selectedDocIds].filter(id=>docs[id]),set=new Set(selected);
+  return selected.filter(id=>{let parent=docs[id]?.parentId;const guard=new Set();while(parent&&docs[parent]&&!guard.has(parent)){if(set.has(parent))return false;guard.add(parent);parent=docs[parent].parentId;}return true;});
+}
+function refreshPasteTargetOptions(){
+  const select=$('pasteTargetSelect');if(!select)return;
+  const keep=select.value,options=['<option value="">المجلد المفتوح أو الحالي</option>','<option value="__root__">مستوى المشاريع الرئيسي</option>'],seen=new Set();
+  const walk=(id,depth=0)=>{const d=docs[id];if(!d||!isContainer(d)||seen.has(id))return;seen.add(id);options.push(`<option value="${esc(id)}">${'　'.repeat(depth)}${esc(d.title||'مجلد بلا اسم')}</option>`);(d.children||[]).forEach(cid=>walk(cid,depth+1));};
+  (Array.isArray(index)?index:[]).forEach(id=>walk(id));
+  Object.keys(docs).forEach(id=>{if(!seen.has(id)&&(!docs[id].parentId||!docs[docs[id].parentId]))walk(id);});
+  select.innerHTML=options.join('');
+  select.value=keep==='__root__'||(keep&&docs[keep]&&isContainer(docs[keep]))?keep:'';
+}
+function updateClipboardUi(){
+  const btn=$('pasteSelectedBtn');if(!btn)return;
+  copiedDocIds=copiedDocIds.filter(id=>docs[id]);
+  const count=copiedDocIds.length;
+  btn.textContent=count?`📥 لصق (${count})`:'📥 لصق';
+  btn.classList.toggle('paste-ready',count>0);
+  btn.title=count?`تم نسخ ${count} عنصر. اختر وجهة اللصق ثم اضغط هنا أو استخدم Ctrl+V.`:'اختر ملفاً أو مجلداً ثم Ctrl+C؛ بعدها حدد وجهة اللصق واضغط هنا.';
+  btn.setAttribute('aria-label',count?`لصق ${count} عنصر منسوخ`:'لصق العناصر المنسوخة');
+  btn.disabled=false;
 }
 function copySelectedDocs(){
-  const selected = selectedTopLevelIds();
-  copiedDocIds = selected.length ? selected : (currentId && docs[currentId] ? [currentId] : []);
-  if(!copiedDocIds.length){ alert('حددي ملفاً أو مجلداً لنسخه أولاً.'); return; }
-  $('pasteSelectedBtn').disabled = false;
-  alert(`تم نسخ ${copiedDocIds.length} عنصر. استخدمي «لصق» لوضع نسخة في المجلد الحالي أو بجوار العنصر المفتوح.`);
+  const selected=selectedTopLevelIds();
+  const active=currentId&&docs[currentId]&&!isContainer(docs[currentId])?[currentId]:[];
+  copiedDocIds=selected.length?selected:active;
+  if(!copiedDocIds.length){alert('حدّد ملفاً أو مجلداً للنسخ أولاً؛ المجلد المفتوح لا يُنسخ تلقائياً.');updateClipboardUi();return;}
+  refreshPasteTargetOptions();$('pasteTargetSelect').value='';updateClipboardUi();
 }
 function pasteCopiedDocs(){
-  const sources = copiedDocIds.filter(id => docs[id]);
-  if(!sources.length){ alert('لا توجد عناصر منسوخة حالياً.'); return; }
-  flushEditorToDoc();
-  pushUndoSnapshot();
-  const current = currentId && docs[currentId];
-  const parentId = current && isContainer(current) ? currentId :
-    current && current.parentId && docs[current.parentId] ? current.parentId : null;
-  const inserted = [], idMap = {};
-  // Insert as a batch while advancing the insertion point, preserving the user's selection order.
-  let anchor = parentId
-    ? (current && docs[parentId].children.includes(currentId) ? docs[parentId].children.indexOf(currentId) + 1 : docs[parentId].children.length)
-    : (currentId && index.includes(currentId) ? index.indexOf(currentId) + 1 : 0);
-  sources.forEach(sourceId => {
-    const nid = cloneDocTree(sourceId, parentId, true, idMap);
-    if(!nid) return;
-    if(parentId){
-      const list = docs[parentId].children;
-      list.splice(Math.min(anchor, list.length), 0, nid);
-    } else {
-      index.splice(Math.min(anchor, index.length), 0, nid);
-    }
-    anchor++;
-    inserted.push(nid);
+  const sources=copiedDocIds.filter(id=>docs[id]);
+  if(!sources.length){alert('لا توجد عناصر منسوخة بعد. حدّد عنصراً ثم استخدم Ctrl+C أولاً.');return;}
+  const selectedTarget=$('pasteTargetSelect').value,current=currentId&&docs[currentId];
+  let parentId=null,anchor=0,explicitFolder=false;
+  if(selectedTarget==='__root__'){parentId=null;anchor=index.length;}
+  else if(selectedTarget&&docs[selectedTarget]&&isContainer(docs[selectedTarget])){parentId=selectedTarget;anchor=(docs[parentId].children||[]).length;explicitFolder=true;}
+  else{
+    parentId=current&&isContainer(current)?currentId:(current&&current.parentId&&docs[current.parentId]&&isContainer(docs[current.parentId])?current.parentId:null);
+    anchor=parentId?(current&&docs[parentId].children.includes(currentId)?docs[parentId].children.indexOf(currentId)+1:docs[parentId].children.length):(currentId&&index.includes(currentId)?index.indexOf(currentId)+1:index.length);
+  }
+  const invalidTarget=parentId&&sources.some(id=>isContainer(docs[id])&&(id===parentId||descendantsOf(id,[]).includes(parentId)));
+  if(invalidTarget){alert('لا يمكن لصق مجلد داخل نفسه أو داخل أحد مجلداته التابعة. اختر مجلداً آخر.');return;}
+  flushEditorToDoc();pushUndoSnapshot();
+  const inserted=[],idMap={};
+  sources.forEach(sourceId=>{
+    const nid=cloneDocTree(sourceId,parentId,true,idMap);if(!nid)return;
+    if(parentId){const list=docs[parentId].children;list.splice(Math.min(anchor,list.length),0,nid);}
+    else index.splice(Math.min(anchor,index.length),0,nid);
+    anchor++;inserted.push(nid);
   });
-  remapClonedRelations(idMap);
-  persist();
-  renderList();
-  if(parentId) renderDashboard(parentId);
-  if(inserted.length === 1) openDoc(inserted[0]);
+  remapClonedRelations(idMap);persist();renderList();updateClipboardUi();
+  if(explicitFolder&&parentId)openDoc(parentId);
+  else if(parentId)renderDashboard(parentId);
+  else if(current&&isContainer(current))renderDashboard(currentId);
+  else if(inserted.length===1)openDoc(inserted[0]);
 }
-$('copySelectedBtn').addEventListener('click', copySelectedDocs);
-$('pasteSelectedBtn').addEventListener('click', pasteCopiedDocs);
-$('pasteSelectedBtn').disabled = true;
+$('pasteTargetSelect').addEventListener('change',updateClipboardUi);
+$('pasteSelectedBtn').addEventListener('click',pasteCopiedDocs);
+updateClipboardUi();
+function isTypingSurface(target){
+  return !!(target&&(editor.contains(target)||(target.closest&&target.closest('textarea,select,[contenteditable="true"],input:not([type="checkbox"])'))));
+}
+document.addEventListener('keydown',e=>{
+  if(!(e.ctrlKey||e.metaKey))return;
+  const key=e.key.toLowerCase();
+  if(isTypingSurface(e.target)&&!(key==='v'&&e.target.closest?.('#pasteTargetSelect')))return;
+  if(key==='c'&&!e.shiftKey&&!window.getSelection()?.toString().trim()&&(selectedDocIds.size||e.target.closest?.('#docList')||(currentId&&docs[currentId]&&appLayout.contains(e.target)))){e.preventDefault();e.stopPropagation();copySelectedDocs();}
+  else if(key==='v'&&copiedDocIds.some(id=>docs[id])){e.preventDefault();e.stopPropagation();pasteCopiedDocs();}
+},true);
 
 function makeDoc(type, title, parentId, opts){
   opts = opts || {};
@@ -3107,6 +3305,8 @@ function buildDocNode(id, nested=false, seen=new Set()){
 function renderList(){
   docList.innerHTML = '';
   [...selectedDocIds].forEach(id => { if(!docs[id]) selectedDocIds.delete(id); });
+  refreshPasteTargetOptions();
+  updateClipboardUi();
   const roots = (Array.isArray(index) ? index : []).filter(id => docs[id] && !docs[id].parentId);
   if(!roots.length){
     docList.innerHTML = '<div style="font-size:10px; color:var(--ink-soft); text-align:center; padding:6px;">لا توجد مشاريع بعد</div>';
@@ -3423,21 +3623,24 @@ function buildSmartProjectIndex(rootId){
       sc.chars.forEach((entry,key)=>{
         const name=entry.name || key; charNames.push(name);
         let C=characters.get(key);
-        if(!C) characters.set(key,C={name,scenes:0,lines:0,refs:[],docs:new Set()});
+        if(!C) characters.set(key,C={name,scenes:0,lines:0,refs:[],docs:new Set(),evidence:'',evidenceIsDialogue:false,evidenceRef:null});
         C.scenes++; C.lines+=entry.lines || 0; C.docs.add(a.title);
-        if(!C.refs.length) C.refs.push(ref);
+        if(!C.refs.some(r=>r.id===ref.id&&r.sceneIndex===ref.sceneIndex)) C.refs.push(ref);
+        if(entry.sample && !C.evidenceIsDialogue){C.evidence=String(entry.sample).slice(0,220);C.evidenceIsDialogue=true;C.evidenceRef=ref;}
+        else if(!C.evidence){C.evidence=String(entry.name||name).slice(0,220);C.evidenceRef=ref;}
       });
       if(place.name){
         const key=normLocationKey(place.name); let L=locations.get(key);
-        if(!L) locations.set(key,L={name:place.name,scenes:0,ies:new Set(),tods:new Set(),refs:[],docs:new Set()});
+        if(!L) locations.set(key,L={name:place.name,scenes:0,ies:new Set(),tods:new Set(),refs:[],docs:new Set(),evidence:'',evidenceRef:null});
         L.scenes++; if(sc.ie) L.ies.add(sc.ie); if(sc.tod) L.tods.add(sc.tod); L.docs.add(a.title);
-        if(!L.refs.length) L.refs.push(ref);
+        if(!L.refs.some(r=>r.id===ref.id&&r.sceneIndex===ref.sceneIndex)) L.refs.push(ref);
+        if(!L.evidence){L.evidence=String(sc.heading||sc.name||'').slice(0,220);L.evidenceRef=Object.assign({},ref,{evidence:L.evidence});}
       }
       scenes.push({key:'auto-scene:'+a.docId+':'+sceneIndex,manual:false,ref,heading:sc.heading || ('مشهد '+sc.n),place:place.name,ie:sc.ie,tod:sc.tod,characters:charNames});
     });
   });
-  const chars=[...characters.values()].map(c=>Object.assign({key:'auto-character:'+normKey(c.name),manual:false},c)).sort((a,b)=>b.scenes-a.scenes || b.lines-a.lines || a.name.localeCompare(b.name,'ar'));
-  const places=[...locations.values()].map(L=>Object.assign({key:'auto-location:'+normLocationKey(L.name),manual:false},L)).sort((a,b)=>b.scenes-a.scenes || a.name.localeCompare(b.name,'ar'));
+  const chars=[...characters.values()].map(c=>Object.assign({key:'auto-character:'+normKey(c.name),manual:false,ref:c.evidenceRef||c.refs[0]||null},c)).sort((a,b)=>b.scenes-a.scenes || b.lines-a.lines || a.name.localeCompare(b.name,'ar'));
+  const places=[...locations.values()].map(L=>Object.assign({key:'auto-location:'+normLocationKey(L.name),manual:false,ref:L.evidenceRef||L.refs[0]||null},L)).sort((a,b)=>b.scenes-a.scenes || a.name.localeCompare(b.name,'ar'));
   const firstNameGroups=new Map();
   chars.forEach(c=>{const first=c.name.trim().split(/\s+/)[0],key=normKey(first);if(!key)return;if(!firstNameGroups.has(key))firstNameGroups.set(key,[]);firstNameGroups.get(key).push(c.name);});
   const nameCollisions=[...firstNameGroups.values()].filter(names=>names.length>1);
@@ -3446,9 +3649,10 @@ function buildSmartProjectIndex(rootId){
 function renderSmartProjectIndex(rootId){
   const data=buildSmartProjectIndex(rootId);
   const jump=(kind,item,label,meta,badge)=>{
-    const ref=item.ref || (item.refs&&item.refs[0]) || null, canJump=!!(ref&&ref.id&&Number.isInteger(ref.sceneIndex)&&ref.sceneIndex>=0);
-    const content=`<span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}${item.notes?' · '+esc(item.notes):''}${item.manual?' · إدخال يدوي':''}</small></span>`;
-    const main=canJump?`<button type="button" class="smart-index-row" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}">${content}</button>`:`<div class="smart-index-row is-static">${content}</div>`;
+    const ref=item.evidenceRef || item.ref || (item.refs&&item.refs[0]) || null, canJump=!!(ref&&ref.id&&Number.isInteger(ref.sceneIndex)&&ref.sceneIndex>=0);
+    const evidence=(kind==='character'||kind==='location')?String(item.evidence||ref?.evidence||'').slice(0,220):'';
+    const content=`<span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}${item.notes?' · '+esc(item.notes):''}${item.manual?' · إدخال يدوي':''}</small>${evidence?`<small class="smart-index-evidence"><b>دليل من النص:</b> «${esc(evidence)}»</small>`:''}</span>`;
+    const main=canJump?`<button type="button" class="smart-index-row" title="اضغطي للانتقال إلى موضع ${evidence?'الدليل':'المشهد'} في النص" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}" data-evidence-kind="${kind}" data-evidence="${esc(evidence)}">${content}</button>`:`<div class="smart-index-row is-static">${content}</div>`;
     return `<div class="smart-index-entry">${main}<div class="smart-index-actions"><button type="button" title="تعديل" aria-label="تعديل ${esc(label)}" data-act="smart-edit" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>✎</button><button type="button" title="إخفاء من الفهرس" aria-label="إخفاء ${esc(label)}" data-act="smart-delete" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>×</button></div></div>`;
   };
   const sceneRows=data.scenes.map(s=>jump('scene',s,s.heading,`${s.ref?.title || 'إدخال يدوي'} · ${s.place || 'الموقع غير واضح'}${s.ie?' · '+s.ie:''}${s.tod?' · '+s.tod:''}${s.characters.length?' · '+s.characters.join('، '):''}`,s.ref?.sceneLabel||s.sceneLabel||'يدوي'));
@@ -3516,7 +3720,8 @@ function renderDashboard(id){
       <div class="dash-cover">${coverBoxHtml(coverModel(doc), doc, { height: 240 })}</div>
       <div class="dash-row">
         <span style="font-size:12px; color:var(--ink-soft);">${esc(typeLabel(doc))}</span>
-        <button class="dash-btn" data-act="cover" data-id="${esc(id)}">🖼️ غلاف</button>
+        <button class="dash-btn" data-act="cover" data-id="${esc(id)}">🖼️ تعديل الغلاف</button>
+        <button class="dash-btn" data-act="cover-download" data-id="${esc(id)}" title="تنزيل الغلاف الحالي أو الافتراضي كصورة PNG">⬇️ تنزيل الغلاف PNG</button>
         <span style="font-size:11px; color:var(--ink-soft);">للتصدير الكامل بالغلاف والفهرس استخدمي «تصدير ومعالجة» بالأعلى.</span>
       </div>
       <div class="dash-stats">
@@ -3542,6 +3747,7 @@ dashboard.addEventListener('click', e => {
   const act = b.dataset.act, cid = b.dataset.id, cont = docs[currentId];
   if(act === 'smart-refresh'){ renderDashboard(currentId); return; }
   if(act === 'smart-report'){ downloadProductionReport(currentId); return; }
+  if(act === 'cover-download'){ exportCoverPng(cid, docs[cid]?.cover || {}); return; }
   if(act === 'smart-add'){
     e.preventDefault();openManualItemEditor({zone:'index',rootId:currentId,kind:b.dataset.kind,action:'add'},null);return;
   }
@@ -3557,6 +3763,7 @@ dashboard.addEventListener('click', e => {
   }
   if(act === 'smart-jump'){
     const targetId=cid, sceneIndex=parseInt(b.dataset.sceneIndex,10);
+    const evidence=String(b.dataset.evidence||'').trim(), evidenceKind=b.dataset.evidenceKind||'';
     if(!targetId || !docs[targetId]) return;
     openDoc(targetId);
     setTimeout(()=>{
@@ -3565,8 +3772,21 @@ dashboard.addEventListener('click', e => {
         const line=(n.innerText || n.textContent || '').split(/\n/).map(x=>x.trim()).find(Boolean) || '';
         return !!line && isStrongSceneHeading(line);
       });
-      const target=targets[sceneIndex];
+      const dialogueSelector='.block-dialogue,.radio-dialogue,.fr-col-dialogue,.dual-text';
+      const characterSelector=dialogueSelector+',.block-char,.radio-char,.fr-col-char,.dual-char';
+      const evidencePool=evidenceKind==='character'?[...editor.querySelectorAll(characterSelector)]:evidenceKind==='location'?[...editor.querySelectorAll(SCENE_SELECTOR+',.fr-col-action')]:[];
+      const target=(evidence && evidencePool.find(n=>String(n.innerText||n.textContent||'').includes(evidence)))||targets[sceneIndex];
       if(!target) return;
+      if(evidence){
+        editor.focus({preventScroll:true});
+        const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT);
+        let textNode,found=false;
+        while((textNode=walker.nextNode())){
+          const at=textNode.nodeValue.indexOf(evidence);
+          if(at>=0){const range=document.createRange();range.setStart(textNode,at);range.collapse(true);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);savedEditorRange=range.cloneRange();found=true;break;}
+        }
+        if(!found){const range=document.createRange();range.selectNodeContents(target);range.collapse(true);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);savedEditorRange=range.cloneRange();}
+      }
       scrollToEl(target); target.classList.add('smart-index-focus');
       setTimeout(()=>target.classList.remove('smart-index-focus'),1800);
     },80);
@@ -3662,10 +3882,11 @@ function refreshCoverPreview(){
   const d = docs[coverTarget] || { title: '' };
   cvPreview.innerHTML = `<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">${coverBoxHtml(coverModel({ cover: readCoverForm() }), d, { height: 170 })}</div>`;
 }
-async function exportCoverPng(){
-  const doc = docs[coverTarget];
+async function exportCoverPng(targetId, coverOverride){
+  const doc = docs[targetId || coverTarget];
   if(!doc) return;
-  const m = coverModel({ title:doc.title, cover:readCoverForm() });
+  const coverData = coverOverride !== undefined ? coverOverride : (targetId ? doc.cover : readCoverForm());
+  const m = coverModel({ title:doc.title, cover:coverData || {} });
   if(m.type === 'image' && !m.image){ alert('اختاري صورة أولاً، أو بدّلي الخلفية إلى لون أو تدرج.'); return; }
   const dims = { book:[1200,1800], a4:[1200,1697], social:[1200,1500], square:[1200,1200], wide:[1600,900] };
   const [width,height] = dims[m.format] || dims.book;
@@ -3916,6 +4137,8 @@ function openDoc(id){
   const doc = id && docs[id];
   if(!doc){
     currentId = null;
+    refreshWriterInfoControls();
+    refreshScenarioFabTools();
     toolbar.style.display = 'none';
     editorScroll.style.display = 'none';
     dashboard.style.display = 'none';
@@ -3925,6 +4148,7 @@ function openDoc(id){
     return;
   }
   currentId = id;
+  refreshWriterInfoControls();
   const cont = isContainer(doc);
   titleInput.value = doc.title || '';
   toolbar.classList.toggle('container-mode', cont);
@@ -3953,6 +4177,7 @@ function openDoc(id){
   mo.takeRecords();
   renderList(); renderTrashBox();
   typingSnapshotPending = true;
+  refreshScenarioFabTools();
   if(window.innerWidth <= 720) sidebar.classList.add('collapsed');
 }
 
@@ -4389,163 +4614,178 @@ function insertImageBlock(src){
   scrollToEl(fig);
   scheduleSave();
 }
-let quoteImageData = '', quoteSelectedText = '', quoteExportUrl = '';
-function quoteCardMarkup(status, quote, attribution, image){
-  const draft = status === 'draft' ? '<span class="quote-draft">مسودة</span>' : '';
-  const img = image ? `<img src="${esc(image)}" alt="">` : '';
-  return `<figure class="quote-image-card" data-quote-status="${status}">${img}${draft}<blockquote>${esc(quote)}</blockquote>${attribution ? `<cite>${esc(attribution)}</cite>` : ''}</figure>`;
-}
-function quoteDesign(){
-  const themes={
-    warm:{a:'#211b19',b:'#7a3b2e',ink:'#ffffff',overlay:.34},
-    night:{a:'#080b16',b:'#292943',ink:'#ffffff',overlay:.30},
-    ocean:{a:'#062d3a',b:'#176b78',ink:'#ffffff',overlay:.30},
-    paper:{a:'#f4ead7',b:'#d7c3a1',ink:'#29231d',overlay:.06},
-    forest:{a:'#102b24',b:'#35614a',ink:'#ffffff',overlay:.30}
-  };
-  const theme=themes[$('qiTheme')?.value||'warm']||themes.warm;
-  const ink=$('qiInk')?.value||'auto';
-  return {theme,ink,format:$('qiFormat')?.value||'square',fontScale:$('qiFontScale')?.value||'normal',signature:$('qiSignature')?.checked!==false};
-}
-function applyQuoteDesign(card){
-  if(!card) return;
-  const d=quoteDesign(), t=d.theme;
-  card.style.background=`linear-gradient(135deg,${t.a},${t.b})`;
-  card.style.color=d.ink==='dark'?'#29231d':d.ink==='gold'?'#f4d58a':d.ink==='light'?'#fff':t.ink;
-  card.style.setProperty('--qi-overlay',`rgba(0,0,0,${t.overlay})`);
-  const ratio={square:'1 / 1',portrait:'4 / 5',story:'9 / 16',landscape:'16 / 9'}[d.format]||'1 / 1';
-  card.style.aspectRatio=ratio; card.style.minHeight='0';
-  card.style.padding=d.format==='story'?'9% 7%':'7%';
-  const q=card.querySelector('blockquote');
-  if(q) q.style.fontSize=d.fontScale==='compact'?'1.15em':d.fontScale==='large'?'1.8em':'1.45em';
-  const sig=card.querySelector('.qi-platform-signature');
-  if(sig) sig.remove();
-  if(d.signature){const stamp=document.createElement('small');stamp.className='qi-platform-signature';stamp.textContent=PLATFORM_SIGNATURE;stamp.style.cssText='position:relative;z-index:1;opacity:.72;font-size:11px;margin-top:8px';card.appendChild(stamp);}
-}
-function refreshQuotePreview(){
-  $('qiPreview').innerHTML = quoteCardMarkup($('qiStatus').value, $('qiText').value || 'حددي نصًا من الملف', $('qiAttribution').value, quoteImageData);
-  applyQuoteDesign($('qiPreview').querySelector('.quote-image-card'));
-}
-function openQuoteImageModal(){
-  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملفاً نصياً أولاً ثم حددي النص المراد تصديره.'); return; }
-  const sel = window.getSelection();
-  quoteSelectedText = sel && sel.rangeCount && editor.contains(sel.anchorNode) ? sel.toString().trim() : '';
-  if(!quoteSelectedText){ alert('حددي جملة أو فقرة من الملف أولاً، ثم اختاري «تصدير اقتباس مصوّر».'); return; }
-  saveCurrentRange();
-  quoteImageData = '';
-  $('qiText').value = quoteSelectedText;
-  $('qiAttribution').value = '';
-  $('qiImage').value = '';
-  if(quoteExportUrl){ URL.revokeObjectURL(quoteExportUrl); quoteExportUrl=''; }
-  $('qiDownloadLink').style.display='none'; $('qiDownloadLink').removeAttribute('href');
-  $('qiExportStatus').textContent='';
-  $('qiStatus').value = 'draft';
-  refreshQuotePreview();
-  showModal($('quoteImageModal'));
-}
-$('quoteImageBtn').addEventListener('click', openQuoteImageModal);
-['qiText','qiAttribution','qiStatus','qiFormat','qiTheme','qiInk','qiFontScale','qiSignature'].forEach(id => { const el=$(id); if(el) el.addEventListener('input', refreshQuotePreview); });
-$('qiImage').addEventListener('change', async e => {
-  const file = e.target.files[0];
-  if(!file) return;
-  try{ quoteImageData = await readImageScaled(file, 1400, true); refreshQuotePreview(); }
-  catch(err){ alert(err.message); } finally { e.target.value = ''; }
-});
-$('qiCancel').addEventListener('click', () => {
-  hideModal($('quoteImageModal'));
-  if(quoteExportUrl){URL.revokeObjectURL(quoteExportUrl);quoteExportUrl='';}
-  $('qiDownloadLink').style.display='none';$('qiDownloadLink').removeAttribute('href');
-});
-function downloadQuotePng(){
-  const quote=$('qiText').value.trim();
-  if(!quote || !quoteSelectedText){ alert('حددي نصًا من الملف الحالي أولاً.'); return; }
-  const formats={square:[1200,1200],portrait:[1200,1500],story:[1080,1920],landscape:[1600,900]};
-  const [width,height]=formats[quoteDesign().format]||formats.square;
-  const design=quoteDesign(), theme=design.theme;
-  const canvas=document.createElement('canvas'); canvas.width=width; canvas.height=height;
-  const ctx=canvas.getContext('2d');
-  if(!ctx){ alert('تعذّر إنشاء صورة الاقتباس في هذا المتصفح.'); return; }
-  const paint=()=>{
-    if(quoteImageData){
-      const img=new Image();
-      img.onload=()=>{const scale=Math.max(width/img.width,height/img.height),sw=width/scale,sh=height/scale;ctx.drawImage(img,(img.width-sw)/2,(img.height-sh)/2,sw,sh,0,0,width,height);paintText();};
-      img.onerror=()=>alert('تعذّر فتح صورة الخلفية.'); img.src=quoteImageData;
-    }else{
-      const g=ctx.createLinearGradient(0,0,width,height);g.addColorStop(0,theme.a);g.addColorStop(1,theme.b);ctx.fillStyle=g;ctx.fillRect(0,0,width,height);paintText();
-    }
-  };
-  const paintText=()=>{
-    ctx.fillStyle=`rgba(0,0,0,${theme.overlay})`;ctx.fillRect(0,0,width,height);
-    const ink=design.ink==='dark'?'#29231d':design.ink==='gold'?'#f4d58a':design.ink==='light'?'#ffffff':theme.ink;
-    const family='Arial, Tahoma, sans-serif';
-    let base=design.format==='story'?64:design.format==='landscape'?58:62;
-    if(design.fontScale==='compact')base*=.82; if(design.fontScale==='large')base*=1.16;
-    const maxWidth=width*.82, maxHeight=height*.58;
-    let fontSize=base, lines=[], lineHeight;
-    const makeLines=()=>{
-      ctx.font=`700 ${fontSize}px ${family}`;lines=[];let line='';
-      const graphemes = value => {
-        try { return [...new Intl.Segmenter('ar', {granularity:'grapheme'}).segment(value)].map(x=>x.segment); }
-        catch(err) { return Array.from(value); }
-      };
-      const pushToken = token => {
-        const candidate = line ? line + ' ' + token : token;
-        if(!line || ctx.measureText(candidate).width <= maxWidth){ line = candidate; return; }
-        lines.push(line); line = '';
-        if(ctx.measureText(token).width <= maxWidth){ line = token; return; }
-        let fragment = '';
-        graphemes(token).forEach(g => {
-          const next = fragment + g;
-          if(fragment && ctx.measureText(next).width > maxWidth){ lines.push(fragment); fragment = g; }
-          else fragment = next;
-        });
-        line = fragment;
-      };
-      quote.split(/\s+/).filter(Boolean).forEach(pushToken);
-      if(line) lines.push(line);
-      lineHeight=fontSize*1.48;
+let shotBaseCanvas=null,shotHistory=[],shotMode='none',shotRendererPromise=null,shotCaptureOverlay=null,shotCropSelection=null;
+const shotStudioModal=$('shotStudioModal'),shotPreviewCanvas=$('shotPreviewCanvas'),shotCanvasFrame=$('shotCanvasFrame'),shotCropRect=$('shotCropRect');
+function loadShotRenderer(){
+  if(window.html2canvas)return Promise.resolve(window.html2canvas);
+  if(shotRendererPromise)return shotRendererPromise;
+  shotRendererPromise=new Promise((resolve,reject)=>{
+    const urls=['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
+    let index=0;
+    const attempt=()=>{
+      if(window.html2canvas){resolve(window.html2canvas);return;}
+      if(index>=urls.length){reject(new Error('تعذّر تحميل أداة الالتقاط. تحقق من الاتصال أو افتح صورة من الجهاز.'));return;}
+      const script=document.createElement('script');script.src=urls[index++];script.async=true;script.crossOrigin='anonymous';
+      const timer=setTimeout(()=>{script.remove();attempt();},12000);
+      script.onload=()=>{clearTimeout(timer);window.html2canvas?resolve(window.html2canvas):attempt();};
+      script.onerror=()=>{clearTimeout(timer);script.remove();attempt();};
+      document.head.appendChild(script);
     };
-    makeLines();
-    const attrForFit = $('qiAttribution').value.trim();
-    const fitsVertically = () => lines.length*lineHeight + (attrForFit ? fontSize*.9+28 : 0) + (design.signature ? Math.max(22,Math.round(width*.022)) : 0) + 18 <= height*.78;
-    while(fontSize>12 && !fitsVertically()){fontSize=Math.max(12,fontSize-2);makeLines();}
-    if(!fitsVertically()){
-      alert('الاقتباس أطول من المساحة المتاحة حتى بعد تصغير الخط. اختصري النص أو اختاري مقاسًا أكبر.');
-      return;
-    }
-    ctx.direction='rtl';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=ink;
-    const attribution=$('qiAttribution').value.trim();
-    const sig=design.signature?Math.max(22,Math.round(width*.022)):0;
-    const attrH=attribution?fontSize*.9+20:0;
-    const blockH=lines.length*lineHeight+attrH+sig+18;
-    let y=Math.max(height*.13,(height-blockH)/2+lineHeight/2);
-    lines.forEach(line=>{ctx.fillText(line,width/2,y,maxWidth);y+=lineHeight;});
-    if(attribution){y+=12;ctx.font=`500 ${Math.max(20,Math.round(fontSize*.48))}px ${family}`;ctx.fillStyle=ink;ctx.fillText(attribution,width/2,y,maxWidth);y+=Math.max(20,Math.round(fontSize*.48))+10;}
-    if($('qiStatus').value==='draft'){
-      const fs=Math.max(20,Math.round(width*.025)),bw=fs*4.3,bh=fs*1.9;ctx.direction='rtl';ctx.font=`700 ${fs}px ${family}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(width-bw-24,24,bw,bh);ctx.fillStyle='#7a3b2e';ctx.fillText('مسودة',width-bw/2-24,24+bh/2);
-    }
-    if(design.signature){ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font=`${Math.max(15,Math.round(width*.014))}px ${family}`;ctx.fillStyle=ink;ctx.globalAlpha=.76;ctx.fillText(PLATFORM_SIGNATURE,width/2,height-Math.max(24,height*.035));ctx.globalAlpha=1;}
-    const state=$('qiStatus').value==='draft'?'مسودة':'جاهز';
-    const fileName=safeFileName((docs[currentId]?.title || 'Varry')+'-اقتباس-'+state)+'.png';
-    const readyLink=$('qiDownloadLink');
-    if(quoteExportUrl){URL.revokeObjectURL(quoteExportUrl);quoteExportUrl='';}
-    readyLink.style.display='none';readyLink.removeAttribute('href');
-    $('qiExportStatus').textContent='جارٍ توليد ملف الصورة…';
-    const saveBlob=blob=>{
-      if(!blob){$('qiExportStatus').textContent='تعذّر إنشاء PNG؛ جرّبي مقاسًا أصغر.';return;}
-      quoteExportUrl=URL.createObjectURL(blob);readyLink.href=quoteExportUrl;readyLink.download=fileName;
-      readyLink.textContent='تنزيل ملف PNG الآن';readyLink.style.display='inline-flex';
-      $('qiExportStatus').textContent=`تم إنشاء صورة ${state} بدقة ${width}×${height}. إذا لم يبدأ التنزيل تلقائيًا، اضغطي رابط التنزيل.`;
-      try{readyLink.click();}catch(err){}
-    };
+    attempt();
+  }).catch(err=>{shotRendererPromise=null;throw err;});
+  return shotRendererPromise;
+}
+function openScreenshotStudio(){
+  $('shotCaptureStatus').textContent='';
+  $('shotEditor').hidden=!shotBaseCanvas;
+  $('shotDownload').disabled=!shotBaseCanvas;
+  if(shotBaseCanvas)renderShotPreview();
+  showModal(shotStudioModal);
+}
+$('screenShotBtn').addEventListener('click',openScreenshotStudio);
+$('screenShotFabBtn').addEventListener('click',openScreenshotStudio);
+function removeShotCaptureOverlay(){
+  if(shotCaptureOverlay){shotCaptureOverlay.remove();shotCaptureOverlay=null;}
+  appLayout.classList.remove('shot-hide-floating-actions');
+  document.body.style.cursor='';
+}
+function cancelShotCapture(){
+  removeShotCaptureOverlay();
+  $('shotCaptureStatus').textContent='تم إلغاء التحديد.';
+  showModal(shotStudioModal);
+}
+function shotCanvasColorFallback(value){
+  return value.replace(/color\(\s*srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)/gi,(_,r,g,b,a)=>{
+    const rr=Math.round(Math.max(0,Math.min(1,+r))*255),gg=Math.round(Math.max(0,Math.min(1,+g))*255),bb=Math.round(Math.max(0,Math.min(1,+b))*255);
+    return a==null?`rgb(${rr}, ${gg}, ${bb})`:`rgba(${rr}, ${gg}, ${bb}, ${Math.max(0,Math.min(1,+a))})`;
+  });
+}
+function sanitizeShotStyles(root){
+  const props=['color','background','background-color','background-image','border','border-color','border-top-color','border-right-color','border-bottom-color','border-left-color','outline','outline-color','box-shadow','text-shadow','text-decoration-color','fill','stroke','caret-color','accent-color'];
+  const saved=[];
+  [root,...root.querySelectorAll('*')].forEach(el=>{
+    const computed=getComputedStyle(el);
+    props.forEach(prop=>{const value=computed.getPropertyValue(prop);if(!value||!value.includes('color(srgb'))return;const old=el.style.getPropertyValue(prop),priority=el.style.getPropertyPriority(prop);saved.push([el,prop,old,priority]);el.style.setProperty(prop,shotCanvasColorFallback(value),'important');});
+  });
+  return ()=>saved.forEach(([el,prop,old,priority])=>{if(old)el.style.setProperty(prop,old,priority);else el.style.removeProperty(prop);});
+}
+async function beginShotCapture(){
+  $('shotCaptureStatus').textContent='جارٍ تجهيز الالتقاط…';
+  $('shotStartCapture').disabled=true;
+  try{await loadShotRenderer();}
+  catch(err){$('shotCaptureStatus').textContent=err.message;$('shotStartCapture').disabled=false;return;}
+  $('shotStartCapture').disabled=false;
+  hideModal(shotStudioModal);
+  const overlay=document.createElement('div');overlay.className='shot-capture-overlay';overlay.id='varryShotCaptureOverlay';
+  overlay.innerHTML='<div class="shot-capture-hint"><span>اسحب لتحديد أي منطقة من واجهة التطبيق، ثم اترك المؤشر</span><button type="button" class="shot-toggle-floating" aria-pressed="false">⊖ طي الأزرار العائمة</button><button type="button" class="shot-capture-cancel">إلغاء</button></div><div class="shot-selection-rect" style="position:absolute;border:2px dashed #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.38);pointer-events:none;display:none;"></div>';
+  document.body.appendChild(overlay);shotCaptureOverlay=overlay;document.body.style.cursor='crosshair';
+  const rect=overlay.querySelector('.shot-selection-rect');let start=null,last=null;
+  const point=e=>({x:e.clientX,y:e.clientY});
+  const draw=(a,b)=>{const l=Math.min(a.x,b.x),t=Math.min(a.y,b.y),w=Math.abs(a.x-b.x),h=Math.abs(a.y-b.y);rect.style.display='block';rect.style.left=l+'px';rect.style.top=t+'px';rect.style.width=w+'px';rect.style.height=h+'px';};
+  const finish=async e=>{
+    if(!start)return;last=point(e);draw(start,last);const a=start,b=last;start=null;
+    const left=Math.min(a.x,b.x),top=Math.min(a.y,b.y),right=Math.max(a.x,b.x),bottom=Math.max(a.y,b.y);
+    const app=document.getElementById('app'),bounds=app.getBoundingClientRect();
+    const x1=Math.max(left,bounds.left),y1=Math.max(top,bounds.top),x2=Math.min(right,bounds.right),y2=Math.min(bottom,bounds.bottom);
+    const keepFloatingHidden=appLayout.classList.contains('shot-hide-floating-actions');
+    removeShotCaptureOverlay();
+    if(keepFloatingHidden)appLayout.classList.add('shot-hide-floating-actions');
+    if(x2-x1<24||y2-y1<24){appLayout.classList.remove('shot-hide-floating-actions');$('shotCaptureStatus').textContent='المساحة المحددة صغيرة جداً أو خارج واجهة التطبيق. جرّب تحديد مساحة أكبر.';showModal(shotStudioModal);return;}
+    $('shotCaptureStatus').textContent='جارٍ التقاط المنطقة المحددة…';
     try{
-      if(canvas.toBlob) canvas.toBlob(saveBlob,'image/png');
-      else {const raw=canvas.toDataURL('image/png');fetch(raw).then(r=>r.blob()).then(saveBlob).catch(()=>saveBlob(null));}
-    }catch(err){alert('تعذّر تصدير الصورة. جرّبي صورة خلفية أخرى أو أزيليها ثم أعيدي المحاولة.');}
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      const scale=Math.min(2,Math.max(1,window.devicePixelRatio||1));
+      let rendered;const restoreColors=sanitizeShotStyles(app);
+      try{rendered=await window.html2canvas(app,{scale,backgroundColor:null,useCORS:true,logging:false,windowWidth:Math.max(1,window.innerWidth),windowHeight:Math.max(1,window.innerHeight),ignoreElements:el=>el.id==='varryShotCaptureOverlay'});}
+      finally{restoreColors();}
+      const rx=rendered.width/Math.max(1,bounds.width),ry=rendered.height/Math.max(1,bounds.height);
+      const sx=Math.max(0,Math.round((x1-bounds.left)*rx)),sy=Math.max(0,Math.round((y1-bounds.top)*ry));
+      const sw=Math.min(rendered.width-sx,Math.round((x2-x1)*rx)),sh=Math.min(rendered.height-sy,Math.round((y2-y1)*ry));
+      if(sw<1||sh<1)throw new Error('تعذّر إنشاء مساحة الصورة. أعد تحديد منطقة داخل التطبيق.');
+      const cropped=document.createElement('canvas');cropped.width=sw;cropped.height=sh;cropped.getContext('2d').drawImage(rendered,sx,sy,sw,sh,0,0,sw,sh);
+      setShotImage(cropped,'تم التقاط المنطقة. يمكن الآن قصها أو الرسم عليها أو إضافة نص.');
+    }catch(err){$('shotCaptureStatus').textContent=err.message||'تعذّر التقاط المنطقة. يمكن فتح لقطة جاهزة من الجهاز.';showModal(shotStudioModal);}
+    finally{appLayout.classList.remove('shot-hide-floating-actions');}
   };
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(paint);else paint();
+  overlay.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;e.preventDefault();start=point(e);last=start;overlay.setPointerCapture?.(e.pointerId);draw(start,last);});
+  overlay.addEventListener('pointermove',e=>{if(start){e.preventDefault();last=point(e);draw(start,last);}});
+  overlay.addEventListener('pointerup',finish);
+  overlay.addEventListener('pointercancel',()=>{if(start)cancelShotCapture();});
+  overlay.querySelector('.shot-toggle-floating').addEventListener('click',e=>{e.stopPropagation();const hide=!appLayout.classList.contains('shot-hide-floating-actions');appLayout.classList.toggle('shot-hide-floating-actions',hide);e.currentTarget.setAttribute('aria-pressed',String(hide));e.currentTarget.textContent=hide?'⊕ إظهار الأزرار العائمة':'⊖ طي الأزرار العائمة';});
+  overlay.querySelector('.shot-capture-cancel').addEventListener('click',e=>{e.stopPropagation();cancelShotCapture();});
 }
-$('qiExport').addEventListener('click', downloadQuotePng);
+$('shotStartCapture').addEventListener('click',beginShotCapture);
+function setShotImage(sourceCanvas,message){
+  shotBaseCanvas=document.createElement('canvas');shotBaseCanvas.width=sourceCanvas.width;shotBaseCanvas.height=sourceCanvas.height;
+  shotBaseCanvas.getContext('2d').drawImage(sourceCanvas,0,0);shotHistory=[];shotMode='none';shotCropSelection=null;
+  $('shotEditor').hidden=false;$('shotDownload').disabled=false;$('shotApplyCrop').disabled=true;$('shotUndo').disabled=true;$('shotCropRect').style.display='none';
+  $('shotEditStatus').textContent=message||'';renderShotPreview();showModal(shotStudioModal);
+}
+$('shotUploadBtn').addEventListener('click',()=>$('shotUploadInput').click());
+$('shotUploadInput').addEventListener('change',e=>{
+  const file=e.target.files&&e.target.files[0];e.target.value='';if(!file)return;
+  const url=URL.createObjectURL(file),img=new Image();
+  img.onload=()=>{URL.revokeObjectURL(url);const scale=Math.min(1,2600/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);setShotImage(c,'تم فتح الصورة محلياً للتحرير.');};
+  img.onerror=()=>{URL.revokeObjectURL(url);$('shotCaptureStatus').textContent='تعذّر فتح الصورة المحددة.';};img.src=url;
+});
+function saveShotHistory(){if(!shotBaseCanvas)return;try{shotHistory.push(shotBaseCanvas.toDataURL('image/png'));if(shotHistory.length>8)shotHistory.shift();$('shotUndo').disabled=shotHistory.length===0;}catch(e){}}
+function restoreShotHistory(){
+  const data=shotHistory.pop();if(!data)return;const img=new Image();img.onload=()=>{shotBaseCanvas.width=img.width;shotBaseCanvas.height=img.height;shotBaseCanvas.getContext('2d').drawImage(img,0,0);$('shotUndo').disabled=shotHistory.length===0;shotMode='none';renderShotPreview();};img.src=data;
+}
+$('shotUndo').addEventListener('click',restoreShotHistory);
+function shotWrap(ctx,text,maxWidth){
+  const out=[];String(text||'').split(/\n/).forEach(part=>{let line='';part.split(/\s+/).filter(Boolean).forEach(word=>{const next=line?line+' '+word:word;if(line&&ctx.measureText(next).width>maxWidth){out.push(line);line=word;}else line=next;});if(line)out.push(line);});return out;
+}
+function paintShotLabel(ctx,text,position,color,size,offset=0){
+  if(!text)return;const w=shotBaseCanvas.width,h=shotBaseCanvas.height,margin=Math.max(14,Math.round(Math.min(w,h)*.035)),font=Math.max(12,Math.round(size*w/900));
+  ctx.save();ctx.font=`700 ${font}px Tahoma,Arial,sans-serif`;ctx.direction='rtl';const maxWidth=w-margin*2-20,lines=shotWrap(ctx,text,maxWidth),lineH=font*1.35,textW=Math.min(maxWidth,Math.max(...lines.map(line=>ctx.measureText(line).width),0)),boxW=Math.min(w-margin*2,textW+24),boxH=lines.length*lineH+18;
+  let x=margin,y=h-margin-boxH-offset,align='right';
+  if(position==='top-right'){y=margin+offset;x=w-margin-boxW;align='right';}
+  else if(position==='top-left'){y=margin+offset;x=margin;align='left';}
+  else if(position==='bottom-left'){x=margin;align='left';}
+  else if(position==='center'){x=(w-boxW)/2;y=(h-boxH)/2+offset;align='center';}
+  else {x=w-margin-boxW;align='right';}
+  ctx.fillStyle='rgba(16,15,15,.72)';if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,y,boxW,boxH,Math.max(5,font*.22));ctx.fill();}else ctx.fillRect(x,y,boxW,boxH);
+  ctx.fillStyle=color;ctx.textBaseline='middle';ctx.textAlign=align;const tx=align==='right'?x+boxW-12:align==='left'?x+12:x+boxW/2;
+  lines.forEach((line,i)=>ctx.fillText(line,tx,y+9+lineH*(i+.5),maxWidth));ctx.restore();
+}
+function renderShotPreview(){
+  if(!shotBaseCanvas||!shotPreviewCanvas)return;
+  shotPreviewCanvas.width=shotBaseCanvas.width;shotPreviewCanvas.height=shotBaseCanvas.height;const ctx=shotPreviewCanvas.getContext('2d');ctx.drawImage(shotBaseCanvas,0,0);
+  const pos=$('shotOverlayPosition').value,color=$('shotTextColor').value,size=Number($('shotTextSize').value)||30;
+  const stamp=$('shotStampEnabled').checked?$('shotStampText').value.trim():'';
+  if(stamp)paintShotLabel(ctx,stamp,pos,color,Math.max(15,size*.68),0);
+  const note=$('shotOverlayText').value.trim();if(note)paintShotLabel(ctx,note,pos,color,size,stamp?size*3:0);
+}
+['shotStampEnabled','shotStampText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
+function getShotPoint(e){const r=shotPreviewCanvas.getBoundingClientRect();return{x:Math.max(0,Math.min(shotBaseCanvas.width,(e.clientX-r.left)*shotBaseCanvas.width/Math.max(1,r.width))),y:Math.max(0,Math.min(shotBaseCanvas.height,(e.clientY-r.top)*shotBaseCanvas.height/Math.max(1,r.height))),sx:e.clientX,sy:e.clientY};}
+$('shotCropMode').addEventListener('click',()=>{shotMode='crop';shotCropSelection=null;$('shotApplyCrop').disabled=true;$('shotCropRect').style.display='none';$('shotEditStatus').textContent='اسحب على الصورة لتحديد الجزء المراد الاحتفاظ به، ثم اضغط «تنفيذ القص».';});
+$('shotApplyCrop').addEventListener('click',()=>{
+  if(!shotCropSelection||shotCropSelection.w<4||shotCropSelection.h<4)return;saveShotHistory();const s=shotCropSelection,c=document.createElement('canvas');c.width=Math.round(s.w);c.height=Math.round(s.h);c.getContext('2d').drawImage(shotBaseCanvas,Math.round(s.x),Math.round(s.y),c.width,c.height,0,0,c.width,c.height);shotBaseCanvas=c;shotMode='none';shotCropSelection=null;$('shotCropRect').style.display='none';$('shotApplyCrop').disabled=true;$('shotEditStatus').textContent='تم قص الصورة.';renderShotPreview();
+});
+$('shotBrushMode').addEventListener('click',()=>{shotMode=shotMode==='draw'?'none':'draw';$('shotEditStatus').textContent=shotMode==='draw'?'اسحب على الصورة للرسم؛ يمكن تغيير اللون والسماكة أدناه.':'تم إيقاف الرسم.';});
+shotCanvasFrame.addEventListener('pointerdown',e=>{
+  if(!shotBaseCanvas||!['crop','draw'].includes(shotMode)||!shotPreviewCanvas.contains(e.target))return;e.preventDefault();shotCanvasFrame.setPointerCapture?.(e.pointerId);const p=getShotPoint(e);
+  if(shotMode==='crop'){shotCropSelection={x:p.x,y:p.y,w:0,h:0,ax:p.x,ay:p.y,sx:p.sx,sy:p.sy};shotCropRect.style.display='block';shotCropRect.style.left=(p.sx-shotCanvasFrame.getBoundingClientRect().left+shotCanvasFrame.scrollLeft)+'px';shotCropRect.style.top=(p.sy-shotCanvasFrame.getBoundingClientRect().top+shotCanvasFrame.scrollTop)+'px';shotCropRect.style.width='0px';shotCropRect.style.height='0px';}
+  else{saveShotHistory();const ctx=shotBaseCanvas.getContext('2d'),r=shotPreviewCanvas.getBoundingClientRect(),scale=shotBaseCanvas.width/Math.max(1,r.width);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.strokeStyle=$('shotBrushColor').value;ctx.lineWidth=(Number($('shotBrushSize').value)||7)*scale;ctx.lineCap='round';ctx.lineJoin='round';ctx.globalCompositeOperation='source-over';shotBrushPointer=true;}
+});
+let shotBrushPointer=false;
+shotCanvasFrame.addEventListener('pointermove',e=>{
+  if(!shotBaseCanvas)return;const p=getShotPoint(e);
+  if(shotMode==='crop'&&shotCropSelection){const s=shotCropSelection;s.x=Math.min(s.ax,p.x);s.y=Math.min(s.ay,p.y);s.w=Math.abs(p.x-s.ax);s.h=Math.abs(p.y-s.ay);const fr=shotCanvasFrame.getBoundingClientRect();shotCropRect.style.left=(Math.min(s.sx,e.clientX)-fr.left+shotCanvasFrame.scrollLeft)+'px';shotCropRect.style.top=(Math.min(s.sy,e.clientY)-fr.top+shotCanvasFrame.scrollTop)+'px';shotCropRect.style.width=Math.abs(e.clientX-s.sx)+'px';shotCropRect.style.height=Math.abs(e.clientY-s.sy)+'px';}
+  else if(shotMode==='draw'&&shotBrushPointer){const ctx=shotBaseCanvas.getContext('2d');ctx.lineTo(p.x,p.y);ctx.stroke();renderShotPreview();}
+});
+function endShotPointer(){if(shotMode==='crop'&&shotCropSelection){$('shotApplyCrop').disabled=shotCropSelection.w<4||shotCropSelection.h<4;}shotBrushPointer=false;}
+shotCanvasFrame.addEventListener('pointerup',endShotPointer);shotCanvasFrame.addEventListener('pointercancel',endShotPointer);
+shotCanvasFrame.addEventListener('contextmenu',e=>e.preventDefault());
+$('shotDownload').addEventListener('click',()=>{
+  if(!shotBaseCanvas)return;renderShotPreview();$('shotEditStatus').textContent='جارٍ تجهيز ملف PNG…';
+  shotPreviewCanvas.toBlob(blob=>{if(!blob){$('shotEditStatus').textContent='تعذّر إنشاء PNG؛ جرّب صورة أصغر.';return;}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=safeFileName((docs[currentId]?.title||'Varry-Studio')+'-مسودة-لقطة-شاشة')+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);$('shotEditStatus').textContent=`تم تجهيز PNG (${shotPreviewCanvas.width}×${shotPreviewCanvas.height}) وتنزيله.`;},'image/png');
+});
+$('shotCancel').addEventListener('click',()=>hideModal(shotStudioModal));
+$('shotRecapture').addEventListener('click',beginShotCapture);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&shotCaptureOverlay)cancelShotCapture();},true);
+
 imageInsertInput.addEventListener('change', async e => {
   const f = e.target.files[0];
   e.target.value = '';
@@ -4766,6 +5006,79 @@ scrollTopFab.addEventListener('click', () => editorScroll.scrollTo({ top: 0, beh
 
 /* ===== زر التنقل العائم ===== */
 const navFabWrap = $('navFabWrap');
+const scenarioFabBtn=$('scenarioFabBtn'),scenarioFabPanel=$('scenarioFabPanel');
+const FLOATING_ACTIONS_KEY='varry:floatingActionsCollapsed',floatingControlsToggle=$('floatingControlsToggle');
+let floatingActionsCollapsed=false;
+try{floatingActionsCollapsed=localStorage.getItem(FLOATING_ACTIONS_KEY)==='true';}catch(e){}
+function syncFloatingControls(){
+  appLayout.classList.toggle('floating-controls-collapsed',floatingActionsCollapsed);
+  if(floatingControlsToggle){floatingControlsToggle.textContent=floatingActionsCollapsed?'⊕':'⊖';floatingControlsToggle.title=floatingActionsCollapsed?'إظهار الأزرار العائمة':'طي الأزرار العائمة';floatingControlsToggle.setAttribute('aria-label',floatingControlsToggle.title);floatingControlsToggle.setAttribute('aria-expanded',String(!floatingActionsCollapsed));}
+  const item=$('navFabMenu')?.querySelector('[data-nav="floating"]');if(item)item.textContent=floatingActionsCollapsed?'⊕ إظهار الأزرار العائمة':'⊖ طي الأزرار العائمة';
+}
+function setFloatingActionsCollapsed(value){
+  floatingActionsCollapsed=!!value;navFabWrap.classList.remove('open');scenarioFabPanel?.classList.remove('open');scenarioFabBtn?.setAttribute('aria-expanded','false');
+  try{localStorage.setItem(FLOATING_ACTIONS_KEY,String(floatingActionsCollapsed));}catch(e){}
+  syncFloatingControls();
+}
+syncFloatingControls();
+floatingControlsToggle.addEventListener('click',()=>setFloatingActionsCollapsed(!floatingActionsCollapsed));
+let scenarioFabSources=[];
+function syncScenarioFabQuickState(){
+  if(!scenarioFabPanel)return;
+  scenarioFabPanel.querySelectorAll('.scenario-fab-quick [data-scenario-fab-index]').forEach(clone=>{
+    const source=scenarioFabSources[Number(clone.dataset.scenarioFabIndex)];if(!source)return;
+    clone.disabled=source.disabled;clone.title=source.title||'';
+    const aria=source.getAttribute('aria-label');if(aria)clone.setAttribute('aria-label',aria);else clone.removeAttribute('aria-label');
+    if(clone.innerHTML!==source.innerHTML)clone.innerHTML=source.innerHTML;
+  });
+}
+const scenarioHistoryObserver=new MutationObserver(syncScenarioFabQuickState);
+[$('undoBtn'),$('redoBtn')].filter(Boolean).forEach(button=>scenarioHistoryObserver.observe(button,{attributes:true,childList:true,characterData:true,subtree:true}));
+function refreshScenarioFabTools(){
+  if(!scenarioFabBtn || !scenarioFabPanel) return;
+  const doc=currentId && docs[currentId], type=doc && doc.docType;
+  const supported=['screenplay_us','screenplay_fr','theatre','yt','radio','docu_script'];
+  const groupId=doc && TYPE_GROUP[type];
+  const sourceGroup=groupId && $(groupId);
+  scenarioFabSources=[];
+  scenarioFabPanel.replaceChildren();
+  scenarioFabPanel.classList.remove('open');
+  scenarioFabBtn.setAttribute('aria-expanded','false');
+  if(!doc || isContainer(doc) || !supported.includes(type) || !sourceGroup){
+    scenarioFabBtn.classList.remove('available');
+    return;
+  }
+  const heading=document.createElement('strong');
+  heading.textContent=`أدوات ${type==='screenplay_us'?'السيناريو الأمريكي':type==='screenplay_fr'?'السيناريو الفرنسي':type==='theatre'?'المسرح':type==='yt'?'الفيديو ويوتيوب':type==='radio'?'السيناريو الإذاعي':'السيناريو الوثائقي'}`;
+  heading.style.cssText='font-size:11px;color:var(--accent);padding:2px 6px 5px;';
+  const quick=document.createElement('div');quick.className='scenario-fab-quick';
+  const addSource=(original,parent)=>{
+    if(!original)return;
+    const clone=original.cloneNode(true),index=scenarioFabSources.length;
+    clone.removeAttribute('id');clone.classList.add('scenario-fab-tool');clone.dataset.scenarioFabIndex=String(index);clone.setAttribute('type','button');
+    scenarioFabSources.push(original);parent.appendChild(clone);
+  };
+  addSource($('undoBtn'),quick);addSource($('redoBtn'),quick);
+  if(scenarioFabSources.length)scenarioFabPanel.appendChild(quick);
+  scenarioFabPanel.appendChild(heading);
+  const originals=[...sourceGroup.children].flatMap(child=>child.matches('button')?[child]:child.matches('.style-palette-wrap')?[...child.querySelectorAll(':scope > button')]:[]).filter(button=>!button.disabled);
+  originals.forEach(original=>addSource(original,scenarioFabPanel));
+  syncScenarioFabQuickState();
+  scenarioFabBtn.classList.toggle('available',scenarioFabSources.length>0);
+}
+scenarioFabBtn?.addEventListener('click',e=>{
+  e.stopPropagation();
+  syncScenarioFabQuickState();
+  scenarioFabPanel.classList.toggle('open');
+  scenarioFabBtn.setAttribute('aria-expanded',String(scenarioFabPanel.classList.contains('open')));
+});
+scenarioFabPanel?.addEventListener('mousedown',e=>{if(e.target.closest('button'))e.preventDefault();});
+scenarioFabPanel?.addEventListener('click',e=>{
+  const button=e.target.closest('[data-scenario-fab-index]');
+  if(!button)return;
+  const source=scenarioFabSources[Number(button.dataset.scenarioFabIndex)];
+  if(source && source.isConnected){source.click();scenarioFabPanel.classList.remove('open');scenarioFabBtn.setAttribute('aria-expanded','false');}
+});
 function persistUILayout(){try{uiLayoutPref.toolsCollapsed=appLayout.classList.contains('tools-collapsed');uiLayoutPref.writingFocus=appLayout.classList.contains('writing-focus');localStorage.setItem(UI_LAYOUT_KEY,JSON.stringify(uiLayoutPref));}catch(e){}}
 function syncUILayoutControls(){
   const toolsCollapsed=appLayout.classList.contains('tools-collapsed'),focus=appLayout.classList.contains('writing-focus');
@@ -4777,6 +5090,7 @@ function syncUILayoutControls(){
   const toolsItem=menu?.querySelector('[data-nav="tools"]'),focusItem=menu?.querySelector('[data-nav="focus"]');
   if(toolsItem)toolsItem.textContent=focus?'🛠️ إظهار الأدوات والخروج من التركيز':toolsCollapsed?'🛠️ إظهار أدوات الكتابة':'🛠️ طي أدوات الكتابة';
   if(focusItem)focusItem.textContent=focus?'↩ إنهاء مساحة الكتابة':'✍️ مساحة الكتابة (إخفاء القوائم)';
+  syncFloatingControls();
 }
 function setToolsCollapsed(value){appLayout.classList.toggle('tools-collapsed',!!value);persistUILayout();syncUILayoutControls();}
 function setWritingFocus(value){appLayout.classList.toggle('writing-focus',!!value);persistUILayout();syncUILayoutControls();}
@@ -4784,7 +5098,7 @@ syncUILayoutControls();
 $('toggleWritingTools').addEventListener('click',()=>setToolsCollapsed(!appLayout.classList.contains('tools-collapsed')));
 $('writingFocusBtn').addEventListener('click',()=>setWritingFocus(!appLayout.classList.contains('writing-focus')));
 $('navFabBtn').addEventListener('click', e => { e.stopPropagation(); navFabWrap.classList.toggle('open'); });
-document.addEventListener('click', e => { if(!e.target.closest('#navFabWrap')) navFabWrap.classList.remove('open'); });
+document.addEventListener('click', e => { if(!e.target.closest('#navFabWrap')) navFabWrap.classList.remove('open'); if(!e.target.closest('#scenarioFabPanel,#scenarioFabBtn')){scenarioFabPanel?.classList.remove('open');scenarioFabBtn?.setAttribute('aria-expanded','false');} });
 $('navFabMenu').addEventListener('click', e => {
   const b = e.target.closest('[data-nav]');
   if(!b) return;
@@ -4806,6 +5120,9 @@ $('navFabMenu').addEventListener('click', e => {
     else alert('افتحي ملفاً (غير حاوية) أولاً.');
   }
   else if(act === 'catalog') showModal(catalogModal);
+  else if(act === 'tour') openGeneralTour();
+  else if(act === 'floating') setFloatingActionsCollapsed(!floatingActionsCollapsed);
+  else if(act === 'screenshot') openScreenshotStudio();
   else if(act === 'top'){
     if(editorScroll.style.display !== 'none') editorScroll.scrollTo({ top:0, behavior:'smooth' });
     else dashboard.scrollTo({ top:0, behavior:'smooth' });
@@ -4835,7 +5152,47 @@ function closeMenus(except){
 $('newDocBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('newDropdown'); newDropdown.classList.toggle('open'); });
 $('exportMainBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('exportDropdown'); exportDropdown.classList.toggle('open'); });
 $('importBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('importDropdown'); importDropdown.classList.toggle('open'); });
-document.addEventListener('click', () => closeMenus());
+document.addEventListener('click', e => { if(e.target.closest('.export-author-config')) return; closeMenus(); });
+
+let writerInfoModalDocId = null;
+function refreshWriterInfoControls(){
+  const toggle=$('includeWriterInfoInExport'), edit=$('editWriterInfoBtn');
+  if(!toggle || !edit) return;
+  const doc=currentId && docs[currentId];
+  toggle.checked=!!(doc && doc.includeWriterInfo);
+  toggle.disabled=!doc;
+  edit.disabled=!doc;
+  edit.style.opacity=doc?'1':'.5';
+}
+$('includeWriterInfoInExport').addEventListener('change', e => {
+  const doc=currentId && docs[currentId];
+  if(!doc){ e.target.checked=false; return; }
+  if(!isContainer(doc)) flushEditorToDoc();
+  doc.includeWriterInfo=e.target.checked;
+  persist();
+  if(pvRoot===currentId) refreshPreview();
+});
+$('editWriterInfoBtn').addEventListener('click', () => {
+  const doc=currentId && docs[currentId];
+  if(!doc){ alert('افتحي ملفاً أو مشروعاً أولاً.'); return; }
+  writerInfoModalDocId=currentId;
+  const info=doc.writerInfo||{};
+  $('writerInfoName').value=info.name||'';
+  $('writerInfoBio').value=info.bio||'';
+  $('writerInfoContact').value=info.contact||'';
+  showModal($('writerInfoModal'));
+});
+$('writerInfoCancel').addEventListener('click', () => hideModal($('writerInfoModal')));
+$('writerInfoSave').addEventListener('click', () => {
+  const doc=writerInfoModalDocId && docs[writerInfoModalDocId];
+  if(!doc){ alert('لم يعد الملف المحدد متاحاً. افتحيه مجدداً ثم أعيدي إدخال البيانات.'); hideModal($('writerInfoModal')); return; }
+  if(writerInfoModalDocId===currentId && !isContainer(doc)) flushEditorToDoc();
+  doc.writerInfo={name:$('writerInfoName').value.trim(),bio:$('writerInfoBio').value.trim(),contact:$('writerInfoContact').value.trim()};
+  persist();
+  refreshWriterInfoControls();
+  hideModal($('writerInfoModal'));
+  if(pvRoot===writerInfoModalDocId) refreshPreview();
+});
 
 newDropdown.querySelectorAll('button[data-type]').forEach(b => b.addEventListener('click', () => { newDropdown.classList.remove('open'); newDoc(b.dataset.type); }));
 $('templateList').addEventListener('click', e => {
@@ -4883,6 +5240,9 @@ function refreshSelectionVisuals(){
     const selectedKids = kids.filter(cid => selectedDocIds.has(cid)).length;
     cb.indeterminate = !cb.checked && selectedKids > 0;
   });
+  const count=selectedTopLevelIds().length,copyBtn=$('copySelectedBtn'),duplicateBtn=$('duplicateDocBtn');
+  if(copyBtn){copyBtn.textContent=count?`📋 نسخ (${count})`:'📋 نسخ المحدد';copyBtn.title=count?`نسخ ${count} عنصر محدد إلى الحافظة`:'نسخ العنصر أو العناصر المحددة إلى الحافظة';}
+  if(duplicateBtn){duplicateBtn.textContent=count?`📑 تكرار (${count})`:'📑 تكرار المحدد';duplicateBtn.title=count?`إنشاء نسخة مستقلة من ${count} عنصر محدد`:'تكرار العناصر المحددة فقط؛ لا يكرر المجلد المفتوح تلقائياً';}
 }
 docList.addEventListener('change', e => {
   const cb = e.target.closest('.doc-checkbox');
@@ -4893,6 +5253,7 @@ docList.addEventListener('change', e => {
   if(isContainer(d)){
     descendantsOf(id, []).forEach(cid => { if(cb.checked) selectedDocIds.add(cid); else selectedDocIds.delete(cid); });
   }
+  if(cb.checked&&copiedDocIds.some(cid=>docs[cid])&&isContainer(d)&&!copiedDocIds.some(src=>src===id||descendantsOf(src,[]).includes(id))) $('pasteTargetSelect').value=id;
   syncAncestorCheckboxes(id);
   renderList();
 });
@@ -4909,7 +5270,8 @@ $('batchDelBtn').addEventListener('click', () => {
 });
 $('moveUpBtn').addEventListener('click', () => moveCurrent(-1));
 $('moveDownBtn').addEventListener('click', () => moveCurrent(1));
-$('duplicateDocBtn').addEventListener('click', duplicateCurrent);
+$('copySelectedBtn').addEventListener('click', copySelectedDocs);
+$('duplicateDocBtn').addEventListener('click', duplicateSelectedDocs);
 
 
 /* =====================================================================
@@ -5426,6 +5788,42 @@ function sigLine(){
   const sig = (showAuthorSig && SIG_IMG) ? `<img src="${esc(SIG_IMG)}" alt="" style="height:34px;vertical-align:middle;"> ` : (showAuthorSig ? esc(AUTHOR_NAME) + ' — ' : '');
   return `<p style="text-align:center;color:#777;font-size:11px;margin-top:24px;">${sig}${esc(PLATFORM_SIGNATURE)}</p>`;
 }
+function authorContactRowsHtml(){
+  return Object.values(AUTHOR_CONTACTS).map(c => `<p style="margin:5px 0;"><b>${esc(c.label)}:</b> ${c.href ? `<a href="${esc(c.href)}" target="_blank" rel="noopener noreferrer">${esc(c.display)}</a>` : esc(c.display)}</p>`).join('');
+}
+function getWriterInfo(rootId){
+  const doc=docs[rootId]||{}, info=doc.writerInfo||{};
+  return { enabled:!!doc.includeWriterInfo, name:String(info.name||'').trim(), bio:String(info.bio||'').trim(), contact:String(info.contact||'').trim() };
+}
+function writerInfoHtml(rootId){
+  const w=getWriterInfo(rootId);
+  if(!w.enabled || !(w.name||w.bio||w.contact)) return '';
+  const contacts=w.contact.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(line=>{
+    const safe=esc(line).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    return `<p style="margin:5px 0;">${safe}</p>`;
+  }).join('');
+  return `<section class="varry-work-author" style="page-break-before:always;break-before:page;padding:26px 12px;color:#2b2620;"><h2 style="color:#7a3b2e;text-align:center;">كاتب / كاتبة العمل</h2><div style="max-width:620px;margin:18px auto;line-height:1.9;">${w.name?`<h3 style="text-align:center;">${esc(w.name)}</h3>`:''}${w.bio?`<p style="white-space:pre-wrap;">${esc(w.bio)}</p>`:''}${contacts?`<div style="margin-top:12px;"><b>للتواصل:</b>${contacts}</div>`:''}</div></section>`;
+}
+function writerInfoText(rootId){
+  const w=getWriterInfo(rootId);
+  if(!w.enabled || !(w.name||w.bio||w.contact)) return '';
+  return `\n\n=== كاتب / كاتبة العمل ===\n${w.name?`الاسم: ${w.name}\n`:''}${w.bio?`النبذة: ${w.bio}\n`:''}${w.contact?`للتواصل:\n${w.contact}\n`:''}`;
+}
+function writerInfoSlideHtml(rootId){
+  const w=getWriterInfo(rootId);
+  if(!w.enabled || !(w.name||w.bio||w.contact)) return '';
+  const contactHtml=w.contact.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join('');
+  return `<section class="s section signature"><h2>كاتب / كاتبة العمل</h2>${w.name?`<h3>${esc(w.name)}</h3>`:''}${w.bio?`<p style="white-space:pre-wrap;">${esc(w.bio)}</p>`:''}${contactHtml?`<div><b>للتواصل:</b>${contactHtml}</div>`:''}</section>`;
+}
+function authorContactHtml(){
+  return `<section class="varry-author-contact" style="page-break-before:always;break-before:page;padding:26px 12px;color:#2b2620;"><h2 style="color:#7a3b2e;text-align:center;">للتواصل مع مصممة المشروع هبة «Varry»</h2><div style="max-width:620px;margin:18px auto;line-height:1.9;">${authorContactRowsHtml()}</div></section>`;
+}
+function authorContactText(){
+  return '\n\n=== للتواصل مع مصممة المشروع هبة «Varry» ===\n' + Object.values(AUTHOR_CONTACTS).map(c => `${c.label}: ${c.href && !c.href.startsWith('mailto:') ? c.href : c.display}`).join('\n') + '\n';
+}
+function authorContactSlideHtml(){
+  return `<section class="s section signature"><h2>للتواصل مع مصممة المشروع هبة «Varry»</h2><div style="line-height:1.9;">${authorContactRowsHtml()}</div></section>`;
+}
 function coverPageHtml(doc){
   const m = coverModel(doc);
   return `<div style="page-break-after:always;padding:50px 6px;color:#222;">${coverBoxHtml(m, doc, { height:560 })}<p style="text-align:center;color:#777;font-size:12px;margin-top:20px;">${esc(PLATFORM_SIGNATURE)}</p></div>`;
@@ -5468,6 +5866,8 @@ function buildExport(rootId, opts){
     body += `<section data-export-doc-id="${esc(ids[i])}" style="${i > 0 ? 'page-break-before:always;' : ''}"><${headingTag} data-preview-title-id="${esc(ids[i])}" ${o.editablePreview ? 'contenteditable="true"' : ''} style="color:#7a3b2e;">${esc(d.title)}</${headingTag}>${content}</section>`;
   });
   if(o.sig) body += sigLine();
+  body += writerInfoHtml(rootId);
+  body += authorContactHtml();
   return { title: root.title || 'مشروع', body, list };
 }
 function wordHtml(title, body){
@@ -5530,6 +5930,8 @@ function exportTextOf(rootId, options){
     if(cont) out += `=== ${d.title} ===\n\n`;
     out += textOf(tmp).trim() + '\n\n';
   });
+  out += writerInfoText(rootId);
+  out += authorContactText();
   return out + (o.sig ? `\n${PLATFORM_SIGNATURE}\n` : '');
 }
 function buildSlidesHtml(rootId, opts){
@@ -5567,6 +5969,9 @@ function buildSlidesHtml(rootId, opts){
     flush();
   });
   if(o.sig) slides.push(`<section class="s section signature"><h2>${showAuthorSig ? esc(AUTHOR_NAME) : ''}</h2><p>${esc(PLATFORM_SIGNATURE)}</p></section>`);
+  const writerSlide=writerInfoSlideHtml(rootId);
+  if(writerSlide) slides.push(writerSlide);
+  slides.push(authorContactSlideHtml());
   const script = "var s=document.querySelectorAll('.s'),i=0,n=document.getElementById('n'),bar=document.getElementById('bar');"
     + "function show(k){i=Math.max(0,Math.min(s.length-1,k));for(var j=0;j<s.length;j++)s[j].classList.toggle('on',j===i);n.textContent=(i+1)+' / '+s.length;bar.style.width=((i+1)/s.length*100)+'%';}"
     + "document.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown')show(i+1);if(e.key==='ArrowRight'||e.key==='PageUp'||e.key==='ArrowUp')show(i-1);if(e.key==='Home')show(0);if(e.key==='End')show(s.length-1);if(e.key==='f'&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();});"
@@ -7117,7 +7522,7 @@ editor.addEventListener('click', e => {
   if(target) placeCaret(target, false);
 });
 
-/* ===== اقتباس مصوّر: توليد PNG مباشرة من النص المحدد في الملف ===== */
+/* ===== بطاقات الصور القديمة: الحفاظ على تبديل وسم المسودة للملفات الموجودة ===== */
 editor.addEventListener('click', e => {
   const card = e.target.closest('.quote-image-card.is-shot');
   if(!card) return;
@@ -7363,6 +7768,7 @@ async function initializeWorkspace(){
   renderTemplates();
   openDoc(index[0] || null);
   loadingOverlay.style.display = 'none';
+  if(appContainer.classList.contains('unlocked')) setTimeout(maybeOfferGeneralTour,180);
 }
 initializeWorkspace().catch(err => {
   loadingOverlay.style.display = 'none';
