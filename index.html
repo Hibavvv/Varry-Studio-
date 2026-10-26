@@ -73,6 +73,24 @@
 
   .app{display:none; height:100vh; width:100vw;}
   .app.unlocked{display:flex;}
+  /* تنسيق زر تنزيل التطبيق */
+#installAppBtn {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none; /* مخفي افتراضياً ولا يظهر إلا عندما يكون المتصفح جاهزاً للتثبيت */
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+#installAppBtn:hover {
+    opacity: 0.9;
+}
 
   .sidebar{
     width:var(--sidebar-w); min-width:var(--sidebar-w); background:var(--panel);
@@ -7798,7 +7816,49 @@ initializeWorkspace().catch(err => {
    ===================================================================== */
 </script>
 </body>
+  let deferredPrompt;
+const installAppBtn = document.getElementById('installAppBtn');
+
+// الاستماع لحدث إمكانية التثبيت
+window.addEventListener('beforeinstallprompt', (e) => {
+    // منع المتصفح من إظهار نافذة التثبيت التلقائية الافتراضية
+    e.preventDefault();
+    // حفظ الحدث لاستخدامه لاحقاً عند النقر
+    deferredPrompt = e;
+    // إظهار زر التنزيل الخاص بك للمستخدم
+    if (installAppBtn) {
+        installAppBtn.style.display = 'inline-block'; // أو block حسب التصميم
+    }
+});
+
+// عند النقر على زر التنزيل
+if (installAppBtn) {
+    installAppBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            // إظهار نافذة التثبيت الرسمية للمتصفح
+            deferredPrompt.prompt();
+            // انتظار رد المستخدم (موافق أو رفض)
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`قرار المستخدم تجاه التثبيت: ${outcome}`);
+            // إعادة تعيين المتغير
+            deferredPrompt = null;
+            // إخفاء الزر بعد محاولة التثبيت
+            installAppBtn.style.display = 'none';
+        }
+    });
+}
+
+// التأكد من إخفاء الزر إذا كان التطبيق مثبتاً بالفعل
+window.addEventListener('appinstalled', (evt) => {
+    console.log('تم تثبيت التطبيق بنجاح!');
+    if (installAppBtn) {
+        installAppBtn.style.display = 'none';
+    }
+});
 </html>
+<button id="installAppBtn" style="display: none; /* أو استخدام فئات CSS المناسبة لتصميمك */">
+    <i class="fas fa-download"></i> تنزيل التطبيق
+</button>
 
 <!-- PHASE 12: save status now reflects IndexedDB transaction completion; French screenplay cells wrap long Arabic/French text more safely. -->
 
