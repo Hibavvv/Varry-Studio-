@@ -7815,6 +7815,9 @@ initializeWorkspace().catch(err => {
    أقسام روايات بأدواتها الخاصة
    ===================================================================== */
 </script>
+  <button id="installAppBtn" style="display: none; /* أو استخدام فئات CSS المناسبة لتصميمك */">
+    <i class="fas fa-download"></i> تنزيل التطبيق
+  </button>
 </body>
   let deferredPrompt;
 const installAppBtn = document.getElementById('installAppBtn');
@@ -7856,10 +7859,6 @@ window.addEventListener('appinstalled', (evt) => {
     }
 });
 </html>
-<button id="installAppBtn" style="display: none; /* أو استخدام فئات CSS المناسبة لتصميمك */">
-    <i class="fas fa-download"></i> تنزيل التطبيق
-</button>
-
 <!-- PHASE 12: save status now reflects IndexedDB transaction completion; French screenplay cells wrap long Arabic/French text more safely. -->
 
 <!-- PHASE 14: French paired-row and scene insertion controls across scene-based screenplay formats.
