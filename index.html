@@ -1064,7 +1064,7 @@
         <button class="dash-btn" id="pvTxt" style="width:100%;">📝 تصدير TXT</button>
         <button class="dash-btn" id="pvEdit" style="width:100%;">✍️ تعديل داخل المعاينة</button>
         <button class="dash-btn" id="pvCancelEdit" style="width:100%;display:none;">إلغاء تعديلات المعاينة</button>
-        <div id="pvEditHint" style="display:none;color:var(--accent);font-size:11px;line-height:1.5;">عدّلي النص مباشرة داخل المعاينة، ثم اضغطي «حفظ تعديلات المعاينة». لا تغلقيها قبل الحفظ.</div>
+        <div id="pvEditHint" style="display:none;color:var(--accent);font-size:11px;line-height:1.5;">عدّل النص مباشرة داخل المعاينة، ثم اضغط «حفظ تعديلات المعاينة». لا تغلقها قبل الحفظ.</div>
       </div>
       <div id="pvBody" style="flex:1;min-width:280px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px;max-height:62vh;overflow:auto;color:#222;font-size:14px;line-height:1.8;"></div>
     </div>
@@ -1161,7 +1161,7 @@
         <p class="ex-ai-note wide">تحليل AI اختياري ويتطلب مزوّداً متوافقاً ومفتاحك الخاص. لن يُضمّن أي مفتاح في الملف أو يُحفظ في التخزين الدائم. قبل كل طلب ستظهر موافقة؛ نصوص السيناريو المحددة ستُرسل إلى المزوّد وقد تُحتسب عليها رسوم. بعض الخدمات لا تسمح بطلبات مباشرة من ملف محلي وتحتاج خادماً وسيطاً آمناً.</p>
       </div>
     </div>
-    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجعي النتائج قبل اعتمادها.</p>
+    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجع النتائج قبل اعتمادها.</p>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0;">
       <button type="button" id="exClearCorrections" class="dash-btn">مسح تصحيحات هذا العمل</button>
       <button type="button" id="exAddManual" class="dash-btn">＋ إضافة نتيجة يدوية</button>
@@ -1724,10 +1724,10 @@
       <button class="nav-fab" id="navFabBtn" title="تنقل سريع">🧭</button>
       <button class="floating-controls-toggle" id="floatingControlsToggle" type="button" title="طي الأزرار العائمة" aria-label="طي الأزرار العائمة" aria-expanded="true">⊖</button>
     </div>
-    <button class="scroll-top-fab" id="scrollTopFab" title="ارجعي لأعلى الصفحة / الخيارات">⬆️</button>
+    <button class="scroll-top-fab" id="scrollTopFab" title="صعود لأعلى الصفحة / الخيارات">⬆️</button>
 
     <div class="empty-state" id="emptyState">
-      <h2>أهلاً بكِ في Varry Studio</h2>
+      <h2>أهلاً بك في Varry Studio</h2>
       <p style="font-size:12px;">Varry Studio: Multiple scenario platform — اختاري مشروعاً من القائمة الجانبية أو ابدئي بإنشاء مسلسل جديد.</p>
       <button id="emptyNewBtn">+ إضافة مشروع جديد</button>
     </div>
@@ -1973,7 +1973,7 @@ $('showAuthorSig').addEventListener('change', e => {
   localStorage.setItem('varry:showAuthorSig', showAuthorSig);
 });
 
-/* توقيع يدوي (صورة) ثابت للكاتبة — يظهر في التصدير والأغلفة */
+/* توقيع يدوي (صورة) ثابت للكاتب — يظهر في التصدير والأغلفة */
 let SIG_IMG = localStorage.getItem('varry:sigImage') || '';
 function refreshSigPreview(){
   const img = $('sigImgPreview'), clr = $('sigImgClear');
@@ -2044,7 +2044,7 @@ toggleLockBtn.addEventListener('click', () => {
   alert(isLockEnabled ? 'تم تفعيل شاشة القفل عند البدء.' : 'تم تعطيل شاشة القفل.');
 });
 $('changePassBtn').addEventListener('click', () => {
-  const newP = prompt('أدخلي كلمة المرور الجديدة:');
+  const newP = prompt('إدخال كلمة المرور الجديدة:');
   if(newP && newP.trim()){
     userPass = newP.trim();
     localStorage.setItem('varry:password', userPass);
@@ -2261,7 +2261,7 @@ function queueWorkspaceSave(){
       console.error('Varry Studio fallback storage save failed:', fallbackErr);
       if(!storageWarned){
         storageWarned = true;
-        alert('تعذّر الحفظ في قاعدة البيانات والتخزين البديل. صدّري نسخة احتياطية إن أمكن قبل إغلاق الصفحة.');
+        alert('تعذّر الحفظ في قاعدة البيانات والتخزين البديل. يرجى تصدير نسخة احتياطية إن أمكن قبل إغلاق الصفحة.');
       }
     }
   });
@@ -2282,7 +2282,7 @@ function persist(){
     saveStatus.textContent = '⚠️ لم يُحفظ';
     if(!storageWarned){
       storageWarned = true;
-      alert('تعذّر الحفظ: مساحة التخزين المتاحة غير كافية. صدّري نسخة احتياطية الآن.');
+      alert('تعذّر الحفظ: مساحة التخزين المتاحة غير كافية. تصدير نسخة احتياطية الآن.');
     }
     return false;
   }
@@ -2881,7 +2881,7 @@ try{
       history.pushState({ varryBackGuard:true }, '', location.href);
       return;
     }
-    if(!confirm('هل تريدين مغادرة Varry Studio؟ تأكدي من ظهور «تم الحفظ» قبل الخروج.')){
+    if(!confirm('هل تريد مغادرة Varry Studio؟ تأكد من ظهور «تم الحفظ» قبل الخروج.')){
       history.pushState({ varryBackGuard:true }, '', location.href);
     }
   });
@@ -3203,7 +3203,7 @@ function saveAsTemplate(){
   templates.push({ id: uid(), name: name.trim(), docType: d.docType, html: d.html, style: deepClone(d.style || defaultStyle(d.docType)), sceneDuration: !!d.sceneDuration });
   persistTemplates();
   renderTemplates();
-  alert('تم حفظ القالب. تجدينه في قائمة الإضافة تحت «قوالبي».');
+  alert('تم حفظ القالب، وتمت إضافته إلى «قوالبي».');
 }
 
 /* =====================================================================
@@ -3375,7 +3375,7 @@ $('trashSelectAllBtn').addEventListener('click', () => {
 });
 $('trashRestoreSelectedBtn').addEventListener('click', () => {
   const ids = selectedTrashIds();
-  if(!ids.length){ alert('حددي عنصراً واحداً على الأقل لاستعادته.'); return; }
+  if(!ids.length){ alert('تحديد عنصراً واحداً على الأقل لاستعادته.'); return; }
   pushUndoSnapshot();
   ids.forEach(restoreDoc);
   persist();
@@ -3384,7 +3384,7 @@ $('trashRestoreSelectedBtn').addEventListener('click', () => {
 });
 $('trashDeleteSelectedBtn').addEventListener('click', () => {
   const ids = selectedTrashIds();
-  if(!ids.length){ alert('حددي عنصراً واحداً على الأقل للحذف النهائي.'); return; }
+  if(!ids.length){ alert('تحديد عنصراً واحداً على الأقل للحذف النهائي.'); return; }
   if(!confirm(`سيُحذف ${ids.length} عنصر نهائياً ولا يمكن استعادته. متابعة؟`)) return;
   pushUndoSnapshot();
   ids.forEach(permDelete);
@@ -3493,7 +3493,7 @@ function loadSmartIndexManual(rootId){
 }
 function saveSmartIndexManual(rootId,value){
   try{localStorage.setItem(SMART_INDEX_MANUAL_PREFIX+String(rootId),JSON.stringify(value));return true;}
-  catch(e){alert('تعذّر حفظ تعديل الفهرس في تخزين المتصفح. تحققي من المساحة المتاحة.');return false;}
+  catch(e){alert('تعذّر حفظ تعديل الفهرس في تخزين المتصفح. تحقق من المساحة المتاحة.');return false;}
 }
 function loadExtractionManual(){try{const x=JSON.parse(localStorage.getItem(EXTRACTION_MANUAL_KEY)||'{}');return x&&typeof x==='object'?x:{};}catch(e){return {};}}
 function extractionManualBucket(scope,kind){return String(scope||'standalone')+'|'+String(kind||'loc');}
@@ -3526,7 +3526,7 @@ function openManualItemEditor(context,item){
 }
 function saveManualEditor(){
   const ctx=manualEditorContext;if(!ctx)return;
-  const name=$('manualName').value.trim();if(!name){alert('أدخلي اسماً أو عنواناً أولاً.');return;}
+  const name=$('manualName').value.trim();if(!name){alert('أدخل اسماً أو عنواناً أولاً.');return;}
   const values={name,heading:name,place:$('manualPlace').value.trim(),ie:$('manualIE').value,tod:$('manualTod').value,characters:$('manualCharacters').value.split(/[،,؛;]+/).map(x=>x.trim()).filter(Boolean),scenes:Math.max(0,parseInt($('manualCount').value,10)||0),lines:Math.max(0,parseInt($('manualLines').value,10)||0),notes:$('manualNotes').value.trim()};
   if(ctx.zone==='extraction'){
     const saved=saveExtractionManualItem(ctx.scope,ctx.kind,ctx.itemId, {name,notes:values.notes});if(!saved)return;
@@ -3658,10 +3658,10 @@ function renderSmartProjectIndex(rootId){
   const placeRows=data.locations.map(L=>jump('location',L,L.name,`${L.scenes} مشهد${L.ies?.size?' · '+[...L.ies].join(' / '):''}${L.tods?.size?' · '+[...L.tods].join(' / '):''}`,L.scenes));
   const warnings=[];
   if(!data.sourceCount) warnings.push('لم يُعثر على ملفات كتابة قابلة للتحليل داخل هذا المشروع.');
-  if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ راجعي عناوين المشاهد.`);
-  if(data.duplicateNumbers) warnings.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف أو أكثر؛ تحققي من الترقيم.`);
+  if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ راجع عناوين المشاهد.`);
+  if(data.duplicateNumbers) warnings.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف أو أكثر؛ تحقق من الترقيم.`);
   if(data.singleSceneCharacters) warnings.push(`${data.singleSceneCharacters} شخصية ظهرت في مشهد واحد فقط؛ قد يكون ذلك مقصوداً، أو قد يشير إلى اختلاف في كتابة الاسم.`);
-  if(data.singleSceneLocations) warnings.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط؛ تأكدي من توحيد كتابة اسمه بين الملفات.`);
+  if(data.singleSceneLocations) warnings.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط؛ تأكد من توحيد كتابة اسمه بين الملفات.`);
   if(data.nameCollisions.length) warnings.push(`توجد ${data.nameCollisions.length} مجموعة أسماء تبدأ بالاسم نفسه (${data.nameCollisions.map(g=>g.join(' / ')).join('؛ ')}). لم تُدمج الشخصيات تلقائياً؛ راجعي التشابه.`);
   const empty=label=>`<div class="smart-index-note" style="padding:8px 10px;">${esc(label)}</div>`;
   return `<section class="smart-index" aria-label="الفهرس الذكي للمشروع">
@@ -3720,7 +3720,7 @@ function renderDashboard(id){
         <span style="font-size:12px; color:var(--ink-soft);">${esc(typeLabel(doc))}</span>
         <button class="dash-btn" data-act="cover" data-id="${esc(id)}">🖼️ تعديل الغلاف</button>
         <button class="dash-btn" data-act="cover-download" data-id="${esc(id)}" title="تنزيل الغلاف الحالي أو الافتراضي كصورة PNG">⬇️ تنزيل الغلاف PNG</button>
-        <span style="font-size:11px; color:var(--ink-soft);">للتصدير الكامل بالغلاف والفهرس استخدمي «تصدير ومعالجة» بالأعلى.</span>
+        <span style="font-size:11px; color:var(--ink-soft);">للتصدير الكامل بالغلاف والفهرس استخدم «تصدير ومعالجة» بالأعلى.</span>
       </div>
       <div class="dash-stats">
         <div class="dash-stat"><b>${kids.length}</b><span>قسم</span></div>
@@ -3885,7 +3885,7 @@ async function exportCoverPng(targetId, coverOverride){
   if(!doc) return;
   const coverData = coverOverride !== undefined ? coverOverride : (targetId ? doc.cover : readCoverForm());
   const m = coverModel({ title:doc.title, cover:coverData || {} });
-  if(m.type === 'image' && !m.image){ alert('اختاري صورة أولاً، أو بدّلي الخلفية إلى لون أو تدرج.'); return; }
+  if(m.type === 'image' && !m.image){ alert('اختر صورة أولاً، أو بدّل الخلفية إلى لون أو تدرج.'); return; }
   const dims = { book:[1200,1800], a4:[1200,1697], social:[1200,1500], square:[1200,1200], wide:[1600,900] };
   const [width,height] = dims[m.format] || dims.book;
   const canvas = document.createElement('canvas');
@@ -4019,7 +4019,7 @@ $('cvRemove').addEventListener('click', () => {
 $('cvSave').addEventListener('click', () => {
   if(!coverTarget || !docs[coverTarget]) return;
   const o = readCoverForm();
-  if(o.type === 'image' && !o.image){ alert('اختاري صورة أولاً، أو بدّلي الخلفية إلى لون أو تدرج.'); return; }
+  if(o.type === 'image' && !o.image){ alert('اختر صورة أولاً، أو بدّل الخلفية إلى لون أو تدرج.'); return; }
   flushEditorToDoc(); pushUndoSnapshot();
   docs[coverTarget].cover = o;
   persist(); afterCoverChange();
@@ -4028,7 +4028,7 @@ $('cvApplyKids').addEventListener('click', () => {
   const d = docs[coverTarget];
   if(!d || !isContainer(d)) return;
   const o = Object.assign(readCoverForm(), { title: '', subtitle: '' });
-  if(o.type === 'image' && !o.image){ alert('اختاري صورة أولاً.'); return; }
+  if(o.type === 'image' && !o.image){ alert('اختر صورة أولاً.'); return; }
   if(!confirm('تطبيق هذا الغلاف (بدون العنوان) على كل أقسام الحاوية؟')) return;
   flushEditorToDoc(); pushUndoSnapshot();
   (d.children || []).forEach(k => { if(docs[k]) docs[k].cover = deepClone(o); });
@@ -4093,7 +4093,7 @@ function ensureNestedSceneButton(type){
 }
 function insertNestedScene(){
   if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملف سيناريو أولاً.'); return; }
-  const kind = prompt('اختاري نوع المشهد الضمني بكتابة رقمه أو اسمه:\n'+NESTED_SCENE_KINDS.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nيمكنك كتابة نوع آخر.', '1');
+  const kind = prompt('اختر نوع المشهد الضمني بكتابة رقمه أو اسمه:\n'+NESTED_SCENE_KINDS.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nيمكنك كتابة نوع آخر.', '1');
   if(kind === null) return;
   const trimmed=kind.trim(); if(!trimmed) return;
   const num=parseInt(trimmed,10); const label=(num>=1 && num<=NESTED_SCENE_KINDS.length && /^\d+$/.test(trimmed))?NESTED_SCENE_KINDS[num-1]:trimmed;
@@ -4123,7 +4123,7 @@ function insertNestedInterruption(parent){
 
 function openDoc(id){
   if(!isRestoringHistory && currentId && docs[currentId] && saveTimer){
-    // كان يُفقد آخر تعديل إن بدّلتِ الملف خلال 400ms من الكتابة
+    // كان يُفقد آخر تعديل إن بدلت الملف خلال 400ms من الكتابة
     clearTimeout(saveTimer);
     flushEditorToDoc();
     persist();
@@ -4304,7 +4304,7 @@ function addDurationBelowScene(){
   snap(); restoreCaret();
   let a = getAnchorBlock();
   while(a && !(a.nodeType === 1 && a.matches(SCENE_SELECTOR))) a = a.previousSibling;
-  if(!a){ alert('ضعي المؤشر داخل مشهد أو بعد عنوان مشهد أولاً.'); return; }
+  if(!a){ alert('ضع المؤشر داخل مشهد أو بعد عنوان مشهد أولاً.'); return; }
   let dur = a.nextElementSibling;
   if(!(dur && dur.classList.contains('scene-duration'))){
     a.insertAdjacentHTML('afterend', DURATION_HTML);
@@ -4917,7 +4917,7 @@ document.addEventListener('keydown', e => {
 $('docPanelToggle').addEventListener('click', () => {
   let d = currentId && docs[currentId];
   let switchedFromContainer = false;
-  // عند اختيار حاوية مشروع، ابحثي عن أول مستند فعلي تابع لها.
+  // عند اختيار حاوية مشروع، ابحث عن أول مستند فعلي تابع لها.
   if(d && isContainer(d)){
     let targetId = null;
     if(typeof descendantsOf === 'function'){
@@ -4940,11 +4940,11 @@ $('docPanelToggle').addEventListener('click', () => {
       // فتح اللوحة صراحةً هنا؛ لا نعكس حالتها السابقة بعد تبديل الملف.
       panelOpen = true;
     } else {
-      alert('لا يوجد ملف داخل هذا المشروع لعرض إعداداته بعد. أضيفي قسماً أولاً.');
+      alert('لا يوجد ملف داخل هذا المشروع لعرض إعداداته بعد. أضِف قسماً أولاً.');
       return;
     }
   }
-  if(!d){ alert('افتحي ملفاً أولاً لعرض إعداداته.'); return; }
+  if(!d){ alert('افتح ملفاً أولاً لعرض إعداداته.'); return; }
   // إذا انتقلنا من حاوية مشروع، فالهدف فتح اللوحة لا إغلاقها بسبب حالة سابقة.
   if(!switchedFromContainer) panelOpen = !(panelOpen && docPanel.classList.contains('open'));
   updateDocPanel(d);
@@ -5115,7 +5115,7 @@ $('navFabMenu').addEventListener('click', e => {
   else if(act === 'docpanel'){
     setWritingFocus(false);setToolsCollapsed(false);
     if(currentId && docs[currentId] && !isContainer(docs[currentId])){ panelOpen = true; docPanel.classList.add('open'); toolbar.scrollIntoView({ behavior:'smooth' }); }
-    else alert('افتحي ملفاً (غير حاوية) أولاً.');
+    else alert('افتح ملفاً (غير حاوية) أولاً.');
   }
   else if(act === 'catalog') showModal(catalogModal);
   else if(act === 'tour') openGeneralTour();
@@ -5172,7 +5172,7 @@ $('includeWriterInfoInExport').addEventListener('change', e => {
 });
 $('editWriterInfoBtn').addEventListener('click', () => {
   const doc=currentId && docs[currentId];
-  if(!doc){ alert('افتحي ملفاً أو مشروعاً أولاً.'); return; }
+  if(!doc){ alert('افتح ملفاً أو مشروعاً أولاً.'); return; }
   writerInfoModalDocId=currentId;
   const info=doc.writerInfo||{};
   $('writerInfoName').value=info.name||'';
@@ -5183,7 +5183,7 @@ $('editWriterInfoBtn').addEventListener('click', () => {
 $('writerInfoCancel').addEventListener('click', () => hideModal($('writerInfoModal')));
 $('writerInfoSave').addEventListener('click', () => {
   const doc=writerInfoModalDocId && docs[writerInfoModalDocId];
-  if(!doc){ alert('لم يعد الملف المحدد متاحاً. افتحيه مجدداً ثم أعيدي إدخال البيانات.'); hideModal($('writerInfoModal')); return; }
+  if(!doc){ alert('لم يعد الملف المحدد متاحاً. افتحه مجدداً ثم أعِد إدخال البيانات.'); hideModal($('writerInfoModal')); return; }
   if(writerInfoModalDocId===currentId && !isContainer(doc)) flushEditorToDoc();
   doc.writerInfo={name:$('writerInfoName').value.trim(),bio:$('writerInfoBio').value.trim(),contact:$('writerInfoContact').value.trim()};
   persist();
@@ -5519,7 +5519,7 @@ function modernizeIds(ids){
   const targets = [...set];
   if(!targets.length){ alert('لا توجد ملفات للتحديث (الحاويات الفارغة لا تُحدَّث).'); return; }
   if(!confirm(`سيتم تحديث ${targets.length} ملف للميزات الجديدة:\n• نمط الملف (الخط/التباعد)\n• سطر المدة المتوقعة تحت كل مشهد\n• ترقية الحوار المتوازي والفقرات الحرة\n\nيمكنك التراجع بعدها. متابعة؟`)) return;
-  const heur = confirm('هل تريدين أيضاً تحويل الفقرات العادية تلقائياً إلى عناصر سيناريو (مشهد / شخصية / حوار / وصف / انتقال) حيثما أمكن؟\n\nموافق = نعم، إلغاء = تحديث بدون تحويل الفقرات.');
+  const heur = confirm('هل تريد أيضاً تحويل الفقرات العادية تلقائياً إلى عناصر سيناريو (مشهد / شخصية / حوار / وصف / انتقال) حيثما أمكن؟\n\nموافق = نعم، إلغاء = تحديث بدون تحويل الفقرات.');
   flushEditorToDoc();
   pushUndoSnapshot();
   const tot = { classified: 0, durations: 0 };
@@ -5565,7 +5565,7 @@ function auditAndFixDoc(doc){
 $('fixDocBtn').addEventListener('click', () => {
   const checked = [...selectedDocIds].filter(id => docs[id] && !isContainer(docs[id]));
   const targets = checked.length ? checked : (currentId && docs[currentId] && !isContainer(docs[currentId]) ? [currentId] : []);
-  if(!targets.length){ alert('افتحي ملفاً (غير حاوية) أولاً، أو حددي ملفات من القائمة الجانبية.'); return; }
+  if(!targets.length){ alert('افتح ملفاً (غير حاوية) أولاً، أو حدد ملفات من القائمة الجانبية.'); return; }
   const classify = confirm('تدقيق وإصلاح ' + targets.length + ' ملف.\n\nموافق = مع محاولة تصنيف الفقرات العادية تلقائياً (مشهد/شخصية/حوار)\nإلغاء = إصلاح البنية والأخطاء فقط بدون تصنيف');
   flushEditorToDoc(); pushUndoSnapshot();
   const tot = { struct:0, empty:0, text:0, classified:0 };
@@ -5588,7 +5588,7 @@ $('modernizeBtn').addEventListener('click', () => {
   const checked = selectedTopLevelIds();
   if(checked.length){ modernizeIds(checked); return; }
   if(!Object.keys(docs).length) return;
-  if(confirm('لا يوجد ملف محدد. هل تريدين تحديث كل الملفات؟\n(حددي ملفات بالمربعات أولاً إن أردتِ تحديد بعضها فقط.)')) modernizeIds(index.slice());
+  if(confirm('لا يوجد ملف محدد. هل تريد تحديث كل الملفات؟\n(حدد ملفات بالمربعات أولاً إن أردت تحديد بعضها فقط.)')) modernizeIds(index.slice());
 });
 $('dpType').addEventListener('change', e => {
   const d = currentId && docs[currentId];
@@ -5912,7 +5912,7 @@ function exportWordFile(rootId, opts){
 function exportTextOf(rootId, options){
   const o = Object.assign({ cover:true, toc:true, sig:true, dividers:true, breaks:true, durations:true, tableBorders:true }, options || {});
   const root = docs[rootId], cont = isContainer(root);
-  let out = 'Varry Studio: Multiple scenario platform\n' + (showAuthorSig ? `إعداد الكاتبة: ${AUTHOR_NAME}\n` : '') + `العنوان: ${root.title}\n-----------------------------------\n\n`;
+  let out = 'Varry Studio: Multiple scenario platform\n' + (showAuthorSig ? `إعداد الكاتب: ${AUTHOR_NAME}\n` : '') + `العنوان: ${root.title}\n-----------------------------------\n\n`;
   if(o.cover && (cont || root.cover)){
     const cover = coverModel(root);
     out += `=== الغلاف ===\n${cover.title || root.title || ''}\n${cover.subtitle || ''}\n\n`;
@@ -5995,13 +5995,13 @@ html,body{margin:0;height:100%;background:#141210;font-family:'Noto Naskh Arabic
 #bar{position:fixed;top:0;right:0;height:4px;background:#c98d6f;width:0;transition:width .2s;z-index:5}
 .hint{position:fixed;bottom:14px;right:16px;color:rgba(255,255,255,.45);font:11px sans-serif;z-index:5}
 @media print{body{overflow:visible;background:#fff}.s{display:flex!important;position:relative;inset:auto;page-break-after:always;min-height:100vh}.n,.hint,#bar{display:none!important}}
-</style></head><body>${slides.join('')}<div id="bar"></div><div class="n" id="n"></div><div class="hint">الأسهم للتنقل · F ملء الشاشة · اطبعي من المتصفح لحفظ PDF</div><script>${script}<\/script></body></html>`;
+</style></head><body>${slides.join('')}<div id="bar"></div><div class="n" id="n"></div><div class="hint">الأسهم للتنقل · F ملء الشاشة · اطبع من المتصفح لحفظ PDF</div><script>${script}<\/script></body></html>`;
 }
 
 async function exportPowerPoint(rootId, opts){
   const Pptx = window.PptxGenJS || window.pptxgen;
   if(typeof Pptx !== 'function'){
-    alert('مكتبة إنشاء PowerPoint غير متاحة حالياً. تحققي من اتصال الإنترنت ثم أعيدي المحاولة.');
+    alert('مكتبة إنشاء PowerPoint غير متاحة حالياً. تحقق من اتصال الإنترنت ثم أعِد المحاولة.');
     return;
   }
   const root = docs[rootId];
@@ -6111,7 +6111,7 @@ $('expPreview').addEventListener('click', () => {
   showModal($('previewModal'));
 });
 $('pvPdf').addEventListener('click', () => {
-  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّلي «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة.');
+  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّل «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة.');
   prepPrint(pvRoot, readPvOpts());
   hideModal($('previewModal'));
   window.print();
@@ -6185,7 +6185,7 @@ $('expWord').addEventListener('click', () => {
 });
 $('expPdf').addEventListener('click', () => {
   if(!needDoc()) return;
-  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّلي خيار «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة المتقدمة قبل الحفظ كـ PDF.');
+  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّل خيار «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة المتقدمة قبل الحفظ كـ PDF.');
   prepPrint(currentId);
   window.print();
 });
@@ -6216,7 +6216,7 @@ $('importFileOption').addEventListener('click', () => { importDropdown.classList
 $('importInsideOption').addEventListener('click', () => {
   importDropdown.classList.remove('open');
   const d = currentId && docs[currentId];
-  if(!d || isContainer(d)){ alert('افتحي سيناريو أو مستنداً أولاً (وليس حاوية) لدمج الملف بداخله.'); return; }
+  if(!d || isContainer(d)){ alert('افتح سيناريو أو مستنداً أولاً (وليس حاوية) لدمج الملف بداخله.'); return; }
   importInsideInput.click();
 });
 $('importBackupOption').addEventListener('click', () => { importDropdown.classList.remove('open'); importBackupInput.click(); });
@@ -6347,7 +6347,7 @@ importBackupInput.addEventListener('change', e => {
   // A backup import is a merge, never a destructive replacement. Validate it before
   // touching the live workspace, then roll back if any later operation fails.
   if(file.size > 100 * 1024 * 1024){
-    alert('حجم النسخة الاحتياطية أكبر من الحد المدعوم (100 ميغابايت).');
+    alert('حجم النسخة الاحتياطية أكبر من الحد المدعوم (300 ميغابايت).');
     return;
   }
   const reader = new FileReader();
@@ -6901,11 +6901,11 @@ function buildLocations(analyses){
     const warnings = [
       L.ies.size > 1 ? 'ظهر المكان داخلياً وخارجياً؛ يلزم التأكد هل هو موقع واحد أم أكثر.' : '',
       L.tods.size > 1 ? 'وردت أوقات مختلفة لهذا المكان.' : '',
-      L.inferredScenes ? 'استُنتج ' + L.inferredScenes + ' عنوان مشهد من فقرة غير منسّقة؛ تحققي من العنوان الأصلي.' : '',
+      L.inferredScenes ? 'استُنتج ' + L.inferredScenes + ' عنوان مشهد من فقرة غير منسّقة؛ تحقق من العنوان الأصلي.' : '',
       nameWords > 5 ? 'اسم طويل نسبياً؛ قد يحتوي على وصف حدث أو حركة لا على اسم المكان وحده.' : '',
-      looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ راجعي هل هو موقع فعلي أم وصف حدث.' : '',
-      L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ تحققي من كونه مكاناً فعلياً.' : '',
-      L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. راجعي العنوان الأصلي للتأكد من أن الفصل صحيح.' : ''
+      looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ راجع هل هو موقع فعلي أم وصف حدث.' : '',
+      L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ تحقق من كونه مكاناً فعلياً.' : '',
+      L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. راجع العنوان الأصلي للتأكد من أن الفصل صحيح.' : ''
     ].filter(Boolean);
     const weakName = nameWords > 5 || looksLikeAction || L.inferredScenes > 0;
     const confidence = weakName ? 'يحتاج مراجعة' : L.count >= 3 ? 'مرجّح' : L.count === 2 ? 'متوسط' : 'يحتاج مراجعة';
@@ -6969,13 +6969,13 @@ function buildCharacters(analyses, minLines){
     const ratio = C.lines / max;
     const warnings = [];
     if(C.lines<minLines) warnings.push('أقل من حدّ الحوارات المختار ('+minLines+'); أُبقيت الشخصية ظاهرة وتحتاج مراجعة بدلاً من إخفائها.');
-    if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحققي من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
-    if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجعي السطر المستخرج قبل اعتماد بطاقة الشخصية.');
-    if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ راجعي المصدر قبل الاعتماد.');
+    if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحقق من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
+    if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجع السطر المستخرج قبل اعتماد بطاقة الشخصية.');
+    if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ راجع المصدر قبل الاعتماد.');
     if(!C.sample) warnings.push('لم يُلتقط مثال حوار واضح لهذه الشخصية.');
     const first = C.name.trim().split(/\s+/)[0];
     const sameFirst = (firstNameGroups.get(normKey(first || '')) || []).filter(n => n !== C.name);
-    if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحققي مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
+    if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحقق مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
     const sceneShare=totalScenes?sceneCount/totalScenes:0;
     const mainEvidence=(sceneCount>=3&&sceneShare>=0.2)||(C.lines>=5&&ratio>=0.6&&(sceneCount>=2||totalScenes<=3))||(C.lines>=8&&ratio>=0.75);
     const secondaryEvidence=sceneCount>=2||(C.lines>=3&&ratio>=0.25);
@@ -7194,7 +7194,7 @@ function clearExtractionCorrectionsForCurrentScope(){
   const scopePrefix = extractionCorrectionScope() + '|';
   const keys = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix));
   if(!keys.length){ alert('لا توجد تصحيحات محفوظة لهذا العمل.'); return; }
-  if(!confirm('سيتم مسح ' + keys.length + ' تصحيحاً محفوظاً لهذا العمل فقط. لن تتأثر تصحيحات الأعمال الأخرى. هل تريدين المتابعة؟')) return;
+  if(!confirm('سيتم مسح ' + keys.length + ' تصحيحاً محفوظاً لهذا العمل فقط. لن تتأثر تصحيحات الأعمال الأخرى. هل تريد المتابعة؟')) return;
   keys.forEach(k => delete extractionCorrections[k]);
   saveExtractionCorrections();
   const res = computeExtraction();
@@ -7256,7 +7256,7 @@ function normalizeAiExtraction(kind,payload,sourceNames){
     if(!details.length)itemWarnings.push('لم يرفق AI مرجع مشهد واضح؛ راجعي النتيجة يدوياً.');
     const confidence=Number.isFinite(conf)?Math.round(Math.max(0,Math.min(1,conf))*100)+'%':'غير محددة';
     if(kind==='loc'){
-      const sceneText=details.length?details.join('؛ '):'مقترح AI — راجعي المصدر';
+      const sceneText=details.length?details.join('؛ '):'مقترح AI — راجع المصدر';
       const chars=Array.isArray(row.characters)?row.characters.join('، '):String(row.characters||'');
       const ie=String(row.interior_exterior||row.ie||'');const tod=String(row.time_of_day||row.tod||'');
       return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{ie,tod},auto:{scenes:sceneText,chars}};
@@ -7267,9 +7267,9 @@ function normalizeAiExtraction(kind,payload,sourceNames){
 }
 async function runAiExtraction(){
   const status=$('exAiStatus'),button=$('exAiRun');if(button.disabled)return;
-  const res=computeExtraction();if(!res){status.textContent='اختاري ملف مصدر أولاً.';return;}
+  const res=computeExtraction();if(!res){status.textContent='اختر ملف مصدر أولاً.';return;}
   const endpoint=String($('exAiEndpoint').value||'').trim(),model=String($('exAiModel').value||'').trim(),key=String($('exAiKey').value||'').trim();
-  if(!endpoint||!model||!key){$('exAiConfig').hidden=false;status.textContent='أدخلي رابط الخدمة واسم النموذج ومفتاح API أولاً.';return;}
+  if(!endpoint||!model||!key){$('exAiConfig').hidden=false;status.textContent='أدخل رابط الخدمة واسم النموذج ومفتاح API أولاً.';return;}
   let url;try{url=new URL(endpoint);}catch(e){status.textContent='رابط الخدمة غير صالح.';return;}
   if(url.protocol!=='https:'&&!(url.protocol==='http:'&&/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(url.hostname))){status.textContent='استخدمي HTTPS، أو خادماً محلياً موثوقاً.';return;}
   const sources=res.ids.map(id=>({title:docLabel(id),text:extractionTextForAI(id)})).filter(x=>x.text);
@@ -7299,11 +7299,11 @@ async function runAiExtraction(){
     const parsed=parseAiJson(content),items=normalizeAiExtraction(res.kind,parsed,sources.map(x=>x.title));
     if(!items.length)throw new Error('لم يُرجع المزوّد نتائج قابلة للاستخدام.');
     aiExtractionResult={kind:res.kind,signature:extractionSignature(res.kind,res.ids),items,warnings:Array.isArray(parsed.warnings)?parsed.warnings:[]};
-    status.textContent='اكتمل التحليل: '+items.length+' اقتراحاً. راجعي الأدلة وصححيها قبل التفريغ.';
+    status.textContent='اكتمل التحليل: '+items.length+' اقتراحاً. راجع الأدلة وصححها قبل التفريغ.';
     previewExtraction();
   }catch(err){
     const msg=err&&err.name==='AbortError'?'انتهت مهلة الاتصال.':String(err&&err.message||'تعذّر الاتصال.');
-    status.textContent='لم يُعتمد أي ناتج AI: '+msg+' تحققي من الرابط والسماح بطلبات المتصفح.';
+    status.textContent='لم يُعتمد أي ناتج AI: '+msg+' تحقق من الرابط والسماح بطلبات المتصفح.';
   }finally{if(timer)clearTimeout(timer);button.disabled=false;}
 }
 function existingKeys(tid){
@@ -7341,7 +7341,7 @@ function previewExtraction(){
     const examples = [...new Set(res.adjusted.slice(0, 5).map(x => '«' + x.original + '» ← «' + x.name + '»'))].join('، ');
     warnings.push('فُصل وصف تصوير محتمل عن اسم الموقع في ' + res.adjusted.length + ' عنوان. أمثلة: ' + examples + '. هذا اقتراح آلي يحتاج إلى مراجعة العناوين الأصلية.');
   }
-  if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
+  if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجع تنسيق أسماء الشخصيات والحوار أو جرّب تفعيل التعرف على الفقرات غير المنسقة.');
   if(res.kind === 'cp' && res.filtered?.length){
     const examples=res.filtered.slice(0,8).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
     warnings.push('هناك '+res.filtered.length+' شخصيات دون حدّ الحوارات الحالي ('+$('exMin').value+')؛ لم تُخفَ أي نتيجة، وأُبقيت ظاهرة مع وسم مراجعة. منها: '+examples+'.');
@@ -7379,7 +7379,7 @@ function runExtraction(){
   try {
     const res = computeExtraction();
     if(!res){
-      alert('لم يتم اختيار أي ملف مصدر صالح. اختاري «تلقائي» أو «الملف المفتوح فقط» أو حددي الملفات يدوياً.');
+      alert('لم يتم اختيار أي ملف مصدر صالح. اختر «تلقائي» أو «الملف المفتوح فقط» أو حدد الملفات يدوياً.');
       return;
     }
     const active=activeExtractionItems(res.kind,Array.isArray(res.items)?res.items:[],res.ids);
@@ -7387,8 +7387,8 @@ function runExtraction(){
     if(!res.items.length){
       if(res.kind==='cp'&&res.filtered?.length){
         const names=res.filtered.slice(0,10).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
-        alert('لم يُنفّذ التفريغ لأن حدّ الحوارات ('+$('exMin').value+') أخفى كل الشخصيات المكتشفة. خفّضي الحد أو اختاري «الكل». الأسماء المستبعدة: '+names);
-      } else alert(res.kind === 'loc' ? 'لم يُعثر على مواقع مؤكدة ضمن عناوين المشاهد. عناوين مثل «تتمة مشهد» أو «مثال» لا تُعامل كمواقع. راجعي المعاينة ثم أضيفي اسم الموقع يدوياً عند الحاجة.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
+        alert('لم يُنفّذ التفريغ لأن حدّ الحوارات ('+$('exMin').value+') أخفى كل الشخصيات المكتشفة. خفّض الحد أو اختاري «الكل». الأسماء المستبعدة: '+names);
+      } else alert(res.kind === 'loc' ? 'لم يُعثر على مواقع مؤكدة ضمن عناوين المشاهد. عناوين مثل «تتمة مشهد» أو «مثال» لا تُعامل كمواقع. راجعي المعاينة ثم أضيفي اسم الموقع يدوياً عند الحاجة.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكد من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّل التعرف على النص غير المنسق.');
       return;
     }
     const needsReview=res.items.filter(item=>(item.warnings||[]).length || item.confidence==='يحتاج مراجعة' || item.inferredScenes);
@@ -7398,7 +7398,7 @@ function runExtraction(){
     const mergeEl = document.querySelector('input[name="exMerge"]:checked');
     const mode = mergeEl ? mergeEl.value : 'update';
     if(target !== '__new' && (!docs[target] || docs[target].docType !== TYPE_OF[res.kind])){
-      alert('الملف الهدف غير متاح أو لا يطابق نوع التفريغ. اختاري ملفاً صالحاً أو «إنشاء ملف جديد».');
+      alert('الملف الهدف غير متاح أو لا يطابق نوع التفريغ. اختر ملفاً صالحاً أو «أنشِئ ملف جديد».');
       return;
     }
     if(mode === 'replace' && target !== '__new' && !confirm('سيتم استبدال كل البطاقات الحالية (بما فيها ما كُتب يدوياً) بالنتيجة الجديدة. المتابعة؟')) return;
@@ -7410,7 +7410,7 @@ function runExtraction(){
     if(!docs[tid]) throw new Error('لم يتم إنشاء أو العثور على ملف الهدف.');
     const r = mergeRecordItems(docs[tid], res.kind, res.items, mode, new Date().toLocaleString('ar-EG'));
     docs[tid].updatedAt = Date.now();
-    if(!persist()) throw new Error('تعذّر تأكيد حفظ نتائج التفريغ في مساحة التخزين. صدّري نسخة احتياطية قبل إغلاق الصفحة.');
+    if(!persist()) throw new Error('تعذّر تأكيد حفظ نتائج التفريغ في مساحة التخزين. صدّر نسخة احتياطية قبل إغلاق الصفحة.');
     hideModal(exModal);
     openDoc(tid);
     const noun = RECORD_SCHEMAS[res.kind].noun;
@@ -7423,7 +7423,7 @@ function runExtraction(){
 document.querySelectorAll('input[name="exSrc"]').forEach(r => r.addEventListener('change', () => {
   $('exManualList').style.display = exSrcMode() === 'manual' ? 'flex' : 'none';
   $('exPreview').textContent = '';
-  if(aiExtractionResult)$('exAiStatus').textContent='تغيّر اختيار المصدر؛ أطلقي تحليل AI جديداً لتحديث الاقتراحات.';
+  if(aiExtractionResult)$('exAiStatus').textContent='تغيّر اختيار المصدر؛ أطلِق تحليل AI جديداً لتحديث الاقتراحات.';
 }));
 $('exAiToggle').addEventListener('click',()=>{$('exAiConfig').hidden=!$('exAiConfig').hidden;});
 [['exAiEndpoint','varry-ai-endpoint'],['exAiModel','varry-ai-model'],['exAiKey','varry-ai-key']].forEach(([id,key])=>$(id).addEventListener('input',e=>{try{if(e.target.value)sessionStorage.setItem(key,e.target.value);else sessionStorage.removeItem(key);}catch(err){}}));
