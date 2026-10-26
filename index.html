@@ -829,9 +829,9 @@
   <div class="modal-box">
     <h3>📖 دليل منصة Varry Studio الشامل</h3>
     <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما يلزم لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
-    <div style="display:flex;justify-content:flex-start;margin-top:8px;"><button type="button" class="dash-btn" id="startTourFromCatalog">🧭 جولة تعريفية عامة</button></div>
+    <div style="display:flex;justify-content:flex-start;margin-top:8px;"><button type="button" class="dash-btn" id="startTourFromCatalog">🧭 جولة تعريفية</button></div>
     <div class="catalog-controls" style="position:sticky;top:0;z-index:3;background:var(--panel, #fff);padding:10px 0;display:grid;gap:8px;">
-      <input id="catalogSearch" type="search" placeholder="ابحثي في الدليل: مشهد، تصدير، شخصيات، حفظ…" aria-label="البحث في دليل المنصة" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;">
+      <input id="catalogSearch" type="search" placeholder="البحث في الدليل: مشهد، تصدير، شخصيات، حفظ…" aria-label="البحث في دليل المنصة" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;">
       <div id="catalogFilters" style="display:flex;gap:6px;flex-wrap:wrap;">
         <button type="button" class="fmt-btn catalog-filter active" data-catalog-filter="all">الكل</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="projects">المشاريع والملفات</button>
@@ -841,7 +841,7 @@
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="safety">الحفظ والأمان</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="about">عن هبة</button>
       </div>
-      <small id="catalogResultCount" aria-live="polite" style="color:var(--ink-soft)">دليل تفاعلي — ابحثي أو اختاري موضوعاً.</small>
+      <small id="catalogResultCount" aria-live="polite" style="color:var(--ink-soft)">دليل تفاعلي — البحث أو اختيار موضوع.</small>
     </div>
     <div style="font-size:12.5px; line-height:1.85;">
 
@@ -851,7 +851,7 @@
         <li><b>مجلد مسلسل:</b> حاوية فارغة يمكن إضافة ما يلزم إليها.</li>
         <li><b>🗂️ كتابة المحتوى (احترافي):</b> «مشروع محتوى» بأقسامه، وأنواع جاهزة بصناديق مخصصة: خطة محتوى (أهداف، جمهور، نبرة، تقويم نشر، مؤشرات)، مقال / تدوينة (كلمة مفتاحية، مقدمة، متن، CTA، مصادر)، محتوى تواصل اجتماعي (Hook، سكربت، هاشتاغات، موعد النشر)، ونص إعلاني (USP، عنوان، نسخ A/B، مقاسات).</li>
         <li><b>🎞️ السيناريو الوثائقي (احترافي):</b> «مشروع وثائقي» بأقسامه، ومنها: سيناريو وثائقي بأدوات خاصة (جدول تنفيذي بعمودي الصورة والصوت، مع مدة كل مقطع والمصادر؛ ويمكن متابعة الكتابة الحرة خارجه)، وبحث ومصادر، ومقابلات (أسئلة وإجابات)، وأرشيف ومواد بصرية مع جدول تتبع. ويعمل التفريغ التلقائي للوكيشنات والشخصيات (المتحدثين) على السيناريو الوثائقي أيضاً.</li>
-        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، ومساحة الكاتبة. تفريغ اللوكيشنات وكاراكتر بروفايل أقسام داخل المشاريع، وليسا من أدوات مساحة الكاتبة العامة.</li>
+        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات، عالم العمل، ومساحة عامة. تفريغ اللوكيشنات وكاراكتر بروفايل أقسام داخل المشاريع، وليسا من أدوات مساحة الكتابة العامة.</li>
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
 
@@ -893,11 +893,11 @@
       <ul style="margin:0 0 12px;">
         <li><b>📍 بيانات المواقع داخل المشروع:</b> تبقى بطاقات المواقع متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج والمراجع. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات.</li>
         <li><b>الفهرس الذكي ومقتطفات الدليل:</b> داخل لوحة المشروع يعرض المشاهد والشخصيات والمواقع المكتشفة. تحت كل شخصية أو موقع يظهر مقتطف من النص الذي استند إليه التحليل؛ الضغط على النتيجة يفتح ملف المصدر وينقل المؤشر إلى موضع الدليل، أو إلى المشهد عند تعذر العثور على النص المطابق. تبقى النتائج قابلة للمراجعة والتعديل اليدوي.</li>
-        <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» عند تفعيل التعرف على النص غير المنسق. يحاول استبعاد أوصاف التصوير مثل «صورة أمامية» من قائمة المواقع والشخصيات، ويعرض عدد المشاهد والأدلة وملاحظات الالتباس ودرجة ثقة مبدئية قبل التطبيق. درجة الثقة إرشادية وليست ضماناً؛ لا يعتمد النظام على التكرار وحده، بل يخفض الثقة عند الأسماء الطويلة أو التي تشبه أفعال الحركة، ويستبعد توجيهات التصوير الواضحة من أسماء الشخصيات والمواقع عند تفعيل الذكاء. راجعي النتائج قبل اعتمادها. تُدمج صيغ الاسم المختصرة مع الكاملة بحذر، وتبقى التعديلات اليدوية محفوظة أثناء التحديث.</li>
+        <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» عند تفعيل التعرف على النص غير المنسق. يحاول استبعاد أوصاف التصوير مثل «صورة أمامية» من قائمة المواقع والشخصيات، ويعرض عدد المشاهد والأدلة وملاحظات الالتباس ودرجة ثقة مبدئية قبل التطبيق. درجة الثقة إرشادية وليست ضماناً؛ لا يعتمد النظام على التكرار وحده، بل يخفض الثقة عند الأسماء الطويلة أو التي تشبه أفعال الحركة، ويستبعد توجيهات التصوير الواضحة من أسماء الشخصيات والمواقع عند تفعيل الذكاء. يرجى مراجعة النتائج قبل اعتمادها. تُدمج صيغ الاسم المختصرة مع الكاملة بحذر، وتبقى التعديلات اليدوية محفوظة أثناء التحديث.</li>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
         <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
-        <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات المشتركة.</li>
+        <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات.</li>
       </ul>
 
       <p data-catalog-section="export" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
@@ -916,7 +916,7 @@
         <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
         <li><b>حرية مساحة الكتابة:</b> من أعلى شريط الأدوات يمكن طي الأدوات أو تفعيل «مساحة الكتابة» لإخفاء القوائم وتوسيع المحرر. يمكن إظهارها مجدداً من زر 🧭 العائم، ويُحفظ تفضيل الطيّ على هذا الجهاز.</li>
-        <li><b>الجولة التعريفية العامة:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ، بصياغة عامة لا ترتبط بجنس أو نوع كتابة واحد. يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
+        <li><b>الجولة التعريفية:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ. يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
         <li><b>نسخ ملفات المشروع ولصقها:</b> حدّد ملفاً أو مجلداً في القائمة الجانبية ثم استخدم Ctrl+C. اختر المجلد من قائمة «وجهة اللصق» أو افتحه، ثم اضغط «لصق» أو استخدم Ctrl+V. يستنسخ النظام العناصر كاملةً، ويعرض الزر عدد العناصر المنسوخة.</li>
       </ul>
@@ -948,7 +948,7 @@
 
 <div class="modal" id="tourModal" aria-labelledby="tourTitle" aria-modal="true" role="dialog">
   <div class="modal-box tour-box" style="max-width:620px;">
-    <h3 id="tourTitle">🧭 جولة تعريفية عامة</h3>
+    <h3 id="tourTitle">🧭 جولة تعريفية</h3>
     <section id="tourIntro">
       <p>هذه جولة تعريفية قصيرة بأقسام Varry Studio. لا ترتبط بنوع كتابة واحد، وتتبدل الأدوات المعروضة بحسب الملف المفتوح. يمكن بدء الجولة الآن أو فتحها لاحقاً من زر 🧭 في رأس قائمة المشاريع، أو من الكتالوج وقائمة التنقل.</p>
       <div class="modal-actions"><button type="button" id="tourNotNow">العودة لاحقاً</button><button type="button" class="primary" id="tourStart">بدء الجولة</button></div>
@@ -1064,7 +1064,7 @@
         <button class="dash-btn" id="pvTxt" style="width:100%;">📝 تصدير TXT</button>
         <button class="dash-btn" id="pvEdit" style="width:100%;">✍️ تعديل داخل المعاينة</button>
         <button class="dash-btn" id="pvCancelEdit" style="width:100%;display:none;">إلغاء تعديلات المعاينة</button>
-        <div id="pvEditHint" style="display:none;color:var(--accent);font-size:11px;line-height:1.5;">عدّلي النص مباشرة داخل المعاينة، ثم اضغطي «حفظ تعديلات المعاينة». لا تغلقيها قبل الحفظ.</div>
+        <div id="pvEditHint" style="display:none;color:var(--accent);font-size:11px;line-height:1.5;">يمكن تعديل النص مباشرة داخل المعاينة، ثم الضغط على «حفظ تعديلات المعاينة». لا تُغلق المعاينة قبل الحفظ.</div>
       </div>
       <div id="pvBody" style="flex:1;min-width:280px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px;max-height:62vh;overflow:auto;color:#222;font-size:14px;line-height:1.8;"></div>
     </div>
@@ -1157,11 +1157,11 @@
       <div id="exAiConfig" class="ex-ai-config" hidden>
         <label class="wide">رابط Chat Completions متوافق<input id="exAiEndpoint" type="url" placeholder="https://…/v1/chat/completions" autocomplete="off"></label>
         <label>اسم النموذج<input id="exAiModel" type="text" placeholder="Model ID" autocomplete="off"></label>
-        <label>مفتاح API — يبقى في جلسة التبويب<input id="exAiKey" type="password" placeholder="أدخلي مفتاحك" autocomplete="new-password"></label>
+        <label>مفتاح API — يبقى في جلسة التبويب<input id="exAiKey" type="password" placeholder="أدخل المفتاح" autocomplete="new-password"></label>
         <p class="ex-ai-note wide">تحليل AI اختياري ويتطلب مزوّداً متوافقاً ومفتاحك الخاص. لن يُضمّن أي مفتاح في الملف أو يُحفظ في التخزين الدائم. قبل كل طلب ستظهر موافقة؛ نصوص السيناريو المحددة ستُرسل إلى المزوّد وقد تُحتسب عليها رسوم. بعض الخدمات لا تسمح بطلبات مباشرة من ملف محلي وتحتاج خادماً وسيطاً آمناً.</p>
       </div>
     </div>
-    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجعي النتائج قبل اعتمادها.</p>
+    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. يرجى مراجعة النتائج قبل اعتمادها.</p>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0;">
       <button type="button" id="exClearCorrections" class="dash-btn">مسح تصحيحات هذا العمل</button>
       <button type="button" id="exAddManual" class="dash-btn">＋ إضافة نتيجة يدوية</button>
@@ -1206,7 +1206,7 @@
         <p class="brand-sub"><span class="user-badge" id="userNameBadge">هبة Varry</span></p>
       </div>
       <button class="icon-btn" id="openCatalogBtn" title="الدليل الشامل">📖</button>
-      <button class="icon-btn" id="startTourBtn" title="الجولة التعريفية العامة" aria-label="فتح الجولة التعريفية العامة">🧭</button>
+      <button class="icon-btn" id="startTourBtn" title="الجولة التعريفية" aria-label="فتح الجولة التعريفية">🧭</button>
       <button class="icon-btn" id="sidebarCollapseBtn" title="طي قائمة المشاريع" aria-label="طي قائمة المشاريع">‹</button>
     </div>
 
@@ -1248,13 +1248,13 @@
         <button data-type="short_story">📕 قصة قصيرة</button>
         <button data-type="chapter">📑 فصل</button>
         <button data-type="story_scene">🎞️ مشهد قصصي</button>
-        <div class="dd-sep">مساحة الكاتبة</div>
+        <div class="dd-sep">مساحة عامة</div>
         <button data-type="music">🎵 مكتبة موسيقى</button>
         <button data-type="song">🎶 أغنية</button>
         <button data-type="visual_refs">🖼️ مراجع بصرية</button>
-        <button data-type="characters">👥 شخصيات مشتركة</button>
+        <button data-type="characters">👥 شخصيات</button>
         <button data-type="world">🌍 عالم العمل</button>
-        <button data-type="writer_notes">🗒️ مساحة الكاتبة (ملاحظات ومراجع)</button>
+        <button data-type="writer_notes">🗒️ ملاحظات ومراجع</button>
         <button data-type="music_guide">🎼 الدليل الموسيقي</button>
         <div class="dd-sep">كتابة المحتوى (احترافي)</div>
         <button data-type="content_plan">🧭 خطة محتوى</button>
@@ -1670,7 +1670,7 @@
       </label>
       <div id="dpMusicLinks" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
         <label>ملفات الموسيقى المرتبطة:
-          <select id="dpRelatedSelect"><option value="">اختاري ملفاً للربط…</option></select>
+          <select id="dpRelatedSelect"><option value="">تحديد ملف للربط…</option></select>
         </label>
         <button class="fmt-btn" id="dpLinkBtn">🔗 ربط</button>
         <div id="dpRelatedList" style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;"></div>
@@ -1713,7 +1713,7 @@
         <button data-nav="focus">✍️ مساحة الكتابة (إخفاء القوائم)</button>
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
-        <button data-nav="tour">🧭 جولة تعريفية عامة</button>
+        <button data-nav="tour">🧭 جولة تعريفية</button>
         <button data-nav="floating">⊖ طي الأزرار العائمة</button>
         <button data-nav="screenshot">📸 لقطة شاشة من التطبيق</button>
         <button data-nav="top">⬆️ أعلى الصفحة</button>
@@ -1728,7 +1728,7 @@
 
     <div class="empty-state" id="emptyState">
       <h2>أهلاً بكِ في Varry Studio</h2>
-      <p style="font-size:12px;">Varry Studio: Multiple scenario platform — اختاري مشروعاً من القائمة الجانبية أو ابدئي بإنشاء مسلسل جديد.</p>
+      <p style="font-size:12px;">Varry Studio: Multiple scenario platform — يمكن اختيار مشروع من القائمة الجانبية أو إنشاء مسلسل جديد.</p>
       <button id="emptyNewBtn">+ إضافة مشروع جديد</button>
     </div>
   </main>
@@ -1801,8 +1801,8 @@ const TYPE_LABELS = {
   text_document:'📄 مستند نصي', treatment_cinematic:'📑 معالجة سينمائية', treatment_series:'📑 معالجة مسلسل',
   treatment_docu:'📑 معالجة وثائقي', screenplay_us:'🎬 سينمائي أمريكي', screenplay_fr:'📽️ فرنسي أعمدة',
   theatre:'🎭 مسرحي', yt:'▶️ يوتيوب', treatment_radio:'📑 معالجة إذاعي', radio:'🎙️ إذاعي',
-  music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات مشتركة',
-  world:'🌍 عالم العمل', writer_notes:'🗒️ مساحة الكاتبة',
+  music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات',
+  world:'🌍 عالم العمل', writer_notes:'🗒️ ملاحظات ومراجع',
   novel:'📖 رواية', short_story:'📕 قصة قصيرة', chapter:'📑 فصل', story_scene:'🎞️ مشهد قصصي',
   music_guide:'🎼 الدليل الموسيقي', locations:'📍 تفريغ اللوكيشنات', char_profile:'🪪 كاراكتر بروفايل',
   documentary_project:'🎞️ مشروع وثائقي', content_project:'🗂️ مشروع محتوى', docu_script:'🎥 سيناريو وثائقي', docu_research:'🔬 بحث ومصادر وثائقي', docu_interviews:'🎤 مقابلة (وثائقي)', docu_archive:'🗃️ أرشيف ومواد بصرية', content_plan:'🧭 خطة محتوى', content_article:'📰 مقال / تدوينة', content_social:'📱 محتوى تواصل اجتماعي', content_ad:'📣 نص إعلاني / تسويقي'
@@ -1813,7 +1813,7 @@ const DEFAULT_TITLES = {
   text_document:'مستند نصي جديد', treatment_cinematic:'معالجة سينمائية جديدة', treatment_series:'معالجة مسلسل جديدة', treatment_docu:'معالجة وثائقية جديدة',
   screenplay_us:'سيناريو سينمائي جديد', screenplay_fr:'سيناريو فرنسي جديد', theatre:'نص مسرحي جديد', yt:'سيناريو يوتيوب جديد',
   treatment_radio:'معالجة إذاعية', radio:'سيناريو إذاعي جديد', music:'مكتبة الموسيقى', song:'أغنية جديدة',
-  visual_refs:'مراجع بصرية', characters:'الشخصيات المشتركة', world:'عالم العمل', writer_notes:'مساحة الكاتبة',
+  visual_refs:'مراجع بصرية', characters:'الشخصيات', world:'عالم العمل', writer_notes:'ملاحظات ومراجع',
   novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل',
   documentary_project:'مشروع وثائقي جديد', content_project:'مشروع محتوى جديد', docu_script:'سيناريو وثائقي جديد', docu_research:'بحث ومصادر', docu_interviews:'مقابلة جديدة', docu_archive:'الأرشيف والمواد البصرية', content_plan:'خطة المحتوى', content_article:'مقال جديد', content_social:'محتوى تواصل جديد', content_ad:'نص إعلاني جديد'
 };
@@ -1827,7 +1827,7 @@ const BOX_TEMPLATES = {
   music:        ['🎵 Opening Theme', '🎵 Ending Theme', '👤 Character Themes', '💿 Tracks', '🔗 References'],
   song:         ['🎵 عنوان الأغنية', '📝 الكلمات', '🗒️ ملاحظات', '🔗 مراجع'],
   visual_refs:  ['👤 الشخصيات', '👗 الملابس', '📍 الأماكن', '🎨 الألوان', '🖼️ الملصقات'],
-  characters:   ['👥 الشخصيات المشتركة', '🔗 العلاقات بين الشخصيات'],
+  characters:   ['👥 الشخصيات', '🔗 العلاقات بين الشخصيات'],
   world:        ['🌍 عالم العمل', '📜 القواعد والقوانين', '📍 الأماكن الرئيسية', '🕰️ الخط الزمني'],
   writer_notes: ['🗒️ ملاحظات', '📚 مراجع', '🖼️ مراجع بصرية', '🎵 مراجع موسيقية'],
   music_guide: ['🎶 الأغاني', '🎼 المقطوعات', '🎧 الوصف الموسيقي', '🎵 المراجع والروابط'],
@@ -1900,7 +1900,7 @@ const CONTAINER_BLUEPRINTS = {
   series_project: [['Bible','text_document'],['معالجة','treatment_series'],['شخصيات','characters'],['عالم العمل','world'],['مواسم','text_document'],['حلقات','text_document'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document']],
   documentary_project: [['معالجة وثائقية','treatment_docu'],['بحث ومصادر','docu_research'],['أسئلة المقابلات','docu_interviews'],['أرشيف ومواد بصرية','docu_archive'],['سيناريو وثائقي','docu_script'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music']],
   content_project: [['خطة المحتوى','content_plan'],['مقالات','content_article'],['محتوى التواصل الاجتماعي','content_social'],['نصوص إعلانية','content_ad'],['ملاحظات','writer_notes']],
-  master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات مشتركة','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
+  master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
 };
 
 // قوالب تنسيق الملف
@@ -2044,7 +2044,7 @@ toggleLockBtn.addEventListener('click', () => {
   alert(isLockEnabled ? 'تم تفعيل شاشة القفل عند البدء.' : 'تم تعطيل شاشة القفل.');
 });
 $('changePassBtn').addEventListener('click', () => {
-  const newP = prompt('أدخلي كلمة المرور الجديدة:');
+  const newP = prompt('يرجى إدخال كلمة المرور الجديدة:');
   if(newP && newP.trim()){
     userPass = newP.trim();
     localStorage.setItem('varry:password', userPass);
@@ -2783,7 +2783,7 @@ function renderRelatedDocs(doc){
   group.style.display = enabled ? 'flex' : 'none';
   if(!enabled) return;
   const candidates = Object.keys(docs).filter(id => id !== currentId && MUSIC_LINK_TYPES.has(docs[id].docType));
-  select.innerHTML = '<option value="">اختاري ملفاً للربط…</option>' +
+  select.innerHTML = '<option value="">تحديد ملف للربط…</option>' +
     candidates.map(id => `<option value="${esc(id)}">${esc(docs[id].title || TYPE_LABELS[docs[id].docType] || 'ملف موسيقى')}</option>`).join('');
   const links = (doc.relatedDocs || []).filter(id => docs[id]);
   list.innerHTML = links.length ? links.map(id =>
@@ -2881,7 +2881,7 @@ try{
       history.pushState({ varryBackGuard:true }, '', location.href);
       return;
     }
-    if(!confirm('هل تريدين مغادرة Varry Studio؟ تأكدي من ظهور «تم الحفظ» قبل الخروج.')){
+    if(!confirm('تأكيد مغادرة Varry Studio؟ يرجى التأكد من ظهور «تم الحفظ» قبل الخروج.')){
       history.pushState({ varryBackGuard:true }, '', location.href);
     }
   });
@@ -3375,7 +3375,7 @@ $('trashSelectAllBtn').addEventListener('click', () => {
 });
 $('trashRestoreSelectedBtn').addEventListener('click', () => {
   const ids = selectedTrashIds();
-  if(!ids.length){ alert('حددي عنصراً واحداً على الأقل لاستعادته.'); return; }
+  if(!ids.length){ alert('يرجى تحديد عنصر واحد على الأقل لاستعادته.'); return; }
   pushUndoSnapshot();
   ids.forEach(restoreDoc);
   persist();
@@ -3384,7 +3384,7 @@ $('trashRestoreSelectedBtn').addEventListener('click', () => {
 });
 $('trashDeleteSelectedBtn').addEventListener('click', () => {
   const ids = selectedTrashIds();
-  if(!ids.length){ alert('حددي عنصراً واحداً على الأقل للحذف النهائي.'); return; }
+  if(!ids.length){ alert('يرجى تحديد عنصر واحد على الأقل للحذف النهائي.'); return; }
   if(!confirm(`سيُحذف ${ids.length} عنصر نهائياً ولا يمكن استعادته. متابعة؟`)) return;
   pushUndoSnapshot();
   ids.forEach(permDelete);
@@ -3493,7 +3493,7 @@ function loadSmartIndexManual(rootId){
 }
 function saveSmartIndexManual(rootId,value){
   try{localStorage.setItem(SMART_INDEX_MANUAL_PREFIX+String(rootId),JSON.stringify(value));return true;}
-  catch(e){alert('تعذّر حفظ تعديل الفهرس في تخزين المتصفح. تحققي من المساحة المتاحة.');return false;}
+  catch(e){alert('تعذّر حفظ تعديل الفهرس في تخزين المتصفح. يرجى التحقق من المساحة المتاحة.');return false;}
 }
 function loadExtractionManual(){try{const x=JSON.parse(localStorage.getItem(EXTRACTION_MANUAL_KEY)||'{}');return x&&typeof x==='object'?x:{};}catch(e){return {};}}
 function extractionManualBucket(scope,kind){return String(scope||'standalone')+'|'+String(kind||'loc');}
@@ -3526,7 +3526,7 @@ function openManualItemEditor(context,item){
 }
 function saveManualEditor(){
   const ctx=manualEditorContext;if(!ctx)return;
-  const name=$('manualName').value.trim();if(!name){alert('أدخلي اسماً أو عنواناً أولاً.');return;}
+  const name=$('manualName').value.trim();if(!name){alert('يرجى إدخال اسم أو عنوان أولاً.');return;}
   const values={name,heading:name,place:$('manualPlace').value.trim(),ie:$('manualIE').value,tod:$('manualTod').value,characters:$('manualCharacters').value.split(/[،,؛;]+/).map(x=>x.trim()).filter(Boolean),scenes:Math.max(0,parseInt($('manualCount').value,10)||0),lines:Math.max(0,parseInt($('manualLines').value,10)||0),notes:$('manualNotes').value.trim()};
   if(ctx.zone==='extraction'){
     const saved=saveExtractionManualItem(ctx.scope,ctx.kind,ctx.itemId, {name,notes:values.notes});if(!saved)return;
@@ -3650,7 +3650,7 @@ function renderSmartProjectIndex(rootId){
     const ref=item.evidenceRef || item.ref || (item.refs&&item.refs[0]) || null, canJump=!!(ref&&ref.id&&Number.isInteger(ref.sceneIndex)&&ref.sceneIndex>=0);
     const evidence=(kind==='character'||kind==='location')?String(item.evidence||ref?.evidence||'').slice(0,220):'';
     const content=`<span class="smart-index-badge">${esc(badge)}</span><span class="smart-index-copy"><strong>${esc(label)}</strong><small>${esc(meta)}${item.notes?' · '+esc(item.notes):''}${item.manual?' · إدخال يدوي':''}</small>${evidence?`<small class="smart-index-evidence"><b>دليل من النص:</b> «${esc(evidence)}»</small>`:''}</span>`;
-    const main=canJump?`<button type="button" class="smart-index-row" title="اضغطي للانتقال إلى موضع ${evidence?'الدليل':'المشهد'} في النص" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}" data-evidence-kind="${kind}" data-evidence="${esc(evidence)}">${content}</button>`:`<div class="smart-index-row is-static">${content}</div>`;
+    const main=canJump?`<button type="button" class="smart-index-row" title="الانتقال إلى موضع ${evidence?'الدليل':'المشهد'} في النص" data-act="smart-jump" data-id="${esc(ref.id)}" data-scene-index="${ref.sceneIndex}" data-evidence-kind="${kind}" data-evidence="${esc(evidence)}">${content}</button>`:`<div class="smart-index-row is-static">${content}</div>`;
     return `<div class="smart-index-entry">${main}<div class="smart-index-actions"><button type="button" title="تعديل" aria-label="تعديل ${esc(label)}" data-act="smart-edit" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>✎</button><button type="button" title="إخفاء من الفهرس" aria-label="إخفاء ${esc(label)}" data-act="smart-delete" data-kind="${kind}" data-key="${esc(item.key)}" ${item.manual?'data-added="true"':''}>×</button></div></div>`;
   };
   const sceneRows=data.scenes.map(s=>jump('scene',s,s.heading,`${s.ref?.title || 'إدخال يدوي'} · ${s.place || 'الموقع غير واضح'}${s.ie?' · '+s.ie:''}${s.tod?' · '+s.tod:''}${s.characters.length?' · '+s.characters.join('، '):''}`,s.ref?.sceneLabel||s.sceneLabel||'يدوي'));
@@ -3658,14 +3658,14 @@ function renderSmartProjectIndex(rootId){
   const placeRows=data.locations.map(L=>jump('location',L,L.name,`${L.scenes} مشهد${L.ies?.size?' · '+[...L.ies].join(' / '):''}${L.tods?.size?' · '+[...L.tods].join(' / '):''}`,L.scenes));
   const warnings=[];
   if(!data.sourceCount) warnings.push('لم يُعثر على ملفات كتابة قابلة للتحليل داخل هذا المشروع.');
-  if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ راجعي عناوين المشاهد.`);
-  if(data.duplicateNumbers) warnings.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف أو أكثر؛ تحققي من الترقيم.`);
+  if(data.missingLocations) warnings.push(`${data.missingLocations} مشهد بلا موقع واضح في العنوان؛ يرجى مراجعة عناوين المشاهد.`);
+  if(data.duplicateNumbers) warnings.push(`${data.duplicateNumbers} رقم مشهد مكرر داخل ملف أو أكثر؛ يرجى التحقق من الترقيم.`);
   if(data.singleSceneCharacters) warnings.push(`${data.singleSceneCharacters} شخصية ظهرت في مشهد واحد فقط؛ قد يكون ذلك مقصوداً، أو قد يشير إلى اختلاف في كتابة الاسم.`);
-  if(data.singleSceneLocations) warnings.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط؛ تأكدي من توحيد كتابة اسمه بين الملفات.`);
-  if(data.nameCollisions.length) warnings.push(`توجد ${data.nameCollisions.length} مجموعة أسماء تبدأ بالاسم نفسه (${data.nameCollisions.map(g=>g.join(' / ')).join('؛ ')}). لم تُدمج الشخصيات تلقائياً؛ راجعي التشابه.`);
+  if(data.singleSceneLocations) warnings.push(`${data.singleSceneLocations} موقع ظهر مرة واحدة فقط؛ يرجى التأكد من توحيد كتابة اسمه بين الملفات.`);
+  if(data.nameCollisions.length) warnings.push(`توجد ${data.nameCollisions.length} مجموعة أسماء تبدأ بالاسم نفسه (${data.nameCollisions.map(g=>g.join(' / ')).join('؛ ')}). لم تُدمج الشخصيات تلقائياً؛ يرجى مراجعة التشابه.`);
   const empty=label=>`<div class="smart-index-note" style="padding:8px 10px;">${esc(label)}</div>`;
   return `<section class="smart-index" aria-label="الفهرس الذكي للمشروع">
-    <div class="smart-index-head"><div><h3>✦ الفهرس الذكي</h3><p>نتائج موثّقة بالمشاهد والملفات؛ يمكنك تعديلها أو إضافة إدخالات يدوية دون لمس السيناريو.</p></div><input id="smartIndexSearch" class="smart-index-search" type="search" placeholder="ابحثي عن مشهد أو اسم أو موقع…" aria-label="بحث في الفهرس الذكي"><button type="button" class="dash-btn" data-act="smart-refresh">↻ إعادة التحليل</button><button type="button" class="dash-btn primary" data-act="smart-report">⇩ تقرير الإنتاج</button></div>
+    <div class="smart-index-head"><div><h3>✦ الفهرس الذكي</h3><p>نتائج موثّقة بالمشاهد والملفات؛ يمكنك تعديلها أو إضافة إدخالات يدوية دون لمس السيناريو.</p></div><input id="smartIndexSearch" class="smart-index-search" type="search" placeholder="البحث عن مشهد أو اسم أو موقع…" aria-label="بحث في الفهرس الذكي"><button type="button" class="dash-btn" data-act="smart-refresh">↻ إعادة التحليل</button><button type="button" class="dash-btn primary" data-act="smart-report">⇩ تقرير الإنتاج</button></div>
     <div class="smart-index-metrics"><div class="smart-index-metric"><b>${data.scenes.length}</b><span>مشهد مكتشف</span></div><div class="smart-index-metric"><b>${data.characters.length}</b><span>شخصية فريدة</span></div><div class="smart-index-metric"><b>${data.locations.length}</b><span>موقع فريد</span></div><div class="smart-index-metric"><b>${data.sourceCount}</b><span>ملف كتابة محلل</span></div></div>
     <div class="smart-index-sections"><details class="smart-index-section"><summary>المشاهد · ${data.scenes.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="scene">＋ إضافة مشهد يدوي</button></div><div class="smart-index-list">${sceneRows.join('') || empty('لا توجد مشاهد مكتشفة بعد.')}</div></details><details class="smart-index-section"><summary>الشخصيات · ${data.characters.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="character">＋ إضافة شخصية يدوية</button></div><div class="smart-index-list">${charRows.join('') || empty('لم تُكتشف شخصيات في ملفات المشروع بعد.')}</div></details><details class="smart-index-section"><summary>المواقع · ${data.locations.length}</summary><div class="smart-index-section-tools"><button type="button" data-act="smart-add" data-kind="location">＋ إضافة موقع يدوي</button></div><div class="smart-index-list">${placeRows.join('') || empty('لم تُكتشف مواقع واضحة بعد.')}</div></details></div>
     ${warnings.length?`<div class="smart-index-warnings"><strong>مراجعات مقترحة</strong><ul>${warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:''}
@@ -3720,7 +3720,7 @@ function renderDashboard(id){
         <span style="font-size:12px; color:var(--ink-soft);">${esc(typeLabel(doc))}</span>
         <button class="dash-btn" data-act="cover" data-id="${esc(id)}">🖼️ تعديل الغلاف</button>
         <button class="dash-btn" data-act="cover-download" data-id="${esc(id)}" title="تنزيل الغلاف الحالي أو الافتراضي كصورة PNG">⬇️ تنزيل الغلاف PNG</button>
-        <span style="font-size:11px; color:var(--ink-soft);">للتصدير الكامل بالغلاف والفهرس استخدمي «تصدير ومعالجة» بالأعلى.</span>
+        <span style="font-size:11px; color:var(--ink-soft);">للتصدير الكامل بالغلاف والفهرس، استخدم خيار «تصدير ومعالجة» بالأعلى.</span>
       </div>
       <div class="dash-stats">
         <div class="dash-stat"><b>${kids.length}</b><span>قسم</span></div>
@@ -3736,7 +3736,7 @@ function renderDashboard(id){
         <button class="dash-btn" data-act="add-locations">➕ قسم تفريغ اللوكيشنات</button>
         <button class="dash-btn" data-act="add-char-profile">➕ قسم كاراكتر بروفايل</button>
       </div>
-      ${kids.length ? `<ul class="dash-children">${rows}</ul>` : '<div style="text-align:center; color:var(--ink-soft); font-size:13px; padding:20px;">لا أقسام بعد — أضيفي قسماً من الأعلى.</div>'}
+      ${kids.length ? `<ul class="dash-children">${rows}</ul>` : '<div style="text-align:center; color:var(--ink-soft); font-size:13px; padding:20px;">لا أقسام بعد — يمكن إضافة قسم من الأعلى.</div>'}
     </div>`;
 }
 dashboard.addEventListener('click', e => {
@@ -3885,7 +3885,7 @@ async function exportCoverPng(targetId, coverOverride){
   if(!doc) return;
   const coverData = coverOverride !== undefined ? coverOverride : (targetId ? doc.cover : readCoverForm());
   const m = coverModel({ title:doc.title, cover:coverData || {} });
-  if(m.type === 'image' && !m.image){ alert('اختاري صورة أولاً، أو بدّلي الخلفية إلى لون أو تدرج.'); return; }
+  if(m.type === 'image' && !m.image){ alert('يرجى اختيار صورة أولاً، أو تغيير الخلفية إلى لون أو تدرج.'); return; }
   const dims = { book:[1200,1800], a4:[1200,1697], social:[1200,1500], square:[1200,1200], wide:[1600,900] };
   const [width,height] = dims[m.format] || dims.book;
   const canvas = document.createElement('canvas');
@@ -4019,7 +4019,7 @@ $('cvRemove').addEventListener('click', () => {
 $('cvSave').addEventListener('click', () => {
   if(!coverTarget || !docs[coverTarget]) return;
   const o = readCoverForm();
-  if(o.type === 'image' && !o.image){ alert('اختاري صورة أولاً، أو بدّلي الخلفية إلى لون أو تدرج.'); return; }
+  if(o.type === 'image' && !o.image){ alert('يرجى اختيار صورة أولاً، أو تغيير الخلفية إلى لون أو تدرج.'); return; }
   flushEditorToDoc(); pushUndoSnapshot();
   docs[coverTarget].cover = o;
   persist(); afterCoverChange();
@@ -4028,7 +4028,7 @@ $('cvApplyKids').addEventListener('click', () => {
   const d = docs[coverTarget];
   if(!d || !isContainer(d)) return;
   const o = Object.assign(readCoverForm(), { title: '', subtitle: '' });
-  if(o.type === 'image' && !o.image){ alert('اختاري صورة أولاً.'); return; }
+  if(o.type === 'image' && !o.image){ alert('يرجى اختيار صورة أولاً.'); return; }
   if(!confirm('تطبيق هذا الغلاف (بدون العنوان) على كل أقسام الحاوية؟')) return;
   flushEditorToDoc(); pushUndoSnapshot();
   (d.children || []).forEach(k => { if(docs[k]) docs[k].cover = deepClone(o); });
@@ -4092,8 +4092,8 @@ function ensureNestedSceneButton(type){
   });
 }
 function insertNestedScene(){
-  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('افتحي ملف سيناريو أولاً.'); return; }
-  const kind = prompt('اختاري نوع المشهد الضمني بكتابة رقمه أو اسمه:\n'+NESTED_SCENE_KINDS.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nيمكنك كتابة نوع آخر.', '1');
+  if(!currentId || !docs[currentId] || isContainer(docs[currentId])){ alert('يرجى فتح ملف سيناريو أولاً.'); return; }
+  const kind = prompt('يرجى إدخال رقم نوع المشهد الضمني أو اسمه:\n'+NESTED_SCENE_KINDS.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nيمكنك كتابة نوع آخر.', '1');
   if(kind === null) return;
   const trimmed=kind.trim(); if(!trimmed) return;
   const num=parseInt(trimmed,10); const label=(num>=1 && num<=NESTED_SCENE_KINDS.length && /^\d+$/.test(trimmed))?NESTED_SCENE_KINDS[num-1]:trimmed;
@@ -4304,7 +4304,7 @@ function addDurationBelowScene(){
   snap(); restoreCaret();
   let a = getAnchorBlock();
   while(a && !(a.nodeType === 1 && a.matches(SCENE_SELECTOR))) a = a.previousSibling;
-  if(!a){ alert('ضعي المؤشر داخل مشهد أو بعد عنوان مشهد أولاً.'); return; }
+  if(!a){ alert('يرجى وضع المؤشر داخل مشهد أو بعد عنوان مشهد أولاً.'); return; }
   let dur = a.nextElementSibling;
   if(!(dur && dur.classList.contains('scene-duration'))){
     a.insertAdjacentHTML('afterend', DURATION_HTML);
@@ -4917,7 +4917,7 @@ document.addEventListener('keydown', e => {
 $('docPanelToggle').addEventListener('click', () => {
   let d = currentId && docs[currentId];
   let switchedFromContainer = false;
-  // عند اختيار حاوية مشروع، ابحثي عن أول مستند فعلي تابع لها.
+  // عند اختيار حاوية مشروع، البحث عن أول مستند فعلي تابع لها.
   if(d && isContainer(d)){
     let targetId = null;
     if(typeof descendantsOf === 'function'){
@@ -4940,11 +4940,11 @@ $('docPanelToggle').addEventListener('click', () => {
       // فتح اللوحة صراحةً هنا؛ لا نعكس حالتها السابقة بعد تبديل الملف.
       panelOpen = true;
     } else {
-      alert('لا يوجد ملف داخل هذا المشروع لعرض إعداداته بعد. أضيفي قسماً أولاً.');
+      alert('لا يوجد ملف داخل هذا المشروع لعرض إعداداته بعد. يرجى إضافة قسم أولاً.');
       return;
     }
   }
-  if(!d){ alert('افتحي ملفاً أولاً لعرض إعداداته.'); return; }
+  if(!d){ alert('يرجى فتح ملف أولاً لعرض إعداداته.'); return; }
   // إذا انتقلنا من حاوية مشروع، فالهدف فتح اللوحة لا إغلاقها بسبب حالة سابقة.
   if(!switchedFromContainer) panelOpen = !(panelOpen && docPanel.classList.contains('open'));
   updateDocPanel(d);
@@ -5115,7 +5115,7 @@ $('navFabMenu').addEventListener('click', e => {
   else if(act === 'docpanel'){
     setWritingFocus(false);setToolsCollapsed(false);
     if(currentId && docs[currentId] && !isContainer(docs[currentId])){ panelOpen = true; docPanel.classList.add('open'); toolbar.scrollIntoView({ behavior:'smooth' }); }
-    else alert('افتحي ملفاً (غير حاوية) أولاً.');
+    else alert('يرجى فتح ملف (غير حاوية) أولاً.');
   }
   else if(act === 'catalog') showModal(catalogModal);
   else if(act === 'tour') openGeneralTour();
@@ -5172,7 +5172,7 @@ $('includeWriterInfoInExport').addEventListener('change', e => {
 });
 $('editWriterInfoBtn').addEventListener('click', () => {
   const doc=currentId && docs[currentId];
-  if(!doc){ alert('افتحي ملفاً أو مشروعاً أولاً.'); return; }
+  if(!doc){ alert('يرجى فتح ملف أو مشروع أولاً.'); return; }
   writerInfoModalDocId=currentId;
   const info=doc.writerInfo||{};
   $('writerInfoName').value=info.name||'';
@@ -5183,7 +5183,7 @@ $('editWriterInfoBtn').addEventListener('click', () => {
 $('writerInfoCancel').addEventListener('click', () => hideModal($('writerInfoModal')));
 $('writerInfoSave').addEventListener('click', () => {
   const doc=writerInfoModalDocId && docs[writerInfoModalDocId];
-  if(!doc){ alert('لم يعد الملف المحدد متاحاً. افتحيه مجدداً ثم أعيدي إدخال البيانات.'); hideModal($('writerInfoModal')); return; }
+  if(!doc){ alert('لم يعد الملف المحدد متاحاً. يرجى فتحه مجدداً ثم إدخال البيانات من جديد.'); hideModal($('writerInfoModal')); return; }
   if(writerInfoModalDocId===currentId && !isContainer(doc)) flushEditorToDoc();
   doc.writerInfo={name:$('writerInfoName').value.trim(),bio:$('writerInfoBio').value.trim(),contact:$('writerInfoContact').value.trim()};
   persist();
@@ -5519,7 +5519,7 @@ function modernizeIds(ids){
   const targets = [...set];
   if(!targets.length){ alert('لا توجد ملفات للتحديث (الحاويات الفارغة لا تُحدَّث).'); return; }
   if(!confirm(`سيتم تحديث ${targets.length} ملف للميزات الجديدة:\n• نمط الملف (الخط/التباعد)\n• سطر المدة المتوقعة تحت كل مشهد\n• ترقية الحوار المتوازي والفقرات الحرة\n\nيمكنك التراجع بعدها. متابعة؟`)) return;
-  const heur = confirm('هل تريدين أيضاً تحويل الفقرات العادية تلقائياً إلى عناصر سيناريو (مشهد / شخصية / حوار / وصف / انتقال) حيثما أمكن؟\n\nموافق = نعم، إلغاء = تحديث بدون تحويل الفقرات.');
+  const heur = confirm('تحويل الفقرات العادية تلقائياً إلى عناصر سيناريو (مشهد / شخصية / حوار / وصف / انتقال) حيثما أمكن؟\n\nموافق = نعم، إلغاء = تحديث بدون تحويل الفقرات.');
   flushEditorToDoc();
   pushUndoSnapshot();
   const tot = { classified: 0, durations: 0 };
@@ -5565,7 +5565,7 @@ function auditAndFixDoc(doc){
 $('fixDocBtn').addEventListener('click', () => {
   const checked = [...selectedDocIds].filter(id => docs[id] && !isContainer(docs[id]));
   const targets = checked.length ? checked : (currentId && docs[currentId] && !isContainer(docs[currentId]) ? [currentId] : []);
-  if(!targets.length){ alert('افتحي ملفاً (غير حاوية) أولاً، أو حددي ملفات من القائمة الجانبية.'); return; }
+  if(!targets.length){ alert('يرجى فتح ملف (غير حاوية) أولاً أو تحديد ملفات من القائمة الجانبية.'); return; }
   const classify = confirm('تدقيق وإصلاح ' + targets.length + ' ملف.\n\nموافق = مع محاولة تصنيف الفقرات العادية تلقائياً (مشهد/شخصية/حوار)\nإلغاء = إصلاح البنية والأخطاء فقط بدون تصنيف');
   flushEditorToDoc(); pushUndoSnapshot();
   const tot = { struct:0, empty:0, text:0, classified:0 };
@@ -5588,7 +5588,7 @@ $('modernizeBtn').addEventListener('click', () => {
   const checked = selectedTopLevelIds();
   if(checked.length){ modernizeIds(checked); return; }
   if(!Object.keys(docs).length) return;
-  if(confirm('لا يوجد ملف محدد. هل تريدين تحديث كل الملفات؟\n(حددي ملفات بالمربعات أولاً إن أردتِ تحديد بعضها فقط.)')) modernizeIds(index.slice());
+  if(confirm('لا يوجد ملف محدد. تأكيد تحديث كل الملفات؟\n(لتحديث ملفات محددة فقط، يرجى تحديدها بالمربعات أولاً.)')) modernizeIds(index.slice());
 });
 $('dpType').addEventListener('change', e => {
   const d = currentId && docs[currentId];
@@ -5897,7 +5897,7 @@ a{color:#7a3b2e;text-decoration:underline}
 }
 function exportWordFile(rootId, opts){
   if(!window.htmlDocx || typeof window.htmlDocx.asBlob !== 'function'){
-    alert('مكتبة إنشاء Word غير متاحة حالياً. تحققي من اتصال الإنترنت ثم أعيدي المحاولة.');
+    alert('مكتبة إنشاء Word غير متاحة حالياً. يرجى التحقق من اتصال الإنترنت ثم إعادة المحاولة.');
     return;
   }
   try{
@@ -6001,7 +6001,7 @@ html,body{margin:0;height:100%;background:#141210;font-family:'Noto Naskh Arabic
 async function exportPowerPoint(rootId, opts){
   const Pptx = window.PptxGenJS || window.pptxgen;
   if(typeof Pptx !== 'function'){
-    alert('مكتبة إنشاء PowerPoint غير متاحة حالياً. تحققي من اتصال الإنترنت ثم أعيدي المحاولة.');
+    alert('مكتبة إنشاء PowerPoint غير متاحة حالياً. يرجى التحقق من اتصال الإنترنت ثم إعادة المحاولة.');
     return;
   }
   const root = docs[rootId];
@@ -6111,7 +6111,7 @@ $('expPreview').addEventListener('click', () => {
   showModal($('previewModal'));
 });
 $('pvPdf').addEventListener('click', () => {
-  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّلي «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة.');
+  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: يرجى تفعيل «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة.');
   prepPrint(pvRoot, readPvOpts());
   hideModal($('previewModal'));
   window.print();
@@ -6185,7 +6185,7 @@ $('expWord').addEventListener('click', () => {
 });
 $('expPdf').addEventListener('click', () => {
   if(!needDoc()) return;
-  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: فعّلي خيار «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة المتقدمة قبل الحفظ كـ PDF.');
+  alert('ستفتح نافذة الطباعة الآن. لضمان ظهور ترقيم الصفحات والتوقيع: يرجى تفعيل خيار «الترويسات والتذييلات / Headers and footers» من إعدادات الطباعة المتقدمة قبل الحفظ كـ PDF.');
   prepPrint(currentId);
   window.print();
 });
@@ -6216,7 +6216,7 @@ $('importFileOption').addEventListener('click', () => { importDropdown.classList
 $('importInsideOption').addEventListener('click', () => {
   importDropdown.classList.remove('open');
   const d = currentId && docs[currentId];
-  if(!d || isContainer(d)){ alert('افتحي سيناريو أو مستنداً أولاً (وليس حاوية) لدمج الملف بداخله.'); return; }
+  if(!d || isContainer(d)){ alert('يرجى فتح سيناريو أو مستند أولاً (وليس حاوية) لدمج الملف بداخله.'); return; }
   importInsideInput.click();
 });
 $('importBackupOption').addEventListener('click', () => { importDropdown.classList.remove('open'); importBackupInput.click(); });
@@ -6901,11 +6901,11 @@ function buildLocations(analyses){
     const warnings = [
       L.ies.size > 1 ? 'ظهر المكان داخلياً وخارجياً؛ يلزم التأكد هل هو موقع واحد أم أكثر.' : '',
       L.tods.size > 1 ? 'وردت أوقات مختلفة لهذا المكان.' : '',
-      L.inferredScenes ? 'استُنتج ' + L.inferredScenes + ' عنوان مشهد من فقرة غير منسّقة؛ تحققي من العنوان الأصلي.' : '',
+      L.inferredScenes ? 'استُنتج ' + L.inferredScenes + ' عنوان مشهد من فقرة غير منسّقة؛ يرجى التحقق من العنوان الأصلي.' : '',
       nameWords > 5 ? 'اسم طويل نسبياً؛ قد يحتوي على وصف حدث أو حركة لا على اسم المكان وحده.' : '',
-      looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ راجعي هل هو موقع فعلي أم وصف حدث.' : '',
-      L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ تحققي من كونه مكاناً فعلياً.' : '',
-      L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. راجعي العنوان الأصلي للتأكد من أن الفصل صحيح.' : ''
+      looksLikeAction ? 'الاسم يحتوي على صيغة تشبه فعل حركة؛ يرجى التحقق مما إذا كان موقعاً فعلياً أم وصفاً لحدث.' : '',
+      L.count === 1 ? 'ظهر الاسم في مشهد واحد فقط؛ يرجى التحقق مما إذا كان مكاناً فعلياً.' : '',
+      L.removedDirections.length ? 'فُصلت أوصاف تصوير محتملة من العنوان: ' + L.removedDirections.join('، ') + '. يرجى مراجعة العنوان الأصلي للتأكد من صحة الفصل.' : ''
     ].filter(Boolean);
     const weakName = nameWords > 5 || looksLikeAction || L.inferredScenes > 0;
     const confidence = weakName ? 'يحتاج مراجعة' : L.count >= 3 ? 'مرجّح' : L.count === 2 ? 'متوسط' : 'يحتاج مراجعة';
@@ -6969,13 +6969,13 @@ function buildCharacters(analyses, minLines){
     const ratio = C.lines / max;
     const warnings = [];
     if(C.lines<minLines) warnings.push('أقل من حدّ الحوارات المختار ('+minLines+'); أُبقيت الشخصية ظاهرة وتحتاج مراجعة بدلاً من إخفائها.');
-    if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ تحققي من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
-    if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ راجعي السطر المستخرج قبل اعتماد بطاقة الشخصية.');
-    if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ راجعي المصدر قبل الاعتماد.');
+    if(sceneCount <= 1) warnings.push('ظهرت الشخصية في مشهد واحد فقط؛ يرجى التحقق من أن الاسم ليس تسمية مؤقتة أو توجيهاً.');
+    if(C.lines <= 1) warnings.push('الدليل الحواري محدود؛ يرجى مراجعة السطر المستخرج قبل اعتماد بطاقة الشخصية.');
+    if(C.inferredScenes) warnings.push('ظهرت الشخصية في ' + C.inferredScenes + ' مشهد استُنتج من تنسيق حر؛ يرجى مراجعة المصدر قبل الاعتماد.');
     if(!C.sample) warnings.push('لم يُلتقط مثال حوار واضح لهذه الشخصية.');
     const first = C.name.trim().split(/\s+/)[0];
     const sameFirst = (firstNameGroups.get(normKey(first || '')) || []).filter(n => n !== C.name);
-    if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ تحققي مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
+    if(sameFirst.length) warnings.push('توجد أسماء أخرى تبدأ بالاسم نفسه (' + sameFirst.join('، ') + '). لم تُدمج تلقائياً؛ يرجى التحقق مما إذا كانت شخصية مختلفة أو صيغة اسم بديلة.');
     const sceneShare=totalScenes?sceneCount/totalScenes:0;
     const mainEvidence=(sceneCount>=3&&sceneShare>=0.2)||(C.lines>=5&&ratio>=0.6&&(sceneCount>=2||totalScenes<=3))||(C.lines>=8&&ratio>=0.75);
     const secondaryEvidence=sceneCount>=2||(C.lines>=3&&ratio>=0.25);
@@ -7171,7 +7171,7 @@ function renderExtractionCorrections(items, kind){
       '<option value="keep"' + (action==='keep'?' selected':'') + '>اعتماد الاسم</option>' +
       '<option value="rename"' + (action==='rename'?' selected':'') + '>تصحيح الاسم</option>' +
       '<option value="exclude"' + (action==='exclude'?' selected':'') + '>استبعاد النتيجة</option></select>' +
-      '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="اكتبي الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
+      '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="أدخل الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
       '<small>' + esc((item.note || 'نتيجة مستخرجة') + ((item.sources || []).length ? ' · المصدر: ' + [...new Set(item.sources)].join('، ') : '')) + '</small></div>';
   }).join('') + ((items || []).length > 40 ? '<small>تُعرض أول 40 نتيجة فقط في واجهة التصحيح؛ تبقى النتائج الأخرى ضمن التفريغ.</small>' : ''):'') +
     (manualRows.length?'<b style="font-size:12px;margin-top:8px;">إضافات يدوية محفوظة</b>'+manualRows.map(m=>'<div class="ex-manual-entry"><span><b>'+esc(m.name)+'</b><br><small>'+esc(m.notes||'إدخال يدوي')+'</small></span><span><button type="button" data-ex-manual-edit="'+esc(m.id)+'">تعديل</button><button type="button" data-ex-manual-delete="'+esc(m.id)+'">حذف</button></span></div>').join(''):'');
@@ -7194,7 +7194,7 @@ function clearExtractionCorrectionsForCurrentScope(){
   const scopePrefix = extractionCorrectionScope() + '|';
   const keys = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix));
   if(!keys.length){ alert('لا توجد تصحيحات محفوظة لهذا العمل.'); return; }
-  if(!confirm('سيتم مسح ' + keys.length + ' تصحيحاً محفوظاً لهذا العمل فقط. لن تتأثر تصحيحات الأعمال الأخرى. هل تريدين المتابعة؟')) return;
+  if(!confirm('سيتم مسح ' + keys.length + ' تصحيحاً محفوظاً لهذا العمل فقط. لن تتأثر تصحيحات الأعمال الأخرى. تأكيد المتابعة؟')) return;
   keys.forEach(k => delete extractionCorrections[k]);
   saveExtractionCorrections();
   const res = computeExtraction();
@@ -7252,30 +7252,30 @@ function normalizeAiExtraction(kind,payload,sourceNames){
     const sources=[...new Set(refs.map(r=>typeof r==='object'?(r.source||r.file||r.sourceTitle||''): '').filter(Boolean))];
     const conf=Number(row.confidence);const low=!Number.isFinite(conf)||conf<0.7;
     const itemWarnings=(Array.isArray(row.warnings)?row.warnings.filter(x=>typeof x==='string'):[]).slice(0,6);
-    if(low)itemWarnings.push('ثقة AI منخفضة أو غير محددة؛ تحققي من الدليل في المصدر.');
-    if(!details.length)itemWarnings.push('لم يرفق AI مرجع مشهد واضح؛ راجعي النتيجة يدوياً.');
+    if(low)itemWarnings.push('ثقة AI منخفضة أو غير محددة؛ يرجى التحقق من الدليل في المصدر.');
+    if(!details.length)itemWarnings.push('لم يرفق AI مرجع مشهد واضح؛ يرجى مراجعة النتيجة يدوياً.');
     const confidence=Number.isFinite(conf)?Math.round(Math.max(0,Math.min(1,conf))*100)+'%':'غير محددة';
     if(kind==='loc'){
-      const sceneText=details.length?details.join('؛ '):'مقترح AI — راجعي المصدر';
+      const sceneText=details.length?details.join('؛ '):'مقترح AI — يرجى مراجعة المصدر';
       const chars=Array.isArray(row.characters)?row.characters.join('، '):String(row.characters||'');
       const ie=String(row.interior_exterior||row.ie||'');const tod=String(row.time_of_day||row.tod||'');
       return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{ie,tod},auto:{scenes:sceneText,chars}};
     }
     const lineCount=Math.max(0,Number(row.dialogue_lines??row.lines)||0);const quote=String(row.quote||row.evidence||'').slice(0,500);
-    return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{role:String(row.role||'')},auto:{stats:(lineCount||'؟')+' سطر حوار · '+details.length+' مشهد',scenes:details.join('؛ ')||'مقترح AI — راجعي المصدر',sample:quote,with:Array.isArray(row.with)?row.with.join('، '):String(row.with||'')}};
+    return {name,note:'اقتراح AI · '+confidence+' · '+details.length+' مرجع',sources:sources.length?sources:sourceNames,evidenceCount:details.length,confidence:low?'يحتاج مراجعة':'مرجّح',warnings:itemWarnings,chips:{role:String(row.role||'')},auto:{stats:(lineCount||'؟')+' سطر حوار · '+details.length+' مشهد',scenes:details.join('؛ ')||'مقترح AI — يرجى مراجعة المصدر',sample:quote,with:Array.isArray(row.with)?row.with.join('، '):String(row.with||'')}};
   }).filter(Boolean);
 }
 async function runAiExtraction(){
   const status=$('exAiStatus'),button=$('exAiRun');if(button.disabled)return;
-  const res=computeExtraction();if(!res){status.textContent='اختاري ملف مصدر أولاً.';return;}
+  const res=computeExtraction();if(!res){status.textContent='يرجى اختيار ملف مصدر أولاً.';return;}
   const endpoint=String($('exAiEndpoint').value||'').trim(),model=String($('exAiModel').value||'').trim(),key=String($('exAiKey').value||'').trim();
-  if(!endpoint||!model||!key){$('exAiConfig').hidden=false;status.textContent='أدخلي رابط الخدمة واسم النموذج ومفتاح API أولاً.';return;}
+  if(!endpoint||!model||!key){$('exAiConfig').hidden=false;status.textContent='يرجى إدخال رابط الخدمة واسم النموذج ومفتاح API أولاً.';return;}
   let url;try{url=new URL(endpoint);}catch(e){status.textContent='رابط الخدمة غير صالح.';return;}
-  if(url.protocol!=='https:'&&!(url.protocol==='http:'&&/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(url.hostname))){status.textContent='استخدمي HTTPS، أو خادماً محلياً موثوقاً.';return;}
+  if(url.protocol!=='https:'&&!(url.protocol==='http:'&&/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(url.hostname))){status.textContent='يرجى استخدام HTTPS أو خادم محلي موثوق.';return;}
   const sources=res.ids.map(id=>({title:docLabel(id),text:extractionTextForAI(id)})).filter(x=>x.text);
   const totalChars=sources.reduce((n,x)=>n+x.text.length,0),maxChars=50000;
   if(!sources.length){status.textContent='لم يُعثر على نص قابل للإرسال في الملفات المحددة.';return;}
-  if(totalChars>maxChars){status.textContent='النص يتجاوز حد الحماية المحلي ('+maxChars.toLocaleString('ar')+' حرف). اختاري ملفات أقل أو جزّئي التحليل.';return;}
+  if(totalChars>maxChars){status.textContent='النص يتجاوز حد الحماية المحلي ('+maxChars.toLocaleString('ar')+' حرف). يرجى اختيار ملفات أقل أو تقسيم التحليل.';return;}
   const consent='سيُرسل نص '+sources.length+' ملف/ملفات ('+totalChars.toLocaleString('ar')+' حرفاً) إلى '+url.host+' باستخدام النموذج '+model+'. قد تُحتسب رسوم لدى مزود API، ولن يُرسل شيء قبل موافقتك. متابعة؟';
   if(!confirm(consent))return;
   try{sessionStorage.setItem('varry-ai-endpoint',endpoint);sessionStorage.setItem('varry-ai-model',model);sessionStorage.setItem('varry-ai-key',key);}catch(e){}
@@ -7299,11 +7299,11 @@ async function runAiExtraction(){
     const parsed=parseAiJson(content),items=normalizeAiExtraction(res.kind,parsed,sources.map(x=>x.title));
     if(!items.length)throw new Error('لم يُرجع المزوّد نتائج قابلة للاستخدام.');
     aiExtractionResult={kind:res.kind,signature:extractionSignature(res.kind,res.ids),items,warnings:Array.isArray(parsed.warnings)?parsed.warnings:[]};
-    status.textContent='اكتمل التحليل: '+items.length+' اقتراحاً. راجعي الأدلة وصححيها قبل التفريغ.';
+    status.textContent='اكتمل التحليل: '+items.length+' اقتراحاً. يرجى مراجعة الأدلة وتصحيحها قبل التفريغ.';
     previewExtraction();
   }catch(err){
     const msg=err&&err.name==='AbortError'?'انتهت مهلة الاتصال.':String(err&&err.message||'تعذّر الاتصال.');
-    status.textContent='لم يُعتمد أي ناتج AI: '+msg+' تحققي من الرابط والسماح بطلبات المتصفح.';
+    status.textContent='لم يُعتمد أي ناتج AI: '+msg+' يرجى التحقق من الرابط والسماح بطلبات المتصفح.';
   }finally{if(timer)clearTimeout(timer);button.disabled=false;}
 }
 function existingKeys(tid){
@@ -7331,23 +7331,23 @@ function previewExtraction(){
   if(res.kind === 'loc' && res.unnamed) warnings.push(res.unnamed + ' مشهد بلا اسم مكان واضح، ولذلك لم يُنشأ له سجل مكان.');
   if(res.kind === 'loc' && res.suspicious.length){
     const examples = [...new Set(res.suspicious.slice(0, 5).map(x => '«' + x.name + '»'))].join('، ');
-    warnings.push('استُبعدت ' + res.suspicious.length + ' نتيجة لا تحتوي إلا على وصف تصوير محتمل (مثل ' + examples + '). راجعي عناوين هذه المشاهد قبل اعتماد التفريغ.');
+    warnings.push('استُبعدت ' + res.suspicious.length + ' نتيجة لا تحتوي إلا على وصف تصوير محتمل (مثل ' + examples + '). يرجى مراجعة عناوين هذه المشاهد قبل اعتماد التفريغ.');
   }
   if(res.kind === 'loc' && res.nonLocation?.length){
     const examples=[...new Set(res.nonLocation.slice(0,6).map(x=>'«'+x.name+'»'))].join('، ');
-    warnings.push('لم تُسجّل '+res.nonLocation.length+' عناوين كأماكن لأنها تبدو تتمة/مثالاً/ملاحظة وليست موقعاً فعلياً: '+examples+'. راجعيها يدوياً إذا كانت أسماء أماكن حقيقية.');
+    warnings.push('لم تُسجّل '+res.nonLocation.length+' عناوين كأماكن لأنها تبدو تتمة/مثالاً/ملاحظة وليست موقعاً فعلياً: '+examples+'. يرجى مراجعتها يدوياً إذا كانت أسماء أماكن حقيقية.');
   }
   if(res.kind === 'loc' && res.adjusted && res.adjusted.length){
     const examples = [...new Set(res.adjusted.slice(0, 5).map(x => '«' + x.original + '» ← «' + x.name + '»'))].join('، ');
     warnings.push('فُصل وصف تصوير محتمل عن اسم الموقع في ' + res.adjusted.length + ' عنوان. أمثلة: ' + examples + '. هذا اقتراح آلي يحتاج إلى مراجعة العناوين الأصلية.');
   }
-  if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. راجعي تنسيق أسماء الشخصيات والحوار أو جرّبي تفعيل التعرف على الفقرات غير المنسقة.');
+  if(res.kind === 'cp' && !rawItems.length) warnings.push('لم تُكتشف شخصيات وفق القواعد الحالية. يرجى مراجعة تنسيق أسماء الشخصيات والحوار، أو تفعيل التعرف على الفقرات غير المنسقة.');
   if(res.kind === 'cp' && res.filtered?.length){
     const examples=res.filtered.slice(0,8).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
     warnings.push('هناك '+res.filtered.length+' شخصيات دون حدّ الحوارات الحالي ('+$('exMin').value+')؛ لم تُخفَ أي نتيجة، وأُبقيت ظاهرة مع وسم مراجعة. منها: '+examples+'.');
   }
   const usingAI=!!(aiExtractionResult&&aiExtractionResult.kind===res.kind&&aiExtractionResult.signature===extractionSignature(res.kind,res.ids));
-  if(usingAI)warnings.push('المعاينة الحالية تستخدم اقتراحات AI؛ تحققي من الاقتباسات ومراجع المشاهد قبل اعتمادها.');
+  if(usingAI)warnings.push('المعاينة الحالية تستخدم اقتراحات AI؛ يرجى التحقق من الاقتباسات ومراجع المشاهد قبل اعتمادها.');
   if(usingAI&&aiExtractionResult.warnings?.length)warnings.push(...aiExtractionResult.warnings.slice(0,5));
   const manualCount=getExtractionManualItems(extractionCorrectionScope(),res.kind).length;
   let t = 'ملخص المعاينة\nتم فحص ' + res.ids.length + ' ملف · ' + sc + ' مشهد\n' + reviewedItems.length + ' ' + s.noun + ' بعد تطبيق التصحيحات (جديد: ' + fresh + ' · موجود: ' + (reviewedItems.length - fresh) + ')';
@@ -7379,7 +7379,7 @@ function runExtraction(){
   try {
     const res = computeExtraction();
     if(!res){
-      alert('لم يتم اختيار أي ملف مصدر صالح. اختاري «تلقائي» أو «الملف المفتوح فقط» أو حددي الملفات يدوياً.');
+      alert('لم يتم اختيار أي ملف مصدر صالح. يرجى اختيار «تلقائي» أو «الملف المفتوح فقط»، أو تحديد الملفات يدوياً.');
       return;
     }
     const active=activeExtractionItems(res.kind,Array.isArray(res.items)?res.items:[],res.ids);
@@ -7387,18 +7387,18 @@ function runExtraction(){
     if(!res.items.length){
       if(res.kind==='cp'&&res.filtered?.length){
         const names=res.filtered.slice(0,10).map(x=>x.name+' ('+x.lines+' حوار)').join('، ');
-        alert('لم يُنفّذ التفريغ لأن حدّ الحوارات ('+$('exMin').value+') أخفى كل الشخصيات المكتشفة. خفّضي الحد أو اختاري «الكل». الأسماء المستبعدة: '+names);
-      } else alert(res.kind === 'loc' ? 'لم يُعثر على مواقع مؤكدة ضمن عناوين المشاهد. عناوين مثل «تتمة مشهد» أو «مثال» لا تُعامل كمواقع. راجعي المعاينة ثم أضيفي اسم الموقع يدوياً عند الحاجة.' : 'لم يُعثر على شخصيات في الملفات المحددة. تأكدي من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو فعّلي التعرف على النص غير المنسق.');
+        alert('لم يُنفّذ التفريغ لأن حدّ الحوارات ('+$('exMin').value+') أخفى كل الشخصيات المكتشفة. يرجى خفض الحد أو اختيار «الكل». الأسماء المستبعدة: '+names);
+      } else alert(res.kind === 'loc' ? 'لم يُعثر على مواقع مؤكدة ضمن عناوين المشاهد. عناوين مثل «تتمة مشهد» أو «مثال» لا تُعامل كمواقع. يرجى مراجعة المعاينة وإضافة اسم الموقع يدوياً عند الحاجة.' : 'لم يُعثر على شخصيات في الملفات المحددة. يرجى التأكد من اختيار ملف كتابة يحتوي أسماء شخصيات وحواراً، أو تفعيل التعرف على النص غير المنسق.');
       return;
     }
     const needsReview=res.items.filter(item=>(item.warnings||[]).length || item.confidence==='يحتاج مراجعة' || item.inferredScenes);
-    if(needsReview.length && !confirm('توجد ' + needsReview.length + ' نتيجة تحمل تنبيه مراجعة أو استنتاجاً من تنسيق حر. عايني الأدلة وصححي/استبعدي النتائج غير الصحيحة قبل الاعتماد. هل تريدين المتابعة بهذه النتائج؟')) return;
+    if(needsReview.length && !confirm('توجد ' + needsReview.length + ' نتيجة تحمل تنبيه مراجعة أو استنتاجاً من تنسيق حر. يرجى معاينة الأدلة وتصحيح النتائج غير الصحيحة أو استبعادها قبل الاعتماد. متابعة التفريغ بهذه النتائج؟')) return;
     const targetEl = $('exTarget');
     const target = targetEl ? targetEl.value : '';
     const mergeEl = document.querySelector('input[name="exMerge"]:checked');
     const mode = mergeEl ? mergeEl.value : 'update';
     if(target !== '__new' && (!docs[target] || docs[target].docType !== TYPE_OF[res.kind])){
-      alert('الملف الهدف غير متاح أو لا يطابق نوع التفريغ. اختاري ملفاً صالحاً أو «إنشاء ملف جديد».');
+      alert('الملف الهدف غير متاح أو لا يطابق نوع التفريغ. يرجى اختيار ملف صالح أو «إنشاء ملف جديد».');
       return;
     }
     if(mode === 'replace' && target !== '__new' && !confirm('سيتم استبدال كل البطاقات الحالية (بما فيها ما كُتب يدوياً) بالنتيجة الجديدة. المتابعة؟')) return;
