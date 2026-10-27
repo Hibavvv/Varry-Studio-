@@ -2,6 +2,9 @@
 <!-- Phase 37: restore contextual toolbar setup and add nested/embedded screenplay scenes; extraction action hardened. -->
 <html lang="ar" dir="rtl">
 <head>
+  <head>:<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#7a3b2e">
+<link rel="apple-touch-icon" href="/icon-192.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Varry Studio</title>
@@ -7814,10 +7817,11 @@ initializeWorkspace().catch(err => {
    عرض تقديمي حقيقي · 👁️ معاينة وتنسيق قبل التصدير · تصدير HTML مستقل
    أقسام روايات بأدواتها الخاصة
    ===================================================================== */
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+}
 </script>
-  <button id="installAppBtn" style="display: none; /* أو استخدام فئات CSS المناسبة لتصميمك */">
-    <i class="fas fa-download"></i> تنزيل التطبيق
-  </button>
 </body>
   let deferredPrompt;
 const installAppBtn = document.getElementById('installAppBtn');
