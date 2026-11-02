@@ -1,5 +1,4 @@
-u<!DOCTYPE html>
-<!-- Phase 37: restore contextual toolbar setup and add nested/embedded screenplay scenes; extraction action hardened. -->
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -328,7 +327,7 @@ u<!DOCTYPE html>
     margin: 0.6em 0; font-size: 0.9em; white-space: pre-wrap;
   }
   .editor .scene-duration { font-size: 0.82em; color: var(--ink-soft); margin: -0.2em 0 0.8em 0; padding: 0 8px; }
-  /* Phase 4: structured documentary and editorial layouts */
+
   .editor .docu-project-title{text-align:center;font-size:1.8em;border:0;margin:.2em 0 .25em;padding:0;}
   .editor .docu-meta{text-align:center;color:var(--ink-soft);font-size:.86em;margin-bottom:1.4em;}
   .editor .docu-segment{border:1px solid var(--border);border-radius:8px;margin:1.2em 0;padding:12px;break-inside:avoid;}
@@ -338,7 +337,7 @@ u<!DOCTYPE html>
   .editor .docu-cell h3{font-size:.9em;color:var(--accent);margin:0 0 7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
   .editor .docu-cell p{min-height:2em;white-space:pre-wrap;overflow-wrap:anywhere;}
   .editor .docu-source{font-size:.86em;background:rgba(120,120,120,.07);padding:7px 9px;border-radius:4px;margin-top:8px!important;}
-  /* Phase 7: professional two-column documentary script, while retaining free writing around it */
+
   .editor .docu-table{width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;margin:.4em 0 .65em;}
   .editor .docu-table th,.editor .docu-table td{border:1px solid var(--border);padding:10px;vertical-align:top;width:50%;overflow-wrap:anywhere;}
   .editor .docu-table th{background:var(--panel);color:var(--accent);font-size:.9em;text-align:center;}
@@ -380,8 +379,6 @@ u<!DOCTYPE html>
   #printArea .social-final{border:1px solid #ccc;border-right:4px solid #7a3b2e;padding:9pt;}
   #printArea .ad-hero{font-size:15pt;font-weight:bold;border-right:4px solid #7a3b2e;padding:7pt 10pt;}
 
-  /* Phase 6: export fidelity, RTL and page-safe media
-  /* Phase 7: documentary two-column table with free-form writing preserved */ */
   #printArea{overflow-wrap:anywhere;word-break:normal;}
   #printArea img{display:inline-block;max-width:100%!important;height:auto;object-fit:contain;}
   #printArea blockquote{margin:10pt 0;padding:6pt 12pt;border-right:3px solid #7a3b2e;}
@@ -390,7 +387,6 @@ u<!DOCTYPE html>
   #printArea .docu-segment-title,#printArea .ad-hero,#printArea .social-final{break-inside:avoid;page-break-inside:avoid;}
   @media print{#printArea{width:100%!important;max-width:none!important}#printArea table{break-inside:auto}#printArea tr{break-inside:avoid;page-break-inside:avoid}#printArea img{break-inside:avoid;page-break-inside:avoid}}
 
-  /* Phase 5: production-ready screenplay and treatment output */
   #printArea .treatment-container{display:block;width:100%;margin:0;}
   #printArea .treatment-box{display:block;border:0;border-bottom:1px solid #d7d0c8;border-radius:0;background:#fff;padding:0 0 10pt;margin:0 0 13pt;break-inside:avoid;page-break-inside:avoid;}
   #printArea .treatment-title{display:block;color:#7a3b2e;font-size:13pt;font-weight:700;margin:0 0 5pt;padding:0 0 3pt;border-bottom:1px solid #e4ddd6;}
@@ -750,7 +746,7 @@ u<!DOCTYPE html>
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <style id="phase9-review-polish">
-/* Phase 9: readability and export safeguards; additive only. */
+
 .editor .docu-table{border-collapse:collapse;max-width:100%;}
 .editor .docu-table tr{break-inside:avoid;page-break-inside:avoid;}
 .editor .docu-table td:focus-within,.editor .docu-edit-cell:focus{outline:2px solid var(--accent);outline-offset:-2px;}
@@ -805,7 +801,48 @@ u<!DOCTYPE html>
   .tour-target-active{outline:3px solid var(--accent-soft)!important;outline-offset:3px!important;box-shadow:0 0 0 6px rgba(201,141,111,.2)!important;position:relative;z-index:5;}
   @media(max-width:600px){.tour-box{width:min(94vw,620px);padding:18px 14px!important}.tour-actions{gap:5px}.tour-actions button{font-size:11px;padding:5px 7px}.tour-spacer{display:none}}
 </style>
-<!-- PHASE 17: Interactive searchable general-user catalog -->
+<style id="varry-writing-comfort">
+  .new-location-control{display:flex;align-items:center;gap:8px;padding:9px 10px;margin:2px 4px 7px;border:1px solid var(--border);border-radius:10px;background:var(--paper);color:var(--ink-soft);font-size:12px;font-weight:700;}
+  .new-location-control select{flex:1;min-width:0;min-height:38px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;font-size:12px;}
+  .toolbar{gap:7px;align-items:center;padding:8px 10px;}
+  .toolbar>.fmt-group{gap:5px;padding:4px 6px;border:1px solid color-mix(in srgb,var(--border) 82%,transparent);border-radius:11px;background:color-mix(in srgb,var(--panel) 55%,transparent);}
+  .typography-control{display:flex;align-items:center;gap:5px;min-height:34px;padding-inline:4px;color:var(--ink-soft);font-size:10px;font-weight:700;white-space:nowrap;}
+  .typography-control select{height:34px;min-width:88px;max-width:min(40vw,190px);padding:4px 8px;border:1px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;}
+  #fontSizeSelect{min-width:58px;width:62px;text-align:center;}
+  .type-step{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);font-size:17px;font-weight:700;cursor:pointer;}
+  .type-step:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .format-reset-btn{font-size:10px!important;padding:5px 8px!important;white-space:nowrap;}
+  .toolbar select,.toolbar input[type="color"]{min-height:34px;}
+  .editor-scroll{padding:24px 12px 60px;scroll-behavior:smooth;}
+  .page{max-width:920px;padding:clamp(22px,4vw,48px);border:1px solid color-mix(in srgb,var(--border) 52%,transparent);border-radius:12px;box-shadow:0 12px 34px rgba(36,28,20,.07);}
+  .editor{line-height:var(--doc-lh,1.7);caret-color:var(--accent);}
+  .editor:focus{outline:none;}
+  .editor :where(p,div,li,blockquote,h1,h2,h3,[contenteditable="true"]):focus-visible{outline:2px solid color-mix(in srgb,var(--accent) 42%,transparent);outline-offset:2px;border-radius:4px;}
+  .editor :where(p,li){margin-block:0 .55em;}
+  #fontSelect{min-width:145px;}
+  @media(max-width:720px){.toolbar{gap:5px;padding:6px;}.toolbar>.fmt-group{gap:3px;padding:3px;}.typography-control{gap:3px;font-size:9px;}#fontFamilySelect{max-width:34vw;min-width:76px;}.line-height-control{display:none;}.format-reset-btn{font-size:9px!important;padding:4px 6px!important;}.page{padding:18px 14px;border-radius:8px;}.editor{font-size:max(17px,var(--editor-font-size));line-height:var(--doc-lh,1.75);}}
+</style>
+<style id="varry-backup-accessibility-presets">
+  .backup-settings-card{display:grid;gap:7px;padding:10px;margin:10px 8px;border:1px solid var(--border);border-radius:11px;background:color-mix(in srgb,var(--paper) 72%,transparent);font-size:11px;}
+  .backup-settings-card strong{color:var(--accent);font-size:12px;}
+  .backup-settings-card label{display:grid;gap:4px;color:var(--ink-soft);}
+  .backup-settings-card select,.backup-settings-card button{min-height:36px;width:100%;padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;}
+  .backup-settings-card button{background:var(--accent);color:#fff;font-weight:700;cursor:pointer;}
+  .backup-prompt-box,.preset-preview-box,.keyboard-help-box{position:relative;width:min(94vw,620px);}
+  .backup-prompt-box>p,.preset-preview-box>p,.keyboard-help-box>p{color:var(--ink-soft);font-size:13px;line-height:1.8;}
+  .writing-preset-preview{min-height:135px;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--paper);color:var(--ink);line-height:1.8;box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--panel) 60%,transparent);transition:font .18s ease,line-height .18s ease;}
+  .keyboard-help-box kbd{display:inline-block;padding:2px 7px;border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;background:var(--paper);font-family:inherit;font-size:11px;}
+  .keyboard-help-box ul{padding-inline-start:22px;line-height:2;}
+  .keyboard-help-box li{margin-bottom:5px;}
+  @media(max-width:720px){.backup-settings-card{margin:8px 5px}}
+</style>
+<style id="varry-typography-presets">
+  .preset-preview-box{position:relative;width:min(94vw,620px);}
+  .preset-preview-box>p{color:var(--ink-soft);font-size:13px;line-height:1.8;}
+  .writing-preset-preview{min-height:135px;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--paper);color:var(--ink);line-height:1.8;box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--panel) 60%,transparent);transition:font .18s ease,line-height .18s ease;}
+  #writingPresetSelect{min-width:105px;}
+  @media(max-width:720px){.preset-control{max-width:37vw}.preset-control select{min-width:70px!important;max-width:28vw!important}}
+</style>
 </head>
 <body data-theme="light" data-font="naskh">
 
@@ -829,7 +866,7 @@ u<!DOCTYPE html>
   <div class="modal-box">
     <h3>📖 دليل منصة Varry Studio الشامل</h3>
     <p style="font-size:12px; line-height:1.7; color:var(--ink-soft); margin:0;">Varry Studio: Multiple scenario platform — كل ما يلزم لمعرفة أقسام وأدوات المنصة في مكان واحد.</p>
-    <div style="display:flex;justify-content:flex-start;margin-top:8px;"><button type="button" class="dash-btn" id="startTourFromCatalog">🧭 جولة تعريفية عامة</button></div>
+    <div style="display:flex;justify-content:flex-start;margin-top:8px;"><button type="button" class="dash-btn" id="startTourFromCatalog">🧭 جولة تعريفية</button></div>
     <div class="catalog-controls" style="position:sticky;top:0;z-index:3;background:var(--panel, #fff);padding:10px 0;display:grid;gap:8px;">
       <input id="catalogSearch" type="search" placeholder="ابحثي في الدليل: مشهد، تصدير، شخصيات، حفظ…" aria-label="البحث في دليل المنصة" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;">
       <div id="catalogFilters" style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -851,7 +888,7 @@ u<!DOCTYPE html>
         <li><b>مجلد مسلسل:</b> حاوية فارغة يمكن إضافة ما يلزم إليها.</li>
         <li><b>🗂️ كتابة المحتوى (احترافي):</b> «مشروع محتوى» بأقسامه، وأنواع جاهزة بصناديق مخصصة: خطة محتوى (أهداف، جمهور، نبرة، تقويم نشر، مؤشرات)، مقال / تدوينة (كلمة مفتاحية، مقدمة، متن، CTA، مصادر)، محتوى تواصل اجتماعي (Hook، سكربت، هاشتاغات، موعد النشر)، ونص إعلاني (USP، عنوان، نسخ A/B، مقاسات).</li>
         <li><b>🎞️ السيناريو الوثائقي (احترافي):</b> «مشروع وثائقي» بأقسامه، ومنها: سيناريو وثائقي بأدوات خاصة (جدول تنفيذي بعمودي الصورة والصوت، مع مدة كل مقطع والمصادر؛ ويمكن متابعة الكتابة الحرة خارجه)، وبحث ومصادر، ومقابلات (أسئلة وإجابات)، وأرشيف ومواد بصرية مع جدول تتبع. ويعمل التفريغ التلقائي للوكيشنات والشخصيات (المتحدثين) على السيناريو الوثائقي أيضاً.</li>
-        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات مشتركة، عالم العمل، ومساحة الكاتبة. تفريغ اللوكيشنات وكاراكتر بروفايل أقسام داخل المشاريع، وليسا من أدوات مساحة الكاتبة العامة.</li>
+        <li><b>أنواع المستندات:</b> نص عادي، معالجات (سينمائية/مسلسل/وثائقي/إذاعي)، سيناريو أمريكي، فرنسي (3 أعمدة)، مسرحي، يوتيوب، إذاعي، ومساحات مساعدة: مكتبة موسيقى، أغنية، مراجع بصرية، شخصيات، عالم العمل، ومساحة عامة. تفريغ اللوكيشنات وكاراكتر بروفايل أقسام داخل المشاريع، وليسا من أدوات مساحة عامة العامة.</li>
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
 
@@ -864,31 +901,6 @@ u<!DOCTYPE html>
         <li><b>التراجع/الإعادة:</b> يشمل الكتابة والحذف والنقل (Ctrl+Z / Ctrl+Y).</li>
       </ul>
 
-      <p data-catalog-section="writing" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🎬 المحرر</p>
-      <ul style="margin:0 0 12px;">
-        <li><b>⚙️ إعدادات الملف:</b> قالب تنسيق (سيناريو/معالجة/مستند/مخصص)، الخط، الحجم، تباعد الأسطر، المحاذاة. تبقى محفوظة مع الملف وتستمر بعد Enter.</li>
-        <li><b>المدة المتوقعة للمشهد:</b> سطر ⏱️ يظهر تحت عنوان المشهد. يُكتب الرقم بالدقائق وتُجمع المدد في الإحصائيات.</li>
-        <li><b>➕ إدراج:</b> مشهد، حوار، حوار متوازي، أغنية، ملاحظة، جدول فرنسي، صورة، كتابة بخط اليد — في أي موضع من أي ملف.</li>
-        <li><b>الحوار المتوازي:</b> أعمدة بلا حد (شخصية + توجيه + حوار لكل عمود).</li>
-        <li><b>المؤثرات (صوتي/بصري/أغنية/موسيقى/كاميرا/لازمة/صمت/تعليمة):</b> تُفعَّل على السطر الحالي (يتحول السطر إلى مؤثر)، وفي وضع «نفس الفقرة» تُطبَّق على النص المحدد. Enter داخل الكتلة يفتح سطراً جديداً، و Ctrl+Enter للخروج منها.</li>
-        <li><b>شريط المؤثر:</b> يظهر تلقائياً عند الوقوف على مؤثر: يمكن تغيير نوعه في أي وقت، وتحديد وقت البداية والنهاية (مثل 0:12) والشدة والتلاشي والتكرار؛ تظهر الإعدادات بجانب المؤثر وتُصدَّر معه.</li>
-        <li><b>🌉 الجسر البصري:</b> كتلة انتقال بين مشهدين: «من» ما ينتهي به المشهد، «إلى» ما يبدأ به التالي، مع نوع الجسر (تطابق شكلي، ذوبان، تطابق حركة، جسر صوتي/لوني/عبر غرض) ووقت وملاحظة.</li>
-        <li><b>🔄 تحديث المحتوى القديم:</b> من ⚙️ إعدادات الملف (لملف واحد) أو من القائمة الجانبية (للمحدد أو للكل): يضيف نمط الملف وسطر المدة تحت المشاهد، ويحوّل الفقرات العادية اختيارياً إلى مشهد/شخصية/حوار/وصف. قابل للتراجع. ويمكن تغيير «نوع» الملف من نفس اللوحة.</li>
-        <li><b>أدوات الغلاف:</b> قوالب جاهزة، ألوان عشوائية، لون/تدرج/صورة مع تعتيم، أيقونة، عنوان وعنوان فرعي، لون وحجم وخط ومحاذاة وموضع النص، إطار، نسخ غلاف من ملف آخر، وتطبيقه على كل أقسام الحاوية.</li>
-        <li><b>تنزيل الغلاف:</b> من لوحة المشروع يمكن تنزيل الغلاف الحالي أو الافتراضي مباشرةً كصورة PNG، أو فتح محرر الغلاف لتعديل تصميمه أولاً.</li>
-        <li><b>النوافذ:</b> آخر نافذة تُفتح تكون في الأعلى وحدها تستقبل اللمس والكتابة؛ Esc أو زر ✕ أو النقر خارجها يغلقها.</li>
-        <li><b>السيناريو الفرنسي:</b> يمكن الكتابة قبل الجدول وبعده وبين الصفوف؛ زر «صف متقابل» يضيف صفاً بعد الصف الحالي.</li>
-        <li><b>نقل الكتلة:</b> ⬆️⬇️ داخل شريط الأدوات (أو Alt+↑/↓) يحرك الكتلة أو الصف أو الفقرة أو البطاقة الحالية.</li>
-        <li><b>🎬 أدوات السيناريو العائمة:</b> الزر الدائري أسفل الصفحة يعرض أدوات الكتابة المناسبة لنوع الملف المفتوح (أمريكي، فرنسي، مسرحي، فيديو، إذاعي أو وثائقي)، مع زري التراجع والإعادة في المقدمة، لتبقى الأدوات قريبة حتى عند طي الشريط أو استخدام مساحة الكتابة.</li>
-        <li><b>طي الأزرار العائمة:</b> زر ⊖ أسفل مجموعة الأزرار يخفي بقية الأزرار لتوسيع الشاشة، ويبقى زر ⊕ ظاهراً لاستعادتها. ويمكن فتح الجولة التعريفية من زر 🧭 في رأس القائمة الجانبية أو من قائمة التنقل.</li>
-        <li><b>الصور:</b> بالنقر على الصورة يتغير حجمها (30/50/75/100%)، وبالنقر المزدوج تُحذف.</li>
-        <li><b>زر السلوك (S):</b> فصل جديد = تُدرج الأداة كفقرة جديدة، نفس الفقرة = داخل السطر الحالي.</li>
-        <li><b>الحفظ الفوري:</b> Ctrl+S يحفظ التعديلات في الحال.</li>
-        <li><b>🎨 التنسيق المتقدم:</b> مجموعة أدوات في الشريط: تسطير وشطب وقوائم، نمط العنوان، تباعد الأسطر والمسافة بعد الفقرة والإزاحة، و«🔲 مربع» لتحويل أي فقرة أو مربع إلى إطار بسيط أو منقّط أو مزدوج أو مظلّل أو بشريط جانبي أو ملاحظة ملونة (مع اختيار اللون وشكل الزوايا وسماكة الحد)، وفواصل زخرفية، وجداول حرة، وحجم ولون خط الفقرة أو الحقل، ولون تعبئة المربع، وزر مسح التنسيق. ومن ⚙️ إعدادات الملف يمكن اختيار لون الصفحة ولون النص الأساسي لكل ملف.</li>
-        <li><b>المربعات والأسطر:</b> داخل المربعات والبطاقات يضيف Enter سطراً جديداً داخل نفس المربع دون فتح مربع آخر؛ وCtrl+Enter يضيف مربعاً جديداً (أو ينتقل للحقل التالي في البطاقات).</li>
-        <li><b>📸 لقطة شاشة من التطبيق:</b> تتيح تحديد أي منطقة ظاهرة بالسحب، ثم قصّها والرسم عليها وإضافة كتابة وشارة «مسودة من Varry Studio» قبل تنزيلها كصورة PNG. يمكن فتح الأداة من زرها في الشريط أو من الزر العائم، كما يمكن رفع صورة موجودة للتحرير.</li>
-      </ul>
-
       <p data-catalog-section="tools" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🧩 أدوات مرتبطة بالسيناريو والمشروع</p>
       <ul style="margin:0 0 12px;">
         <li><b>📍 بيانات المواقع داخل المشروع:</b> تبقى بطاقات المواقع متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الاسم، داخلي/خارجي، الوقت، الحالة، النوع، المشاهد، الشخصيات، الوصف، الديكور، الإضاءة والصوت، ملاحظات الإنتاج والمراجع. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات.</li>
@@ -897,13 +909,14 @@ u<!DOCTYPE html>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
         <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
-        <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات المشتركة.</li>
+        <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات.</li>
       </ul>
 
       <p data-catalog-section="export" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
       <ul style="margin:0 0 12px;">
         <li><b>الاستيراد:</b> TXT / DOCX / PDF كمستند جديد أو دمجاً في الحالي، ونسخة احتياطية JSON (تُحدَّث الملفات القديمة تلقائياً لتطابق الإصدار الجديد).</li>
         <li><b>التصدير مطابق للمحرر (WYSIWYG):</b> الألوان والخطوط والمحاذاة والجداول تُحفظ في Word وPDF. تصدير حاوية يخرج المشروع كاملاً بغلافه وفهرسه وبترتيب الأقسام الحالي.</li>
+        <li><b>النسخة الكاملة:</b> يمكن تنزيل نسخة الآن يدوياً من إعداد النسخ الاحتياطي أو قائمة التصدير. ويمكن تفعيل التذكير اليومي عند فتح المنصة؛ يتطلب التنزيل ضغط زر التنزيل، ولا يعمل إذا لم تُفتح المنصة. النسخة تشمل المشاريع والملفات وسلة المحذوفات والقوالب.</li>
         <li><b>نسخة احتياطية لملف واحد أو عدة ملفات:</b> زر 💾 «تصدير المحدد» في القائمة الجانبية (أو من قائمة التصدير) ينتج ملفاً واحداً بصيغة النسخة الاحتياطية للمنصة يمكن استيراده لاحقاً.</li>
         <li><b>التوقيع:</b> توقيع الكاتب (يمكن إخفاؤه) + توقيع المنصة الثابت في الغلاف والتذييل.</li>
         <li><b>معلومات التواصل:</b> تظهر معلومات مصممة المنصة في التصدير. ويمكن اختيارياً إضافة نبذة كاتب العمل ووسائل تواصله من قائمة التصدير.</li>
@@ -916,7 +929,7 @@ u<!DOCTYPE html>
         <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
         <li><b>حرية مساحة الكتابة:</b> من أعلى شريط الأدوات يمكن طي الأدوات أو تفعيل «مساحة الكتابة» لإخفاء القوائم وتوسيع المحرر. يمكن إظهارها مجدداً من زر 🧭 العائم، ويُحفظ تفضيل الطيّ على هذا الجهاز.</li>
-        <li><b>الجولة التعريفية العامة:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ، بصياغة عامة لا ترتبط بجنس أو نوع كتابة واحد. يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
+        <li><b>الجولة التعريفية:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ،  يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
         <li><b>نسخ ملفات المشروع ولصقها:</b> حدّد ملفاً أو مجلداً في القائمة الجانبية ثم استخدم Ctrl+C. اختر المجلد من قائمة «وجهة اللصق» أو افتحه، ثم اضغط «لصق» أو استخدم Ctrl+V. يستنسخ النظام العناصر كاملةً، ويعرض الزر عدد العناصر المنسوخة.</li>
       </ul>
@@ -935,7 +948,7 @@ u<!DOCTYPE html>
         <li><b>واتساب:</b> @varry_hiba</li>
         <li><b>البريد الإلكتروني:</b> <a href="mailto:varryse@gmail.com">varryse@gmail.com</a></li>
       </ul>
-      <p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">📚 للاطلاع على أعمالي</p>
+<p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">📚 للاطلاع على أعمالي</p>
       <ul style="margin:0 0 12px;">
         <li><b>واتباد:</b> <a href="https://www.wattpad.com/user/Varry-/about" target="_blank" rel="noopener noreferrer">wattpad.com/user/Varry- — حسابي</a></li>
         <li><b>تليجرام:</b> <a href="https://t.me/varrybooks" target="_blank" rel="noopener noreferrer">t.me/varrybooks — قناة تضم أعمالاً من تأليفي</a></li>
@@ -946,9 +959,26 @@ u<!DOCTYPE html>
   </div>
 </div>
 
+<div class="modal" id="dailyBackupModal" aria-labelledby="dailyBackupTitle" aria-modal="true" role="dialog">
+  <div class="modal-box backup-prompt-box">
+    <button type="button" class="modal-x" id="dailyBackupClose" aria-label="إغلاق">×</button>
+    <h3 id="dailyBackupTitle">💾 حان وقت النسخة الاحتياطية اليومية</h3>
+    <p>يمكن تنزيل نسخة كاملة من المشاريع والملفات والقوالب المحفوظة في مساحة العمل.</p>
+    <div class="modal-actions"><button type="button" id="dailyBackupLater">لاحقاً</button><button type="button" class="primary" id="dailyBackupDownload">تنزيل نسخة اليوم</button></div>
+  </div>
+</div>
+<div class="modal" id="writingPresetModal" aria-labelledby="writingPresetTitle" aria-modal="true" role="dialog">
+  <div class="modal-box preset-preview-box">
+    <button type="button" class="modal-x" id="writingPresetClose" aria-label="إغلاق">×</button>
+    <h3 id="writingPresetTitle">معاينة قالب المستند</h3>
+    <p>تُطبّق هذه الإعدادات على الملف المفتوح فقط. يمكن تغييرها لاحقاً من إعدادات الملف.</p>
+    <div id="writingPresetPreview" class="writing-preset-preview" dir="rtl">كان الصباح هادئاً. وقف سامر عند النافذة، يراقب الشارع قبل أن يفتح دفتره ويبدأ الكتابة.</div>
+    <div class="modal-actions"><button type="button" id="writingPresetCancel">إلغاء</button><button type="button" class="primary" id="writingPresetApply">تطبيق القالب</button></div>
+  </div>
+</div>
 <div class="modal" id="tourModal" aria-labelledby="tourTitle" aria-modal="true" role="dialog">
   <div class="modal-box tour-box" style="max-width:620px;">
-    <h3 id="tourTitle">🧭 جولة تعريفية عامة</h3>
+    <h3 id="tourTitle">🧭 جولة تعريفية</h3>
     <section id="tourIntro">
       <p>هذه جولة تعريفية قصيرة بأقسام Varry Studio. لا ترتبط بنوع كتابة واحد، وتتبدل الأدوات المعروضة بحسب الملف المفتوح. يمكن بدء الجولة الآن أو فتحها لاحقاً من زر 🧭 في رأس قائمة المشاريع، أو من الكتالوج وقائمة التنقل.</p>
       <div class="modal-actions"><button type="button" id="tourNotNow">العودة لاحقاً</button><button type="button" class="primary" id="tourStart">بدء الجولة</button></div>
@@ -1078,6 +1108,7 @@ u<!DOCTYPE html>
     <p style="margin:0;color:var(--ink-soft);font-size:12px;line-height:1.7;">حدّد منطقة من واجهة التطبيق بالسحب، ثم قصّ الصورة أو أضف رسماً ونصاً. تُعالج الصورة محلياً ولا تُرسل إلى أي خدمة. يمكن أيضاً فتح صورة أو لقطة شاشة من الجهاز.</p>
     <div class="shot-capture-tools">
       <button type="button" id="shotStartCapture" class="primary">▣ تحديد منطقة من التطبيق</button>
+      <button type="button" id="shotCaptureFullPage">▣ لقطة لكامل واجهة التطبيق</button>
       <button type="button" id="shotUploadBtn">⬆️ فتح صورة للتحرير</button>
       <input type="file" id="shotUploadInput" accept="image/*" hidden>
       <small id="shotCaptureStatus" role="status" aria-live="polite"></small>
@@ -1095,6 +1126,8 @@ u<!DOCTYPE html>
       </div>
       <div class="shot-editor-grid">
         <label>شارة المسودة (دائمة)<input id="shotStampText" type="text" maxlength="60" value="مسودة من Varry Studio"></label>
+        <label style="display:flex;align-items:center;gap:7px;"><input type="checkbox" id="shotAuthorSignatureEnabled" style="width:auto;"> إضافة توقيع الكاتب</label>
+        <label>اسم التوقيع<input id="shotAuthorSignatureText" type="text" maxlength="100" placeholder="اسم كاتب العمل أو الاسم في الإعدادات"></label>
         <label>كتابة إضافية على الصورة<input id="shotOverlayText" type="text" maxlength="160" placeholder="نص اختياري"></label>
         <label>موضع النص والشارة<select id="shotOverlayPosition"><option value="bottom-right">أسفل اليمين</option><option value="bottom-left">أسفل اليسار</option><option value="top-right">أعلى اليمين</option><option value="top-left">أعلى اليسار</option><option value="center">المنتصف</option></select></label>
         <label>لون الكتابة<input id="shotTextColor" type="color" value="#ffffff"></label>
@@ -1206,7 +1239,7 @@ u<!DOCTYPE html>
         <p class="brand-sub"><span class="user-badge" id="userNameBadge">هبة Varry</span></p>
       </div>
       <button class="icon-btn" id="openCatalogBtn" title="الدليل الشامل">📖</button>
-      <button class="icon-btn" id="startTourBtn" title="الجولة التعريفية العامة" aria-label="فتح الجولة التعريفية العامة">🧭</button>
+      <button class="icon-btn" id="startTourBtn" title="الجولة التعريفية" aria-label="فتح الجولة التعريفية">🧭</button>
       <button class="icon-btn" id="sidebarCollapseBtn" title="طي قائمة المشاريع" aria-label="طي قائمة المشاريع">‹</button>
     </div>
 
@@ -1226,7 +1259,13 @@ u<!DOCTYPE html>
     <div class="new-menu-wrap">
       <button class="new-btn" id="newDocBtn">+ إضافة مشروع / فيلم / مسلسل جديد</button>
       <div class="new-dropdown" id="newDropdown">
-        <button data-type="folder">📁 مجلد مسلسل جديد</button>
+        <label class="new-location-control" for="newDocLocation">مكان الإضافة
+          <select id="newDocLocation" aria-label="اختيار مكان إنشاء الملف الجديد">
+            <option value="context">المشروع أو المجلد المفتوح</option>
+            <option value="root">مستوى المشاريع الرئيسي</option>
+          </select>
+        </label>
+        <button data-type="folder">📁 مجلد جديد</button>
         <button data-type="film_project">🎬 فيلم جديد (بأقسامه)</button>
         <button data-type="series_project">📺 مسلسل جديد (بأقسامه)</button>
         <button data-type="master_project">📦 مشروع جديد (حاوية عليا)</button>
@@ -1248,13 +1287,13 @@ u<!DOCTYPE html>
         <button data-type="short_story">📕 قصة قصيرة</button>
         <button data-type="chapter">📑 فصل</button>
         <button data-type="story_scene">🎞️ مشهد قصصي</button>
-        <div class="dd-sep">مساحة الكاتبة</div>
+        <div class="dd-sep">مساحة عامة</div>
         <button data-type="music">🎵 مكتبة موسيقى</button>
         <button data-type="song">🎶 أغنية</button>
         <button data-type="visual_refs">🖼️ مراجع بصرية</button>
-        <button data-type="characters">👥 شخصيات مشتركة</button>
+        <button data-type="characters">👥 شخصيات</button>
         <button data-type="world">🌍 عالم العمل</button>
-        <button data-type="writer_notes">🗒️ مساحة الكاتبة (ملاحظات ومراجع)</button>
+        <button data-type="writer_notes">🗒️ ملاحظات ومراجع</button>
         <button data-type="music_guide">🎼 الدليل الموسيقي</button>
         <div class="dd-sep">كتابة المحتوى (احترافي)</div>
         <button data-type="content_plan">🧭 خطة محتوى</button>
@@ -1322,6 +1361,16 @@ u<!DOCTYPE html>
           <option value="tajawal">خط تجوال</option>
         </select>
       </div>
+      <div class="backup-settings-card">
+        <strong>النسخ الاحتياطي</strong>
+        <label for="dailyBackupMode">التنزيل اليومي
+          <select id="dailyBackupMode" aria-label="طريقة النسخ الاحتياطي اليومية">
+            <option value="prompt">تذكير عند فتح المنصة</option>
+            <option value="manual">يدوي فقط</option>
+          </select>
+        </label>
+        <button type="button" id="manualFullBackupBtn">تنزيل نسخة كاملة الآن</button>
+      </div>
       <div class="setting-group">
         <span>توقيع الكاتب (للتصدير):</span>
         <input type="text" id="authorNameInput" placeholder="اسمك الكامل" style="width:110px;">
@@ -1376,7 +1425,10 @@ u<!DOCTYPE html>
         <button class="fmt-btn" data-cmd="justifyCenter" title="توسيط">↔️</button>
         <button class="fmt-btn" data-cmd="justifyLeft" title="محاذاة لليسار">⬅️</button>
         <button class="fmt-btn" data-cmd="justifyFull" title="ضبط">📑</button>
-        <select id="fontFamilySelect" title="نوع الخط للنص المحدد" style="min-width:100px;">
+        <label class="typography-control preset-control"><span>قالب المستند</span><select id="writingPresetSelect" title="معاينة قوالب تنسيق المستند" aria-label="اختيار قالب تنسيق مع معاينة">
+          <option value="">اختر قالباً…</option><option value="screenplay">سيناريو</option><option value="novel">رواية وقصة</option><option value="comfortable">قراءة مريحة</option><option value="treatment">معالجة درامية</option>
+        </select></label>
+        <label class="typography-control"><span>الخط</span><select id="fontFamilySelect" title="نوع الخط للنص المحدد" aria-label="نوع الخط للنص المحدد">
           <option value="">(خط المستند)</option>
           <option value="'Noto Naskh Arabic', serif">النسخ</option>
           <option value="'Amiri', serif">الأميري</option>
@@ -1388,13 +1440,15 @@ u<!DOCTYPE html>
           <option value="Calibri, sans-serif">Calibri</option>
           <option value="Georgia, serif">Georgia</option>
           <option value="'Courier New', monospace">Courier New</option>
-        </select>
-        <select id="fontSizeSelect" title="حجم الخط للنص المحدد">
+        </select></label>
+        <label class="typography-control"><span>الحجم</span><button type="button" class="type-step" id="fontSizeDown" title="تصغير حجم النص المحدد" aria-label="تصغير الخط">−</button><select id="fontSizeSelect" title="حجم الخط للنص المحدد" aria-label="حجم الخط للنص المحدد">
           <option value="12px">12</option><option value="14px">14</option><option value="16px">16</option>
           <option value="18px" selected>18</option><option value="20px">20</option><option value="24px">24</option>
           <option value="28px">28</option><option value="32px">32</option><option value="36px">36</option>
           <option value="42px">42</option><option value="48px">48</option>
-        </select>
+        </select><button type="button" class="type-step" id="fontSizeUp" title="تكبير حجم النص المحدد" aria-label="تكبير الخط">+</button></label>
+        <label class="typography-control line-height-control"><span>تباعد السطر</span><select id="quickLineHeightSelect" title="تباعد أسطر المستند" aria-label="تباعد أسطر المستند"><option value="1.4">مضغوط</option><option value="1.6">مريح</option><option value="1.8">واسع</option><option value="2">واسع جداً</option></select></label>
+        <button type="button" class="fmt-btn format-reset-btn" id="clearInlineFormatBtn" title="مسح تنسيق النص المحدد مع إبقاء محتواه">مسح التنسيق</button>
         <input type="color" id="textColorPicker" value="#7a3b2e" title="لون النص">
         <input type="color" id="bgColorPicker" value="#efe8d8" title="لون خلفية الكلمة">
       </div>
@@ -1583,6 +1637,7 @@ u<!DOCTYPE html>
         <div class="export-dropdown" id="exportDropdown">
           <div class="export-author-config">
             <label><input type="checkbox" id="includeWriterInfoInExport"> إضافة نبذة ومعلومات تواصل كاتب العمل</label>
+            <label><input type="checkbox" id="includePlatformContactInExport"> إضافة صفحة التواصل مع مصممة المشروع</label>
             <button type="button" id="editWriterInfoBtn">✍️ إدخال / تعديل بيانات الكاتب</button>
           </div>
           <button id="expPreview" style="font-weight:bold; color:var(--accent);">👁️ معاينة وتنسيق قبل التصدير</button>
@@ -1713,7 +1768,8 @@ u<!DOCTYPE html>
         <button data-nav="focus">✍️ مساحة الكتابة (إخفاء القوائم)</button>
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
-        <button data-nav="tour">🧭 جولة تعريفية عامة</button>
+        <button data-nav="backup">💾 نسخة احتياطية كاملة</button>
+        <button data-nav="tour">🧭 جولة تعريفية</button>
         <button data-nav="floating">⊖ طي الأزرار العائمة</button>
         <button data-nav="screenshot">📸 لقطة شاشة من التطبيق</button>
         <button data-nav="top">⬆️ أعلى الصفحة</button>
@@ -1797,23 +1853,23 @@ const BRIDGE_TYPES = [
 ];
 
 const TYPE_LABELS = {
-  folder:'📁 مجلد مسلسل', film_project:'🎬 فيلم', series_project:'📺 مسلسل', master_project:'📦 مشروع',
+  folder:'📁 مجلد', film_project:'🎬 فيلم', series_project:'📺 مسلسل', master_project:'📦 مشروع',
   text_document:'📄 مستند نصي', treatment_cinematic:'📑 معالجة سينمائية', treatment_series:'📑 معالجة مسلسل',
   treatment_docu:'📑 معالجة وثائقي', screenplay_us:'🎬 سينمائي أمريكي', screenplay_fr:'📽️ فرنسي أعمدة',
   theatre:'🎭 مسرحي', yt:'▶️ يوتيوب', treatment_radio:'📑 معالجة إذاعي', radio:'🎙️ إذاعي',
-  music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات مشتركة',
-  world:'🌍 عالم العمل', writer_notes:'🗒️ مساحة الكاتبة',
+  music:'🎵 مكتبة موسيقى', song:'🎶 أغنية', visual_refs:'🖼️ مراجع بصرية', characters:'👥 شخصيات',
+  world:'🌍 عالم العمل', writer_notes:'🗒️ ملاحظات ومراجع',
   novel:'📖 رواية', short_story:'📕 قصة قصيرة', chapter:'📑 فصل', story_scene:'🎞️ مشهد قصصي',
   music_guide:'🎼 الدليل الموسيقي', locations:'📍 تفريغ اللوكيشنات', char_profile:'🪪 كاراكتر بروفايل',
   documentary_project:'🎞️ مشروع وثائقي', content_project:'🗂️ مشروع محتوى', docu_script:'🎥 سيناريو وثائقي', docu_research:'🔬 بحث ومصادر وثائقي', docu_interviews:'🎤 مقابلة (وثائقي)', docu_archive:'🗃️ أرشيف ومواد بصرية', content_plan:'🧭 خطة محتوى', content_article:'📰 مقال / تدوينة', content_social:'📱 محتوى تواصل اجتماعي', content_ad:'📣 نص إعلاني / تسويقي'
 };
 const TYPE_ICONS = { folder:'📁', film_project:'🎬', series_project:'📺', master_project:'📦', documentary_project:'🎞️', content_project:'🗂️' };
 const DEFAULT_TITLES = {
-  folder:'مسلسل جديد', film_project:'فيلم جديد', series_project:'مسلسل جديد', master_project:'مشروع جديد',
+  folder:'مجلد جديد', film_project:'فيلم جديد', series_project:'مسلسل جديد', master_project:'مشروع جديد',
   text_document:'مستند نصي جديد', treatment_cinematic:'معالجة سينمائية جديدة', treatment_series:'معالجة مسلسل جديدة', treatment_docu:'معالجة وثائقية جديدة',
   screenplay_us:'سيناريو سينمائي جديد', screenplay_fr:'سيناريو فرنسي جديد', theatre:'نص مسرحي جديد', yt:'سيناريو يوتيوب جديد',
   treatment_radio:'معالجة إذاعية', radio:'سيناريو إذاعي جديد', music:'مكتبة الموسيقى', song:'أغنية جديدة',
-  visual_refs:'مراجع بصرية', characters:'الشخصيات المشتركة', world:'عالم العمل', writer_notes:'مساحة الكاتبة',
+  visual_refs:'مراجع بصرية', characters:'الشخصيات', world:'عالم العمل', writer_notes:'ملاحظات ومراجع',
   novel:'رواية جديدة', short_story:'قصة قصيرة جديدة', chapter:'فصل جديد', story_scene:'مشهد قصصي جديد', music_guide:'الدليل الموسيقي', locations:'تفريغ اللوكيشنات', char_profile:'كاراكتر بروفايل',
   documentary_project:'مشروع وثائقي جديد', content_project:'مشروع محتوى جديد', docu_script:'سيناريو وثائقي جديد', docu_research:'بحث ومصادر', docu_interviews:'مقابلة جديدة', docu_archive:'الأرشيف والمواد البصرية', content_plan:'خطة المحتوى', content_article:'مقال جديد', content_social:'محتوى تواصل جديد', content_ad:'نص إعلاني جديد'
 };
@@ -1827,7 +1883,7 @@ const BOX_TEMPLATES = {
   music:        ['🎵 Opening Theme', '🎵 Ending Theme', '👤 Character Themes', '💿 Tracks', '🔗 References'],
   song:         ['🎵 عنوان الأغنية', '📝 الكلمات', '🗒️ ملاحظات', '🔗 مراجع'],
   visual_refs:  ['👤 الشخصيات', '👗 الملابس', '📍 الأماكن', '🎨 الألوان', '🖼️ الملصقات'],
-  characters:   ['👥 الشخصيات المشتركة', '🔗 العلاقات بين الشخصيات'],
+  characters:   ['👥 الشخصيات', '🔗 العلاقات بين الشخصيات'],
   world:        ['🌍 عالم العمل', '📜 القواعد والقوانين', '📍 الأماكن الرئيسية', '🕰️ الخط الزمني'],
   writer_notes: ['🗒️ ملاحظات', '📚 مراجع', '🖼️ مراجع بصرية', '🎵 مراجع موسيقية'],
   music_guide: ['🎶 الأغاني', '🎼 المقطوعات', '🎧 الوصف الموسيقي', '🎵 المراجع والروابط'],
@@ -1900,10 +1956,16 @@ const CONTAINER_BLUEPRINTS = {
   series_project: [['Bible','text_document'],['معالجة','treatment_series'],['شخصيات','characters'],['عالم العمل','world'],['مواسم','text_document'],['حلقات','text_document'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music'],['ملحقات','text_document']],
   documentary_project: [['معالجة وثائقية','treatment_docu'],['بحث ومصادر','docu_research'],['أسئلة المقابلات','docu_interviews'],['أرشيف ومواد بصرية','docu_archive'],['سيناريو وثائقي','docu_script'],['تفريغ اللوكيشنات','locations'],['كاراكتر بروفايل','char_profile'],['الموسيقى','music']],
   content_project: [['خطة المحتوى','content_plan'],['مقالات','content_article'],['محتوى التواصل الاجتماعي','content_social'],['نصوص إعلانية','content_ad'],['ملاحظات','writer_notes']],
-  master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات مشتركة','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
+  master_project: [['معالجة المشروع','treatment_series'],['الأجزاء','text_document'],['أفلام','text_document'],['مسلسلات','text_document'],['مستندات','text_document'],['شخصيات','characters'],['عالم العمل','world'],['الموسيقى','music'],['ملحقات','text_document']]
 };
 
 // قوالب تنسيق الملف
+const WRITING_PRESETS = {
+  screenplay:{label:'سيناريو',fontFamily:"'Noto Sans Arabic', sans-serif",fontSize:'18px',lineHeight:'1.6',textAlign:'right'},
+  novel:{label:'رواية وقصة',fontFamily:"'Noto Naskh Arabic', serif",fontSize:'20px',lineHeight:'1.9',textAlign:'right'},
+  comfortable:{label:'قراءة مريحة',fontFamily:"'Noto Sans Arabic', sans-serif",fontSize:'20px',lineHeight:'2',textAlign:'right'},
+  treatment:{label:'معالجة درامية',fontFamily:"'Noto Naskh Arabic', serif",fontSize:'18px',lineHeight:'1.75',textAlign:'right'}
+};
 const STYLE_PROFILES = {
   screenplay: { fontFamily:'', fontSize:'18px', lineHeight:'1.7', textAlign:'' },
   treatment:  { fontFamily:'', fontSize:'16px', lineHeight:'1.7', textAlign:'' },
@@ -2032,6 +2094,7 @@ function tryUnlock(){
     lockScreen.style.display = 'none';
     appContainer.classList.add('unlocked');
     setTimeout(maybeOfferGeneralTour,250);
+    setTimeout(scheduleDailyBackupPrompt,500);
   } else { alert('كلمة المرور غير صحيحة!'); }
 }
 lockScreen.addEventListener('submit', e => { e.preventDefault(); tryUnlock(); });
@@ -2144,7 +2207,7 @@ function maybeOfferGeneralTour(){
 tourModal.addEventListener('mousedown',e=>{if(e.target===tourModal)closeGeneralTour('dismissed');});
 tourModal.addEventListener('click',e=>{if(e.target.closest('.modal-x'))closeGeneralTour('dismissed');});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tourModal.classList.contains('open'))tourSetState('dismissed');},true);
-// PHASE 17: searchable, audience-friendly catalog filtering; this only hides guide content and never alters documents.
+
 (function initInteractiveCatalog(){
   const search = $('catalogSearch'), filters = $('catalogFilters'), count = $('catalogResultCount');
   if(!search || !filters || !count) return;
@@ -2244,8 +2307,7 @@ function queueWorkspaceSave(){
     if(!saveTimer) saveStatus.textContent = '✓ تم الحفظ';
   }).catch(err => {
     console.error('Varry Studio IndexedDB save failed:', err);
-    // Phase 15: attempt a durable browser-storage fallback if IndexedDB becomes
-    // unavailable after startup, instead of leaving the latest edits only in memory.
+    // Attempt a durable browser-storage fallback if IndexedDB becomes unavailable after startup, instead of leaving the latest edits only in memory.
     try{
       localStorage.setItem('varry:docs', JSON.stringify(docs));
       localStorage.setItem('varry:index', JSON.stringify(index));
@@ -2420,8 +2482,7 @@ function normalizeHtml(type, html){
     });
   });
   tmp.querySelectorAll('.fr-table').forEach(upgradeFrenchTable);
-  // Phase 14: restore visible French row controls for old/new documents and provide scene controls
-  // for scene-based formats. Idempotent: never duplicates controls when opening/saving repeatedly.
+
   if(type === 'screenplay_fr'){
     tmp.querySelectorAll('.fr-table').forEach(table => {
       const next = table.nextElementSibling;
@@ -2443,9 +2504,7 @@ function normalizeHtml(type, html){
     else if(tmp.firstElementChild) tmp.firstElementChild.insertAdjacentElement('beforebegin', control);
     else tmp.appendChild(control);
   }
-  // Phase 11 QA fix: the documentary row handler and CSS existed, but the default
-  // and legacy documentary templates did not contain the actual control. Restore it
-  // idempotently after each VIDEO/AUDIO table without touching the writer's cells.
+
   if(type === 'docu_script'){
     // A whole documentary segment is a single reusable unit: title + duration + VIDEO/AUDIO table + source note.
     const firstSegment = tmp.querySelector('.docu-segment');
@@ -2796,6 +2855,7 @@ function updateDocPanel(doc){
   $('dpFont').value = s.fontFamily || '';
   $('dpSize').value = s.fontSize || '18px';
   $('dpLh').value = s.lineHeight || '1.6';
+  if($('quickLineHeightSelect'))$('quickLineHeightSelect').value=s.lineHeight||'1.6';
   $('dpAlign').value = s.textAlign || '';
   $('dpDuration').checked = !!doc.sceneDuration;
   $('dpWorkMode').value = doc.workMode || 'realistic';
@@ -2889,7 +2949,7 @@ try{
 
 /* =====================================================================
    عمليات الملفات: سلة، نقل، نسخ، إنشاء
-   PHASE 16: preserve batch paste order and guard copying against malformed cycles.
+   Preserve batch paste order and guard copying against malformed cycles.
    ===================================================================== */
 function detachFromLists(id){
   const i = index.indexOf(id);
@@ -3175,9 +3235,9 @@ function newDoc(type, opts){
   type = type || 'screenplay_us';
   flushEditorToDoc();
   pushUndoSnapshot();
-  const parent = opts && opts.parentId && docs[opts.parentId] && isContainer(docs[opts.parentId]) ? opts.parentId : resolveParent(type);
+  const parent = opts && opts.forceRoot ? null : (opts && opts.parentId && docs[opts.parentId] && isContainer(docs[opts.parentId]) ? opts.parentId : resolveParent(type));
   const makeOpts = opts ? Object.assign({}, opts) : {};
-  delete makeOpts.parentId;
+  delete makeOpts.parentId;delete makeOpts.forceRoot;
   const id = makeDoc(type, null, parent, makeOpts);
   (CONTAINER_BLUEPRINTS[type] || []).forEach(([name, t]) => makeDoc(t, name, id));
   persist();
@@ -4076,8 +4136,7 @@ function setupToolbar(type){
   $('sourceLocExtractBtn').style.display=canExtractLoc ? '' : 'none';
   $('sourceCpExtractBtn').style.display=canExtractChars ? '' : 'none';
   $('group_source_extraction').style.display=(canExtractLoc || canExtractChars) ? 'flex' : 'none';
-  // The retired general extraction group no longer exists; contextual extraction controls remain in their own sections.
-  ensureNestedSceneButton(type);
+    ensureNestedSceneButton(type);
 }
 
 const NESTED_SCENE_KINDS = [
@@ -4221,7 +4280,38 @@ function applyInlineStyleToSelection(prop, value){
   scheduleSave();
 }
 $('fontSizeSelect').addEventListener('change', e => applyInlineStyleToSelection('fontSize', e.target.value));
+function stepSelectedFontSize(delta){
+  const select=$('fontSizeSelect'),values=[...select.options].map(o=>parseInt(o.value,10)).filter(Number.isFinite),current=parseInt(select.value,10)||18;
+  const next=values.reduce((best,n)=>Math.abs(n-(current+delta))<Math.abs(best-(current+delta))?n:best,values[0]||18);
+  select.value=next+'px';applyInlineStyleToSelection('fontSize',select.value);
+}
+$('fontSizeDown').addEventListener('click',()=>stepSelectedFontSize(-2));
+$('fontSizeUp').addEventListener('click',()=>stepSelectedFontSize(2));
+$('clearInlineFormatBtn').addEventListener('click',()=>{snap();restoreCaret();document.execCommand('removeFormat',false,null);scheduleSave();});
 $('fontFamilySelect').addEventListener('change', e => { if(e.target.value) applyInlineStyleToSelection('fontFamily', e.target.value); });
+let pendingWritingPreset='';
+const writingPresetModal=$('writingPresetModal');
+function previewWritingPreset(key){
+  const preset=WRITING_PRESETS[key];if(!preset)return;
+  pendingWritingPreset=key;
+  const preview=$('writingPresetPreview');
+  preview.style.fontFamily=preset.fontFamily;preview.style.fontSize=preset.fontSize;preview.style.lineHeight=preset.lineHeight;preview.style.textAlign=preset.textAlign;
+  $('writingPresetTitle').textContent='معاينة قالب: '+preset.label;
+  showModal(writingPresetModal);
+}
+$('writingPresetSelect').addEventListener('change',e=>{if(!e.target.value)return;if(!currentId||!docs[currentId]||isContainer(docs[currentId])){e.target.value='';alert('افتح ملفاً أولاً لمعاينة قالب التنسيق.');return;}previewWritingPreset(e.target.value);});
+function closePresetPreview(){hideModal(writingPresetModal);$('writingPresetSelect').value='';pendingWritingPreset='';}
+$('writingPresetCancel').addEventListener('click',closePresetPreview);$('writingPresetClose').addEventListener('click',closePresetPreview);
+$('writingPresetApply').addEventListener('click',()=>{
+  const d=currentId&&docs[currentId],preset=WRITING_PRESETS[pendingWritingPreset];
+  if(!d||isContainer(d)||!preset){closePresetPreview();return;}
+  flushEditorToDoc();pushUndoSnapshot();typingSnapshotPending=false;
+  d.style=Object.assign({},d.style||{}, {fontFamily:preset.fontFamily,fontSize:preset.fontSize,lineHeight:preset.lineHeight,textAlign:preset.textAlign,profile:'custom'});
+  applyStyleTo(editor,d.style);mo.takeRecords();persist();updateStats();
+  closePresetPreview();
+});
+
+
 
 document.querySelectorAll('.fmt-btn[data-cmd]').forEach(b => {
   b.addEventListener('click', () => {
@@ -4713,11 +4803,28 @@ async function beginShotCapture(){
   overlay.querySelector('.shot-capture-cancel').addEventListener('click',e=>{e.stopPropagation();cancelShotCapture();});
 }
 $('shotStartCapture').addEventListener('click',beginShotCapture);
+async function captureFullAppPage(){
+  const button=$('shotCaptureFullPage');if(button.disabled)return;
+  button.disabled=true;$('shotCaptureStatus').textContent='جارٍ تجهيز لقطة كاملة لواجهة التطبيق…';
+  try{
+    await loadShotRenderer();
+    const app=document.getElementById('app');if(!app)throw new Error('تعذّر العثور على واجهة التطبيق.');
+    hideModal(shotStudioModal);
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    const scale=Math.min(2,Math.max(1,window.devicePixelRatio||1));let rendered;
+    const restoreColors=sanitizeShotStyles(app);
+    try{rendered=await window.html2canvas(app,{scale,backgroundColor:null,useCORS:true,logging:false,windowWidth:Math.max(1,window.innerWidth),windowHeight:Math.max(1,window.innerHeight)});}
+    finally{restoreColors();}
+    setShotImage(rendered,'تم التقاط كامل واجهة التطبيق الظاهرة. يمكن الآن قص الصورة أو الرسم عليها أو إضافة نص وتوقيع.');
+  }catch(err){$('shotCaptureStatus').textContent=err.message||'تعذّر التقاط واجهة التطبيق كاملة.';showModal(shotStudioModal);}
+  finally{button.disabled=false;}
+}
+$('shotCaptureFullPage').addEventListener('click',captureFullAppPage);
 function setShotImage(sourceCanvas,message){
   shotBaseCanvas=document.createElement('canvas');shotBaseCanvas.width=sourceCanvas.width;shotBaseCanvas.height=sourceCanvas.height;
   shotBaseCanvas.getContext('2d').drawImage(sourceCanvas,0,0);shotHistory=[];shotMode='none';shotCropSelection=null;
   $('shotEditor').hidden=false;$('shotDownload').disabled=false;$('shotApplyCrop').disabled=true;$('shotUndo').disabled=true;$('shotCropRect').style.display='none';
-  $('shotEditStatus').textContent=message||'';renderShotPreview();showModal(shotStudioModal);
+  $('shotEditStatus').textContent=message||'';$('shotCaptureStatus').textContent='';renderShotPreview();showModal(shotStudioModal);
 }
 $('shotUploadBtn').addEventListener('click',()=>$('shotUploadInput').click());
 $('shotUploadInput').addEventListener('change',e=>{
@@ -4747,15 +4854,26 @@ function paintShotLabel(ctx,text,position,color,size,offset=0){
   ctx.fillStyle=color;ctx.textBaseline='middle';ctx.textAlign=align;const tx=align==='right'?x+boxW-12:align==='left'?x+12:x+boxW/2;
   lines.forEach((line,i)=>ctx.fillText(line,tx,y+9+lineH*(i+.5),maxWidth));ctx.restore();
 }
+function getShotWriterName(){
+  const doc=currentId&&docs[currentId],info=doc&&doc.writerInfo||{};
+  return String($('shotAuthorSignatureText').value||info.name||AUTHOR_NAME||'').trim();
+}
 function renderShotPreview(){
   if(!shotBaseCanvas||!shotPreviewCanvas)return;
   shotPreviewCanvas.width=shotBaseCanvas.width;shotPreviewCanvas.height=shotBaseCanvas.height;const ctx=shotPreviewCanvas.getContext('2d');ctx.drawImage(shotBaseCanvas,0,0);
   const pos=$('shotOverlayPosition').value,color=$('shotTextColor').value,size=Number($('shotTextSize').value)||30;
   const stamp=$('shotStampText').value.trim()||'مسودة من Varry Studio';
-  paintShotLabel(ctx,stamp,pos,color,Math.max(15,size*.68),0);
-  const note=$('shotOverlayText').value.trim();if(note)paintShotLabel(ctx,note,pos,color,size,stamp?size*3:0);
+  const stampSize=Math.max(15,size*.68);
+  paintShotLabel(ctx,stamp,pos,color,stampSize,0);
+  let offset=size*3;
+  if($('shotAuthorSignatureEnabled').checked){
+    const signature=getShotWriterName();
+    if(signature){paintShotLabel(ctx,'توقيع الكاتب: '+signature,pos,color,Math.max(14,size*.68),offset);offset+=size*2.8;}
+  }
+  const note=$('shotOverlayText').value.trim();if(note)paintShotLabel(ctx,note,pos,color,size,offset);
 }
-['shotStampText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
+['shotStampText','shotAuthorSignatureText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
+$('shotAuthorSignatureEnabled').addEventListener('change',renderShotPreview);
 function getShotPoint(e){const r=shotPreviewCanvas.getBoundingClientRect();return{x:Math.max(0,Math.min(shotBaseCanvas.width,(e.clientX-r.left)*shotBaseCanvas.width/Math.max(1,r.width))),y:Math.max(0,Math.min(shotBaseCanvas.height,(e.clientY-r.top)*shotBaseCanvas.height/Math.max(1,r.height))),sx:e.clientX,sy:e.clientY};}
 $('shotCropMode').addEventListener('click',()=>{shotMode='crop';shotCropSelection=null;$('shotApplyCrop').disabled=true;$('shotCropRect').style.display='none';$('shotEditStatus').textContent='اسحب على الصورة لتحديد الجزء المراد الاحتفاظ به، ثم اضغط «تنفيذ القص».';});
 $('shotApplyCrop').addEventListener('click',()=>{
@@ -4964,6 +5082,7 @@ function panelChanged(field, value){
 $('dpFont').addEventListener('change', e => panelChanged('fontFamily', e.target.value));
 $('dpSize').addEventListener('change', e => panelChanged('fontSize', e.target.value));
 $('dpLh').addEventListener('change', e => panelChanged('lineHeight', e.target.value));
+$('quickLineHeightSelect').addEventListener('change',e=>panelChanged('lineHeight',e.target.value));
 $('dpAlign').addEventListener('change', e => panelChanged('textAlign', e.target.value));
 $('dpMargin').addEventListener('change', e => panelChanged('pageMargin', e.target.value));
 $('dpProfile').addEventListener('change', e => {
@@ -5118,6 +5237,7 @@ $('navFabMenu').addEventListener('click', e => {
     else alert('افتح ملفاً (غير حاوية) أولاً.');
   }
   else if(act === 'catalog') showModal(catalogModal);
+  else if(act === 'backup') downloadFullBackup();
   else if(act === 'tour') openGeneralTour();
   else if(act === 'floating') setFloatingActionsCollapsed(!floatingActionsCollapsed);
   else if(act === 'screenshot') openScreenshotStudio();
@@ -5154,11 +5274,13 @@ document.addEventListener('click', e => { if(e.target.closest('.export-author-co
 
 let writerInfoModalDocId = null;
 function refreshWriterInfoControls(){
-  const toggle=$('includeWriterInfoInExport'), edit=$('editWriterInfoBtn');
-  if(!toggle || !edit) return;
-  const doc=currentId && docs[currentId];
+  const toggle=$('includeWriterInfoInExport'), platformToggle=$('includePlatformContactInExport'), edit=$('editWriterInfoBtn');
+  if(!toggle || !platformToggle || !edit) return;
+  const doc=currentId && docs[currentId], isProject=!!(doc&&isContainer(doc));
   toggle.checked=!!(doc && doc.includeWriterInfo);
-  toggle.disabled=!doc;
+  platformToggle.checked=!!(doc && !isProject && doc.includePlatformContact);
+  toggle.disabled=!doc;platformToggle.disabled=!doc||isProject;
+  platformToggle.closest('label').style.display=isProject?'none':'flex';
   edit.disabled=!doc;
   edit.style.opacity=doc?'1':'.5';
 }
@@ -5169,6 +5291,14 @@ $('includeWriterInfoInExport').addEventListener('change', e => {
   doc.includeWriterInfo=e.target.checked;
   persist();
   if(pvRoot===currentId) refreshPreview();
+});
+$('includePlatformContactInExport').addEventListener('change', e => {
+  const doc=currentId && docs[currentId];
+  if(!doc||isContainer(doc)){e.target.checked=false;return;}
+  flushEditorToDoc();
+  doc.includePlatformContact=e.target.checked;
+  persist();
+  if(pvRoot===currentId)refreshPreview();
 });
 $('editWriterInfoBtn').addEventListener('click', () => {
   const doc=currentId && docs[currentId];
@@ -5192,7 +5322,7 @@ $('writerInfoSave').addEventListener('click', () => {
   if(pvRoot===writerInfoModalDocId) refreshPreview();
 });
 
-newDropdown.querySelectorAll('button[data-type]').forEach(b => b.addEventListener('click', () => { newDropdown.classList.remove('open'); newDoc(b.dataset.type); }));
+newDropdown.querySelectorAll('button[data-type]').forEach(b => b.addEventListener('click', () => { const forceRoot=$('newDocLocation').value==='root';newDropdown.classList.remove('open');newDoc(b.dataset.type,forceRoot?{forceRoot:true}:undefined); }));
 $('templateList').addEventListener('click', e => {
   const del = e.target.closest('[data-tpl-del]');
   if(del){
@@ -5205,7 +5335,7 @@ $('templateList').addEventListener('click', e => {
   const t = templates.find(x => x.id === b.dataset.tpl);
   if(!t) return;
   newDropdown.classList.remove('open');
-  newDoc(t.docType, { html: t.html, style: t.style, sceneDuration: t.sceneDuration, customLabel: t.name, title: t.name });
+  newDoc(t.docType, Object.assign({ html: t.html, style: t.style, sceneDuration: t.sceneDuration, customLabel: t.name, title: t.name }, $('newDocLocation').value==='root'?{forceRoot:true}:{}));
 });
 $('emptyNewBtn').addEventListener('click', () => newDoc('screenplay_us'));
 
@@ -5813,13 +5943,20 @@ function writerInfoSlideHtml(rootId){
   const contactHtml=w.contact.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join('');
   return `<section class="s section signature"><h2>كاتب / كاتبة العمل</h2>${w.name?`<h3>${esc(w.name)}</h3>`:''}${w.bio?`<p style="white-space:pre-wrap;">${esc(w.bio)}</p>`:''}${contactHtml?`<div><b>للتواصل:</b>${contactHtml}</div>`:''}</section>`;
 }
-function authorContactHtml(){
+function shouldIncludePlatformContact(rootId){
+  const doc=docs[rootId];
+  return !!doc&&(isContainer(doc)||!!doc.includePlatformContact);
+}
+function authorContactHtml(rootId){
+  if(!shouldIncludePlatformContact(rootId))return '';
   return `<section class="varry-author-contact" style="page-break-before:always;break-before:page;padding:26px 12px;color:#2b2620;"><h2 style="color:#7a3b2e;text-align:center;">للتواصل مع مصممة المشروع هبة «Varry»</h2><div style="max-width:620px;margin:18px auto;line-height:1.9;">${authorContactRowsHtml()}</div></section>`;
 }
-function authorContactText(){
+function authorContactText(rootId){
+  if(!shouldIncludePlatformContact(rootId))return '';
   return '\n\n=== للتواصل مع مصممة المشروع هبة «Varry» ===\n' + Object.values(AUTHOR_CONTACTS).map(c => `${c.label}: ${c.href && !c.href.startsWith('mailto:') ? c.href : c.display}`).join('\n') + '\n';
 }
-function authorContactSlideHtml(){
+function authorContactSlideHtml(rootId){
+  if(!shouldIncludePlatformContact(rootId))return '';
   return `<section class="s section signature"><h2>للتواصل مع مصممة المشروع هبة «Varry»</h2><div style="line-height:1.9;">${authorContactRowsHtml()}</div></section>`;
 }
 function coverPageHtml(doc){
@@ -5865,7 +6002,7 @@ function buildExport(rootId, opts){
   });
   if(o.sig) body += sigLine();
   body += writerInfoHtml(rootId);
-  body += authorContactHtml();
+  body += authorContactHtml(rootId);
   return { title: root.title || 'مشروع', body, list };
 }
 function wordHtml(title, body){
@@ -5892,7 +6029,7 @@ a{color:#7a3b2e;text-decoration:underline}
 .docu-segment{border:1px solid #bbb;padding:8pt;margin:12pt 0;page-break-inside:avoid}.docu-grid{width:100%;display:table;table-layout:fixed}.docu-cell{display:table-cell;width:50%;border:1px solid #ccc;padding:7pt;vertical-align:top}.docu-cell h3{border-bottom:1px solid #ddd}.social-final,.ad-hero{border:1px solid #ccc;padding:9pt}.quote-image-card{margin:12pt auto;text-align:center}
 .page-break-marker{page-break-before:always;break-before:page;height:0}
 </style></head><body dir="rtl">${body}
-<!-- Phase 27: extraction preview now reports totals after saved corrections; evidence list remains original for auditability. -->
+
 </body></html>`;
 }
 function exportWordFile(rootId, opts){
@@ -5929,7 +6066,7 @@ function exportTextOf(rootId, options){
     out += textOf(tmp).trim() + '\n\n';
   });
   out += writerInfoText(rootId);
-  out += authorContactText();
+  out += authorContactText(rootId);
   return out + (o.sig ? `\n${PLATFORM_SIGNATURE}\n` : '');
 }
 function buildSlidesHtml(rootId, opts){
@@ -5969,7 +6106,8 @@ function buildSlidesHtml(rootId, opts){
   if(o.sig) slides.push(`<section class="s section signature"><h2>${showAuthorSig ? esc(AUTHOR_NAME) : ''}</h2><p>${esc(PLATFORM_SIGNATURE)}</p></section>`);
   const writerSlide=writerInfoSlideHtml(rootId);
   if(writerSlide) slides.push(writerSlide);
-  slides.push(authorContactSlideHtml());
+  const platformContactSlide=authorContactSlideHtml(rootId);
+  if(platformContactSlide)slides.push(platformContactSlide);
   const script = "var s=document.querySelectorAll('.s'),i=0,n=document.getElementById('n'),bar=document.getElementById('bar');"
     + "function show(k){i=Math.max(0,Math.min(s.length-1,k));for(var j=0;j<s.length;j++)s[j].classList.toggle('on',j===i);n.textContent=(i+1)+' / '+s.length;bar.style.width=((i+1)/s.length*100)+'%';}"
     + "document.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown')show(i+1);if(e.key==='ArrowRight'||e.key==='PageUp'||e.key==='ArrowUp')show(i-1);if(e.key==='Home')show(0);if(e.key==='End')show(s.length-1);if(e.key==='f'&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();});"
@@ -6202,11 +6340,38 @@ $('expSingleJson').addEventListener('click', () => {
   const root = docs[currentId], data = buildPartialBackup([currentId]);
   downloadBlob(safeFileName(root.title) + '-varry.json', JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
 });
-$('expBackup').addEventListener('click', () => {
+function buildFullBackupData(){
   flushEditorToDoc();
-  const data = { platform: 'Varry Studio: Multiple scenario platform', app: 'Varry Studio', author: AUTHOR_NAME, docs, index, trash, templates, exportedAt: new Date().toISOString() };
-  downloadBlob('varry-studio-backup-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
-});
+  return { platform:'Varry Studio: Multiple scenario platform',app:'Varry Studio',author:AUTHOR_NAME,docs,index,trash,templates,exportedAt:new Date().toISOString() };
+}
+function downloadFullBackup(){
+  const data=buildFullBackupData(),day=new Date().toISOString().slice(0,10);
+  downloadBlob('varry-studio-backup-'+day+'.json',JSON.stringify(data,null,2),'application/json;charset=utf-8');
+  return day;
+}
+$('expBackup').addEventListener('click',downloadFullBackup);
+$('manualFullBackupBtn').addEventListener('click',downloadFullBackup);
+const BACKUP_MODE_KEY='varry:dailyBackupMode',BACKUP_PROMPT_KEY='varry:dailyBackupPromptDate';
+const dailyBackupMode=$('dailyBackupMode');
+dailyBackupMode.value=localStorage.getItem(BACKUP_MODE_KEY)||'prompt';
+dailyBackupMode.addEventListener('change',()=>localStorage.setItem(BACKUP_MODE_KEY,dailyBackupMode.value));
+const dailyBackupModal=$('dailyBackupModal');
+function closeDailyBackup(markToday=true){if(markToday)localStorage.setItem(BACKUP_PROMPT_KEY,new Date().toISOString().slice(0,10));hideModal(dailyBackupModal);}
+$('dailyBackupLater').addEventListener('click',()=>closeDailyBackup(true));$('dailyBackupClose').addEventListener('click',()=>closeDailyBackup(true));
+$('dailyBackupDownload').addEventListener('click',()=>{downloadFullBackup();closeDailyBackup(true);});
+function scheduleDailyBackupPrompt(){
+  if(dailyBackupMode.value!=='prompt'||!Object.keys(docs).length)return;
+  const today=new Date().toISOString().slice(0,10);
+  if(localStorage.getItem(BACKUP_PROMPT_KEY)===today)return;
+  let attempts=0;
+  const wait=setInterval(()=>{
+    attempts++;
+    if(!appContainer.classList.contains('unlocked'))return;
+    if(document.querySelector('.modal.open')){if(attempts>120)clearInterval(wait);return;}
+    clearInterval(wait);showModal(dailyBackupModal);
+  },500);
+}
+
 
 /* =====================================================================
    الاستيراد
@@ -7483,7 +7648,6 @@ document.addEventListener('keydown', e => {
 });
 
 
-
 /* Documentary script controls: add a complete segment or add a row inside an existing segment. */
 editor.addEventListener('click', e => {
   const addSegmentButton = e.target.closest('.docu-add-segment');
@@ -7766,7 +7930,7 @@ async function initializeWorkspace(){
   renderTemplates();
   openDoc(index[0] || null);
   loadingOverlay.style.display = 'none';
-  if(appContainer.classList.contains('unlocked')) setTimeout(maybeOfferGeneralTour,180);
+  if(appContainer.classList.contains('unlocked')){setTimeout(maybeOfferGeneralTour,180);setTimeout(scheduleDailyBackupPrompt,500); }
 }
 initializeWorkspace().catch(err => {
   loadingOverlay.style.display = 'none';
@@ -7776,26 +7940,6 @@ initializeWorkspace().catch(err => {
 
 })();
 
-/* PHASE 11 QA FIX: documentary table row controls are now injected idempotently
-   into both new and upgraded existing docu_script documents. */
-/* =====================================================================
-   VARRY STAGE 32
-   إصلاح الجدول الفرنسي (جدول موحّد) · إزالة الصفحة الأخيرة الفارغة بالتصدير
-   هوية Varry Hiba · فهم بنية الاستيراد تلقائياً · توقيع يدوي بالصورة
-   أنواع روايات وقصص · الدليل الموسيقي · تحكم مستقل بعناصر الغلاف + خطوط إرشادية
-   هوامش لكل ملف · لا حذف لأي ميزة قائمة
-   ===================================================================== */
-/* =====================================================================
-   VARRY STAGE 34
-   استيراد احتياطي أكثر أماناً: فحص مسبق للبنية، دمج غير هدّام، واسترجاع الحالة عند الفشل.
-   ===================================================================== */
-/* =====================================================================
-   VARRY STAGE 33
-   الجدول الفرنسي: رأس أعمدة + جدول موحّد بالمحرر والتصدير · استيراد أذكى
-   (ترميز قديم + Word بهيكلة) · زر ✍️ تدقيق وإصلاح · زر 🧭 تنقل عائم
-   عرض تقديمي حقيقي · 👁️ معاينة وتنسيق قبل التصدير · تصدير HTML مستقل
-   أقسام روايات بأدواتها الخاصة
-   ===================================================================== */
 </script>
 <script>
 if ("serviceWorker" in navigator) {
@@ -7810,9 +7954,3 @@ if ("serviceWorker" in navigator) {
 </body>
 </html>
 
-<!-- PHASE 12: save status now reflects IndexedDB transaction completion; French screenplay cells wrap long Arabic/French text more safely. -->
-
-<!-- PHASE 14: French paired-row and scene insertion controls across scene-based screenplay formats.
-   PHASE 15: حفظ احتياطي عند تعطل IndexedDB بعد بدء التشغيل. -->
-<!-- PHASE 15: IndexedDB failure fallback attempts to preserve workspace data in localStorage. -->
-<!-- PHASE 13: added complete documentary segment control (heading + duration + paired VIDEO/AUDIO table + source/rights note); row-add remains available per segment. -->
