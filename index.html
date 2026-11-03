@@ -843,6 +843,20 @@
   #writingPresetSelect{min-width:105px;}
   @media(max-width:720px){.preset-control{max-width:37vw}.preset-control select{min-width:70px!important;max-width:28vw!important}}
 </style>
+<style id="varry-rich-selection-and-shot-controls">
+  .editor::selection,.editor *::selection{background:#2878f0!important;color:#fff!important;text-shadow:none!important;}
+  .editor::-moz-selection,.editor *::-moz-selection{background:#2878f0!important;color:#fff!important;text-shadow:none!important;}
+  .shot-editor-grid textarea{box-sizing:border-box;width:100%;min-height:82px;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;line-height:1.6;resize:vertical;}
+  .shot-editor-grid .shot-multiline-control{grid-column:1/-1;}
+  .shot-editor-grid input[type="range"]{accent-color:var(--accent);}
+</style>
+<style id="varry-keyboard-help">
+  .keyboard-help-box{position:relative;width:min(94vw,620px);}
+  .keyboard-help-box>p{color:var(--ink-soft);font-size:13px;line-height:1.8;}
+  .keyboard-help-box kbd{display:inline-block;padding:2px 7px;border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;background:var(--paper);font-family:inherit;font-size:11px;}
+  .keyboard-help-box ul{padding-inline-start:22px;line-height:2;}
+  .keyboard-help-box li{margin-bottom:5px;}
+</style>
 </head>
 <body data-theme="light" data-font="naskh">
 
@@ -914,7 +928,7 @@
 
       <p data-catalog-section="export" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">📥📤 الاستيراد والتصدير</p>
       <ul style="margin:0 0 12px;">
-        <li><b>الاستيراد:</b> TXT / DOCX / PDF كمستند جديد أو دمجاً في الحالي، ونسخة احتياطية JSON (تُحدَّث الملفات القديمة تلقائياً لتطابق الإصدار الجديد).</li>
+        <li><b>الاستيراد:</b> ملفات HTML العادية كمستند جديد أو دمجاً في المستند المفتوح، ونسخ Varry الاحتياطية JSON. لا يستورد التطبيق HTML الشرائح بوصفه مستنداً.</li>
         <li><b>التصدير مطابق للمحرر (WYSIWYG):</b> الألوان والخطوط والمحاذاة والجداول تُحفظ في Word وPDF. تصدير حاوية يخرج المشروع كاملاً بغلافه وفهرسه وبترتيب الأقسام الحالي.</li>
         <li><b>النسخة الكاملة:</b> يمكن تنزيل نسخة الآن يدوياً من إعداد النسخ الاحتياطي أو قائمة التصدير. ويمكن تفعيل التذكير اليومي عند فتح المنصة؛ يتطلب التنزيل ضغط زر التنزيل، ولا يعمل إذا لم تُفتح المنصة. النسخة تشمل المشاريع والملفات وسلة المحذوفات والقوالب.</li>
         <li><b>نسخة احتياطية لملف واحد أو عدة ملفات:</b> زر 💾 «تصدير المحدد» في القائمة الجانبية (أو من قائمة التصدير) ينتج ملفاً واحداً بصيغة النسخة الاحتياطية للمنصة يمكن استيراده لاحقاً.</li>
@@ -974,6 +988,20 @@
     <p>تُطبّق هذه الإعدادات على الملف المفتوح فقط. يمكن تغييرها لاحقاً من إعدادات الملف.</p>
     <div id="writingPresetPreview" class="writing-preset-preview" dir="rtl">كان الصباح هادئاً. وقف سامر عند النافذة، يراقب الشارع قبل أن يفتح دفتره ويبدأ الكتابة.</div>
     <div class="modal-actions"><button type="button" id="writingPresetCancel">إلغاء</button><button type="button" class="primary" id="writingPresetApply">تطبيق القالب</button></div>
+  </div>
+</div>
+<div class="modal" id="keyboardHelpModal" aria-labelledby="keyboardHelpTitle" aria-modal="true" role="dialog">
+  <div class="modal-box keyboard-help-box">
+    <button type="button" class="modal-x" id="keyboardHelpClose" aria-label="إغلاق">×</button>
+    <h3 id="keyboardHelpTitle">⌨️ اختصارات لوحة المفاتيح والتنقل</h3>
+    <ul>
+      <li><kbd>Ctrl</kbd> + <kbd>S</kbd>: حفظ التعديلات فوراً.</li>
+      <li><kbd>Ctrl</kbd> + <kbd>Z</kbd>: تراجع. <kbd>Ctrl</kbd> + <kbd>Y</kbd> أو <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>: إعادة.</li>
+      <li><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>E</kbd>: الانتقال إلى مساحة الكتابة عند فتح ملف.</li>
+      <li><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H</kbd>: فتح هذه المساعدة.</li>
+      <li><kbd>Tab</kbd> و<kbd>Shift</kbd> + <kbd>Tab</kbd>: التنقل بين الأزرار والحقول. <kbd>Enter</kbd> أو <kbd>Space</kbd>: تفعيل العنصر المحدد.</li>
+    </ul>
+    <p>تعمل الاختصارات بعد فتح المنصة. وقد تتحكم بعض التطبيقات أو أنظمة التشغيل باختصاراتها الخاصة.</p>
   </div>
 </div>
 <div class="modal" id="tourModal" aria-labelledby="tourTitle" aria-modal="true" role="dialog">
@@ -1128,10 +1156,12 @@
         <label>شارة المسودة (دائمة)<input id="shotStampText" type="text" maxlength="60" value="مسودة من Varry Studio"></label>
         <label style="display:flex;align-items:center;gap:7px;"><input type="checkbox" id="shotAuthorSignatureEnabled" style="width:auto;"> إضافة توقيع الكاتب</label>
         <label>اسم التوقيع<input id="shotAuthorSignatureText" type="text" maxlength="100" placeholder="اسم كاتب العمل أو الاسم في الإعدادات"></label>
-        <label>كتابة إضافية على الصورة<input id="shotOverlayText" type="text" maxlength="160" placeholder="نص اختياري"></label>
+        <label class="shot-multiline-control">كتابة إضافية على الصورة<textarea id="shotOverlayText" rows="3" maxlength="600" placeholder="اكتب نصاً اختيارياً متعدد الأسطر"></textarea></label>
         <label>موضع النص والشارة<select id="shotOverlayPosition"><option value="bottom-right">أسفل اليمين</option><option value="bottom-left">أسفل اليسار</option><option value="top-right">أعلى اليمين</option><option value="top-left">أعلى اليسار</option><option value="center">المنتصف</option></select></label>
         <label>لون الكتابة<input id="shotTextColor" type="color" value="#ffffff"></label>
-        <label>حجم الكتابة<input id="shotTextSize" type="range" min="14" max="64" value="30"></label>
+        <label>حجم شارة المسودة<input id="shotStampSize" type="range" min="14" max="64" value="20"></label>
+        <label>حجم التوقيع<input id="shotSignatureSize" type="range" min="14" max="64" value="20"></label>
+        <label>حجم الكتابة الإضافية<input id="shotOverlayTextSize" type="range" min="14" max="64" value="30"></label>
         <label>لون الرسم<input id="shotBrushColor" type="color" value="#ff3040"></label>
         <label>سماكة الرسم<input id="shotBrushSize" type="range" min="2" max="28" value="7"></label>
       </div>
@@ -1310,15 +1340,15 @@
     </div>
 
     <div class="new-menu-wrap" style="margin-top:0;">
-      <button class="new-btn" id="importBtn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border);">⬆️ استيراد ملف / نسخة احتياطية</button>
+      <button class="new-btn" id="importBtn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border);">⬆️ استيراد HTML / نسخة احتياطية</button>
       <div class="new-dropdown" id="importDropdown">
-        <button id="importFileOption">📄 استيراد ملف خارجي جديد</button>
-        <button id="importInsideOption" style="color:var(--accent); font-weight:bold;">📥 استيراد ودمج داخل السيناريو الحالي</button>
+        <button id="importFileOption">📄 استيراد HTML كمستند جديد</button>
+        <button id="importInsideOption" style="color:var(--accent); font-weight:bold;">📥 دمج HTML في المستند المفتوح</button>
         <button id="importBackupOption">🗂️ استيراد نسخة احتياطية (JSON)</button>
       </div>
-      <input type="file" id="importFileInput" accept=".txt,.docx,.pdf" style="display:none;">
-      <input type="file" id="importInsideInput" accept=".txt,.docx,.pdf" style="display:none;">
-      <input type="file" id="importBackupInput" accept=".json" style="display:none;">
+      <input type="file" id="importFileInput" accept=".html,.htm,text/html" style="display:none;">
+      <input type="file" id="importInsideInput" accept=".html,.htm,text/html" style="display:none;">
+      <input type="file" id="importBackupInput" accept=".json,application/json" style="display:none;">
     </div>
 
     <div class="collapsible-section open" id="projectsSection">
@@ -1408,6 +1438,7 @@
       <span class="save-status" id="toolbarStatsText" style="min-width:auto; white-space:nowrap;"></span>
       <button class="layout-tool-btn" id="toggleWritingTools" type="button" title="طيّ أدوات التنسيق والميزات مع إبقاء أدوات الاستعادة متاحة" aria-expanded="true">⌄ طي الأدوات</button>
       <button class="layout-tool-btn" id="writingFocusBtn" type="button" title="إخفاء القوائم مؤقتاً لتوسيع مساحة الكتابة" aria-pressed="false">⛶ مساحة الكتابة</button>
+      <button class="layout-tool-btn" id="keyboardHelpBtn" type="button" title="اختصارات لوحة المفاتيح والتنقل">⌨️ المساعدة</button>
 
       <button class="behavior-toggle" id="behaviorToggleBtn" title="انقر للتبديل بين الفصل في فقرة جديدة أو التكملة بنفس الفقرة">
         <span>S: فصل جديد</span> 🔄
@@ -1768,6 +1799,7 @@
         <button data-nav="focus">✍️ مساحة الكتابة (إخفاء القوائم)</button>
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
+        <button data-nav="shortcuts">⌨️ اختصارات لوحة المفاتيح</button>
         <button data-nav="backup">💾 نسخة احتياطية كاملة</button>
         <button data-nav="tour">🧭 جولة تعريفية</button>
         <button data-nav="floating">⊖ طي الأزرار العائمة</button>
@@ -4289,6 +4321,11 @@ $('fontSizeDown').addEventListener('click',()=>stepSelectedFontSize(-2));
 $('fontSizeUp').addEventListener('click',()=>stepSelectedFontSize(2));
 $('clearInlineFormatBtn').addEventListener('click',()=>{snap();restoreCaret();document.execCommand('removeFormat',false,null);scheduleSave();});
 $('fontFamilySelect').addEventListener('change', e => { if(e.target.value) applyInlineStyleToSelection('fontFamily', e.target.value); });
+const keyboardHelpModal=$('keyboardHelpModal');
+function openKeyboardHelp(){if(keyboardHelpModal.classList.contains('open'))return;showModal(keyboardHelpModal);}
+$('keyboardHelpBtn').addEventListener('click',openKeyboardHelp);
+$('keyboardHelpClose').addEventListener('click',()=>hideModal(keyboardHelpModal));
+
 let pendingWritingPreset='';
 const writingPresetModal=$('writingPresetModal');
 function previewWritingPreset(key){
@@ -4842,8 +4879,10 @@ function shotWrap(ctx,text,maxWidth){
   const out=[];String(text||'').split(/\n/).forEach(part=>{let line='';part.split(/\s+/).filter(Boolean).forEach(word=>{const next=line?line+' '+word:word;if(line&&ctx.measureText(next).width>maxWidth){out.push(line);line=word;}else line=next;});if(line)out.push(line);});return out;
 }
 function paintShotLabel(ctx,text,position,color,size,offset=0){
-  if(!text)return;const w=shotBaseCanvas.width,h=shotBaseCanvas.height,margin=Math.max(14,Math.round(Math.min(w,h)*.035)),font=Math.max(12,Math.round(size*w/900));
-  ctx.save();ctx.font=`700 ${font}px Tahoma,Arial,sans-serif`;ctx.direction='rtl';const maxWidth=w-margin*2-20,lines=shotWrap(ctx,text,maxWidth),lineH=font*1.35,textW=Math.min(maxWidth,Math.max(...lines.map(line=>ctx.measureText(line).width),0)),boxW=Math.min(w-margin*2,textW+24),boxH=lines.length*lineH+18;
+  if(!text)return 0;
+  const w=shotBaseCanvas.width,h=shotBaseCanvas.height,margin=Math.max(14,Math.round(Math.min(w,h)*.035)),font=Math.max(9,Math.round(size*w/900));
+  ctx.save();ctx.font=`700 ${font}px Tahoma,Arial,sans-serif`;ctx.direction='rtl';
+  const maxWidth=w-margin*2-20,lines=shotWrap(ctx,text,maxWidth),lineH=font*1.35,textW=Math.min(maxWidth,Math.max(...lines.map(line=>ctx.measureText(line).width),0)),boxW=Math.min(w-margin*2,textW+24),boxH=lines.length*lineH+18;
   let x=margin,y=h-margin-boxH-offset,align='right';
   if(position==='top-right'){y=margin+offset;x=w-margin-boxW;align='right';}
   else if(position==='top-left'){y=margin+offset;x=margin;align='left';}
@@ -4853,6 +4892,7 @@ function paintShotLabel(ctx,text,position,color,size,offset=0){
   ctx.fillStyle='rgba(16,15,15,.72)';if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,y,boxW,boxH,Math.max(5,font*.22));ctx.fill();}else ctx.fillRect(x,y,boxW,boxH);
   ctx.fillStyle=color;ctx.textBaseline='middle';ctx.textAlign=align;const tx=align==='right'?x+boxW-12:align==='left'?x+12:x+boxW/2;
   lines.forEach((line,i)=>ctx.fillText(line,tx,y+9+lineH*(i+.5),maxWidth));ctx.restore();
+  return boxH+10;
 }
 function getShotWriterName(){
   const doc=currentId&&docs[currentId],info=doc&&doc.writerInfo||{};
@@ -4861,18 +4901,17 @@ function getShotWriterName(){
 function renderShotPreview(){
   if(!shotBaseCanvas||!shotPreviewCanvas)return;
   shotPreviewCanvas.width=shotBaseCanvas.width;shotPreviewCanvas.height=shotBaseCanvas.height;const ctx=shotPreviewCanvas.getContext('2d');ctx.drawImage(shotBaseCanvas,0,0);
-  const pos=$('shotOverlayPosition').value,color=$('shotTextColor').value,size=Number($('shotTextSize').value)||30;
+  const pos=$('shotOverlayPosition').value,color=$('shotTextColor').value;
   const stamp=$('shotStampText').value.trim()||'مسودة من Varry Studio';
-  const stampSize=Math.max(15,size*.68);
-  paintShotLabel(ctx,stamp,pos,color,stampSize,0);
-  let offset=size*3;
+  let offset=paintShotLabel(ctx,stamp,pos,color,Number($('shotStampSize').value)||20,0);
   if($('shotAuthorSignatureEnabled').checked){
     const signature=getShotWriterName();
-    if(signature){paintShotLabel(ctx,'توقيع الكاتب: '+signature,pos,color,Math.max(14,size*.68),offset);offset+=size*2.8;}
+    if(signature)offset+=paintShotLabel(ctx,signature,pos,color,Number($('shotSignatureSize').value)||20,offset);
   }
-  const note=$('shotOverlayText').value.trim();if(note)paintShotLabel(ctx,note,pos,color,size,offset);
+  const note=$('shotOverlayText').value.trim();
+  if(note)paintShotLabel(ctx,note,pos,color,Number($('shotOverlayTextSize').value)||30,offset);
 }
-['shotStampText','shotAuthorSignatureText','shotOverlayText','shotOverlayPosition','shotTextColor','shotTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
+['shotStampText','shotAuthorSignatureText','shotOverlayText','shotOverlayPosition','shotTextColor','shotStampSize','shotSignatureSize','shotOverlayTextSize'].forEach(id=>$(id).addEventListener('input',renderShotPreview));
 $('shotAuthorSignatureEnabled').addEventListener('change',renderShotPreview);
 function getShotPoint(e){const r=shotPreviewCanvas.getBoundingClientRect();return{x:Math.max(0,Math.min(shotBaseCanvas.width,(e.clientX-r.left)*shotBaseCanvas.width/Math.max(1,r.width))),y:Math.max(0,Math.min(shotBaseCanvas.height,(e.clientY-r.top)*shotBaseCanvas.height/Math.max(1,r.height))),sx:e.clientX,sy:e.clientY};}
 $('shotCropMode').addEventListener('click',()=>{shotMode='crop';shotCropSelection=null;$('shotApplyCrop').disabled=true;$('shotCropRect').style.display='none';$('shotEditStatus').textContent='اسحب على الصورة لتحديد الجزء المراد الاحتفاظ به، ثم اضغط «تنفيذ القص».';});
@@ -4984,35 +5023,98 @@ $('handInsert').addEventListener('click', () => {
   insertImageBlock(url);
 });
 
-/* ===== لصق نظيف ===== */
+/* ===== نسخ/لصق منسّق وآمن ===== */
 function rawTextToParagraphsHtml(text){
-  let html = '';
-  String(text).split(/\r?\n/).forEach(line => {
-    const t = line.trim();
-    html += t === '' ? '<p><br></p>' : `<p>${esc(t)}</p>`;
-  });
-  return html || '<p><br></p>';
+  const lines=String(text||'').replace(/\r\n?/g,'\n').split('\n');
+  return lines.map(line=>line.trim()===''?'<p><br></p>':`<p>${esc(line).replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;')}</p>`).join('')||'<p><br></p>';
 }
 function sanitizePastedHtml(html){
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  tmp.querySelectorAll('script, style, o\\:p, meta, link').forEach(n => n.remove());
-  return rawTextToParagraphsHtml(textOf(tmp));
+  const tmp=document.createElement('div');tmp.innerHTML=html||'';
+  const dropTags=new Set(['SCRIPT','STYLE','META','LINK','IFRAME','OBJECT','EMBED','FORM','INPUT','BUTTON','BASE','SVG','VIDEO','AUDIO','SOURCE']);
+  const allowTags=new Set(['DIV','SPAN','P','BR','HR','B','STRONG','I','EM','U','S','STRIKE','DEL','INS','SUB','SUP','MARK','SMALL','BIG','FONT','BLOCKQUOTE','PRE','CODE','H1','H2','H3','H4','H5','H6','UL','OL','LI','TABLE','THEAD','TBODY','TFOOT','TR','TD','TH','A','IMG']);
+  const styleProps=['font-family','font-size','font-weight','font-style','text-decoration','text-align','color','background-color','direction','line-height','margin','margin-top','margin-right','margin-bottom','margin-left','text-indent','vertical-align','white-space','border','border-top','border-right','border-bottom','border-left','border-color','border-width','border-style','border-collapse','padding','padding-top','padding-right','padding-bottom','padding-left','width','height'];
+  const elements=[...tmp.querySelectorAll('*')].reverse();
+  elements.forEach(el=>{
+    if(!el.parentNode)return;
+    if(dropTags.has(el.tagName)){el.remove();return;}
+    if(el.tagName==='FONT'){
+      if(el.hasAttribute('face'))el.style.fontFamily=el.getAttribute('face');
+      if(el.hasAttribute('color'))el.style.color=el.getAttribute('color');
+      const span=document.createElement('span');span.innerHTML=el.innerHTML;span.setAttribute('style',el.style.cssText);el.replaceWith(span);el=span;
+    } else if(!allowTags.has(el.tagName)){
+      el.replaceWith(...el.childNodes);return;
+    }
+    const tag=el.tagName;
+    const allowedAttrs=new Set(['style','dir','lang','title']);
+    if(['TD','TH'].includes(tag))['colspan','rowspan','scope','width','height','align','valign'].forEach(a=>allowedAttrs.add(a));
+    if(tag==='OL')['start','reversed','type'].forEach(a=>allowedAttrs.add(a));
+    if(tag==='LI')allowedAttrs.add('value');
+    if(tag==='A')allowedAttrs.add('href');
+    if(tag==='IMG')['src','alt','width','height'].forEach(a=>allowedAttrs.add(a));
+    [...el.attributes].forEach(attr=>{if(!allowedAttrs.has(attr.name.toLowerCase())||attr.name.toLowerCase().startsWith('on'))el.removeAttribute(attr.name);});
+    if(el.hasAttribute('dir')&&!['ltr','rtl','auto'].includes(el.getAttribute('dir').toLowerCase()))el.removeAttribute('dir');
+    if(tag==='A'){
+      const href=el.getAttribute('href')||'';
+      if(!/^(https?:|mailto:|tel:)/i.test(href))el.removeAttribute('href');
+    }
+    if(tag==='IMG'){
+      const src=el.getAttribute('src')||'';
+      if(!/^data:image\/(?:png|jpeg|gif|webp);base64,/i.test(src)||src.length>2_500_000){
+        const alt=el.getAttribute('alt')||'';el.replaceWith(document.createTextNode(alt));return;
+      }
+    }
+    if(el.hasAttribute('style')){
+      const source=el.style,clean=[];
+      styleProps.forEach(prop=>{
+        const value=source.getPropertyValue(prop).trim();
+        if(!value||value.length>180||/(?:url\s*\(|expression\s*\(|javascript:|var\s*\()/i.test(value))return;
+        if(/^(?:font-family|font-size|font-weight|font-style|text-decoration|text-align|color|background-color|direction|line-height|margin(?:-(?:top|right|bottom|left))?|text-indent|vertical-align|white-space|border(?:-(?:top|right|bottom|left|color|width|style))?|border-collapse|padding(?:-(?:top|right|bottom|left))?|width|height)$/.test(prop))clean.push(`${prop}:${value}`);
+      });
+      if(clean.length)el.setAttribute('style',clean.join(';'));else el.removeAttribute('style');
+    }
+  });
+  return tmp.innerHTML||'<p><br></p>';
 }
-editor.addEventListener('paste', e => {
+function plainTextFromHtml(html){const box=document.createElement('div');box.innerHTML=html;return box.innerText||box.textContent||'';}
+editor.addEventListener('copy',e=>{
+  const selection=window.getSelection(),cd=e.clipboardData;
+  if(!selection||selection.isCollapsed||!cd||!selection.rangeCount)return;
+  const range=selection.getRangeAt(0);if(!editor.contains(range.commonAncestorContainer))return;
+  const fragment=range.cloneContents();
+  fragment.querySelectorAll('button,.del-treatment-box,.fr-del-row,.fr-add-row-control,.add-scene-control,.docu-add-row,.docu-add-segment,.dual-ctl,.dual-x,.nested-scene-tools,.rc-tools,.rc-chips,.rc-summary').forEach(n=>n.remove());
+  const wrapper=document.createElement('div'),d=currentId&&docs[currentId],st=d&&d.style||{};
+  wrapper.dir=editor.dir||'rtl';
+  wrapper.style.fontFamily=st.fontFamily||getComputedStyle(editor).fontFamily;
+  wrapper.style.fontSize=st.fontSize||getComputedStyle(editor).fontSize;
+  wrapper.style.lineHeight=st.lineHeight||getComputedStyle(editor).lineHeight;
+  wrapper.style.textAlign=st.textAlign||'right';wrapper.style.color=st.color||getComputedStyle(editor).color;
+  const copyStyleProps=['font-family','font-size','font-weight','font-style','text-decoration','color','background-color','text-align','direction','line-height'];
+  let source=range.commonAncestorContainer.nodeType===1?range.commonAncestorContainer:range.commonAncestorContainer.parentElement;
+  const ancestors=[];while(source&&source!==editor){ancestors.unshift(source);source=source.parentElement;}
+  let destination=wrapper;
+  ancestors.forEach(original=>{
+    if(!/^(DIV|P|SPAN|B|STRONG|I|EM|U|S|DEL|INS|SUB|SUP|MARK|SMALL|BLOCKQUOTE|PRE|CODE|H[1-6]|LI|TD|TH|A)$/.test(original.tagName))return;
+    const clone=original.cloneNode(false);
+    ['contenteditable','tabindex','class','id','role'].forEach(a=>clone.removeAttribute(a));
+    ['dir','lang','href'].forEach(a=>{if(original.hasAttribute(a))clone.setAttribute(a,original.getAttribute(a));});
+    const computed=getComputedStyle(original);copyStyleProps.forEach(prop=>{const value=computed.getPropertyValue(prop);if(value)clone.style.setProperty(prop,value);});
+    destination.appendChild(clone);destination=clone;
+  });
+  destination.appendChild(fragment);
+  cd.setData('text/html',wrapper.outerHTML);
+  cd.setData('text/plain',selection.toString());
   e.preventDefault();
-  const cd = e.clipboardData || window.clipboardData;
-  if(!cd) return;
-  const html = cd.getData('text/html'), plain = cd.getData('text/plain');
-  const insertHtml = (html && html.trim()) ? sanitizePastedHtml(html) : rawTextToParagraphsHtml(plain || '');
-  const sel = window.getSelection();
-  if(sel.rangeCount){
-    const range = sel.getRangeAt(0);
-    range.deleteContents();
-    const frag = range.createContextualFragment(insertHtml);
-    const last = frag.lastChild;
-    range.insertNode(frag);
-    if(last){ range.setStartAfter(last); range.collapse(true); sel.removeAllRanges(); sel.addRange(range); }
+});
+editor.addEventListener('paste',e=>{
+  e.preventDefault();
+  const cd=e.clipboardData||window.clipboardData;if(!cd)return;
+  const html=cd.getData('text/html'),plain=cd.getData('text/plain');
+  const insertHtml=(html&&html.trim())?sanitizePastedHtml(html):rawTextToParagraphsHtml(plain||'');
+  let inserted=false;
+  try{inserted=document.execCommand('insertHTML',false,insertHtml);}catch(err){inserted=false;}
+  if(!inserted){
+    const sel=window.getSelection();
+    if(sel&&sel.rangeCount){const range=sel.getRangeAt(0);range.deleteContents();const frag=range.createContextualFragment(insertHtml);const last=frag.lastChild;range.insertNode(frag);if(last){range.setStartAfter(last);range.collapse(true);sel.removeAllRanges();sel.addRange(range);}}
   }
   scheduleSave();
 });
@@ -5237,6 +5339,7 @@ $('navFabMenu').addEventListener('click', e => {
     else alert('افتح ملفاً (غير حاوية) أولاً.');
   }
   else if(act === 'catalog') showModal(catalogModal);
+  else if(act === 'shortcuts') openKeyboardHelp();
   else if(act === 'backup') downloadFullBackup();
   else if(act === 'tour') openGeneralTour();
   else if(act === 'floating') setFloatingActionsCollapsed(!floatingActionsCollapsed);
@@ -6374,136 +6477,133 @@ function scheduleDailyBackupPrompt(){
 
 
 /* =====================================================================
-   الاستيراد
+   الاستيراد: HTML عادي ونسخ احتياطية JSON فقط
    ===================================================================== */
-const importFileInput = $('importFileInput'), importInsideInput = $('importInsideInput'), importBackupInput = $('importBackupInput');
-$('importFileOption').addEventListener('click', () => { importDropdown.classList.remove('open'); importFileInput.click(); });
-$('importInsideOption').addEventListener('click', () => {
+const importFileInput=$('importFileInput'),importInsideInput=$('importInsideInput'),importBackupInput=$('importBackupInput');
+$('importFileOption').addEventListener('click',()=>{importDropdown.classList.remove('open');importFileInput.click();});
+$('importInsideOption').addEventListener('click',()=>{
   importDropdown.classList.remove('open');
-  const d = currentId && docs[currentId];
-  if(!d || isContainer(d)){ alert('افتح سيناريو أو مستنداً أولاً (وليس حاوية) لدمج الملف بداخله.'); return; }
+  const d=currentId&&docs[currentId];
+  if(!d||isContainer(d)){alert('افتح مستنداً أولاً (وليس حاوية) لدمج ملف HTML.');return;}
   importInsideInput.click();
 });
-$('importBackupOption').addEventListener('click', () => { importDropdown.classList.remove('open'); importBackupInput.click(); });
-
-/* فهم بنية الملف المستورد: تحويل تلقائي للفقرات إلى مشهد/شخصية/حوار/وصف حيثما أمكن */
-function structureImportedHtml(html){
-  const tmp = document.createElement('div');
-  tmp.innerHTML = sanitizeImportedHtml(html || '');
-  classifyPlain(tmp, false);
-  return tmp.innerHTML;
-}
-
+$('importBackupOption').addEventListener('click',()=>{importDropdown.classList.remove('open');importBackupInput.click();});
 function sanitizeImportedHtml(html){
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html || '';
-  tmp.querySelectorAll('script,style,iframe,object,embed,link,meta,svg,math,form,video,audio').forEach(n => n.remove());
-  const allowedTags = new Set(['P','DIV','H1','H2','H3','H4','H5','H6','BR','STRONG','B','EM','I','U','S','SPAN','UL','OL','LI','BLOCKQUOTE','TABLE','THEAD','TBODY','TFOOT','TR','TD','TH','CODE','PRE','A','IMG','HR']);
-  const allowedStyles = new Set(['font-family','font-size','font-weight','font-style','text-align','text-decoration','color','background-color','direction','margin','margin-top','margin-bottom','padding','padding-left','padding-right','width','height','border','border-collapse','vertical-align']);
-  [...tmp.querySelectorAll('*')].forEach(el => {
-    if(!allowedTags.has(el.tagName)){ el.replaceWith(...el.childNodes); return; }
-    [...el.attributes].forEach(attr => {
-      const name = attr.name.toLowerCase();
-      if(name.startsWith('on') || name === 'contenteditable' || name === 'srcdoc'){ el.removeAttribute(attr.name); return; }
-      if(name === 'style'){
-        const clean = attr.value.split(';').map(rule => rule.trim()).filter(Boolean).map(rule => {
-          const at = rule.indexOf(':');
-          if(at < 1) return '';
-          const property = rule.slice(0, at).trim().toLowerCase(), value = rule.slice(at + 1).trim();
-          return allowedStyles.has(property) && !/url\s*\(|expression\s*\(|javascript:/i.test(value) ? `${property}:${value}` : '';
+  const tmp=document.createElement('div');tmp.innerHTML=html||'';
+  tmp.querySelectorAll('script,style,iframe,object,embed,link,meta,svg,math,form,video,audio,source').forEach(n=>n.remove());
+  const allowedTags=new Set(['P','DIV','H1','H2','H3','H4','H5','H6','BR','STRONG','B','EM','I','U','S','DEL','INS','SPAN','UL','OL','LI','BLOCKQUOTE','TABLE','THEAD','TBODY','TFOOT','TR','TD','TH','CODE','PRE','A','IMG','HR','SUB','SUP','MARK']);
+  const allowedStyles=new Set(['font-family','font-size','font-weight','font-style','text-align','text-decoration','color','background-color','direction','line-height','margin','margin-top','margin-right','margin-bottom','margin-left','padding','padding-top','padding-right','padding-bottom','padding-left','text-indent','white-space','width','height','border','border-color','border-width','border-style','border-collapse','vertical-align','list-style-type']);
+  [...tmp.querySelectorAll('*')].reverse().forEach(el=>{
+    if(!allowedTags.has(el.tagName)){el.replaceWith(...el.childNodes);return;}
+    [...el.attributes].forEach(attr=>{
+      const name=attr.name.toLowerCase();
+      if(name.startsWith('on')||name==='contenteditable'||name==='srcdoc'||name==='id'||name==='class'||name.startsWith('data-')){el.removeAttribute(attr.name);return;}
+      if(name==='style'){
+        const clean=attr.value.split(';').map(rule=>rule.trim()).filter(Boolean).map(rule=>{
+          const at=rule.indexOf(':');if(at<1)return '';
+          const property=rule.slice(0,at).trim().toLowerCase(),value=rule.slice(at+1).trim();
+          return allowedStyles.has(property)&&value.length<180&&!/(?:url\s*\(|expression\s*\(|javascript:|var\s*\()/i.test(value)?`${property}:${value}`:'';
         }).filter(Boolean).join(';');
-        if(clean) el.setAttribute('style', clean); else el.removeAttribute('style');
-      } else if(!['class','dir','colspan','rowspan','href','src','alt','title','width','height'].includes(name)){
-        el.removeAttribute(attr.name);
-      }
+        if(clean)el.setAttribute('style',clean);else el.removeAttribute('style');
+      }else if(!['dir','lang','colspan','rowspan','href','src','alt','title','width','height','align','valign','scope'].includes(name))el.removeAttribute(attr.name);
     });
-    if(el.tagName === 'A'){
-      const href = el.getAttribute('href') || '';
-      if(!/^(https?:|mailto:|#)/i.test(href)) el.removeAttribute('href');
+    if(el.hasAttribute('dir')&&!['rtl','ltr','auto'].includes(el.getAttribute('dir').toLowerCase()))el.removeAttribute('dir');
+    if(el.tagName==='A'){
+      const href=el.getAttribute('href')||'';if(!/^(https?:|mailto:|tel:|#)/i.test(href))el.removeAttribute('href');
     }
-    if(el.tagName === 'IMG'){
-      const src = el.getAttribute('src') || '';
-      if(!/^data:image\/(?:png|jpe?g|gif|webp);base64,/i.test(src)){ el.remove(); return; }
-      el.removeAttribute('width'); el.removeAttribute('height');
+    if(el.tagName==='IMG'){
+      const src=el.getAttribute('src')||'';
+      if(!/^data:image\/(?:png|jpe?g|gif|webp);base64,/i.test(src)||src.length>2500000){const alt=el.getAttribute('alt')||'';el.replaceWith(document.createTextNode(alt));}
     }
   });
   return tmp.innerHTML;
 }
-
-async function parseFileContent(file){
-  const ext = file.name.split('.').pop().toLowerCase();
-  if(ext === 'txt'){
-    const buf = await file.arrayBuffer();
-    const bytes = new Uint8Array(buf);
-    let text;
-    if(bytes[0] === 0xFF && bytes[1] === 0xFE) text = new TextDecoder('utf-16le').decode(buf);
-    else if(bytes[0] === 0xFE && bytes[1] === 0xFF) text = new TextDecoder('utf-16be').decode(buf);
-    else {
-      text = new TextDecoder('utf-8').decode(buf);
-      const arabicCount = s => (s.match(/[\u0600-\u06FF]/g) || []).length;
-      if(text.includes('\uFFFD') || (!arabicCount(text) && /[ÃØÙ]/.test(text))){
-        try{
-          const legacy = new TextDecoder('windows-1256').decode(buf);
-          if(legacy.includes('�') || arabicCount(legacy) > arabicCount(text)) text = legacy;
-        }catch(e){}
+const IMPORT_STYLE_PROPS=['font-family','font-size','font-weight','font-style','text-align','text-decoration','color','background-color','direction','line-height','margin','margin-top','margin-right','margin-bottom','margin-left','padding','padding-top','padding-right','padding-bottom','padding-left','text-indent','white-space','width','height','border','border-color','border-width','border-style','border-collapse','vertical-align','list-style-type'];
+function inlineHtmlStyles(parsed,root){
+  const css=[...parsed.querySelectorAll('style')].map(n=>n.textContent||'').join('\n');
+  if(!css)return;
+  let ruleList=[];
+  try{
+    const sheet=new CSSStyleSheet();sheet.replaceSync(css);
+    const visit=rules=>[...rules].forEach(rule=>{if(rule.style&&rule.selectorText)ruleList.push(rule);else if(rule.cssRules)visit(rule.cssRules);});
+    visit(sheet.cssRules);
+  }catch(e){
+    const simple=css.replace(/\/\*[\s\S]*?\*\//g,'');
+    for(const match of simple.matchAll(/([^{}]+)\{([^{}]*)\}/g)){
+      if(match[1].trim().startsWith('@'))continue;
+      const style=document.createElement('span').style;style.cssText=match[2];
+      ruleList.push({selectorText:match[1].trim(),style});
+    }
+  }
+  ruleList.forEach(rule=>{
+    const style=document.createElement('span').style;style.cssText=rule.style.cssText||'';
+    const font=style.font;
+    const decl={};IMPORT_STYLE_PROPS.forEach(prop=>{const value=style.getPropertyValue(prop).trim();if(value&&!/(?:url\s*\(|expression\s*\(|javascript:|var\s*\()/i.test(value))decl[prop]=value;});
+    if(font&&!decl['font-family']&&!decl['font-size']){const f=document.createElement('span').style;f.font=font;['font-family','font-size','font-weight','font-style','line-height'].forEach(prop=>{const value=f.getPropertyValue(prop);if(value)decl[prop]=value;});}
+    if(!Object.keys(decl).length)return;
+    String(rule.selectorText).split(',').forEach(raw=>{
+      let selector=raw.trim();
+      if(!selector||selector.length>240||!/^[a-zA-Z0-9_*#:.\s>+~()=-]+$/.test(selector))return;
+      let targets=[];
+      if(/^(?:(?:html)\s+)?body(?:\.[\w-]+)?$/i.test(selector)||selector===':root')targets=[root];
+      else{
+        selector=selector.replace(/^html\s+body(?=$|[\s>+~.#])/i,':scope').replace(/^body(?=$|[\s>+~.#])/i,':scope');
+        try{targets=[...root.querySelectorAll(selector)];}catch(e){return;}
       }
-    }
-    return rawTextToParagraphsHtml(text);
-  }
-  if(ext === 'docx'){
-    if(typeof mammoth === 'undefined') throw new Error('مكتبة Word غير متوفرة (تحتاج اتصالاً بالإنترنت).');
-    const r = await mammoth.convertToHtml({ arrayBuffer: await file.arrayBuffer() });
-    return sanitizeImportedHtml(r.value);
-  }
-  if(ext === 'pdf'){
-    if(typeof pdfjsLib === 'undefined') throw new Error('مكتبة PDF غير متوفرة (تحتاج اتصالاً بالإنترنت).');
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
-    let pages = [];
-    for(let i = 1; i <= pdf.numPages; i++){
-      const content = await (await pdf.getPage(i)).getTextContent();
-      const items = content.items.filter(it => it.str && it.str.trim()).map(it => ({
-        text:it.str.trim(), x:Number(it.transform && it.transform[4]) || 0, y:Number(it.transform && it.transform[5]) || 0,
-        size:Number(it.height) || Math.abs(Number(it.transform && it.transform[3])) || 12
+      targets.forEach(el=>Object.entries(decl).forEach(([prop,value])=>{
+        if(!el.style.getPropertyValue(prop))el.style.setProperty(prop,value);
       }));
-      const arabic = (items.map(it => it.text).join(' ').match(/[\u0600-\u06FF]/g) || []).length > 0;
-      const lines = [];
-      items.sort((a,b) => b.y - a.y).forEach(item => {
-        const line = lines.find(l => Math.abs(l.y - item.y) <= Math.max(2, Math.min(l.size, item.size) * 0.45));
-        if(line){ line.parts.push(item); line.size = Math.max(line.size, item.size); }
-        else lines.push({ y:item.y, size:item.size, parts:[item] });
-      });
-      pages.push(lines.map(line => line.parts.sort((a,b) => arabic ? b.x - a.x : a.x - b.x).map(item => item.text).join(' ')).join('\n'));
-    }
-    return rawTextToParagraphsHtml(pages.join('\n\n'));
-  }
-  throw new Error('صيغة الملف غير مدعومة (المدعوم: TXT وDOCX وPDF).');
+    });
+  });
 }
-importFileInput.addEventListener('change', async e => {
-  const file = e.target.files[0];
-  if(!file) return;
-  loadingOverlay.style.display = 'flex'; loadingText.textContent = 'جاري قراءة الملف الخارجي...';
+function convertLegacyFontTags(root){
+  root.querySelectorAll('font').forEach(font=>{
+    const span=document.createElement('span');span.innerHTML=font.innerHTML;span.style.cssText=font.style.cssText;
+    if(font.hasAttribute('face'))span.style.fontFamily=font.getAttribute('face');
+    if(font.hasAttribute('color'))span.style.color=font.getAttribute('color');
+    const size=Number(font.getAttribute('size')),fontPts=['','8pt','10pt','12pt','14pt','18pt','24pt','36pt'];
+    if(size>=1&&size<=7&&!span.style.fontSize)span.style.fontSize=fontPts[size];
+    font.replaceWith(span);
+  });
+}
+async function parseFileContent(file){
+  const ext=(file.name.split('.').pop()||'').toLowerCase();
+  if(ext!=='html'&&ext!=='htm')throw new Error('الاستيراد يدعم ملفات HTML العادية ونسخ Varry الاحتياطية JSON فقط.');
+  if(file.size>50*1024*1024)throw new Error('ملف HTML أكبر من الحد المدعوم (50 ميغابايت).');
+  const source=await file.text(),parsed=new DOMParser().parseFromString(source,'text/html'),title=String(parsed.title||'').trim();
+  if(/عرض تقديمي|slides presentation/i.test(title)||(parsed.querySelector('.s')&&(parsed.getElementById('n')||parsed.getElementById('bar'))))
+    throw new Error('هذا ملف HTML لعرض شرائح. اختر تصدير HTML المستند العادي بدلاً منه.');
+  const body=parsed.body,root=document.createElement('div');
+  root.innerHTML=body.innerHTML;root.className=body.className||'';
+  if(body.dir)root.setAttribute('dir',body.dir);else if(parsed.documentElement.dir)root.setAttribute('dir',parsed.documentElement.dir);
+  root.style.cssText=body.style.cssText||'';
+  inlineHtmlStyles(parsed,root);convertLegacyFontTags(root);
+  const html=sanitizeImportedHtml(root.outerHTML);
+  if(!plainTextFromHtml(html).trim()&&!/<img\b/i.test(html))throw new Error('لم يُعثر على محتوى نصي في ملف HTML.');
+  const heading=root.querySelector('h1,h2');
+  return {html,title:title||String(heading?.textContent||'').trim()||file.name.replace(/\.(html?|HTML?)$/,'')};
+}
+importFileInput.addEventListener('change',async e=>{
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  loadingOverlay.style.display='flex';loadingText.textContent='جاري قراءة ملف HTML...';
   try{
-    const html = structureImportedHtml(await parseFileContent(file));
-    flushEditorToDoc(); pushUndoSnapshot();
-    const id = makeDoc('screenplay_us', file.name.replace(/\.[^.]+$/, '') || 'ملف مستورد', resolveParent('screenplay_us'), { html, sceneDuration: false });
-    persist(); openDoc(id);
-  } catch(err){ alert('خطأ: ' + err.message); }
-  finally { loadingOverlay.style.display = 'none'; importFileInput.value = ''; }
+    const imported=await parseFileContent(file);
+    flushEditorToDoc();pushUndoSnapshot();
+    const id=makeDoc('text_document',imported.title||'مستند HTML',resolveParent('text_document'),{html:imported.html});
+    persist();openDoc(id);
+  }catch(err){alert('تعذّر استيراد HTML: '+err.message);}
+  finally{loadingOverlay.style.display='none';importFileInput.value='';}
 });
-importInsideInput.addEventListener('change', async e => {
-  const file = e.target.files[0];
-  const d = currentId && docs[currentId];
-  if(!file || !d || isContainer(d)) return;
-  loadingOverlay.style.display = 'flex'; loadingText.textContent = 'جاري دمج الملف داخل المستند الحالي...';
+importInsideInput.addEventListener('change',async e=>{
+  const file=e.target.files&&e.target.files[0],d=currentId&&docs[currentId];
+  if(!file||!d||isContainer(d))return;
+  loadingOverlay.style.display='flex';loadingText.textContent='جاري دمج ملف HTML في المستند الحالي...';
   try{
-    const html = structureImportedHtml(await parseFileContent(file));
-    snap();
-    editor.insertAdjacentHTML('beforeend', `<hr style="margin:20px 0; border:1px dashed var(--border);"><p style="font-weight:bold; color:var(--accent);">--- [بداية الدمج: ${esc(file.name)}] ---</p>` + html);
-    scheduleSave();
-    alert('تم دمج محتوى الملف بنجاح.');
-  } catch(err){ alert('خطأ أثناء الدمج: ' + err.message); }
-  finally { loadingOverlay.style.display = 'none'; importInsideInput.value = ''; }
+    const imported=await parseFileContent(file);snap();
+    editor.insertAdjacentHTML('beforeend',`<hr style="margin:20px 0;border:1px dashed var(--border);"><p style="font-weight:bold;color:var(--accent);">--- [بداية الدمج: ${esc(file.name)}] ---</p>`+imported.html);
+    scheduleSave();alert('تم دمج محتوى HTML بنجاح.');
+  }catch(err){alert('تعذّر دمج HTML: '+err.message);}
+  finally{loadingOverlay.style.display='none';importInsideInput.value='';}
 });
 importBackupInput.addEventListener('change', e => {
   const file = e.target.files[0];
@@ -7639,9 +7739,15 @@ function exportSelectedBackup(){
 $('exportSelectedBtn').addEventListener('click', exportSelectedBackup);
 $('expSelectedBackup').addEventListener('click', exportSelectedBackup);
 
-/* ===== حفظ فوري Ctrl+S ===== */
+/* ===== حفظ فوري واختصارات لوحة المفاتيح ===== */
 document.addEventListener('keydown', e => {
-  if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 's'){
+  const mod=e.ctrlKey||e.metaKey;
+  if(mod&&e.altKey&&!e.shiftKey&&e.key.toLowerCase()==='h'){e.preventDefault();openKeyboardHelp();return;}
+  if(mod&&e.altKey&&!e.shiftKey&&e.key.toLowerCase()==='e'){
+    if(currentId&&docs[currentId]&&!isContainer(docs[currentId])){e.preventDefault();editor.focus();}
+    return;
+  }
+  if(mod && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 's'){
     e.preventDefault();
     if(currentId && docs[currentId]){ clearTimeout(saveTimer); doSave(); }
   }
