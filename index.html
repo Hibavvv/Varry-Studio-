@@ -584,7 +584,12 @@
   .ex-correction small{grid-column:1/-1;color:var(--ink-soft);line-height:1.5;}
   .ex-correction input,.ex-correction select{min-width:0;width:100%;padding:6px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--ink);}
   .ex-correction .ex-c-name{font-weight:700;overflow-wrap:anywhere;}
+  #exLearningManager{margin:6px 0;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--paper);}
+  #exLearningManager summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);}
+  #exLearningRules{display:flex;flex-direction:column;gap:5px;max-height:170px;overflow:auto;margin-top:7px;}
   .ex-correction-note{font-size:11px;color:var(--ink-soft);margin:4px 0;}
+  .ex-learn{grid-column:1/-1;display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--ink-soft);line-height:1.5;}
+  .ex-learn input{width:auto;min-width:0;margin:2px 0 0;accent-color:var(--accent);}
   .ex-ai-tools{border:1px solid var(--border);border-radius:8px;padding:9px;background:color-mix(in srgb,var(--accent) 5%,var(--paper));margin:8px 0;}
   .ex-ai-toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
   .ex-ai-config{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:8px;}
@@ -857,6 +862,13 @@
   .keyboard-help-box ul{padding-inline-start:22px;line-height:2;}
   .keyboard-help-box li{margin-bottom:5px;}
 </style>
+<style id="varry-recovery-styles">
+  .recovery-box{position:relative;width:min(94vw,700px);}
+  .recovery-box>p{font-size:13px;line-height:1.8;color:var(--ink-soft);}
+  .recovery-preview{min-height:105px;max-height:210px;overflow:auto;border:1px solid var(--border);border-radius:9px;background:var(--paper);padding:12px;white-space:pre-wrap;line-height:1.8;font-size:13px;}
+  .recovery-note{font-size:11px!important;}
+  #recoveryVersionSelect{min-height:40px;padding:7px;border:1px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;}
+</style>
 </head>
 <body data-theme="light" data-font="naskh">
 
@@ -890,6 +902,7 @@
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="tools">الأدوات والتحليل</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="export">الاستيراد والتصدير</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="safety">الحفظ والأمان</button>
+        <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="tips">نصائح هبة</button>
         <button type="button" class="fmt-btn catalog-filter" data-catalog-filter="about">عن هبة</button>
       </div>
       <small id="catalogResultCount" aria-live="polite" style="color:var(--ink-soft)">دليل تفاعلي — ابحثي أو اختاري موضوعاً.</small>
@@ -922,6 +935,7 @@
         <li><b>ذكاء التفريغ:</b> يقرأ عناوين المشاهد بصيغ متعددة، وأسطر «المكان: …» و«الوقت: …»، وسطور الحوار بصيغة «الاسم: الحوار» عند تفعيل التعرف على النص غير المنسق. يحاول استبعاد أوصاف التصوير مثل «صورة أمامية» من قائمة المواقع والشخصيات، ويعرض عدد المشاهد والأدلة وملاحظات الالتباس ودرجة ثقة مبدئية قبل التطبيق. درجة الثقة إرشادية وليست ضماناً؛ لا يعتمد النظام على التكرار وحده، بل يخفض الثقة عند الأسماء الطويلة أو التي تشبه أفعال الحركة، ويستبعد توجيهات التصوير الواضحة من أسماء الشخصيات والمواقع عند تفعيل الذكاء. راجعي النتائج قبل اعتمادها. تُدمج صيغ الاسم المختصرة مع الكاملة بحذر، وتبقى التعديلات اليدوية محفوظة أثناء التحديث.</li>
         <li><b>التفريغ التلقائي:</b> زر ⚙️ «تفريغ تلقائي» (في ملف التفريغ، أو في شريط أدوات أي سيناريو، أو في لوحة المشروع) يقرأ عناوين المشاهد (مثل: مشهد 1 - داخلي - شقة سلمى - ليل) ويستخرج المكان والوقت وأرقام المشاهد والشخصيات. يمكن اختيار المصدر (كل ملفات الحاوية، أو الملف المفتوح، أو ملفات يدوياً) وطريقة الدمج (تحديث الحقول التلقائية فقط مع حفظ ما كُتب يدوياً، أو إضافة الجديد فقط، أو الاستبدال الكامل)، مع معاينة للنتيجة قبل التنفيذ.</li>
         <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
+        <li><b>ذاكرة التصحيحات (اختيارية):</b> تبقى تصحيحات الأسماء محلية للعمل الحالي افتراضياً. عند اختيار «تعلّم هذا التصحيح عبر الملفات الأخرى» تُحفظ القاعدة على هذا المتصفح وتُطبّق على الاسم نفسه بعد توحيد بسيط للتشكيل والمسافات والحروف. لا تتعلّم المنصة من النصوص عموماً ولا ترسل البيانات؛ راجع المعاينة قبل اعتماد النتيجة.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
         <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات.</li>
       </ul>
@@ -946,6 +960,16 @@
         <li><b>الجولة التعريفية:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ،  يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
         <li><b>نسخ ملفات المشروع ولصقها:</b> حدّد ملفاً أو مجلداً في القائمة الجانبية ثم استخدم Ctrl+C. اختر المجلد من قائمة «وجهة اللصق» أو افتحه، ثم اضغط «لصق» أو استخدم Ctrl+V. يستنسخ النظام العناصر كاملةً، ويعرض الزر عدد العناصر المنسوخة.</li>
+      </ul>
+      <p data-catalog-section="tips" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">💡 بعض النصائح لتحسين تجربة الاستخدام</p>
+      <ul style="margin:0 0 12px;">
+        <li>لا تُهملوا النسخ الاحتياطي، فالمنصة لا تدعم التخزين السّحابي، وفقد البيانات هو خطر قائم دائمًا.</li>
+        <li>لاستيراد الملفات إلى المنصة، استخدموا ملفات النسخ الاحتياطي؛ سواء للمنصة كاملة أو لملف محدد، وكذلك ملفات الhtml (البسيط وليس العارض).</li>
+        <li>التّنسيقات الاحترافية والأنماط التلقائية وُجدت لتُسهّل عليكم الكتابة. ويبقى الخيار اليدوي الحرّ متوفّرًا لمَن يفضّلونه.</li>
+        <li>اطلعوا على الكتالوج المُعنى بشرح وتفصيل أقسام وتعليمات المنصة، لأنّها واسعة ومتشعبة وتتحدث باستمرار.</li>
+        <li>أمّا عن خيار تصدير الملفات بغرض العرض والمشاركة، فأنصح بملفات الpdf لأنّ المنصة تتعامل معها بصورة أفضل من غيرها.</li>
+        <li>خيار التفريغ التلقائي للمواقع والشّخصيات ما يزال بدائيًا جدًا، وأنصح بالتفريغ اليدوي حاليًا.</li>
+        <li>أمّا عن خيار التفريغ باستخدام وكيل ذكاء اصطناعي شخصي فلم أتمكن من تجربته بعد؛ فأنا لا أملك واحدًا..</li>
       </ul>
       <p data-catalog-section="about" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">🛠️ عن هبة «Varry» — مصممة المشروع</p>
       <ul style="margin:0 0 12px;list-style:none;padding:0;">
@@ -973,6 +997,22 @@
   </div>
 </div>
 
+<div class="modal" id="contentLinkModal" aria-labelledby="contentLinkTitle" aria-modal="true" role="dialog">
+  <div class="modal-box" style="max-width:520px;">
+    <button type="button" class="modal-x" id="contentLinkClose" aria-label="إغلاق">×</button>
+    <h3 id="contentLinkTitle">🔗 ترابط الملفات</h3>
+    <p>اختر ملفاً واحداً لربطه بمحتوى الملف المفتوح. بعد الربط، أي كتابة أو تعديل في أحدهما يحدّث محتوى الآخر تلقائياً. يظل عنوان كل ملف وإعداداته مستقلّاً.</p>
+    <label for="contentLinkTarget" style="display:block;margin:12px 0 5px;font-weight:700;">الملف المرتبط</label>
+    <select id="contentLinkTarget" style="width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--ink);"></select>
+    <label for="contentLinkSource" style="display:block;margin:12px 0 5px;font-weight:700;">المحتوى الذي سيُعتمد عند بدء الربط</label>
+    <select id="contentLinkSource" style="width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--ink);">
+      <option value="current">الاحتفاظ بمحتوى الملف المفتوح واستبدال محتوى الملف المختار به</option>
+      <option value="target">الاحتفاظ بمحتوى الملف المختار واستبدال محتوى الملف المفتوح به</option>
+    </select>
+    <p id="contentLinkWarning" style="padding:10px;border-radius:8px;background:rgba(240,180,41,.12);font-size:13px;line-height:1.7;"></p>
+    <div class="modal-actions"><button type="button" id="contentLinkCancel">إلغاء</button><button type="button" class="primary" id="contentLinkConfirm">تأكيد الاستبدال والربط</button></div>
+  </div>
+</div>
 <div class="modal" id="dailyBackupModal" aria-labelledby="dailyBackupTitle" aria-modal="true" role="dialog">
   <div class="modal-box backup-prompt-box">
     <button type="button" class="modal-x" id="dailyBackupClose" aria-label="إغلاق">×</button>
@@ -1002,6 +1042,18 @@
       <li><kbd>Tab</kbd> و<kbd>Shift</kbd> + <kbd>Tab</kbd>: التنقل بين الأزرار والحقول. <kbd>Enter</kbd> أو <kbd>Space</kbd>: تفعيل العنصر المحدد.</li>
     </ul>
     <p>تعمل الاختصارات بعد فتح المنصة. وقد تتحكم بعض التطبيقات أو أنظمة التشغيل باختصاراتها الخاصة.</p>
+  </div>
+</div>
+<div class="modal" id="recoveryModal" aria-labelledby="recoveryTitle" aria-modal="true" role="dialog">
+  <div class="modal-box recovery-box">
+    <button type="button" class="modal-x" id="recoveryClose" aria-label="إغلاق">×</button>
+    <h3 id="recoveryTitle">⏱️ استعادة الكتابة</h3>
+    <p id="recoveryIntro">تُحفظ نقاط استعادة محلياً في هذا المتصفح لمدة عشر دقائق تقريباً. اختر الملف والوقت لمراجعة النسخة قبل استعادتها.</p>
+    <label for="recoveryVersionSelect">الملف والنسخة</label>
+    <select id="recoveryVersionSelect" style="width:100%;margin:8px 0;"></select>
+    <div id="recoveryVersionPreview" class="recovery-preview" aria-live="polite">لا توجد نسخ استعادة بعد.</div>
+    <p id="recoveryStorageNote" class="recovery-note">النسخ محلية على هذا الجهاز والمتصفح، ولا تُرفع إلى أي خادم.</p>
+    <div class="modal-actions"><button type="button" id="recoveryCancel">إغلاق</button><button type="button" class="primary" id="recoveryRestoreBtn" disabled>استعادة النسخة المحددة</button></div>
   </div>
 </div>
 <div class="modal" id="tourModal" aria-labelledby="tourTitle" aria-modal="true" role="dialog">
@@ -1040,12 +1092,13 @@
       </div>
     </div>
     <div class="cv-grid">
-      <label>الخلفية: <select id="cvType"><option value="color">لون</option><option value="gradient">تدرج</option><option value="image">صورة</option></select></label>
+      <label>الخلفية: <select id="cvType"><option value="color">لون</option><option value="gradient">تدرج</option><option value="image">صورة داخل الغلاف</option></select></label>
       <label>اللون: <input type="color" id="cvColor" value="#7a3b2e"></label>
       <label class="cv-grad">اللون الثاني: <input type="color" id="cvColor2" value="#c98d6f"></label>
       <label class="cv-grad">زاوية التدرج: <input type="range" id="cvAngle" min="0" max="360" value="135"></label>
       <label class="cv-img">الصورة: <input type="file" id="cvImage" accept="image/*"></label>
-      <label class="cv-img">الملاءمة: <select id="cvFit"><option value="cover">تغطية</option><option value="contain">احتواء</option></select></label>
+      <label class="cv-img">الملاءمة: <select id="cvFit"><option value="contain">احتواء</option><option value="cover">تغطية داخل الإطار</option></select></label>
+      <label class="cv-img">حجم الصورة داخل الغلاف: <input type="range" id="cvImageScale" min="18" max="80" value="38"></label>
       <label class="cv-img">تعتيم الصورة: <input type="range" id="cvOverlay" min="0" max="80" value="30"></label>
       <label>الأيقونة: <input type="text" id="cvIcon" maxlength="4" style="width:70px; text-align:center;" placeholder="🎬"></label>
     </div>
@@ -1224,12 +1277,14 @@
         <p class="ex-ai-note wide">تحليل AI اختياري ويتطلب مزوّداً متوافقاً ومفتاحك الخاص. لن يُضمّن أي مفتاح في الملف أو يُحفظ في التخزين الدائم. قبل كل طلب ستظهر موافقة؛ نصوص السيناريو المحددة ستُرسل إلى المزوّد وقد تُحتسب عليها رسوم. بعض الخدمات لا تسمح بطلبات مباشرة من ملف محلي وتحتاج خادماً وسيطاً آمناً.</p>
       </div>
     </div>
-    <p class="ex-correction-note">تُحفظ التصحيحات على هذا الجهاز ضمن العمل الحالي فقط، حتى لا تؤثر في أعمال أخرى تحمل أسماء متشابهة. راجع النتائج قبل اعتمادها.</p>
+    <p class="ex-correction-note">تبقى التصحيحات محلية لهذا العمل ما لم يتم تفعيل «تعلّم عبر الملفات». تُطبّق القاعدة المتعلّمة على الاسم نفسه فقط بعد توحيد بسيط للتشكيل والمسافات والحروف، ولا تغيّر نص السيناريو. يُفضّل مراجعة النتيجة قبل اعتمادها.</p>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0;">
       <button type="button" id="exClearCorrections" class="dash-btn">مسح تصحيحات هذا العمل</button>
+      <button type="button" id="exClearLearning" class="dash-btn">مسح ذاكرة التصحيحات</button>
       <button type="button" id="exAddManual" class="dash-btn">＋ إضافة نتيجة يدوية</button>
       <small id="exCorrectionStatus" style="color:var(--ink-soft);"></small>
     </div>
+    <details id="exLearningManager"><summary>مراجعة القواعد المتعلّمة وحذف أي قاعدة</summary><div id="exLearningRules"></div></details>
     <div id="exCorrectionList"></div>
     <div class="modal-actions">
       <button type="button" id="exCancel">إلغاء</button>
@@ -1439,6 +1494,8 @@
       <button class="layout-tool-btn" id="toggleWritingTools" type="button" title="طيّ أدوات التنسيق والميزات مع إبقاء أدوات الاستعادة متاحة" aria-expanded="true">⌄ طي الأدوات</button>
       <button class="layout-tool-btn" id="writingFocusBtn" type="button" title="إخفاء القوائم مؤقتاً لتوسيع مساحة الكتابة" aria-pressed="false">⛶ مساحة الكتابة</button>
       <button class="layout-tool-btn" id="keyboardHelpBtn" type="button" title="اختصارات لوحة المفاتيح والتنقل">⌨️ المساعدة</button>
+      <button class="layout-tool-btn" id="recoveryBtn" type="button" title="استعادة نسخة من الكتابة خلال آخر عشر دقائق">⏱️ استعادة</button>
+      <button class="layout-tool-btn" id="linkFilesBtn" type="button" title="ربط محتوى هذا الملف بملف آخر">🔗 ربط ملف</button>
 
       <button class="behavior-toggle" id="behaviorToggleBtn" title="انقر للتبديل بين الفصل في فقرة جديدة أو التكملة بنفس الفقرة">
         <span>S: فصل جديد</span> 🔄
@@ -1800,6 +1857,7 @@
         <button data-nav="docpanel">⚙️ إعدادات الملف</button>
         <button data-nav="catalog">📖 الدليل الشامل</button>
         <button data-nav="shortcuts">⌨️ اختصارات لوحة المفاتيح</button>
+        <button data-nav="recovery">⏱️ استعادة الكتابة</button>
         <button data-nav="backup">💾 نسخة احتياطية كاملة</button>
         <button data-nav="tour">🧭 جولة تعريفية</button>
         <button data-nav="floating">⊖ طي الأزرار العائمة</button>
@@ -2125,8 +2183,10 @@ function tryUnlock(){
   if(lockInput.value === userPass){
     lockScreen.style.display = 'none';
     appContainer.classList.add('unlocked');
+    setTimeout(restorePendingSessionLocation,260);
     setTimeout(maybeOfferGeneralTour,250);
     setTimeout(scheduleDailyBackupPrompt,500);
+    setTimeout(scheduleRecoveryPrompt,700);
   } else { alert('كلمة المرور غير صحيحة!'); }
 }
 lockScreen.addEventListener('submit', e => { e.preventDefault(); tryUnlock(); });
@@ -2289,6 +2349,28 @@ if(!trash || typeof trash !== 'object' || Array.isArray(trash)) trash = {};
 if(!Array.isArray(templates)) templates = [];
 
 let currentId = null;
+const SESSION_LOCATION_KEY='varry:lastWorkspaceLocation',LAST_EDITOR_DOC_KEY='varry:lastEditedDocId',RECOVERY_DB_NAME='varry-studio-recovery',RECOVERY_STORE='snapshots',RECOVERY_FALLBACK_KEY='varry:recoverySnapshots',RECOVERY_EMERGENCY_KEY='varry:recoveryEmergency',RECOVERY_DISMISSED_KEY='varry:recoveryDismissed';
+const RECOVERY_WINDOW_MS=10*60*1000,RECOVERY_INTERVAL_MS=30*1000,RECOVERY_MAX_PER_DOC=21;
+let recoveryDb=null,recoveryTimer=null,recoveryDirty=false,recoveryPromptTimer=null,recoveryAutoCandidate=null,sessionRestorePending=null,locationSaveTimer=null;
+function readSessionLocation(){try{const x=JSON.parse(localStorage.getItem(SESSION_LOCATION_KEY)||'null');return x&&typeof x==='object'?x:null;}catch(e){return null;}}
+function rememberWorkspaceLocation(id=currentId){
+  try{
+    const d=id&&docs[id];
+    const record={id:d?id:null,kind:d?(isContainer(d)?'dashboard':'document'):'empty',windowY:Math.max(0,window.scrollY||0),editorScrollTop:editorScroll?.scrollTop||0,dashboardScrollTop:dashboard?.scrollTop||0,sidebarScrollTop:docList?.scrollTop||0,docPanelOpen:!!(d&&!isContainer(d)&&docPanel?.classList.contains('open')),savedAt:Date.now()};
+    localStorage.setItem(SESSION_LOCATION_KEY,JSON.stringify(record));
+    if(d&&!isContainer(d))localStorage.setItem(LAST_EDITOR_DOC_KEY,id);
+  }catch(e){}
+}
+function scheduleRememberLocation(){clearTimeout(locationSaveTimer);locationSaveTimer=setTimeout(()=>rememberWorkspaceLocation(),300);}
+function restorePendingSessionLocation(){
+  const pending=sessionRestorePending;if(!pending||!pending.id||currentId!==pending.id||!appContainer.classList.contains('unlocked'))return;
+  clearTimeout(locationSaveTimer);locationSaveTimer=null;
+  editorScroll.scrollTop=Math.max(0,pending.editorScrollTop||0);dashboard.scrollTop=Math.max(0,pending.dashboardScrollTop||0);docList.scrollTop=Math.max(0,pending.sidebarScrollTop||0);
+  if(pending.docPanelOpen)docPanel.classList.add('open');else docPanel.classList.remove('open');
+  if(Number.isFinite(pending.windowY))window.scrollTo(0,Math.max(0,pending.windowY));
+  sessionRestorePending=null;rememberWorkspaceLocation(currentId);
+  clearTimeout(locationSaveTimer);locationSaveTimer=setTimeout(()=>rememberWorkspaceLocation(currentId),350);
+}
 let saveTimer = null;
 let splitBehavior = 'new';
 let storageWarned = false;
@@ -2327,6 +2409,72 @@ function writeWorkspaceDb(db, serialized){
       tx.onerror = tx.onabort = () => reject(tx.error || new Error('تعذّر حفظ بيانات مساحة العمل.'));
     }catch(err){ reject(err); }
   });
+}
+function openRecoveryDatabase(){
+  if(!('indexedDB' in window))return Promise.resolve(null);
+  return new Promise(resolve=>{
+    let req;try{req=indexedDB.open(RECOVERY_DB_NAME,1);}catch(e){resolve(null);return;}
+    req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(RECOVERY_STORE)){const st=db.createObjectStore(RECOVERY_STORE,{keyPath:'id'});st.createIndex('byDocId','docId',{unique:false});st.createIndex('byCapturedAt','capturedAt',{unique:false});}};
+    req.onsuccess=()=>resolve(req.result);req.onerror=req.onblocked=()=>resolve(null);
+  });
+}
+function recoveryFallbackRead(){try{const v=JSON.parse(localStorage.getItem(RECOVERY_FALLBACK_KEY)||'[]');return Array.isArray(v)?v:[];}catch(e){return[];}}
+function recoveryFallbackWrite(list){
+  try{
+    const cut=Date.now()-RECOVERY_WINDOW_MS;list=list.filter(x=>x&&x.capturedAt>=cut).sort((a,b)=>a.capturedAt-b.capturedAt);
+    while(list.length>60||JSON.stringify(list).length>3_200_000)list.shift();
+    localStorage.setItem(RECOVERY_FALLBACK_KEY,JSON.stringify(list));return true;
+  }catch(e){return false;}
+}
+function recoveryGetAll(){
+  if(!recoveryDb)return Promise.resolve(recoveryFallbackRead().filter(x=>x.capturedAt>Date.now()-RECOVERY_WINDOW_MS));
+  return new Promise(resolve=>{let valid=[];try{const tx=recoveryDb.transaction(RECOVERY_STORE,'readwrite'),store=tx.objectStore(RECOVERY_STORE),req=store.getAll(),cut=Date.now()-RECOVERY_WINDOW_MS;req.onsuccess=()=>{const all=req.result||[];valid=all.filter(x=>x.capturedAt>cut);all.filter(x=>x.capturedAt<=cut).forEach(x=>store.delete(x.id));};req.onerror=()=>resolve(recoveryFallbackRead().filter(x=>x.capturedAt>cut));tx.oncomplete=()=>resolve(valid);tx.onerror=tx.onabort=()=>resolve(recoveryFallbackRead().filter(x=>x.capturedAt>cut));}catch(e){resolve(recoveryFallbackRead().filter(x=>x.capturedAt>Date.now()-RECOVERY_WINDOW_MS));}});
+}
+function recoveryGetForDoc(docId){
+  if(!recoveryDb)return Promise.resolve(recoveryFallbackRead().filter(x=>x.docId===docId&&x.capturedAt>Date.now()-RECOVERY_WINDOW_MS).sort((a,b)=>a.capturedAt-b.capturedAt));
+  return new Promise(resolve=>{try{const req=recoveryDb.transaction(RECOVERY_STORE,'readonly').objectStore(RECOVERY_STORE).index('byDocId').getAll(docId);req.onsuccess=()=>resolve((req.result||[]).filter(x=>x.capturedAt>Date.now()-RECOVERY_WINDOW_MS).sort((a,b)=>a.capturedAt-b.capturedAt));req.onerror=()=>resolve(recoveryFallbackRead().filter(x=>x.docId===docId));}catch(e){resolve(recoveryFallbackRead().filter(x=>x.docId===docId));}});
+}
+function recoveryStoreRecord(record){
+  const matchesContent=x=>JSON.stringify(x.doc)===JSON.stringify(record.doc);
+  if(!recoveryDb){const all=recoveryFallbackRead(),cut=Date.now()-RECOVERY_WINDOW_MS,next=all.filter(x=>x.docId!==record.docId&&x.capturedAt>=cut);const own=all.filter(x=>x.docId===record.docId&&x.capturedAt>=cut);if(own.some(matchesContent))return Promise.resolve(true);own.push(record);own.sort((a,b)=>a.capturedAt-b.capturedAt);next.push(...own.slice(-RECOVERY_MAX_PER_DOC));return Promise.resolve(recoveryFallbackWrite(next));}
+  return new Promise(resolve=>{
+    try{
+      const tx=recoveryDb.transaction(RECOVERY_STORE,'readwrite'),store=tx.objectStore(RECOVERY_STORE),req=store.index('byDocId').getAll(record.docId);let duplicate=false;
+      req.onsuccess=()=>{
+        const cut=Date.now()-RECOVERY_WINDOW_MS,all=(req.result||[]).filter(x=>x.capturedAt>=cut).sort((a,b)=>a.capturedAt-b.capturedAt);
+        duplicate=all.some(matchesContent);
+        if(duplicate)return;
+        all.push(record);const kept=new Set(all.slice(-RECOVERY_MAX_PER_DOC).map(x=>x.id));
+        (req.result||[]).forEach(x=>{if(!kept.has(x.id))store.delete(x.id);});store.put(record);
+      };
+      tx.oncomplete=()=>resolve(true);tx.onerror=tx.onabort=()=>resolve(false);
+    }catch(e){resolve(false);}
+  });
+}
+async function recordRecoverySnapshot(doc,force=false){
+  if(!doc||isContainer(doc))return null;
+  let docId=doc.id;
+  if(!docId)docId=Object.keys(docs).find(id=>docs[id]===doc)||currentId;
+  if(!docId)return null;
+  const now=Date.now(),prior=await recoveryGetForDoc(docId),last=prior[prior.length-1];
+  const serialized=JSON.stringify(doc);
+  if(last&&JSON.stringify(last.doc)===serialized)return last;
+  if(!force&&last&&now-last.capturedAt<RECOVERY_INTERVAL_MS-1000)return last;
+  const record={id:`${docId}:${now}:${Math.random().toString(36).slice(2,8)}`,docId,title:String(doc.title||'مستند بلا عنوان'),docType:doc.docType||'text_document',capturedAt:now,doc:JSON.parse(serialized)};
+  const ok=await recoveryStoreRecord(record);
+  if(!ok){$('recoveryStorageNote').textContent='تعذّر حفظ سجل الاستعادة في مساحة المتصفح حالياً. يبقى الحفظ التلقائي الأساسي مستقلاً.';return null;}
+  recoveryDirty=false;return record;
+}
+function scheduleRecoverySnapshot(){
+  recoveryDirty=true;if(recoveryTimer)return;
+  recoveryTimer=setTimeout(async()=>{recoveryTimer=null;if(!recoveryDirty)return;if(saveTimer)flushNow();const d=currentId&&docs[currentId];if(d&&!isContainer(d)){flushEditorToDoc();await recordRecoverySnapshot(d,false);}if(recoveryDirty)scheduleRecoverySnapshot();},RECOVERY_INTERVAL_MS);
+}
+function createEmergencyRecoveryCopy(){
+  const d=currentId&&docs[currentId];if(!d||isContainer(d))return;
+  try{flushEditorToDoc();localStorage.setItem(RECOVERY_EMERGENCY_KEY,JSON.stringify({docId:currentId,title:d.title||'',docType:d.docType||'text_document',capturedAt:Date.now(),doc:JSON.parse(JSON.stringify(d))}));}catch(e){}
+}
+async function importEmergencyRecoveryCopy(){
+  try{const raw=localStorage.getItem(RECOVERY_EMERGENCY_KEY);if(!raw)return;const rec=JSON.parse(raw);if(rec&&rec.docId&&rec.doc&&rec.capturedAt>Date.now()-RECOVERY_WINDOW_MS){rec.id=`${rec.docId}:${rec.capturedAt}:emergency`;await recoveryStoreRecord(rec);}localStorage.removeItem(RECOVERY_EMERGENCY_KEY);}catch(e){}
 }
 function queueWorkspaceSave(){
   if(!workspaceDb) return false;
@@ -2936,7 +3084,11 @@ function flushEditorToDoc(){
   const d = currentId && docs[currentId];
   if(!d) return;
   d.title = titleInput.value;
-  if(!isContainer(d)) d.html = editor.innerHTML;
+  if(!isContainer(d)){
+    d.html = editor.innerHTML;
+    const peer=d.contentLinkId&&docs[d.contentLinkId];
+    if(peer&&!isContainer(peer)&&peer.contentLinkId===currentId){peer.html=d.html;peer.updatedAt=Date.now();}
+  }
 }
 function scheduleSave(){
   if(!currentId || !docs[currentId]) return;
@@ -2956,13 +3108,14 @@ function doSave(){
     // Only the localStorage fallback can be reported as saved synchronously.
     if(!workspaceDb) saveStatus.textContent = '✓ تم الحفظ';
   }
-  if(isContainer(d)) renderDashboard(currentId); else { updateStats(); refreshRecordSummaryIfAny(); }
+  if(isContainer(d)) renderDashboard(currentId); else { updateStats(); refreshRecordSummaryIfAny(); scheduleRecoverySnapshot(); }
   renderList();
   typingSnapshotPending = true;
 }
 function flushNow(){ if(saveTimer){ clearTimeout(saveTimer); doSave(); } }
-window.addEventListener('beforeunload', flushNow);
-document.addEventListener('visibilitychange', () => { if(document.hidden) flushNow(); });
+window.addEventListener('beforeunload',()=>{flushNow();rememberWorkspaceLocation();createEmergencyRecoveryCopy();const d=currentId&&docs[currentId];if(d&&!isContainer(d))void recordRecoverySnapshot(d,true);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){flushNow();rememberWorkspaceLocation();createEmergencyRecoveryCopy();const d=currentId&&docs[currentId];if(d&&!isContainer(d))void recordRecoverySnapshot(d,true);}});
+window.addEventListener('pagehide',()=>{rememberWorkspaceLocation();createEmergencyRecoveryCopy();});
 try{
   history.pushState({ varryBackGuard:true }, '', location.href);
   window.addEventListener('popstate', () => {
@@ -3124,6 +3277,7 @@ function cloneDocTree(id, parentId, addSuffix, idMap, recursionGuard){
   recursionGuard.add(id);
   const nid = uid();
   const c = deepClone(src);
+  delete c.contentLinkId;
   if(addSuffix) c.title = (c.title || 'مشروع') + ' (نسخة)';
   delete c._trashedWith;
   if(parentId) c.parentId = parentId; else delete c.parentId;
@@ -3513,7 +3667,8 @@ function coverModel(doc){
   m.type = type;
   m.color2 = c.color2 || '#c98d6f';
   m.angle = c.angle != null ? +c.angle : 135;
-  m.fit = c.fit || 'cover';
+  m.fit = c.fit || 'contain';
+  m.imageScale = c.imageScale != null && Number.isFinite(+c.imageScale) ? Math.max(18,Math.min(80,+c.imageScale)) : 38;
   m.overlay = c.overlay != null ? +c.overlay : 30;
   m.title = c.title || '';
   m.subtitle = c.subtitle || '';
@@ -3536,7 +3691,7 @@ function coverModel(doc){
 const coverTextColor = m => m.textColor || (m.type === 'image' ? '#ffffff' : contrastOn(m.color));
 function coverBgCss(m){
   if(m.type === 'gradient') return `background-color:${m.color};background-image:linear-gradient(${m.angle}deg,${m.color},${m.color2});`;
-  if(m.type === 'image') return 'background:#222;';
+  if(m.type === 'image') return `background:${m.color || '#222'};`;
   return `background:${m.color};`;
 }
 function coverBoxHtml(m, doc, o){
@@ -3546,8 +3701,10 @@ function coverBoxHtml(m, doc, o){
   const jc = m.pos === 'top' ? 'flex-start' : m.pos === 'bottom' ? 'flex-end' : 'center';
   const ai = m.align === 'center' ? 'center' : m.align === 'right' ? 'flex-start' : 'flex-end';
   const ff = m.font ? `font-family:${m.font.replace(/"/g, "'")};` : '';
-  const img = (m.type === 'image' && m.image) ? `<img src="${esc(m.image)}" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:${m.fit};">` : '';
-  const ov = (m.type === 'image' && m.image && m.overlay > 0) ? `<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,${m.overlay / 100});"></div>` : '';
+  const imageBoxH = Math.max(40,Math.round(h * (m.imageScale || 38) / 100));
+  const imageBoxStyle = `position:absolute;top:50%;left:50%;width:74%;height:${imageBoxH}px;transform:translate(-50%,-50%);object-fit:${m.fit};`;
+  const img = (m.type === 'image' && m.image) ? `<img src="${esc(m.image)}" alt="" style="${imageBoxStyle}">` : '';
+  const ov = (m.type === 'image' && m.image && m.overlay > 0) ? `<div style="position:absolute;top:50%;left:50%;width:74%;height:${imageBoxH}px;transform:translate(-50%,-50%);background:rgba(0,0,0,${m.overlay / 100});pointer-events:none;"></div>` : '';
   const frame = m.frame ? `<div style="position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:3px double ${tc};opacity:.7;pointer-events:none;"></div>` : '';
   const authorInner = (showAuthorSig && SIG_IMG) ? `<img src="${esc(SIG_IMG)}" alt="" style="height:36px;margin-top:14px;">` : `إعداد: ${esc(AUTHOR_NAME)}`;
   const author = (m.showAuthor && showAuthorSig) ? `<div style="font-size:14px;margin-top:14px;opacity:.9;">${authorInner}</div>` : '';
@@ -3555,7 +3712,8 @@ function coverBoxHtml(m, doc, o){
   const subSz = m.subSize || Math.max(13, Math.round(m.titleSize * 0.55));
   const tFont = m.titleFont ? `font-family:${m.titleFont.replace(/"/g, "'")};` : '';
   const sColor = m.subColor || tc;
-  return `<div style="position:relative;overflow:hidden;min-height:${h}px;${coverBgCss(m)}">${img}${ov}${frame}${m.guides ? `<div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.4);"></div><div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.4);"></div>` : ''}<div style="position:relative;display:flex;flex-direction:column;justify-content:${jc};align-items:${ai};text-align:${m.align};min-height:${h}px;padding:26px;color:${tc};${ff}">${(m.icon && m.showIcon) ? `<div style="font-size:${iconSz}px;line-height:1.1;margin-bottom:8px;">${esc(m.icon)}</div>` : ''}<div style="font-size:${m.titleSize}px;font-weight:700;line-height:1.3;white-space:pre-line;${tFont}">${title}</div>${(m.subtitle && m.showSub) ? `<div style="font-size:${subSz}px;margin-top:8px;opacity:.92;color:${sColor};white-space:pre-line;">${esc(m.subtitle)}</div>` : ''}${author}</div></div>`;
+  const sShadow = contrastOn(sColor)==='#ffffff' ? '0 1px 3px rgba(0,0,0,.72),0 0 1px rgba(0,0,0,.9)' : '0 1px 3px rgba(255,255,255,.72),0 0 1px rgba(255,255,255,.9)';
+  return `<div style="position:relative;overflow:hidden;min-height:${h}px;${coverBgCss(m)}">${img}${ov}${frame}${m.guides ? `<div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.4);"></div><div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.4);"></div>` : ''}<div style="position:relative;display:flex;flex-direction:column;justify-content:${jc};align-items:${ai};text-align:${m.align};min-height:${h}px;padding:26px;color:${tc};${ff}">${(m.icon && m.showIcon) ? `<div style="font-size:${iconSz}px;line-height:1.1;margin-bottom:8px;">${esc(m.icon)}</div>` : ''}<div style="font-size:${m.titleSize}px;font-weight:700;line-height:1.3;white-space:pre-line;${tFont}">${title}</div>${(m.subtitle && m.showSub) ? `<div style="font-size:${subSz}px;font-weight:600;margin-top:8px;opacity:1;color:${sColor};text-shadow:${sShadow};white-space:pre-line;">${esc(m.subtitle)}</div>` : ''}${author}</div></div>`;
 }
 function smartProjectLeaves(rootId){
   const out=[],seen=new Set();
@@ -3920,7 +4078,7 @@ dashboard.addEventListener('input',e=>{
 /* ===== نافذة الغلاف ===== */
 let coverTarget = null, pendingCoverImage = '';
 const cvType = $('cvType'), cvColor = $('cvColor'), cvColor2 = $('cvColor2'), cvAngle = $('cvAngle'), cvIcon = $('cvIcon'),
-      cvImage = $('cvImage'), cvFit = $('cvFit'), cvOverlay = $('cvOverlay'), cvTitle = $('cvTitle'), cvSub = $('cvSub'),
+      cvImage = $('cvImage'), cvFit = $('cvFit'), cvImageScale = $('cvImageScale'), cvOverlay = $('cvOverlay'), cvTitle = $('cvTitle'), cvSub = $('cvSub'),
       cvAutoText = $('cvAutoText'), cvTextColor = $('cvTextColor'), cvTitleSize = $('cvTitleSize'), cvAlign = $('cvAlign'),
       cvPos = $('cvPos'), cvFont = $('cvFont'), cvShowAuthor = $('cvShowAuthor'), cvFrame = $('cvFrame'), cvPreview = $('cvPreview');
 const COVER_PRESETS = [
@@ -3941,7 +4099,7 @@ function hslToHex(h, s, l){
 }
 function fillCoverForm(m){
   cvType.value = m.type; cvColor.value = m.color; cvColor2.value = m.color2; cvAngle.value = m.angle;
-  cvIcon.value = m.icon; cvFit.value = m.fit; cvOverlay.value = m.overlay; cvTitle.value = m.title; cvSub.value = m.subtitle;
+  cvIcon.value = m.icon; cvFit.value = m.fit; cvImageScale.value = m.imageScale || 38; cvOverlay.value = m.overlay; cvTitle.value = m.title; cvSub.value = m.subtitle;
   cvAutoText.checked = !m.textColor; cvTextColor.value = m.textColor || '#ffffff'; cvTitleSize.value = m.titleSize;
   cvAlign.value = m.align; cvPos.value = m.pos; cvFont.value = m.font; cvShowAuthor.checked = m.showAuthor; cvFrame.checked = m.frame;
   $('cvTitleFont').value = m.titleFont || ''; $('cvSubSize').value = m.subSize || 16; $('cvSubColor').value = m.subColor || '#ffffff';
@@ -3953,7 +4111,7 @@ function readCoverForm(){
   const t = cvType.value;
   const o = {
     type: t, color: cvColor.value, color2: cvColor2.value, angle: +cvAngle.value, icon: cvIcon.value.trim(), image: pendingCoverImage,
-    fit: cvFit.value, overlay: +cvOverlay.value, title: cvTitle.value.trim(), subtitle: cvSub.value.trim(),
+    fit: cvFit.value, imageScale: +cvImageScale.value, overlay: +cvOverlay.value, title: cvTitle.value.trim(), subtitle: cvSub.value.trim(),
     textColor: cvAutoText.checked ? '' : cvTextColor.value, titleSize: +cvTitleSize.value, align: cvAlign.value, pos: cvPos.value,
     font: cvFont.value, showAuthor: cvShowAuthor.checked, frame: cvFrame.checked,
     titleFont: $('cvTitleFont').value, subSize: +$('cvSubSize').value, subColor: $('cvSubColor').value,
@@ -3989,13 +4147,22 @@ async function exportCoverPng(targetId, coverOverride){
     img.src = m.image;
   }).catch(err => { alert(err.message); return null; }) : null;
   if(m.type === 'image' && !image) return;
-  if(document.fonts && document.fonts.ready) await document.fonts.ready;
+  if(document.fonts){
+    await document.fonts.ready;
+    const baseFace=m.font || getComputedStyle(editor).fontFamily || 'Arial, sans-serif';
+    const titleFace=m.titleFont || baseFace;
+    const subtitleSize=(m.subSize || Math.max(13,m.titleSize*.55))*2.3;
+    await Promise.all([document.fonts.load(`700 ${m.titleSize*2.6}px ${titleFace}`),document.fonts.load(`600 ${subtitleSize}px ${baseFace}`)].map(p=>p.catch(()=>[])));
+  }
   if(image){
-    const scale = m.fit === 'contain' ? Math.min(width/image.width,height/image.height) : Math.max(width/image.width,height/image.height);
+    ctx.fillStyle = m.color || '#222'; ctx.fillRect(0,0,width,height);
+    const boxW = width * 0.74, boxH = height * ((m.imageScale || 38) / 100), boxX = (width-boxW)/2, boxY = (height-boxH)/2;
+    const scale = m.fit === 'cover' ? Math.max(boxW/image.width,boxH/image.height) : Math.min(boxW/image.width,boxH/image.height);
     const w = image.width * scale, h = image.height * scale;
-    ctx.fillStyle = '#222'; ctx.fillRect(0,0,width,height);
+    ctx.save(); ctx.beginPath(); ctx.rect(boxX,boxY,boxW,boxH); ctx.clip();
     ctx.drawImage(image,(width-w)/2,(height-h)/2,w,h);
-    if(m.overlay > 0){ ctx.fillStyle = `rgba(0,0,0,${m.overlay/100})`; ctx.fillRect(0,0,width,height); }
+    if(m.overlay > 0){ ctx.fillStyle = `rgba(0,0,0,${m.overlay/100})`; ctx.fillRect(boxX,boxY,boxW,boxH); }
+    ctx.restore();
   }else if(m.type === 'gradient'){
     const radians = (m.angle || 0) * Math.PI / 180, cx = width/2, cy = height/2;
     const reach = Math.sqrt(width*width + height*height) / 2;
@@ -4031,7 +4198,7 @@ async function exportCoverPng(targetId, coverOverride){
   };
   if(m.icon && m.showIcon) groups.push({ lines:[m.icon], size:(m.iconSize || m.titleSize*1.5)*2.3, family, weight:400, color, gap:32 });
   groups.push({ lines:wrap(m.title || doc.title,m.titleSize*2.6,titleFamily,700), size:m.titleSize*2.6, family:titleFamily, weight:700, color, gap:28 });
-  if(m.subtitle && m.showSub) groups.push({ lines:wrap(m.subtitle,(m.subSize || Math.max(13,m.titleSize*.55))*2.3,family,400), size:(m.subSize || Math.max(13,m.titleSize*.55))*2.3, family, weight:400, color:m.subColor || color, gap:30 });
+  if(m.subtitle && m.showSub) groups.push({ lines:wrap(m.subtitle,(m.subSize || Math.max(13,m.titleSize*.55))*2.3,family,600), size:(m.subSize || Math.max(13,m.titleSize*.55))*2.3, family, weight:600, color:m.subColor || color, gap:30, outline:true });
   if(m.showAuthor && showAuthorSig) groups.push({ lines:wrap(AUTHOR_NAME,36,family,400), size:36, family, weight:400, color, gap:0 });
   const totalHeight = groups.reduce((sum,g) => sum + g.lines.length*g.size*1.35 + g.gap, 0);
   let y = m.pos === 'top' ? margin+50 : m.pos === 'bottom' ? height-margin-totalHeight : (height-totalHeight)/2;
@@ -4039,7 +4206,10 @@ async function exportCoverPng(targetId, coverOverride){
   groups.forEach(group => {
     ctx.font = `${group.weight} ${group.size}px ${group.family}`;
     ctx.fillStyle = group.color;
-    group.lines.forEach(line => { ctx.fillText(line,textX,y,maxWidth); y += group.size*1.35; });
+    group.lines.forEach(line => {
+      if(group.outline){ctx.save();ctx.lineJoin='round';ctx.strokeStyle=contrastOn(group.color)==='#ffffff'?'rgba(0,0,0,.62)':'rgba(255,255,255,.72)';ctx.lineWidth=Math.max(2,group.size*.045);ctx.strokeText(line,textX,y,maxWidth);ctx.restore();}
+      ctx.fillText(line,textX,y,maxWidth); y += group.size*1.35;
+    });
     y += group.gap;
   });
   const link = document.createElement('a');
@@ -4213,6 +4383,7 @@ function insertNestedInterruption(parent){
 }
 
 function openDoc(id){
+  if(!isRestoringHistory&&currentId&&docs[currentId]&&!isContainer(docs[currentId])){flushEditorToDoc();void recordRecoverySnapshot(docs[currentId],true);}
   if(!isRestoringHistory && currentId && docs[currentId] && saveTimer){
     // كان يُفقد آخر تعديل إن بدلت الملف خلال 400ms من الكتابة
     clearTimeout(saveTimer);
@@ -4233,10 +4404,11 @@ function openDoc(id){
     dashboard.style.display = 'none';
     docPanel.classList.remove('open');
     emptyState.style.display = 'flex';
-    renderList(); renderTrashBox();
+    renderList(); renderTrashBox();rememberWorkspaceLocation(null);
     return;
   }
   currentId = id;
+  refreshContentLinkButton();
   refreshWriterInfoControls();
   const cont = isContainer(doc);
   titleInput.value = doc.title || '';
@@ -4268,6 +4440,10 @@ function openDoc(id){
   typingSnapshotPending = true;
   refreshScenarioFabTools();
   if(window.innerWidth <= 720) sidebar.classList.add('collapsed');
+  if(!cont){recoveryDirty=false;void recordRecoverySnapshot(doc,true);}
+  const pending=sessionRestorePending;
+  if(pending&&pending.id===id){if(appContainer.classList.contains('unlocked'))setTimeout(restorePendingSessionLocation,120);}
+  else rememberWorkspaceLocation(id);
 }
 
 /* =====================================================================
@@ -4284,6 +4460,10 @@ $('toolbar').addEventListener('mousedown', e => {
 });
 
 function snap(){ prepEdit(); }
+window.addEventListener('scroll',scheduleRememberLocation,{passive:true});
+editorScroll.addEventListener('scroll',scheduleRememberLocation,{passive:true});
+dashboard.addEventListener('scroll',scheduleRememberLocation,{passive:true});
+docList.addEventListener('scroll',scheduleRememberLocation,{passive:true});
 
 function applyInlineStyleToSelection(prop, value){
   snap();
@@ -4325,6 +4505,113 @@ const keyboardHelpModal=$('keyboardHelpModal');
 function openKeyboardHelp(){if(keyboardHelpModal.classList.contains('open'))return;showModal(keyboardHelpModal);}
 $('keyboardHelpBtn').addEventListener('click',openKeyboardHelp);
 $('keyboardHelpClose').addEventListener('click',()=>hideModal(keyboardHelpModal));
+const recoveryModal=$('recoveryModal'),recoverySelect=$('recoveryVersionSelect'),recoveryPreview=$('recoveryVersionPreview'),recoveryRestoreBtn=$('recoveryRestoreBtn');
+const contentLinkModal=$('contentLinkModal'),contentLinkTarget=$('contentLinkTarget'),contentLinkSource=$('contentLinkSource'),contentLinkWarning=$('contentLinkWarning');
+function normalizeContentLinks(){
+  let changed=false;
+  Object.keys(docs).forEach(id=>{const d=docs[id];if(!d||!d.contentLinkId)return;const peer=docs[d.contentLinkId];if(!peer||isContainer(peer)||peer.contentLinkId!==id){delete d.contentLinkId;changed=true;}});
+  if(changed)persist();
+}
+function refreshContentLinkButton(){
+  normalizeContentLinks();
+  const btn=$('linkFilesBtn'),d=currentId&&docs[currentId];if(!btn)return;
+  if(!d||isContainer(d)){btn.style.display='none';return;}
+  btn.style.display='';
+  const peer=d.contentLinkId&&docs[d.contentLinkId];
+  const linked=!!(peer&&!isContainer(peer)&&peer.contentLinkId===currentId);
+  btn.textContent=linked?'🔗 فك الارتباط':'🔗 ربط ملف';
+  btn.title=linked?`فك ارتباط المحتوى عن: ${peer.title||'مستند بلا عنوان'}`:'ربط محتوى هذا الملف بملف آخر';
+}
+function refreshContentLinkWarning(){
+  const current=currentId&&docs[currentId],target=contentLinkTarget.value&&docs[contentLinkTarget.value];
+  if(!current||!target){contentLinkWarning.textContent='لا توجد ملفات متاحة للربط حالياً.';return;}
+  const keeper=contentLinkSource.value==='target'?target:current;
+  const replaced=keeper===current?target:current;
+  contentLinkWarning.textContent=`سيُحفظ محتوى «${keeper.title||'مستند بلا عنوان'}» بوصفه المحتوى المشترك، وسيُستبدل به محتوى «${replaced.title||'مستند بلا عنوان'}». تُحفظ لقطة استعادة للملفين قبل التغيير.`;
+}
+function openContentLinkDialog(){
+  const current=currentId&&docs[currentId];if(!current||isContainer(current))return;
+  normalizeContentLinks();
+  const options=Object.keys(docs).filter(id=>id!==currentId&&docs[id]&&!isContainer(docs[id])&&!docs[id].contentLinkId);
+  if(!options.length){alert('لا يوجد ملف مستقل متاح للربط. افصل ارتباط أحد الملفات أولاً أو أنشئ ملفاً جديداً.');return;}
+  contentLinkTarget.innerHTML=options.map(id=>`<option value="${esc(id)}">${esc(docs[id].title||'مستند بلا عنوان')}</option>`).join('');
+  contentLinkSource.value='current';refreshContentLinkWarning();showModal(contentLinkModal);
+}
+$('linkFilesBtn').addEventListener('click',()=>{
+  const d=currentId&&docs[currentId];if(!d||isContainer(d))return;
+  const peer=d.contentLinkId&&docs[d.contentLinkId];
+  if(peer&&peer.contentLinkId===currentId){
+    pushUndoSnapshot();delete d.contentLinkId;delete peer.contentLinkId;d.updatedAt=peer.updatedAt=Date.now();persist();refreshContentLinkButton();renderList();return;
+  }
+  openContentLinkDialog();
+});
+contentLinkTarget.addEventListener('change',refreshContentLinkWarning);contentLinkSource.addEventListener('change',refreshContentLinkWarning);
+$('contentLinkClose').addEventListener('click',()=>hideModal(contentLinkModal));$('contentLinkCancel').addEventListener('click',()=>hideModal(contentLinkModal));
+contentLinkModal.addEventListener('mousedown',e=>{if(e.target===contentLinkModal)hideModal(contentLinkModal);});
+$('contentLinkConfirm').addEventListener('click',async()=>{
+  const a=currentId&&docs[currentId],b=contentLinkTarget.value&&docs[contentLinkTarget.value];
+  if(!a||!b||isContainer(a)||isContainer(b)||a.contentLinkId||b.contentLinkId){alert('تعذّر الربط لأن أحد الملفين لم يعد متاحاً أو أصبح مرتبطاً بملف آخر.');hideModal(contentLinkModal);return;}
+  flushEditorToDoc();
+  await Promise.all([recordRecoverySnapshot(a,true),recordRecoverySnapshot(b,true)]);
+  pushUndoSnapshot();
+  const sharedHtml=contentLinkSource.value==='target'?b.html:a.html;
+  a.html=sharedHtml;b.html=sharedHtml;a.contentLinkId=contentLinkTarget.value;b.contentLinkId=currentId;
+  a.updatedAt=b.updatedAt=Date.now();editor.innerHTML=sharedHtml;
+  hideModal(contentLinkModal);persist();updateStats();refreshContentLinkButton();renderList();
+});
+let recoveryOptions=[],recoveryAutoSnapshotId=null;
+function recoveryPreviewText(snapshot){const html=snapshot?.doc?.html||'',text=plainTextFromHtml(html).replace(/\n{3,}/g,'\n\n').trim();return text.slice(0,520)+(text.length>520?'…':'');}
+function updateRecoveryPreview(){
+  const snap=recoveryOptions.find(x=>x.id===recoverySelect.value);
+  recoveryRestoreBtn.disabled=!snap;
+  if(!snap){recoveryPreview.textContent='لا توجد نسخ استعادة متاحة حالياً.';return;}
+  const live=docs[snap.docId],preview=recoveryPreviewText(snap);
+  recoveryPreview.textContent=`${snap.title||'مستند بلا عنوان'}\n${new Date(snap.capturedAt).toLocaleString('ar')} · منذ ${Math.max(0,Math.floor((Date.now()-snap.capturedAt)/60000))} دقيقة\n${live?'':'الملف الأصلي غير موجود؛ ستُستعاد النسخة كمستند جديد.'}\n\n${preview||'المستند فارغ.'}`;
+}
+async function openRecoveryModal(preselectId=null,automatic=false){
+  recoveryOptions=(await recoveryGetAll()).filter(x=>x&&x.doc&&x.doc.html!==undefined&&x.capturedAt>Date.now()-RECOVERY_WINDOW_MS).sort((a,b)=>b.capturedAt-a.capturedAt).slice(0,200);
+  recoverySelect.innerHTML=recoveryOptions.map(x=>`<option value="${esc(x.id)}">${esc(x.title||'مستند بلا عنوان')} — ${esc(new Date(x.capturedAt).toLocaleString('ar'))}</option>`).join('');
+  if(preselectId&&recoveryOptions.some(x=>x.id===preselectId))recoverySelect.value=preselectId;
+  $('recoveryIntro').textContent=automatic?'عُثر على نسخة سابقة فيها محتوى أكثر من الملف المحفوظ. راجع المعاينة قبل الاستعادة؛ لن يتغير الملف حتى اختيار زر الاستعادة.':'تُحفظ نقاط استعادة محلياً في هذا المتصفح كل نحو 30 ثانية لمدة عشر دقائق. اختر الملف والوقت لمراجعة النسخة قبل استعادتها.';
+  recoveryAutoSnapshotId=automatic?preselectId:null;updateRecoveryPreview();showModal(recoveryModal);
+}
+function closeRecoveryModal(){if(recoveryAutoSnapshotId){try{localStorage.setItem(RECOVERY_DISMISSED_KEY,recoveryAutoSnapshotId);}catch(e){}}recoveryAutoSnapshotId=null;hideModal(recoveryModal);}
+$('recoveryBtn').addEventListener('click',()=>openRecoveryModal());
+$('recoveryClose').addEventListener('click',closeRecoveryModal);$('recoveryCancel').addEventListener('click',closeRecoveryModal);
+recoverySelect.addEventListener('change',updateRecoveryPreview);
+recoveryRestoreBtn.addEventListener('click',()=>{
+  const snap=recoveryOptions.find(x=>x.id===recoverySelect.value);if(!snap)return;
+  flushNow();pushUndoSnapshot();
+  let targetId=snap.docId,existing=docs[targetId],restored=deepClone(snap.doc);
+  if(existing){
+    restored.id=targetId;restored.parentId=existing.parentId;restored.children=existing.children;restored.relatedDocs=existing.relatedDocs;
+    restored.updatedAt=Date.now();docs[targetId]=restored;
+  }else{
+    targetId=uid();restored.id=targetId;delete restored.parentId;delete restored.children;restored.relatedDocs=[];restored.title=(restored.title||'مستند')+' (نسخة مستعادة)';restored.updatedAt=Date.now();docs[targetId]=restored;index.push(targetId);
+  }
+  try{localStorage.removeItem(RECOVERY_DISMISSED_KEY);}catch(e){}
+  recoveryAutoSnapshotId=null;hideModal(recoveryModal);persist();const wasRestoring=isRestoringHistory;isRestoringHistory=true;try{openDoc(targetId);}finally{isRestoringHistory=wasRestoring;}renderList();
+});
+async function maybeOfferRecovery(){
+  let docId=null;try{docId=localStorage.getItem(LAST_EDITOR_DOC_KEY);}catch(e){}
+  if(!docId||!docs[docId]||isContainer(docs[docId]))return;
+  const versions=(await recoveryGetForDoc(docId)).filter(x=>x.capturedAt>Date.now()-RECOVERY_WINDOW_MS).sort((a,b)=>b.capturedAt-a.capturedAt);
+  if(!versions.length)return;
+  const current=plainTextFromHtml(docs[docId].html||'').replace(/\s/g,'').length;
+  const candidate=versions.find(x=>{const n=plainTextFromHtml(x.doc?.html||'').replace(/\s/g,'').length;return n>=30&&(current===0||(n-current>=Math.min(80,n*.25)&&current<n*.55));});
+  if(!candidate)return;
+  try{if(localStorage.getItem(RECOVERY_DISMISSED_KEY)===candidate.id)return;}catch(e){}
+  await openRecoveryModal(candidate.id,true);
+}
+function scheduleRecoveryPrompt(){
+  if(recoveryPromptTimer)return;let attempts=0;
+  recoveryPromptTimer=setInterval(async()=>{
+    attempts++;if(!appContainer.classList.contains('unlocked')){if(attempts>180){clearInterval(recoveryPromptTimer);recoveryPromptTimer=null;}return;}
+    if(document.querySelector('.modal.open')){if(attempts>180){clearInterval(recoveryPromptTimer);recoveryPromptTimer=null;}return;}
+    clearInterval(recoveryPromptTimer);recoveryPromptTimer=null;await maybeOfferRecovery();
+  },500);
+}
+
 
 let pendingWritingPreset='';
 const writingPresetModal=$('writingPresetModal');
@@ -5340,6 +5627,7 @@ $('navFabMenu').addEventListener('click', e => {
   }
   else if(act === 'catalog') showModal(catalogModal);
   else if(act === 'shortcuts') openKeyboardHelp();
+  else if(act === 'recovery') openRecoveryModal();
   else if(act === 'backup') downloadFullBackup();
   else if(act === 'tour') openGeneralTour();
   else if(act === 'floating') setFloatingActionsCollapsed(!floatingActionsCollapsed);
@@ -6646,6 +6934,7 @@ importBackupInput.addEventListener('change', e => {
         if(c.parentId){ if(idMap[c.parentId]) c.parentId = idMap[c.parentId]; else delete c.parentId; }
         if(Array.isArray(c.children)) c.children = c.children.map(k => idMap[k]).filter(Boolean);
         if(Array.isArray(c.relatedDocs)) c.relatedDocs = c.relatedDocs.map(k => idMap[k]).filter(Boolean);
+        if(c.contentLinkId){if(idMap[c.contentLinkId])c.contentLinkId=idMap[c.contentLinkId];else delete c.contentLinkId;}
         if(c._trashedWith){ if(idMap[c._trashedWith]) c._trashedWith = idMap[c._trashedWith]; else delete c._trashedWith; }
         return c;
       };
@@ -7384,6 +7673,7 @@ function openExtract(kind){
   $('exPreview').textContent = '';
   $('exCorrectionList').innerHTML = '';
   $('exCorrectionStatus').textContent = '';
+  renderExtractionLearningManager();
   aiExtractionResult=null;$('exAiStatus').textContent='';$('exAiConfig').hidden=true;
   try{$('exAiEndpoint').value=sessionStorage.getItem('varry-ai-endpoint')||'';$('exAiModel').value=sessionStorage.getItem('varry-ai-model')||'';$('exAiKey').value=sessionStorage.getItem('varry-ai-key')||'';}catch(e){}
   showModal(exModal);
@@ -7399,6 +7689,43 @@ function saveExtractionCorrections(){
   try { localStorage.setItem(EX_CORRECTIONS_KEY, JSON.stringify(extractionCorrections)); return true; }
   catch(e){ alert('تعذّر حفظ التصحيح في تخزين المتصفح. سيبقى التصحيح الحالي مؤقتاً حتى إغلاق الصفحة.'); return false; }
 }
+// Optional reusable corrections are kept separately and only used after explicit opt-in.
+const EX_LEARNING_KEY = 'varryStudioExtractionLearningV1';
+function loadExtractionLearning(){
+  try { const v=JSON.parse(localStorage.getItem(EX_LEARNING_KEY)||'{}'); return v&&typeof v==='object'?v:{}; }
+  catch(e){ return {}; }
+}
+let extractionLearning = loadExtractionLearning();
+function saveExtractionLearning(){
+  try { localStorage.setItem(EX_LEARNING_KEY,JSON.stringify(extractionLearning)); return true; }
+  catch(e){ alert('تعذّر حفظ ذاكرة التصحيحات في تخزين المتصفح.'); return false; }
+}
+function extractionLearningKey(kind,name){ return kind+':'+normKey(name); }
+function renderExtractionLearningManager(){
+  const host=$('exLearningRules');if(!host)return;
+  const rows=Object.entries(extractionLearning).sort((a,b)=>String(a[1].sourceName||'').localeCompare(String(b[1].sourceName||''),'ar'));
+  if(!rows.length){host.innerHTML='<small>لا توجد قواعد تصحيح متعلّمة محفوظة.</small>';return;}
+  host.innerHTML=rows.map(([key,rule])=>{
+    const kindLabel=rule.kind==='loc'?'لوكيشن':'شخصية';
+    const actionLabel=rule.action==='exclude'?'استبعاد':'تصحيح إلى «'+esc(rule.name||'')+'»';
+    return '<div class="ex-manual-entry"><span><b>'+kindLabel+': «'+esc(rule.sourceName||'')+'»</b><br><small>'+actionLabel+' · تطابق الاسم فقط</small></span><button type="button" data-ex-learning-delete="'+esc(key)+'">حذف القاعدة</button></div>';
+  }).join('');
+}
+function getExtractionCorrection(kind,name,scope){
+  const local=extractionCorrections[extractionCorrectionKey(kind,name,scope)];
+  return local || extractionLearning[extractionLearningKey(kind,name)] || null;
+}
+function persistLearnedCorrection(kind,sourceName,action,targetName,confirmReplace){
+  const key=extractionLearningKey(kind,sourceName), previous=extractionLearning[key];
+  const target=String(targetName||'').trim();
+  if(!sourceName||!normKey(sourceName)||!['rename','exclude'].includes(action)||(action==='rename'&&!target))return false;
+  if(previous&&(previous.action!==action||String(previous.name||'')!==target)&&confirmReplace){
+    if(!confirm('توجد قاعدة متعلّمة مختلفة للاسم نفسه. استبدال القاعدة الحالية بهذه القاعدة؟'))return false;
+  }
+  extractionLearning[key]={kind,sourceName:String(sourceName).trim(),action,name:action==='rename'?target:'',updatedAt:Date.now()};
+  if(!saveExtractionLearning()){if(previous)extractionLearning[key]=previous;else delete extractionLearning[key];return false;}
+  return true;
+}
 function extractionCorrectionScope(){
   // Corrections are isolated to the current project/container. Standalone files use their own ID.
   return exScope && docs[exScope] ? String(exScope) : (currentId && docs[currentId] ? String(currentId) : 'standalone');
@@ -7409,12 +7736,14 @@ function extractionCorrectionKey(kind, name, scope){
 function correctedExtractionItems(kind, items){
   const scope = extractionCorrectionScope();
   return (items || []).reduce((out, item) => {
-    const correction = extractionCorrections[extractionCorrectionKey(kind, item.name, scope)];
+    const localCorrection=extractionCorrections[extractionCorrectionKey(kind,item.name,scope)];
+    const learnedCorrection=extractionLearning[extractionLearningKey(kind,item.name)];
+    const correction=localCorrection || learnedCorrection;
     if(correction && correction.action === 'exclude') return out;
     const copy = Object.assign({}, item);
     if(correction && correction.action === 'rename' && String(correction.name || '').trim()){
       copy.name = String(correction.name).trim();
-      copy.note = (copy.note ? copy.note + ' · ' : '') + 'اسم مصحح يدوياً';
+      copy.note = (copy.note ? copy.note + ' · ' : '') + (localCorrection ? 'اسم مصحح يدوياً' : 'قاعدة تصحيح متعلّمة');
     }
     out.push(copy);
     return out;
@@ -7425,35 +7754,80 @@ function renderExtractionCorrections(items, kind){
   const scope = extractionCorrectionScope();
   const scopePrefix = scope + '|';
   const scopedCount = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix)).length;
-  if(status) status.textContent = scopedCount ? 'التصحيحات المحفوظة لهذا العمل: ' + scopedCount : 'لا توجد تصحيحات محفوظة لهذا العمل.';
+  const learnedCount=Object.keys(extractionLearning).length;
+  const statusText=()=>{
+    const localCount=Object.keys(extractionCorrections).filter(k=>k.startsWith(scopePrefix)).length;
+    return 'تصحيحات هذا العمل: '+localCount+' · قواعد متعلّمة عبر الملفات: '+Object.keys(extractionLearning).length;
+  };
+  if(status) status.textContent=statusText();
   const list = (items || []).slice(0, 40),manualRows=getExtractionManualItems(scope,kind);
   host.innerHTML = (list.length?'<b style="font-size:12px;">مراجعة وتصحيح النتائج (أول 40 نتيجة)</b>' + list.map(item => {
-    const key = extractionCorrectionKey(kind, item.name, scope), c = extractionCorrections[key] || {};
-    const action = c.action || 'keep';
+    const key=extractionCorrectionKey(kind,item.name,scope),learnKey=extractionLearningKey(kind,item.name);
+    const shared=extractionLearning[learnKey],c=extractionCorrections[key] || shared || {};
+    const action=c.action || 'keep';
     return '<div class="ex-correction" data-correction-key="' + esc(key) + '">' +
       '<div class="ex-c-name">' + esc(item.name) + '</div>' +
       '<select class="ex-c-action" aria-label="قرار نتيجة ' + esc(item.name) + '">' +
       '<option value="keep"' + (action==='keep'?' selected':'') + '>اعتماد الاسم</option>' +
       '<option value="rename"' + (action==='rename'?' selected':'') + '>تصحيح الاسم</option>' +
       '<option value="exclude"' + (action==='exclude'?' selected':'') + '>استبعاد النتيجة</option></select>' +
-      '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="اكتبي الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
-      '<small>' + esc((item.note || 'نتيجة مستخرجة') + ((item.sources || []).length ? ' · المصدر: ' + [...new Set(item.sources)].join('، ') : '')) + '</small></div>';
+      '<input class="ex-c-rename" aria-label="الاسم المصحح" placeholder="الاسم الصحيح" value="' + esc(c.name || item.name) + '"' + (action==='rename'?'':' disabled') + '>' +
+      '<small>' + esc((item.note || 'نتيجة مستخرجة') + ((item.sources || []).length ? ' · المصدر: ' + [...new Set(item.sources)].join('، ') : '')) + '</small>' +
+      '<label class="ex-learn"><input type="checkbox" class="ex-c-learn" aria-label="تعلّم تصحيح ' + esc(item.name) + ' عبر الملفات"' + (shared?' checked':'') + '><span>تعلّم هذا التصحيح عبر الملفات الأخرى عند تطابق الاسم فقط</span></label></div>';
   }).join('') + ((items || []).length > 40 ? '<small>تُعرض أول 40 نتيجة فقط في واجهة التصحيح؛ تبقى النتائج الأخرى ضمن التفريغ.</small>' : ''):'') +
     (manualRows.length?'<b style="font-size:12px;margin-top:8px;">إضافات يدوية محفوظة</b>'+manualRows.map(m=>'<div class="ex-manual-entry"><span><b>'+esc(m.name)+'</b><br><small>'+esc(m.notes||'إدخال يدوي')+'</small></span><span><button type="button" data-ex-manual-edit="'+esc(m.id)+'">تعديل</button><button type="button" data-ex-manual-delete="'+esc(m.id)+'">حذف</button></span></div>').join(''):'');
   host.querySelectorAll('.ex-correction').forEach(row => {
-    const key = row.dataset.correctionKey, actionEl = row.querySelector('.ex-c-action'), nameEl = row.querySelector('.ex-c-rename');
-    const saveRow = () => {
-      const action = actionEl.value;
-      if(action === 'keep') delete extractionCorrections[key];
-      else extractionCorrections[key] = {action, name: nameEl.value.trim(), updatedAt: Date.now()};
-      nameEl.disabled = action !== 'rename';
-      saveExtractionCorrections();
-      const n = Object.keys(extractionCorrections).filter(k => k.startsWith(scopePrefix)).length;
-      if(status) status.textContent = n ? 'التصحيحات المحفوظة لهذا العمل: ' + n : 'لا توجد تصحيحات محفوظة لهذا العمل.';
+    const key=row.dataset.correctionKey,actionEl=row.querySelector('.ex-c-action'),nameEl=row.querySelector('.ex-c-rename'),learnEl=row.querySelector('.ex-c-learn');
+    const sourceName=row.querySelector('.ex-c-name').textContent,learnKey=extractionLearningKey(kind,sourceName);
+    const saveRow=()=>{
+      const action=actionEl.value,target=nameEl.value.trim(),hasLearned=!!extractionLearning[learnKey];
+      if(action==='keep'){
+        if(hasLearned)extractionCorrections[key]={action:'keep',name:'',updatedAt:Date.now()};
+        else delete extractionCorrections[key];
+      } else extractionCorrections[key]={action,name:target,updatedAt:Date.now()};
+      nameEl.disabled=action!=='rename';
+      learnEl.disabled=action==='keep'&&!hasLearned;
+      if(!saveExtractionCorrections())return;
+      if(learnEl.checked&&action!=='keep'&&!persistLearnedCorrection(kind,sourceName,action,target,false))learnEl.checked=false;
+      if(status)status.textContent=statusText();
+      renderExtractionLearningManager();
     };
-    actionEl.addEventListener('change', saveRow);
-    nameEl.addEventListener('change', saveRow);
+    actionEl.addEventListener('change',saveRow);
+    nameEl.addEventListener('change',saveRow);
+    learnEl.disabled=action==='keep'&&!shared;
+    learnEl.addEventListener('change',()=>{
+      const action=actionEl.value,target=nameEl.value.trim(),wasChecked=!learnEl.checked;
+      if(learnEl.checked){
+        if(action==='keep'){
+          learnEl.checked=false;
+          if(status)status.textContent='يلزم اختيار «تصحيح الاسم» أو «استبعاد النتيجة» أولاً قبل تفعيل التعلم.';
+          return;
+        }
+        const ok=persistLearnedCorrection(kind,sourceName,action,target,true);
+        if(!ok){learnEl.checked=false;return;}
+        if(status)status.textContent='تم حفظ القاعدة محلياً؛ ستُستخدم في الملفات المقبلة عند تطابق الاسم. '+statusText();
+        renderExtractionLearningManager();
+      } else {
+        const previousRule=extractionLearning[learnKey];delete extractionLearning[learnKey];
+        if(!saveExtractionLearning()){extractionLearning[learnKey]=previousRule;learnEl.checked=true;return;}
+        if(extractionCorrections[key]?.action==='keep')delete extractionCorrections[key];
+        saveExtractionCorrections();
+        if(status)status.textContent='حُذفت القاعدة المتعلّمة لهذا الاسم فقط. '+statusText();
+        renderExtractionLearningManager();
+      }
+    });
   });
+}
+function clearExtractionLearning(){
+  const count=Object.keys(extractionLearning).length;
+  if(!count){alert('لا توجد قواعد متعلّمة محفوظة.');return;}
+  if(!confirm('سيتم مسح '+count+' قاعدة تصحيح متعلّمة من هذا المتصفح لجميع الأعمال. لن تُمس التصحيحات المحلية لكل عمل. هل تريد المتابعة؟'))return;
+  const previousLearning=extractionLearning;extractionLearning={};
+  if(!saveExtractionLearning()){extractionLearning=previousLearning;return;}
+  Object.keys(extractionCorrections).filter(k=>extractionCorrections[k]?.action==='keep').forEach(k=>delete extractionCorrections[k]);
+  saveExtractionCorrections();
+  renderExtractionLearningManager();
+  const statusBox=$('exCorrectionStatus');if(statusBox){const res=computeExtraction();if(res)renderExtractionCorrections(activeExtractionItems(res.kind,res.items,res.ids),res.kind);else statusBox.textContent='ذاكرة التصحيحات المتعلّمة فارغة.';}
 }
 function clearExtractionCorrectionsForCurrentScope(){
   const scopePrefix = extractionCorrectionScope() + '|';
@@ -7586,7 +7960,7 @@ function previewExtraction(){
   const fresh = reviewedItems.filter(i => !ex.has(normKey(i.name))).length;
   const excludedByCorrection = rawItems.length - correctedItems.length;
   const renamedByCorrection = rawItems.filter(i => {
-    const c = extractionCorrections[extractionCorrectionKey(res.kind, i.name)];
+    const c = getExtractionCorrection(res.kind,i.name);
     return c && c.action === 'rename' && String(c.name || '').trim();
   }).length;
   const sc = res.analyses.reduce((n, a) => n + a.scenes.length, 0);
@@ -7701,6 +8075,17 @@ $('exCorrectionList').addEventListener('click',e=>{
 });
 $('exPreviewBtn').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); try { previewExtraction(); } catch(err) { console.error(err); $('exPreview').textContent='تعذّرت المعاينة: '+(err.message||String(err)); } });
 $('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
+$('exClearLearning').addEventListener('click',clearExtractionLearning);
+$('exLearningRules').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-ex-learning-delete]');if(!btn)return;
+  const key=btn.dataset.exLearningDelete,rule=extractionLearning[key];if(!rule)return;
+  if(!confirm('حذف قاعدة «'+String(rule.sourceName||'')+'» من ذاكرة التصحيحات؟'))return;
+  delete extractionLearning[key];if(!saveExtractionLearning()){extractionLearning[key]=rule;return;}
+  const localKey=extractionCorrectionKey(rule.kind,rule.sourceName,extractionCorrectionScope());
+  if(extractionCorrections[localKey]?.action==='keep'){delete extractionCorrections[localKey];saveExtractionCorrections();}
+  renderExtractionLearningManager();
+  if($('exPreview').textContent)previewExtraction();
+});
 $('exRun').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); runExtraction(); });
 $('exCancel').addEventListener('click', () => hideModal(exModal));
 $('sourceLocExtractBtn').addEventListener('click', () => openExtract('loc'));
@@ -8016,6 +8401,8 @@ async function initializeWorkspace(){
   loadingText.textContent = 'جاري فتح مساحة العمل...';
   try{
     workspaceDb = await openWorkspaceDb();
+    recoveryDb = await openRecoveryDatabase();
+    await importEmergencyRecoveryCopy();
     if(workspaceDb){
       const saved = await readWorkspaceDb(workspaceDb);
       if(saved){
@@ -8034,9 +8421,12 @@ async function initializeWorkspace(){
   }
   if(repairData()) persist();
   renderTemplates();
-  openDoc(index[0] || null);
+  const savedLocation=readSessionLocation();
+  const restoredId=savedLocation&&savedLocation.id&&docs[savedLocation.id]?savedLocation.id:(index[0]||null);
+  sessionRestorePending=savedLocation&&savedLocation.id===restoredId?savedLocation:null;
+  openDoc(restoredId);
   loadingOverlay.style.display = 'none';
-  if(appContainer.classList.contains('unlocked')){setTimeout(maybeOfferGeneralTour,180);setTimeout(scheduleDailyBackupPrompt,500); }
+  if(appContainer.classList.contains('unlocked')){setTimeout(restorePendingSessionLocation,220);setTimeout(maybeOfferGeneralTour,280);setTimeout(scheduleDailyBackupPrompt,500);setTimeout(scheduleRecoveryPrompt,800); }
 }
 initializeWorkspace().catch(err => {
   loadingOverlay.style.display = 'none';
