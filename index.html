@@ -585,6 +585,12 @@
   .ex-correction input,.ex-correction select{min-width:0;width:100%;padding:6px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--ink);}
   .ex-correction .ex-c-name{font-weight:700;overflow-wrap:anywhere;}
   #exLearningManager{margin:6px 0;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--paper);}
+  .ex-memory-backup{margin:8px 0;border:1px solid var(--border);border-radius:8px;padding:9px;background:color-mix(in srgb,var(--accent) 4%,var(--paper));}
+  .ex-memory-backup .ex-memory-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+  .ex-memory-backup .ex-memory-options{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:7px;}
+  .ex-memory-backup label{font-size:11px;color:var(--ink-soft);}
+  .ex-memory-backup select{max-width:100%;padding:5px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--ink);}
+  #exMemoryBackupStatus{display:block;margin-top:6px;color:var(--ink-soft);font-size:11px;}
   #exLearningManager summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);}
   #exLearningRules{display:flex;flex-direction:column;gap:5px;max-height:170px;overflow:auto;margin-top:7px;}
   .ex-correction-note{font-size:11px;color:var(--ink-soft);margin:4px 0;}
@@ -887,6 +893,26 @@
 <div id="printArea"></div>
 <style id="dynPageStyle"></style>
 
+<style id="stage09-context-help-and-export-scroll">
+  .export-dropdown{
+    box-sizing:border-box;min-width:min(310px,88vw);max-width:min(440px,92vw);
+    max-height:min(70vh,calc(100vh - 112px));max-height:min(70vh,calc(100dvh - 112px));overflow-y:auto;overflow-x:hidden;
+    overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+    scrollbar-gutter:stable;touch-action:pan-y;-webkit-overflow-scrolling:touch;
+  }
+  .export-dropdown button{white-space:normal;line-height:1.55;overflow-wrap:anywhere;}
+  .export-author-config{position:sticky;top:0;z-index:2;}
+  .context-help-btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 25px;width:25px;height:25px;padding:0;border:1px solid var(--border);border-radius:50%;background:var(--paper);color:var(--accent);font-family:inherit;font-size:13px;font-weight:700;line-height:1;cursor:pointer;}
+  .context-help-btn:hover,.context-help-btn[aria-expanded="true"]{background:var(--accent);color:#fff;}
+  .context-help-btn:focus-visible,.context-help-close:focus-visible,.context-help-catalog:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);outline-offset:2px;}
+  .context-help-popover{position:fixed;z-index:10020;width:min(320px,calc(100vw - 24px));box-sizing:border-box;padding:14px 15px;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:0 12px 36px rgba(0,0,0,.23);direction:rtl;}
+  .context-help-popover[hidden]{display:none;}
+  .context-help-popover>b{display:block;padding-inline-end:24px;color:var(--accent);font-size:14px;}
+  .context-help-popover>p{margin:7px 0 10px;color:var(--ink-soft);font-size:12px;line-height:1.8;}
+  .context-help-close{position:absolute;top:7px;inset-inline-end:8px;width:25px;height:25px;border:0;border-radius:6px;background:transparent;color:var(--ink);font-size:20px;cursor:pointer;}
+  .context-help-catalog{border:0;border-radius:7px;padding:6px 9px;background:var(--accent);color:#fff;font:inherit;font-size:11px;cursor:pointer;}
+  @media(max-width:640px){.export-dropdown{max-width:calc(100vw - 24px);max-height:min(64vh,calc(100vh - 96px));max-height:min(64vh,calc(100dvh - 96px));}.export-author-config{min-width:0;}}
+</style>
 <!-- دليل المنصة -->
 <div class="modal" id="catalogModal">
   <div class="modal-box">
@@ -919,6 +945,15 @@
         <li><b>قوالبي:</b> من ⚙️ إعدادات الملف ← ⭐ حفظ كقالب. يظهر القالب في قائمة الإضافة كنوع مخصص.</li>
       </ul>
 
+      <p data-catalog-section="writing" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">✍️ الكتابة والمحرر</p>
+      <ul style="margin:0 0 12px;">
+        <li><b>بدء الكتابة واختيار النوع:</b> يمكن إنشاء مستند من قائمة الإضافة واختيار نوعه؛ وتتبدّل أدوات التنسيق والأقسام بحسب نوع الملف. تبقى الملفات الجديدة في المستوى الرئيسي مستقلة ما لم تُنشأ من داخل حاوية أو تُنقل إليها عمداً.</li>
+        <li><b>تنسيق النص:</b> تتوفر أزرار التراجع والإعادة، والغامق والمائل والمحاذاة، وقوالب المستند (سيناريو، رواية وقصة، قراءة مريحة، معالجة درامية) لمعاينة تنسيق كامل الملف. ويمكن تغيير الخط والحجم وتباعد الأسطر والتنسيقات اليدوية من الشريط وإعدادات الملف.</li>
+        <li><b>النسخ واللصق الآمن:</b> يحافظ المحرر قدر الإمكان على النص والتنسيق الآمن عند النسخ واللصق، مع تنظيف التنسيقات غير الملائمة. تُراجع النتيجة بعد لصق محتوى من تطبيق خارجي.</li>
+        <li><b>أدوات السيناريو:</b> تتغير أزرار الإدراج بحسب نوع العمل، مثل المشهد والوصف والشخصية والحوار والتوجيه والانتقال. زر 🎬 العائم يفتح الأدوات المختصة بالنوع، مع التراجع والإعادة.</li>
+        <li><b>مساحة الكتابة:</b> يمكن طي الأدوات أو إخفاء القوائم مؤقتاً لتوسيع المحرر؛ ويمكن إظهارها مجدداً من أدوات التنقل. يحتفظ التطبيق بآخر ملف مفتوح وموضع التمرير بعد تحديث الصفحة.</li>
+        <li><b>لقطة الشاشة والغلاف:</b> تتيح لقطة الشاشة تحديد جزء من الواجهة وتحريره قبل تنزيله مع علامة «مسودة» ثابتة، كما يمكن إضافة توقيع ونص متعدد الأسطر. ويمكن تنزيل صورة غلاف المشروع، مع التحكم بحجم الصورة المضافة داخل التصميم.</li>
+      </ul>
       <p data-catalog-section="projects" style="font-weight:bold; color:var(--accent); margin-bottom:4px;">🗂️ إدارة الملفات (القائمة الجانبية)</p>
       <ul style="margin:0 0 12px;">
         <li><b>السحب والإفلات:</b> يمكن سحب أي ملف فوق ملف آخر لإعادة الترتيب، أو فوق عنوان حاوية لنقله إليها. أزرار ⬆️⬇️ تعمل أيضاً (مناسبة للجوال).</li>
@@ -937,6 +972,8 @@
         <li><b>مكان الوصول:</b> يمكن تشغيل التفريغ من أزراره داخل أدوات السيناريو أو من لوحة المشروع؛ إزالة الاختصار المستقل من قائمة إنشاء المستندات لا تحذف وظيفة التفريغ ولا أقسام المواقع والشخصيات داخل المشاريع.</li>
         <li><b>ذاكرة التصحيحات (اختيارية):</b> تبقى تصحيحات الأسماء محلية للعمل الحالي افتراضياً. عند اختيار «تعلّم هذا التصحيح عبر الملفات الأخرى» تُحفظ القاعدة على هذا المتصفح وتُطبّق على الاسم نفسه بعد توحيد بسيط للتشكيل والمسافات والحروف. لا تتعلّم المنصة من النصوص عموماً ولا ترسل البيانات؛ راجع المعاينة قبل اعتماد النتيجة.</li>
         <li><b>التفريغ اليدوي:</b> زر ➕ يضيف بطاقة فارغة، وكل الحقول قابلة للتعديل، مع 📑 لنسخ البطاقة و✕ لحذفها و🔀 للترتيب (بالاسم / أول مشهد / الأكثر ظهوراً).</li>
+        <li><b>نسخة ذاكرة التصحيحات:</b> من نافذة التفريغ يمكن تصدير تصحيحات العمل الحالي أو كل الذاكرة واستعادتها منفصلاً عن نسخة المشاريع. الدمج يحافظ على الموجود افتراضياً، ويمكن اختيار ربط نسخة عمل واحد بالعمل المفتوح عند النقل؛ تُراجع التعارضات قبل الحفظ.</li>
+        <li><b>ترابط الملفات:</b> من زر 🔗 في شريط الكتابة اربط ملفين لمزامنة المحتوى في الاتجاهين. عناوين الملفين وإعداداتهما تبقى مستقلة، ويمكن فصل الترابط في أي وقت.</li>
         <li><b>🪪 ملفات الشخصيات داخل المشروع:</b> تبقى بطاقات الشخصيات متاحة ضمن أقسام المشروع وأدوات التفريغ السياقية، وتشمل الدور، القوس، الإحصاءات، المشاهد، الشخصيات التي تظهر معها، وبيانات يدوية مثل العمر والمهنة والمظهر واللهجة والهدف والخلفية والعلاقات والتطور. هذا ليس قسماً مستقلاً في قائمة إنشاء المستندات، ولا يحل محل ميزة الشخصيات.</li>
       </ul>
 
@@ -948,6 +985,7 @@
         <li><b>نسخة احتياطية لملف واحد أو عدة ملفات:</b> زر 💾 «تصدير المحدد» في القائمة الجانبية (أو من قائمة التصدير) ينتج ملفاً واحداً بصيغة النسخة الاحتياطية للمنصة يمكن استيراده لاحقاً.</li>
         <li><b>التوقيع:</b> توقيع الكاتب (يمكن إخفاؤه) + توقيع المنصة الثابت في الغلاف والتذييل.</li>
         <li><b>معلومات التواصل:</b> تظهر معلومات مصممة المنصة في التصدير. ويمكن اختيارياً إضافة نبذة كاتب العمل ووسائل تواصله من قائمة التصدير.</li>
+        <li><b>قائمة التصدير:</b> عند طول القائمة، مرّر داخلها لرؤية كل الخيارات من دون تمرير الصفحة كاملة؛ تبقى إعدادات معلومات الكاتب ظاهرة أعلى القائمة.</li>
         <li><b>العرض التقديمي:</b> ملف HTML بشرائح يُتنقَّل بينها بالأسهم أو اللمس.</li>
         <li><b>PDF:</b> يُفعَّل خيار «الترويسات والتذييلات» من إعدادات الطباعة لتظهر أرقام الصفحات والتوقيع.</li>
       </ul>
@@ -957,9 +995,12 @@
         <li><b>شاشة القفل:</b> لحجب الشاشة فقط؛ البيانات نفسها محفوظة محلياً في المتصفح، فيُنصح بالاحتفاظ بنسخ احتياطية.</li>
         <li><b>الحفظ التلقائي:</b> بعد لحظات من التوقف، وعند إغلاق الصفحة أو تبديل الملف.</li>
         <li><b>حرية مساحة الكتابة:</b> من أعلى شريط الأدوات يمكن طي الأدوات أو تفعيل «مساحة الكتابة» لإخفاء القوائم وتوسيع المحرر. يمكن إظهارها مجدداً من زر 🧭 العائم، ويُحفظ تفضيل الطيّ على هذا الجهاز.</li>
-        <li><b>الجولة التعريفية:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ،  يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
+        <li><b>الجولة التعريفية:</b> جولة قصيرة للتعرّف على المشاريع والكتابة والتحليل والتصدير والحفظ؛ يمكن تخطي الجولة أو إعادة فتحها من الكتالوج أو زر 🧭.</li>
+        <li><b>المساعدة السياقية:</b> أزرار «؟» قرب الأدوات تفتح شرحاً موجزاً للجزء المحدد، ويمكن الانتقال منها إلى القسم المناسب في هذا الدليل.</li>
+        <li><b>استعادة الكتابة:</b> يحتفظ سجل الاستعادة المحلي بلقطات حديثة من الكتابة حتى عشر دقائق؛ استخدم زر ⏱️ لمراجعتها واستعادة نسخة عند الحاجة.</li>
         <li><b>الزر العائم ⬆️:</b> للرجوع لشريط الأدوات.</li>
         <li><b>نسخ ملفات المشروع ولصقها:</b> حدّد ملفاً أو مجلداً في القائمة الجانبية ثم استخدم Ctrl+C. اختر المجلد من قائمة «وجهة اللصق» أو افتحه، ثم اضغط «لصق» أو استخدم Ctrl+V. يستنسخ النظام العناصر كاملةً، ويعرض الزر عدد العناصر المنسوخة.</li>
+        <li><b>الملفات المستقلة والمشاريع:</b> إنشاء ملف من مستوى المشاريع الرئيسي يبقيه مستقلاً؛ يمكن جمع ملفات محددة داخل مجلد جديد أو نقلها لاحقاً إلى مشروع.</li>
       </ul>
       <p data-catalog-section="tips" style="font-weight:bold; color:var(--accent); margin:14px 0 4px;">💡 بعض النصائح لتحسين تجربة الاستخدام</p>
       <ul style="margin:0 0 12px;">
@@ -997,6 +1038,12 @@
   </div>
 </div>
 
+<div id="contextHelpPopover" class="context-help-popover" role="dialog" aria-modal="false" aria-labelledby="contextHelpTitle" hidden>
+  <button type="button" id="contextHelpClose" class="context-help-close" aria-label="إغلاق المساعدة">×</button>
+  <b id="contextHelpTitle"></b>
+  <p id="contextHelpBody"></p>
+  <button type="button" id="contextHelpOpenCatalog" class="context-help-catalog">فتح هذا القسم في الكتالوج</button>
+</div>
 <div class="modal" id="contentLinkModal" aria-labelledby="contentLinkTitle" aria-modal="true" role="dialog">
   <div class="modal-box" style="max-width:520px;">
     <button type="button" class="modal-x" id="contentLinkClose" aria-label="إغلاق">×</button>
@@ -1284,6 +1331,25 @@
       <button type="button" id="exAddManual" class="dash-btn">＋ إضافة نتيجة يدوية</button>
       <small id="exCorrectionStatus" style="color:var(--ink-soft);"></small>
     </div>
+    <div class="ex-memory-backup">
+      <b style="font-size:12px;color:var(--accent);">نسخة احتياطية للتصحيحات والتعلّم</b>
+      <small style="display:block;color:var(--ink-soft);line-height:1.6;margin-top:3px;">تحفظ التصحيحات الخاصة بكل عمل، والقواعد المتعلّمة، والإضافات اليدوية؛ ولا تتضمن نصوص السيناريو أو مفاتيح API. هذه النسخة منفصلة عن النسخة الكاملة للمشاريع.</small>
+      <div class="ex-memory-options">
+        <label>نطاق الاستيراد:
+          <select id="exBackupScopeMode"><option value="preserve">إبقاء نطاق العمل الأصلي (الافتراضي)</option><option value="current">ربط نسخة العمل الواحد بالعمل المفتوح</option></select>
+        </label>
+        <label>عند التعارض:
+          <select id="exBackupConflictMode"><option value="keep">الإبقاء على الموجود (الافتراضي)</option><option value="replace">استبدال الموجود بعد التأكيد</option></select>
+        </label>
+      </div>
+      <div class="ex-memory-actions">
+        <button type="button" id="exBackupExportCurrent" class="dash-btn">تصدير ذاكرة هذا العمل</button>
+        <button type="button" id="exBackupExportAll" class="dash-btn">تصدير كل الذاكرة</button>
+        <button type="button" id="exBackupImportBtn" class="dash-btn">استيراد نسخة تصحيحات</button>
+      </div>
+      <small id="exBackupScopeLabel"></small><small id="exMemoryBackupStatus" role="status" aria-live="polite"></small>
+      <input type="file" id="exMemoryBackupInput" accept=".json,application/json" style="display:none;">
+    </div>
     <details id="exLearningManager"><summary>مراجعة القواعد المتعلّمة وحذف أي قاعدة</summary><div id="exLearningRules"></div></details>
     <div id="exCorrectionList"></div>
     <div class="modal-actions">
@@ -1494,6 +1560,7 @@
       <button class="layout-tool-btn" id="toggleWritingTools" type="button" title="طيّ أدوات التنسيق والميزات مع إبقاء أدوات الاستعادة متاحة" aria-expanded="true">⌄ طي الأدوات</button>
       <button class="layout-tool-btn" id="writingFocusBtn" type="button" title="إخفاء القوائم مؤقتاً لتوسيع مساحة الكتابة" aria-pressed="false">⛶ مساحة الكتابة</button>
       <button class="layout-tool-btn" id="keyboardHelpBtn" type="button" title="اختصارات لوحة المفاتيح والتنقل">⌨️ المساعدة</button>
+      <button class="context-help-btn" type="button" data-context-help="writing" aria-label="شرح الكتابة والمحرر" aria-expanded="false" title="مساعدة سريعة للكتابة والمحرر">؟</button>
       <button class="layout-tool-btn" id="recoveryBtn" type="button" title="استعادة نسخة من الكتابة خلال آخر عشر دقائق">⏱️ استعادة</button>
       <button class="layout-tool-btn" id="linkFilesBtn" type="button" title="ربط محتوى هذا الملف بملف آخر">🔗 ربط ملف</button>
 
@@ -1629,6 +1696,7 @@
       <div class="fmt-group extract-source-options" id="group_source_extraction" style="display:none;">
         <button class="fmt-btn" id="sourceLocExtractBtn" title="تفريغ لوكيشنات من الملف المفتوح فقط">📍 تفريغ اللوكيشنات</button>
         <button class="fmt-btn" id="sourceCpExtractBtn" title="تفريغ شخصيات من الملف المفتوح فقط">🪪 تفريغ الشخصيات</button>
+        <button class="context-help-btn" type="button" data-context-help="analysis" aria-label="شرح أدوات التفريغ والتحليل" aria-expanded="false" title="مساعدة سريعة للتفريغ والتحليل">؟</button>
       </div>
       <!-- تظهر أزرار التفريغ على ملفات المصدر المناسبة، وتبقى أدوات البطاقات في أقسام النتائج. -->
 
@@ -1722,6 +1790,7 @@
 
       <div class="export-wrap">
         <button id="exportMainBtn" style="background:var(--accent); color:#fdf9f0; border:none; border-radius:6px; padding:6px 12px; font-size:11px; cursor:pointer; font-weight:bold;">تصدير ومعالجة ▾</button>
+        <button class="context-help-btn" type="button" data-context-help="export" aria-label="شرح التصدير والنسخ الاحتياطي" aria-expanded="false" title="مساعدة سريعة للتصدير والنسخ الاحتياطي">؟</button>
         <div class="export-dropdown" id="exportDropdown">
           <div class="export-author-config">
             <label><input type="checkbox" id="includeWriterInfoInExport"> إضافة نبذة ومعلومات تواصل كاتب العمل</label>
@@ -2248,6 +2317,34 @@ document.querySelectorAll('.modal').forEach(m => {
 });
 $('sideBackdrop').addEventListener('click', () => sidebar.classList.add('collapsed'));
 
+const CONTEXT_HELP_CONTENT={
+  writing:{title:'الكتابة والمحرر',body:'يمكن اختيار قالب لمعاينة تنسيق المستند كاملاً، أو تحديد نص لتطبيق تنسيق موضعي. تتبدل أزرار الإدراج بحسب نوع الملف. يمكن طي الأدوات أو إخفاء القوائم، ويُحفظ موضع الكتابة عند تحديث الصفحة.',section:'writing'},
+  analysis:{title:'التفريغ والتحليل',body:'تُعرض معاينة أولاً، ثم يُختار مصدر الملفات وطريقة الدمج، وتُراجع الأدلة والثقة والتصحيحات قبل اعتماد النتائج. يمكن تعديل النتائج أو إضافة بطاقات يدوياً؛ ولا يُعدّل التفريغ نص السيناريو.',section:'tools'},
+  export:{title:'التصدير والنسخ الاحتياطي',body:'تتضمن قائمة التصدير صيغاً مختلفة ويمكن تمريرها للوصول إلى الخيارات أسفلها. النسخ الكاملة ونسخ ذاكرة التصحيحات منفصلتان؛ ويُنصح بالاحتفاظ بنسخة محلية دورية.',section:'export'}
+};
+let contextHelpAnchor=null;
+function closeContextHelp(){const pop=$('contextHelpPopover');if(pop)pop.hidden=true;if(contextHelpAnchor){contextHelpAnchor.setAttribute('aria-expanded','false');contextHelpAnchor.focus({preventScroll:true});}contextHelpAnchor=null;}
+function openContextHelp(anchor){
+  const data=CONTEXT_HELP_CONTENT[anchor.dataset.contextHelp];if(!data)return;
+  const pop=$('contextHelpPopover');contextHelpAnchor=anchor;
+  $('contextHelpTitle').textContent=data.title;$('contextHelpBody').textContent=data.body;
+  $('contextHelpOpenCatalog').dataset.catalogSection=data.section;
+  pop.hidden=false;anchor.setAttribute('aria-expanded','true');
+  const r=anchor.getBoundingClientRect(),w=Math.min(320,window.innerWidth-24),h=pop.offsetHeight;
+  const left=Math.max(12,Math.min(window.innerWidth-w-12,r.left));
+  const top=(r.bottom+h+12<=window.innerHeight)?r.bottom+8:Math.max(12,r.top-h-8);
+  pop.style.left=left+'px';pop.style.top=top+'px';
+}
+document.querySelectorAll('[data-context-help]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();if(contextHelpAnchor===btn&&!$('contextHelpPopover').hidden)closeContextHelp();else{if(contextHelpAnchor)contextHelpAnchor.setAttribute('aria-expanded','false');openContextHelp(btn);}}));
+$('contextHelpClose').addEventListener('click',closeContextHelp);
+document.addEventListener('pointerdown',e=>{if($('contextHelpPopover')&&!$('contextHelpPopover').hidden&&!e.target.closest('#contextHelpPopover,[data-context-help]')){$('contextHelpPopover').hidden=true;if(contextHelpAnchor)contextHelpAnchor.setAttribute('aria-expanded','false');contextHelpAnchor=null;}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('contextHelpPopover')&&!$('contextHelpPopover').hidden){e.stopPropagation();closeContextHelp();}});
+$('contextHelpOpenCatalog').addEventListener('click',()=>{
+  const section=$('contextHelpOpenCatalog').dataset.catalogSection||'writing';
+  $('contextHelpPopover').hidden=true;if(contextHelpAnchor)contextHelpAnchor.setAttribute('aria-expanded','false');contextHelpAnchor=null;
+  showModal(catalogModal);
+  setTimeout(()=>{const filter=catalogModal.querySelector('[data-catalog-filter="'+section+'"]');if(filter)filter.click();const heading=catalogModal.querySelector('[data-catalog-section="'+section+'"]');if(heading)heading.scrollIntoView({block:'start',behavior:'smooth'});},60);
+});
 const catalogModal = $('catalogModal');
 $('openCatalogBtn').addEventListener('click', () => showModal(catalogModal));
 $('closeCatalog').addEventListener('click', () => hideModal(catalogModal));
@@ -5660,6 +5757,7 @@ function closeMenus(except){
 }
 $('newDocBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('newDropdown'); newDropdown.classList.toggle('open'); });
 $('exportMainBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('exportDropdown'); exportDropdown.classList.toggle('open'); });
+window.addEventListener('resize',()=>{if(contextHelpAnchor&&!$('contextHelpPopover').hidden)openContextHelp(contextHelpAnchor);});
 $('importBtn').addEventListener('click', e => { e.stopPropagation(); closeMenus('importDropdown'); importDropdown.classList.toggle('open'); });
 document.addEventListener('click', e => { if(e.target.closest('.export-author-config')) return; closeMenus(); });
 
@@ -7673,6 +7771,8 @@ function openExtract(kind){
   $('exPreview').textContent = '';
   $('exCorrectionList').innerHTML = '';
   $('exCorrectionStatus').textContent = '';
+  $('exBackupScopeLabel').textContent='العمل المفتوح: '+extractionMemoryScopeTitle(extractionCorrectionScope());
+  $('exMemoryBackupStatus').textContent='';
   renderExtractionLearningManager();
   aiExtractionResult=null;$('exAiStatus').textContent='';$('exAiConfig').hidden=true;
   try{$('exAiEndpoint').value=sessionStorage.getItem('varry-ai-endpoint')||'';$('exAiModel').value=sessionStorage.getItem('varry-ai-model')||'';$('exAiKey').value=sessionStorage.getItem('varry-ai-key')||'';}catch(e){}
@@ -7701,6 +7801,113 @@ function saveExtractionLearning(){
   catch(e){ alert('تعذّر حفظ ذاكرة التصحيحات في تخزين المتصفح.'); return false; }
 }
 function extractionLearningKey(kind,name){ return kind+':'+normKey(name); }
+const EX_MEMORY_BACKUP_FORMAT='varry-studio-extraction-memory';
+const EX_MEMORY_BACKUP_VERSION=1;
+function extractionMemoryScopeTitle(scope){return String((docs[scope]&&docs[scope].title)||(docs[currentId]&&docs[currentId].title)||'عمل مستقل');}
+function makeExtractionMemoryBackup(mode){
+  const scope=extractionCorrectionScope(),all=mode==='all';
+  const correctionRows=[];
+  Object.entries(extractionCorrections).forEach(([key,value])=>{
+    const m=String(key).match(/^([^|]+)\|(loc|cp):(.+)$/);if(!m)return;
+    if(!all&&m[1]!==scope)return;
+    if(!value||!['keep','rename','exclude'].includes(value.action))return;
+    correctionRows.push({scopeId:m[1],kind:m[2],normalizedName:m[3],action:value.action,name:String(value.name||''),updatedAt:Number(value.updatedAt)||0});
+  });
+  const manualRows=[];
+  Object.entries(loadExtractionManual()).forEach(([bucket,rows])=>{
+    const at=String(bucket).lastIndexOf('|');if(at<1)return;
+    const scopeId=String(bucket).slice(0,at),kind=String(bucket).slice(at+1);
+    if(!['loc','cp'].includes(kind)||(!all&&scopeId!==scope)||!Array.isArray(rows))return;
+    rows.forEach(item=>{
+      if(!item||!String(item.name||'').trim())return;
+      manualRows.push({scopeId,kind,id:String(item.id||newManualId()),name:String(item.name).trim(),notes:String(item.notes||''),createdAt:Number(item.createdAt)||0,updatedAt:Number(item.updatedAt)||0});
+    });
+  });
+  const learningRows=Object.values(extractionLearning).filter(x=>x&&['loc','cp'].includes(x.kind)).map(x=>({kind:x.kind,sourceName:String(x.sourceName||'').trim(),action:x.action,name:String(x.name||''),updatedAt:Number(x.updatedAt)||0}));
+  return {format:EX_MEMORY_BACKUP_FORMAT,version:EX_MEMORY_BACKUP_VERSION,app:'Varry Studio',exportedAt:new Date().toISOString(),scopeMode:all?'all':'single',scope:all?null:{id:scope,title:extractionMemoryScopeTitle(scope)},counts:{corrections:correctionRows.length,learning:learningRows.length,manual:manualRows.length},data:{corrections:correctionRows,learning:learningRows,manual:manualRows}};
+}
+function exportExtractionMemory(mode){
+  const data=makeExtractionMemoryBackup(mode),date=new Date().toISOString().slice(0,10),label=mode==='all'?'all':'work';
+  downloadBlob('varry-extraction-memory-'+label+'-'+date+'.json',JSON.stringify(data,null,2),'application/json;charset=utf-8');
+  $('exMemoryBackupStatus').textContent='تم تنزيل نسخة '+(mode==='all'?'كل ذاكرة التصحيحات':'ذاكرة العمل المفتوح')+'؛ '+data.counts.corrections+' تصحيح، '+data.counts.learning+' قاعدة متعلّمة، '+data.counts.manual+' إضافة يدوية.';
+}
+function validBackupText(value,max){return typeof value==='string'&&value.trim().length>0&&value.length<=max&&!/[\u0000-\u001F]/.test(value);}
+function normalizeExtractionMemoryBackup(raw){
+  if(!raw||typeof raw!=='object'||raw.format!==EX_MEMORY_BACKUP_FORMAT||raw.version!==EX_MEMORY_BACKUP_VERSION)throw new Error('الملف ليس نسخة تصحيحات Varry Studio مدعومة.');
+  if(!['single','all'].includes(raw.scopeMode))throw new Error('نطاق النسخة غير صالح.');
+  const scope=raw.scopeMode==='single'?raw.scope:null;
+  if(scope&&(!validBackupText(String(scope.id||''),180)||String(scope.id).includes('|')))throw new Error('معرّف العمل في النسخة غير صالح.');
+  const data=raw.data;if(!data||typeof data!=='object')throw new Error('بيانات النسخة غير مكتملة.');
+  const arrays={corrections:Array.isArray(data.corrections)?data.corrections:[],learning:Array.isArray(data.learning)?data.learning:[],manual:Array.isArray(data.manual)?data.manual:[]};
+  if(arrays.corrections.length>10000||arrays.learning.length>5000||arrays.manual.length>10000)throw new Error('تتجاوز النسخة الحد المسموح من العناصر.');
+  const corrections=arrays.corrections.map(x=>{
+    if(!x||!['loc','cp'].includes(x.kind)||!validBackupText(String(x.scopeId||''),180)||String(x.scopeId).includes('|')||!validBackupText(String(x.normalizedName||''),180)||normKey(x.normalizedName)!==x.normalizedName||!['keep','rename','exclude'].includes(x.action))throw new Error('تحتوي النسخة على تصحيح غير صالح.');
+    if(raw.scopeMode==='single'&&String(x.scopeId)!==String(scope.id))throw new Error('تتضمن نسخة العمل نطاقات متعددة على نحو غير متوقع.');
+    const name=String(x.name||'');if(x.action==='rename'&&!validBackupText(name,180))throw new Error('يوجد اسم مصحح فارغ أو طويل أكثر من اللازم.');
+    return {scopeId:String(x.scopeId),kind:x.kind,normalizedName:x.normalizedName,action:x.action,name:x.action==='rename'?name:'',updatedAt:Number(x.updatedAt)||0};
+  });
+  const learning=arrays.learning.map(x=>{
+    if(!x||!['loc','cp'].includes(x.kind)||!validBackupText(String(x.sourceName||''),180)||!['rename','exclude'].includes(x.action))throw new Error('تحتوي النسخة على قاعدة تعلّم غير صالحة.');
+    const name=String(x.name||'');if(x.action==='rename'&&!validBackupText(name,180))throw new Error('تحتوي قاعدة متعلّمة على اسم مصحح غير صالح.');
+    return {kind:x.kind,sourceName:String(x.sourceName).trim(),action:x.action,name:x.action==='rename'?name:'',updatedAt:Number(x.updatedAt)||0};
+  });
+  const manual=arrays.manual.map(x=>{
+    if(!x||!['loc','cp'].includes(x.kind)||!validBackupText(String(x.scopeId||''),180)||String(x.scopeId).includes('|')||!validBackupText(String(x.id||''),180)||!validBackupText(String(x.name||''),180)||String(x.notes||'').length>4000)throw new Error('تحتوي النسخة على إضافة يدوية غير صالحة.');
+    if(raw.scopeMode==='single'&&String(x.scopeId)!==String(scope.id))throw new Error('تتضمن نسخة العمل نطاقات متعددة على نحو غير متوقع.');
+    return {scopeId:String(x.scopeId),kind:x.kind,id:String(x.id),name:String(x.name).trim(),notes:String(x.notes||''),createdAt:Number(x.createdAt)||0,updatedAt:Number(x.updatedAt)||0};
+  });
+  return {scopeMode:raw.scopeMode,scope:scope?{id:String(scope.id),title:String(scope.title||'عمل مستورد').slice(0,180)}:null,corrections,learning,manual};
+}
+function sameMemoryValue(a,b,fields){return fields.every(k=>String(a&&a[k]||'')===String(b&&b[k]||''));}
+async function importExtractionMemoryFile(file){
+  if(!file)return;
+  if(file.size>5*1024*1024)throw new Error('حجم ملف التصحيحات أكبر من 5 ميغابايت.');
+  const imported=normalizeExtractionMemoryBackup(JSON.parse(await file.text()));
+  const mapMode=$('exBackupScopeMode').value;
+  if(mapMode==='current'&&imported.scopeMode!=='single')throw new Error('يمكن ربط نسخة عمل واحد بالعمل المفتوح فقط؛ صدّر عملاً واحداً بدلاً من كل الذاكرة.');
+  const targetScope=mapMode==='current'?extractionCorrectionScope():null;
+  if(mapMode==='current'&&(!targetScope||!docs[targetScope]))throw new Error('افتح العمل الذي تريد ربط التصحيحات به أولاً.');
+  const policy=$('exBackupConflictMode').value;
+  const nextCorrections=Object.assign({},extractionCorrections),nextLearning=Object.assign({},extractionLearning),nextManual=Object.assign({},loadExtractionManual());
+  let added=0,identical=0,conflicts=0,replaced=0;
+  const merge=(store,key,value,fields)=>{
+    if(!Object.prototype.hasOwnProperty.call(store,key)){store[key]=value;added++;return;}
+    if(sameMemoryValue(store[key],value,fields)){identical++;return;}
+    conflicts++;if(policy==='replace'){store[key]=value;replaced++;}
+  };
+  imported.corrections.forEach(x=>{
+    const scopeId=targetScope||x.scopeId,key=scopeId+'|'+x.kind+':'+x.normalizedName,value={action:x.action,name:x.name,updatedAt:x.updatedAt};
+    merge(nextCorrections,key,value,['action','name']);
+  });
+  imported.learning.forEach(x=>{
+    const key=extractionLearningKey(x.kind,x.sourceName),value={kind:x.kind,sourceName:x.sourceName,action:x.action,name:x.name,updatedAt:x.updatedAt};
+    merge(nextLearning,key,value,['kind','sourceName','action','name']);
+  });
+  imported.manual.forEach(x=>{
+    const scopeId=targetScope||x.scopeId,bucket=extractionManualBucket(scopeId,x.kind),rows=Array.isArray(nextManual[bucket])?nextManual[bucket].slice():[];
+    const value={id:x.id,kind:x.kind,createdAt:x.createdAt,updatedAt:x.updatedAt,name:x.name,notes:x.notes};
+    const at=rows.findIndex(r=>String(r.id)===x.id);
+    if(at<0){rows.push(value);added++;}
+    else if(sameMemoryValue(rows[at],value,['kind','name','notes']))identical++;
+    else{conflicts++;if(policy==='replace'){rows[at]=value;replaced++;}}
+    nextManual[bucket]=rows;
+  });
+  const mapping=targetScope?'ربط تصحيحات «'+extractionMemoryScopeTitle(targetScope)+'»':'الإبقاء على نطاقات الأعمال المضمنة';
+  const conflictText=conflicts?(policy==='replace'?'سيُستبدل '+conflicts+' تعارض بعد التأكيد.':'سيُحتفظ بالموجود في '+conflicts+' تعارض.'):'لا توجد تعارضات.';
+  if(!confirm('سيتم دمج نسخة التصحيحات. '+mapping+'. عناصر جديدة: '+added+'؛ متطابقة مسبقاً: '+identical+'؛ '+conflictText+' لن يُستورد نص السيناريو أو مفاتيح API. متابعة؟'))return;
+  const keys=[EX_CORRECTIONS_KEY,EX_LEARNING_KEY,EXTRACTION_MANUAL_KEY],before=keys.map(k=>localStorage.getItem(k));
+  try{
+    localStorage.setItem(EX_CORRECTIONS_KEY,JSON.stringify(nextCorrections));
+    localStorage.setItem(EX_LEARNING_KEY,JSON.stringify(nextLearning));
+    localStorage.setItem(EXTRACTION_MANUAL_KEY,JSON.stringify(nextManual));
+  }catch(err){
+    keys.forEach((k,i)=>{try{if(before[i]===null)localStorage.removeItem(k);else localStorage.setItem(k,before[i]);}catch(rollbackErr){}});
+    throw new Error('تعذّر حفظ النسخة في تخزين المتصفح؛ لم يُعتمد الدمج. تحقق من المساحة المتاحة.');
+  }
+  extractionCorrections=nextCorrections;extractionLearning=nextLearning;
+  renderExtractionLearningManager();previewExtraction();
+  $('exMemoryBackupStatus').textContent='تم الدمج بنجاح: '+added+' عنصر جديد، '+identical+' متطابق، '+conflicts+' تعارض، '+replaced+' مستبدل.';
+}
 function renderExtractionLearningManager(){
   const host=$('exLearningRules');if(!host)return;
   const rows=Object.entries(extractionLearning).sort((a,b)=>String(a[1].sourceName||'').localeCompare(String(b[1].sourceName||''),'ar'));
@@ -8074,6 +8281,15 @@ $('exCorrectionList').addEventListener('click',e=>{
   if(del){if(confirm('حذف هذه النتيجة اليدوية من قائمة التفريغ؟')&&deleteExtractionManualItem(extractionCorrectionScope(),exKind,del.dataset.exManualDelete))previewExtraction();}
 });
 $('exPreviewBtn').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); try { previewExtraction(); } catch(err) { console.error(err); $('exPreview').textContent='تعذّرت المعاينة: '+(err.message||String(err)); } });
+$('exBackupExportCurrent').addEventListener('click',()=>exportExtractionMemory('current'));
+$('exBackupExportAll').addEventListener('click',()=>exportExtractionMemory('all'));
+$('exBackupImportBtn').addEventListener('click',()=>$('exMemoryBackupInput').click());
+$('exMemoryBackupInput').addEventListener('change',async e=>{
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  try{await importExtractionMemoryFile(file);}
+  catch(err){console.error('Extraction memory import failed:',err);$('exMemoryBackupStatus').textContent=err.message||'تعذّر استيراد نسخة التصحيحات.';alert(err.message||'تعذّر استيراد نسخة التصحيحات.');}
+  finally{e.target.value='';}
+});
 $('exClearCorrections').addEventListener('click', clearExtractionCorrectionsForCurrentScope);
 $('exClearLearning').addEventListener('click',clearExtractionLearning);
 $('exLearningRules').addEventListener('click',e=>{
